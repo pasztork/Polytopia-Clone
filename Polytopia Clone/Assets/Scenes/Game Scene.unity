@@ -3140,7 +3140,7 @@ MonoBehaviour:
   panSpeed: 30
   minY: 10
   maxY: 80
-  rotationSpeed: -5
+  rotationSpeed: 5
 --- !u!1001 &1533435775
 PrefabInstance:
   m_ObjectHideFlags: 0

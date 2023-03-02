@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] float panSpeed = 30f;
     [SerializeField] float minY = 10f;
     [SerializeField] float maxY = 80f;
-    [SerializeField] float rotationSpeed = -2f;
+    [SerializeField] float rotationSpeed = 2f;
 
     // Private fields
     Dictionary<string, Vector3> keyVectorPairs = new()
