@@ -5,12 +5,11 @@ public class CameraController : MonoBehaviour
 {
     // Parameters
     [SerializeField] float panSpeed = 30f;
-    [SerializeField] float scrollSpeed = 5f;
     [SerializeField] float minY = 10f;
     [SerializeField] float maxY = 80f;
+    [SerializeField] float rotationSpeed = -2f;
 
     // Private fields
-    bool doMovement = true;
     Dictionary<string, Vector3> keyVectorPairs = new()
     {
         { "w", Vector3.forward },
@@ -21,28 +20,37 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            doMovement = !doMovement;
-        }
+        Move();
+        Rotate();
+        ClampPosition();
+    }
 
-        if (!doMovement)
-        {
-            return;
-        }
-
+    void Move()
+    {
         foreach (string key in keyVectorPairs.Keys)
         {
             if (Input.GetKey(key))
             {
-                transform.Translate(keyVectorPairs[key] * panSpeed * Time.deltaTime, Space.World);
+                transform.Translate(keyVectorPairs[key] * panSpeed * Time.deltaTime, Space.Self);
             }
         }
+    }
 
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        Vector3 pos = transform.position;
-        pos.y -= scroll * 1000 * scrollSpeed * Time.deltaTime;
-        pos.y = Mathf.Clamp(pos.y, minY, maxY);
-        transform.position = pos;
+    void Rotate()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            float rotationAroundYAxis = transform.rotation.eulerAngles.y + Input.GetAxis("Mouse X") * rotationSpeed;
+            float rotationAroundXAxis = transform.rotation.eulerAngles.x - Input.GetAxis("Mouse Y") * rotationSpeed;
+            rotationAroundXAxis = Mathf.Clamp(rotationAroundXAxis, 0, 90);
+            transform.localRotation = Quaternion.Euler(rotationAroundXAxis, rotationAroundYAxis, 0);
+        }
+    }
+
+    void ClampPosition()
+    {
+        Vector3 position = transform.position;
+        position.y = Mathf.Clamp(transform.position.y, minY, maxY);
+        transform.position = position;
     }
 }
