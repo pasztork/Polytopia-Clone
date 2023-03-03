@@ -5,3 +5,6 @@ Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" 
 ## TODO
 
 - [x] egy canvas az összes mezőhöz
+- [ ] pontrendszer kialakítása
+- [ ] seregek mozgatása
+- [ ] kezdő építmény elhelyezése
