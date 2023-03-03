@@ -38,6 +38,7 @@ public class CameraController : MonoBehaviour
 
     void Rotate()
     {
+        // Only rotate camera if right mouse button is clicked
         if (Input.GetMouseButton(1))
         {
             float rotationAroundYAxis = transform.rotation.eulerAngles.y + Input.GetAxis("Mouse X") * rotationSpeed;
