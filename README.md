@@ -4,4 +4,4 @@ Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" 
 
 ## TODO
 
-[ ] egy canvas az összes mezőhöz
+- [ ] egy canvas az összes mezőhöz
