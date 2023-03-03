@@ -42,5 +42,10 @@ public class BuildCanvas : MonoBehaviour
             mainCamera.transform.rotation.eulerAngles.y,
             mainCamera.transform.rotation.eulerAngles.z
         );
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Hide();
+        }
     }
 }
