@@ -5,19 +5,15 @@ public class Tile : MonoBehaviour
 {
     // Parameters
     [SerializeField] Color highlightColor;
-    [SerializeField] Canvas controllerCanvas;
 
     // Private fields
     Renderer rend;
     Color startColor;
-    Map map;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
-        map = GameObject.Find("Map").GetComponent<Map>();
-        controllerCanvas.gameObject.SetActive(false);
     }
 
     void OnMouseEnter()
@@ -40,7 +36,14 @@ public class Tile : MonoBehaviour
         {
             return;
         }
-        map.HideCanvases();
-        controllerCanvas.gameObject.SetActive(true);
+
+        if (BuildManager.selectedTile == this)
+        {
+            BuildCanvas.Instance.Hide();
+            return;
+        }
+
+        BuildCanvas.Instance.MoveToTile(this);
+        BuildManager.selectedTile = this;
     }
 }
