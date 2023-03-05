@@ -1,19 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Tile : MonoBehaviour
 {
-    // Parameters
     [SerializeField] Color highlightColor;
+    [SerializeField] Color neighborColor;
 
-    // Private fields
+    public List<GameObject> Neighbors { get; } = new List<GameObject>();
+    public Color StartColor { get; private set; }
+
     Renderer rend;
-    Color startColor;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
-        startColor = rend.material.color;
+        StartColor = rend.material.color;
     }
 
     void OnMouseEnter()
@@ -23,11 +25,13 @@ public class Tile : MonoBehaviour
             return;
         }
         rend.material.color = highlightColor;
+        HighlightNeighbors();
     }
 
     void OnMouseExit()
     {
-        rend.material.color = startColor;
+        rend.material.color = StartColor;
+        UnhighlightNeighbors();
     }
 
     void OnMouseDown()
@@ -40,10 +44,27 @@ public class Tile : MonoBehaviour
         if (BuildManager.selectedTile == this)
         {
             BuildCanvas.Instance.Hide();
+            BuildManager.selectedTile = null;
             return;
         }
 
         BuildCanvas.Instance.MoveToTile(this);
         BuildManager.selectedTile = this;
+    }
+
+    void HighlightNeighbors()
+    {
+        foreach (GameObject neighbor in Neighbors)
+        {
+            neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<Renderer>().material.color + neighborColor;
+        }
+    }
+
+    void UnhighlightNeighbors()
+    {
+        foreach (GameObject neighbor in Neighbors)
+        {
+            neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<Tile>().StartColor;
+        }
     }
 }
