@@ -2,7 +2,6 @@
 
 Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" c. játék egy másolata.
 
-<<<<<<< Updated upstream
 ## TODO
 
 - [x] egy canvas az összes mezőhöz
@@ -82,4 +81,3 @@ Egységek
 Épületek
 - városfal: a városban lévő egységek védelmét növeli
 - vár: védelmi erőditmény, a benne lévő egység védelmét növeli
->>>>>>> Stashed changes
