@@ -8,7 +8,7 @@ Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" 
 - [ ] pontrendszer kialakítása
 - [ ] seregek mozgatása
 - [ ] kezdő építmény elhelyezése
-=======
+
 ### Alapszabályok
 ---
 Területek
@@ -58,8 +58,6 @@ Technológiák, képességek
 - strategy: növeli az egységek védekező értékét
 - street: utat lehet építeni, amin az egységek gyorsabban tudnak közlekedni
 - irrigation: növeli a város élelem termelését
-
-
 
 ### Bonyolultabb szabályok
 ---
