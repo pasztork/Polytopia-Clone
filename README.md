@@ -28,7 +28,7 @@ Egységek
 - zsoldos: 1 egységet tud mozogni alapból, körönként egy élelembe kerül
 - íjász: 2 egységet tud mozogni alapból, körönként egy élelembe kerül
 - hajó: 2 egységet tud alapból mozogni, alapból kikötőben jön létre, egységek le-fel szállni róla csak sík mezőn tudnak
-- telepes: 2 egyég a mozgása, új várost tud létrehozni
+- telepes: 2 egység a mozgása, új várost tud létrehozni
 - építész: épületeket tud építeni
 - barbár horda: barbár tábort védi, 1 egységet tud mozogni
 
