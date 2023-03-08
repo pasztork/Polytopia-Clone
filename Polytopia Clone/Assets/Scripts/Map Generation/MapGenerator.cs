@@ -3,15 +3,14 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     [Header("Tile types on map")]
-    [SerializeField] GameObject[] tileTypes;
+    [SerializeField] private GameObject[] tileTypes;
 
     [Header("Map size")]
-    [SerializeField] int width;
-    [SerializeField] int height;
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+    private GameObject[,] tiles;
 
-    GameObject[,] tiles;
-
-    void Start()
+    private void Start()
     {
         tiles = new GameObject[width, height];
         Vector3 tileSize = tileTypes[0].transform.localScale;
@@ -25,12 +24,12 @@ public class MapGenerator : MonoBehaviour
         SetupCoordinateSystem();
     }
 
-    GameObject PickTileOnRandom()
+    private GameObject PickTileOnRandom()
     {
         return tileTypes[Random.Range(0, tileTypes.Length)];
     }
 
-    void SetupCoordinateSystem()
+    private void SetupCoordinateSystem()
     {
         for (int x = 0; x < width; x++)
         {
@@ -41,7 +40,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void AddNeighborsToList(int x, int z)
+    private void AddNeighborsToList(int x, int z)
     {
         Tile tile = tiles[x, z].GetComponent<Tile>();
         (int, int)[] neighborCoordinates = {
@@ -59,7 +58,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    bool isValidCoordinate((int, int) coordinate)
+    private bool isValidCoordinate((int, int) coordinate)
     {
         return
             coordinate.Item1 >= 0 &&

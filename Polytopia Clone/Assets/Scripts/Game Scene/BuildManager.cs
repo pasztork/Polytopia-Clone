@@ -4,8 +4,8 @@ public class BuildManager : MonoBehaviour
 {
     public static Tile selectedTile;
 
-    [SerializeField] GameObject buildingBlueprint;
-    [SerializeField] GameObject troopBlueprint;
+    [SerializeField] private GameObject buildingBlueprint;
+    [SerializeField] private GameObject troopBlueprint;
 
     public void Build()
     {

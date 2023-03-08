@@ -1,16 +1,16 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
     // Parameters
-    [SerializeField] float panSpeed = 30f;
-    [SerializeField] float minY = 10f;
-    [SerializeField] float maxY = 80f;
-    [SerializeField] float rotationSpeed = 2f;
+    [SerializeField] private float panSpeed = 30f;
+    [SerializeField] private float minY = 10f;
+    [SerializeField] private float maxY = 80f;
+    [SerializeField] private float rotationSpeed = 2f;
 
     // Private fields
-    Dictionary<string, Vector3> keyVectorPairs = new()
+    private readonly Dictionary<string, Vector3> keyVectorPairs = new()
     {
         { "w", Vector3.forward },
         { "s", Vector3.back },
@@ -18,14 +18,14 @@ public class CameraController : MonoBehaviour
         { "a", Vector3.left },
     };
 
-    void Update()
+    private void Update()
     {
         Move();
         Rotate();
         ClampPosition();
     }
 
-    void Move()
+    private void Move()
     {
         foreach (string key in keyVectorPairs.Keys)
         {
@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void Rotate()
+    private void Rotate()
     {
         // Only rotate camera if right mouse button is clicked
         if (Input.GetMouseButton(1))
@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void ClampPosition()
+    private void ClampPosition()
     {
         Vector3 position = transform.position;
         position.y = Mathf.Clamp(transform.position.y, minY, maxY);

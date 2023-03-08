@@ -4,9 +4,8 @@ public class BuildCanvas : MonoBehaviour
 {
     public static BuildCanvas Instance { get; set; }
 
-    [SerializeField] Vector3 offset;
-
-    Camera mainCamera;
+    [SerializeField] private Vector3 offset;
+    private Camera mainCamera;
 
     public void MoveToTile(Tile tile)
     {
@@ -19,7 +18,7 @@ public class BuildCanvas : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null)
         {
@@ -29,13 +28,13 @@ public class BuildCanvas : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         mainCamera = Camera.main;
         gameObject.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         transform.rotation = Quaternion.Euler(
             mainCamera.transform.rotation.eulerAngles.x,
