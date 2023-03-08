@@ -41,15 +41,15 @@ public class Tile : MonoBehaviour
             return;
         }
 
-        if (BuildManager.selectedTile == this)
+        if (BuildManager.Instance.SelectedTile == this)
         {
             BuildCanvas.Instance.Hide();
-            BuildManager.selectedTile = null;
+            BuildManager.Instance.SelectedTile = null;
             return;
         }
 
         BuildCanvas.Instance.MoveToTile(this);
-        BuildManager.selectedTile = this;
+        BuildManager.Instance.SelectedTile = this;
     }
 
     private void HighlightNeighbors()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BuildCanvas : MonoBehaviour
 {
-    public static BuildCanvas Instance { get; set; }
+    public static BuildCanvas Instance { get; private set; }
 
     [SerializeField] private Vector3 offset;
     private Camera mainCamera;

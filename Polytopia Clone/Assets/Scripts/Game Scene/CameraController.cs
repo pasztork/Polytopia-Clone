@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // Parameters
     [SerializeField] private float panSpeed = 30f;
     [SerializeField] private float minY = 10f;
     [SerializeField] private float maxY = 80f;
     [SerializeField] private float rotationSpeed = 2f;
 
-    // Private fields
     private readonly Dictionary<string, Vector3> keyVectorPairs = new()
     {
         { "w", Vector3.forward },
@@ -38,7 +36,6 @@ public class CameraController : MonoBehaviour
 
     private void Rotate()
     {
-        // Only rotate camera if right mouse button is clicked
         if (Input.GetMouseButton(1))
         {
             float rotationAroundYAxis = transform.rotation.eulerAngles.y + Input.GetAxis("Mouse X") * rotationSpeed;
