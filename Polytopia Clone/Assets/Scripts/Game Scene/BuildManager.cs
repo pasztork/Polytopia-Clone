@@ -28,11 +28,13 @@ public class BuildManager : MonoBehaviour
     {
         Debug.Log("Build");
         Instantiate(buildingBlueprint, selectedTile.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+        BuildCanvas.Instance.Hide();
     }
 
     public void DeployTroop()
     {
         Debug.Log("Deploy Troop");
         Instantiate(troopBlueprint, selectedTile.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        BuildCanvas.Instance.Hide();
     }
 }

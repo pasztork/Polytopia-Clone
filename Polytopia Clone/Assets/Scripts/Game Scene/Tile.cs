@@ -4,19 +4,9 @@ using UnityEngine.EventSystems;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] private Color highlightColor;
-    [SerializeField] private Color neighborColor;
-
     public List<GameObject> Neighbors { get; } = new List<GameObject>();
-    public Color StartColor { get; private set; }
 
-    private Renderer rend;
-
-    private void Start()
-    {
-        rend = GetComponent<Renderer>();
-        StartColor = rend.material.color;
-    }
+    [SerializeField] private Color neighborColor;
 
     private void OnMouseEnter()
     {
@@ -24,13 +14,11 @@ public class Tile : MonoBehaviour
         {
             return;
         }
-        rend.material.color = highlightColor;
         HighlightNeighbors();
     }
 
     private void OnMouseExit()
     {
-        rend.material.color = StartColor;
         UnhighlightNeighbors();
     }
 
@@ -64,7 +52,7 @@ public class Tile : MonoBehaviour
     {
         foreach (GameObject neighbor in Neighbors)
         {
-            neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<Tile>().StartColor;
+            neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<HoverEffect>().StartColor;
         }
     }
 }
