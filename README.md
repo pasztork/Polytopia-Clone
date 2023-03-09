@@ -2,6 +2,8 @@
 
 Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" c. játék egy másolata.
 
+---
+
 ## TODO
 
 - [x] pályagenerálás
@@ -10,8 +12,10 @@ Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" 
     - [ ] építkezés és kiképzés csak ha van elég
 - [ ] játék körökre osztása
 
-### Alapszabályok
----
+--- 
+
+## Alapszabályok
+
 Területek
  - víz
  - mező: sík mezőnek számít
@@ -60,8 +64,8 @@ Technológiák, képességek
 - street: utat lehet építeni, amin az egységek gyorsabban tudnak közlekedni
 - irrigation: növeli a város élelem termelését
 
-### Bonyolultabb szabályok
----
+## Bonyolultabb szabályok
+
 Technológiák
 - militarism: növeli az egységek támadó értékét
 - science: kap egy tudóst, aki valami egyedit tud (egyedi egység, egyedi épület, egyedi technológia)
