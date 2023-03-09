@@ -44,7 +44,10 @@ public class Tile : MonoBehaviour
     {
         foreach (GameObject neighbor in Neighbors)
         {
-            neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<Renderer>().material.color + neighborColor;
+            if (BuildManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
+            {
+                neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<Renderer>().material.color + neighborColor;
+            }
         }
     }
 
@@ -52,7 +55,10 @@ public class Tile : MonoBehaviour
     {
         foreach (GameObject neighbor in Neighbors)
         {
-            neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<HoverEffect>().StartColor;
+            if (BuildManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
+            {
+                neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<HoverEffect>().StartColor;
+            }
         }
     }
 }

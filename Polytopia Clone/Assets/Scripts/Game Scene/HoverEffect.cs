@@ -12,6 +12,7 @@ public class HoverEffect : MonoBehaviour
     {
         renderer = GetComponent<Renderer>();
         StartColor = renderer.material.color;
+        BuildCanvas.Instance.CanvasMoved += Reset;
     }
 
     private void OnMouseEnter()
@@ -20,11 +21,24 @@ public class HoverEffect : MonoBehaviour
         {
             return;
         }
-        renderer.material.color = hoverColor;
+        Set();
     }
 
-    private void OnMouseExit()
+    private void OnMouseExit() { Reset(); }
+
+    private void OnMouseDown()
     {
-        renderer.material.color = StartColor;
+        Set();
+        BuildCanvas.Instance.InvokeEvent();
+    }
+
+    private void Set() { renderer.material.color = hoverColor; }
+
+    private void Reset()
+    {
+        if (BuildManager.Instance.SelectedTile?.gameObject != gameObject && renderer.material.color != StartColor)
+        {
+            renderer.material.color = StartColor;
+        }
     }
 }

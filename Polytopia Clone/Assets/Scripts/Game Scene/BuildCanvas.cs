@@ -1,9 +1,12 @@
 using UnityEngine;
 
+public delegate void CanvasMovedDelegate();
+
 public class BuildCanvas : MonoBehaviour
 {
     public static BuildCanvas Instance { get; private set; }
 
+    public event CanvasMovedDelegate CanvasMoved;
     [SerializeField] private Vector3 offset;
     private Camera mainCamera;
 
@@ -11,6 +14,14 @@ public class BuildCanvas : MonoBehaviour
     {
         gameObject.SetActive(true);
         transform.position = tile.transform.position + offset;
+        CanvasMoved?.Invoke();
+
+    }
+
+    // TODO: This should not be a thing
+    public void InvokeEvent()
+    {
+        CanvasMoved?.Invoke();
     }
 
     public void Hide()
