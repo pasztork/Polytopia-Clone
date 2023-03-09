@@ -4,10 +4,11 @@ Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" 
 
 ## TODO
 
-- [x] egy canvas az összes mezőhöz
-- [ ] pontrendszer kialakítása
-- [ ] seregek mozgatása
-- [ ] kezdő építmény elhelyezése
+- [x] pályagenerálás
+- [ ] egységek mozgatása
+- [ ] fizetőeszközök bevezetése
+    - [ ] építkezés és kiképzés csak ha van elég
+- [ ] játék körökre osztása
 
 ### Alapszabályok
 ---
