@@ -9,7 +9,7 @@ Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" 
 - [x] pályagenerálás
 - [ ] egységek mozgatása
 - [x] fizetőeszközök bevezetése
-- [ ] fizetőeszközök megjelenítése (felső sáv)
+- [x] fizetőeszközök megjelenítése (felső sáv)
 - [x] játék körökre osztása
 - [ ] építkezés
     - [ ] UI elem az építkezéshez (alsó sávba)
