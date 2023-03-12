@@ -5,9 +5,10 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; private set; }
 
-    private LinkedList<Player> players = new LinkedList<Player>();
+    public Player CurrentPlayer { get; private set; }
+
+    private readonly LinkedList<Player> players = new LinkedList<Player>();
     private LinkedListNode<Player> playerNode;
-    private Player currentPlayer;
 
     private void Awake()
     {
@@ -21,12 +22,10 @@ public class TurnManager : MonoBehaviour
 
     public void NextPlayer()
     {
-        Debug.Log($"{currentPlayer.Username}'s turn ended");
+        CurrentPlayer.EndTurn();
         playerNode = playerNode.Next ?? players.First;
-        currentPlayer = playerNode.Value;
-        Debug.Log($"{currentPlayer.Username}'s turn started");
-        // TODO: notify player to start turn
-        // ...
+        CurrentPlayer = playerNode.Value;
+        CurrentPlayer.StartTurn();
     }
 
     public void PlayerCreated(Player createdPlayer)
@@ -38,7 +37,9 @@ public class TurnManager : MonoBehaviour
     private void Initialize()
     {
         playerNode = players.First;
-        currentPlayer = playerNode.Value;
+        CurrentPlayer = playerNode.Value;
+        BuildManager.Instance.ActiveResourceContainer =
+            CurrentPlayer.GetComponent<ResourceContainer>();
     }
 
 }
