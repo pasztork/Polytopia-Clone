@@ -8,11 +8,14 @@ Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" 
 
 - [x] pályagenerálás
 - [ ] egységek mozgatása
-- [ ] fizetőeszközök bevezetése
-    - [ ] építkezés és kiképzés csak ha van elég
-- [ ] játék körökre osztása
+- [x] fizetőeszközök bevezetése
+- [ ] fizetőeszközök megjelenítése (felső sáv)
+- [x] játék körökre osztása
+- [ ] építkezés
+    - [ ] UI elem az építkezéshez (alsó sávba)
+    - [ ] elégséges nyersanyagok vizsgálata
 
---- 
+---
 
 ## Alapszabályok
 
