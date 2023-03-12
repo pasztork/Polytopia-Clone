@@ -1,9 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void TurnEventDelegate();
+
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; private set; }
+
+    // Should mostly be used by UI elements and not core game components
+    // Can lead to unexpected behavior if not used so
+    public event TurnEventDelegate StartTurn;
 
     public Player CurrentPlayer { get; private set; }
 
@@ -20,12 +26,20 @@ public class TurnManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        CurrentPlayer.StartTurn();
+        StartTurn?.Invoke();
+    }
+
     public void NextPlayer()
     {
         CurrentPlayer.EndTurn();
         playerNode = playerNode.Next ?? players.First;
         CurrentPlayer = playerNode.Value;
         CurrentPlayer.StartTurn();
+
+        StartTurn?.Invoke();
     }
 
     public void PlayerCreated(Player createdPlayer)

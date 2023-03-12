@@ -15,7 +15,6 @@ public class BuildCanvas : MonoBehaviour
         gameObject.SetActive(true);
         transform.position = tile.transform.position + offset;
         CanvasMoved?.Invoke();
-
     }
 
     // TODO: This should not be a thing

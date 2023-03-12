@@ -22,15 +22,20 @@ public class BuildManager : MonoBehaviour
 
     public void Build()
     {
-        Debug.Log("Build");
         Instantiate(buildingBlueprint, SelectedTile.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
-        BuildCanvas.Instance.Hide();
+        HideUI();
     }
 
     public void DeployTroop()
     {
-        Debug.Log("Deploy Troop");
         Instantiate(troopBlueprint, SelectedTile.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        HideUI();
+    }
+
+    private void HideUI()
+    {
+        SelectedTile = null;
+        BuildCanvas.Instance.InvokeEvent();
         BuildCanvas.Instance.Hide();
     }
 }

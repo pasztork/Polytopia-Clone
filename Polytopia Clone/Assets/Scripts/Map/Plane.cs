@@ -11,6 +11,7 @@ public class Plane : MonoBehaviour
         }
 
         BuildManager.Instance.SelectedTile = null;
+        BuildCanvas.Instance.InvokeEvent();
         BuildCanvas.Instance.Hide();
     }
 }
