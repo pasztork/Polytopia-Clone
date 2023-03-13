@@ -752,7 +752,7 @@ MonoBehaviour:
   size: 48
   scale: 0.1
   waterProbability: 0.4
-  mountainProbability: 0.1
+  mountainProbability: 0.2
 --- !u!4 &277816173
 Transform:
   m_ObjectHideFlags: 0
