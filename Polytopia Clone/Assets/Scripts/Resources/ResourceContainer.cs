@@ -35,6 +35,7 @@ public class ResourceContainer : MonoBehaviour
 
     public void StartTurn()
     {
+        BuildManager.Instance.ActiveResourceContainer = this;
         Produce?.Invoke();
     }
 

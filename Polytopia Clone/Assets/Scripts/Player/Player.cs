@@ -12,8 +12,10 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         resourceContainer = GetComponent<ResourceContainer>();
+    }
 
-        // This might be a problem, if TurnManager is created later
+    private void Start()
+    {
         TurnManager.Instance.PlayerCreated(this);
     }
 

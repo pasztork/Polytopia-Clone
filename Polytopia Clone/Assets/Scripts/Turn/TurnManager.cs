@@ -15,6 +15,7 @@ public class TurnManager : MonoBehaviour
 
     private readonly LinkedList<Player> players = new LinkedList<Player>();
     private LinkedListNode<Player> playerNode;
+    private bool started = false;
 
     private void Awake()
     {
@@ -26,10 +27,14 @@ public class TurnManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    private void Update()
     {
-        CurrentPlayer.StartTurn();
-        StartTurn?.Invoke();
+        if (!started)
+        {
+            CurrentPlayer.StartTurn();
+            StartTurn?.Invoke();
+            started = true;
+        }
     }
 
     public void NextPlayer()
