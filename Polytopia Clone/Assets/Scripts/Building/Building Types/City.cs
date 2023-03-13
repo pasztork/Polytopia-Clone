@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Bank : BuildingBase
+public class City : BuildingBase
 {
     [Header("Production Settings")]
     [SerializeField] private int productionRate = 0;
@@ -9,5 +9,7 @@ public class Bank : BuildingBase
     {
         ResourceContainer resourceContainer = BuildManager.Instance.ActiveResourceContainer;
         SetupProducer(new MoneyProducer(resourceContainer, productionRate));
+        SetupProducer(new MaterialProducer(resourceContainer, productionRate));
+        SetupProducer(new FoodProducer(resourceContainer, productionRate));
     }
 }

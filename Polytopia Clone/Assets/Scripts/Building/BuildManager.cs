@@ -10,7 +10,6 @@ public class BuildManager : MonoBehaviour
     public ResourceContainer ActiveResourceContainer { get; set; } = null;
     public BuildingHolder ActiveBuildingHolder { get; set; } = null;
 
-    [SerializeField] private GameObject buildingBlueprint;
     [SerializeField] private GameObject troopBlueprint;
 
     private void Awake()
@@ -25,13 +24,20 @@ public class BuildManager : MonoBehaviour
 
     public void Build()
     {
-        Cost cost = buildingBlueprint.GetComponent<Bank>().Cost;
-        if (ActiveBuildingHolder != null && ActiveResourceContainer.HasEnoughFor(cost))
+        BuildingBase buildingBlueprint = BuildingDropdownHandler.Instance.SelectedItem;
+        if (buildingBlueprint == null)
         {
+            return;
+        }
+        Cost cost = buildingBlueprint.Cost;
+        if (ActiveBuildingHolder != null && ActiveBuildingHolder.BuildingOnTop == null && ActiveResourceContainer.HasEnoughFor(cost))
+        {
+            BuildingBase buildingInstance = Instantiate(buildingBlueprint, ActiveBuildingHolder.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+            ActiveBuildingHolder.BuildingOnTop = buildingInstance;
             ActiveResourceContainer -= cost;
             ActiveBuildingHolder = null;
-            Instantiate(buildingBlueprint, ActiveBuildingHolder.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
             VisibilityManager.HideAll();
+            BuildingDropdownHandler.Instance.UpdateContent();
         }
     }
 

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 130d405c1c15c704b98ea85e7537d8f5, type: 3}
-  m_Name: Bank Cost
+  m_Name: Farm Cost
   m_EditorClassIdentifier: 
-  moneyCost: 100
-  materialCost: 100
-  foodCost: 0
+  moneyCost: 10
+  materialCost: 10
+  foodCost: 10

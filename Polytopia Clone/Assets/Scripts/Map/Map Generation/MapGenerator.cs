@@ -11,10 +11,14 @@ public class MapGenerator : MonoBehaviour
     [Header("Water Tile Prefab")]
     [SerializeField] private GameObject waterTile;
 
+    [Header("Mountain Tile Prefab")]
+    [SerializeField] private GameObject mountainTile;
+
     [Header("Map Generation Settings")]
     [SerializeField] private int size;
     [SerializeField] private float scale;
     [SerializeField] private float waterProbability;
+    [SerializeField] private float mountainProbability;
 
     private GameObject[,] tiles;
 
@@ -75,7 +79,8 @@ public class MapGenerator : MonoBehaviour
                 {
                     if (tiles[x, y] == null)
                     {
-                        tiles[x, y] = Instantiate(chunkTile, new Vector3(x * tileSize.x, 0f, y * tileSize.z), Quaternion.identity);
+                        GameObject tile = noiseMap[x, y] > 1 - mountainProbability ? mountainTile : chunkTile;
+                        tiles[x, y] = Instantiate(tile, new Vector3(x * tileSize.x, 0f, y * tileSize.z), Quaternion.identity);
                     }
                 }
             }

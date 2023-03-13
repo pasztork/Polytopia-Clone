@@ -4,8 +4,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public string Username { get { return username; } }
+    public BuildingBlueprintHolder BuildingBlueprintHolder { get { return buildingBlueprintHolder; } }
 
     [SerializeField] private string username;
+    [SerializeField] private BuildingBlueprintHolder buildingBlueprintHolder;
 
     private ResourceContainer resourceContainer;
 
@@ -23,7 +25,6 @@ public class Player : MonoBehaviour
     {
         Debug.Log($"{username}'s turn started!");
         resourceContainer.StartTurn();
-        Debug.Log(resourceContainer.ToString());
     }
 
     public void EndTurn()
