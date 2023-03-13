@@ -4,8 +4,11 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance { get; private set; }
 
+    // This might not be needed
     public Tile SelectedTile { get; set; }
+
     public ResourceContainer ActiveResourceContainer { get; set; } = null;
+    public BuildingHolder ActiveBuildingHolder { get; set; } = null;
 
     [SerializeField] private GameObject buildingBlueprint;
     [SerializeField] private GameObject troopBlueprint;
@@ -22,20 +25,19 @@ public class BuildManager : MonoBehaviour
 
     public void Build()
     {
-        Instantiate(buildingBlueprint, SelectedTile.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
-        HideUI();
+        Cost cost = buildingBlueprint.GetComponent<Bank>().Cost;
+        if (ActiveBuildingHolder != null && ActiveResourceContainer.HasEnoughFor(cost))
+        {
+            ActiveResourceContainer -= cost;
+            ActiveBuildingHolder = null;
+            Instantiate(buildingBlueprint, ActiveBuildingHolder.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+            VisibilityManager.HideAll();
+        }
     }
 
     public void DeployTroop()
     {
-        Instantiate(troopBlueprint, SelectedTile.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-        HideUI();
-    }
-
-    private void HideUI()
-    {
-        SelectedTile = null;
-        BuildCanvas.Instance.InvokeEvent();
-        BuildCanvas.Instance.Hide();
+        Instantiate(troopBlueprint, ActiveBuildingHolder.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        VisibilityManager.HideAll();
     }
 }

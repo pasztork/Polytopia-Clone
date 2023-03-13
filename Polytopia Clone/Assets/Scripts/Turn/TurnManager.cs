@@ -39,6 +39,8 @@ public class TurnManager : MonoBehaviour
 
     public void NextPlayer()
     {
+        VisibilityManager.HideAll();
+
         CurrentPlayer.EndTurn();
         playerNode = playerNode.Next ?? players.First;
         CurrentPlayer = playerNode.Value;

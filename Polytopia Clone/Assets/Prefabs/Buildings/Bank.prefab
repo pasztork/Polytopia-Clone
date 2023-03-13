@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 996278019777713656}
   - component: {fileID: 5336888032748915815}
   - component: {fileID: -2005201016758449241}
-  - component: {fileID: 6594784906682065535}
+  - component: {fileID: 9025880780600375815}
   m_Layer: 0
   m_Name: Bank
   m_TagString: Untagged
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
---- !u!114 &6594784906682065535
+--- !u!114 &9025880780600375815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,10 +122,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1899269663787993928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af95973b31531e74aa5eaddc540c38c7, type: 3}
+  m_Script: {fileID: 11500000, guid: beaf777588d9cd44682c0a42965cdcca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   productionRate: 50
+  cost: {fileID: 11400000, guid: 1fc87e94aa6286b45b9677dbe51cf804, type: 2}
 --- !u!1 &3767546824127338850
 GameObject:
   m_ObjectHideFlags: 0
