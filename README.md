@@ -11,9 +11,9 @@ Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" 
 - [x] fizetőeszközök bevezetése
 - [x] fizetőeszközök megjelenítése (felső sáv)
 - [x] játék körökre osztása
-- [ ] építkezés
-    - [ ] UI elem az építkezéshez (alsó sávba)
-    - [ ] elégséges nyersanyagok vizsgálata
+- [x] építkezés
+    - [x] UI elem az építkezéshez (alsó sávba)
+    - [x] elégséges nyersanyagok vizsgálata
 
 ---
 
