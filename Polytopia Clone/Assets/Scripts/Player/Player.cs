@@ -4,9 +4,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public string Username { get { return username; } }
-    public BuildingBlueprintHolder BuildingBlueprintHolder { get { return buildingBlueprintHolder; } }
+    public BuildingBlueprintHolder BuildingBlueprintHolder { get { return buildingBlueprintHolder; } set { buildingBlueprintHolder = value; } }
 
     [SerializeField] private string username;
+
+    // TODO: Use something else. ScrptableObject in here doesn't work.
     [SerializeField] private BuildingBlueprintHolder buildingBlueprintHolder;
 
     private ResourceContainer resourceContainer;
@@ -19,6 +21,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         TurnManager.Instance.PlayerCreated(this);
+        BuildingBlueprintHolder = BuildManager.Instance.BuildingBlueprints;
     }
 
     public void StartTurn()

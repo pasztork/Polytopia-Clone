@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 130d405c1c15c704b98ea85e7537d8f5, type: 3}
-  m_Name: Supplier Cost
+  m_Script: {fileID: 11500000, guid: e9dc01c6983c93f4eab61e303884207f, type: 3}
+  m_Name: CityCost
   m_EditorClassIdentifier: 
-  moneyCost: 30
-  materialCost: 30
-  foodCost: 50
+  moneyCost: 20
+  materialCost: 20
+  foodCost: 20

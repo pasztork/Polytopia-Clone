@@ -4,6 +4,18 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance { get; private set; }
 
+    // This could be a Singleton of it's own.
+    // It still makes more sence to be a part of the BuildManager.
+    [SerializeField] private BuildingBlueprintHolder buildingBlueprints;
+    public BuildingBlueprintHolder BuildingBlueprints
+    {
+        get
+        {
+            return buildingBlueprints;
+        }
+    }
+
+
     // This might not be needed
     public Tile SelectedTile { get; set; }
 

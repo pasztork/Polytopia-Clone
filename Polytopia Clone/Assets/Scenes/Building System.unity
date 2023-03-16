@@ -2185,6 +2185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89283e620d1a9fe41810cc735b5451f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingBlueprints: {fileID: 11400000, guid: cc58a184eaf14324ba63ce1bb5931330, type: 2}
   troopBlueprint: {fileID: 3124203558222508765, guid: ca5b4f8b715e3f446b136cd16effb6cc, type: 3}
 --- !u!114 &1199399706
 MonoBehaviour:
