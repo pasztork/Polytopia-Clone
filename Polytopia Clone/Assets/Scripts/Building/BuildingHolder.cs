@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingHolder : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class BuildingHolder : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         BuildManager.Instance.ActiveBuildingHolder = this;
     }
 }
