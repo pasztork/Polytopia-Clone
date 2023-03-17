@@ -2,7 +2,7 @@
 {
     public static void HideAll()
     {
-        BuildManager.Instance.SelectedTile = null;
+        MapManager.Instance.SelectedTile = null;
         BuildManager.Instance.ActiveBuildingHolder = null;
     }
 }

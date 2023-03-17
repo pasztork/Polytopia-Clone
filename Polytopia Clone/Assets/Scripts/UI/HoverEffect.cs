@@ -34,7 +34,7 @@ public class HoverEffect : MonoBehaviour
 
     private void Reset()
     {
-        if (BuildManager.Instance.SelectedTile?.gameObject != gameObject && renderer.material.color != StartColor)
+        if (BuildManager.Instance.ActiveBuildingHolder?.gameObject != gameObject && renderer.material.color != StartColor)
         {
             renderer.material.color = StartColor;
         }

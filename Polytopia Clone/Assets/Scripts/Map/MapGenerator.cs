@@ -20,7 +20,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private float waterProbability;
     [SerializeField] private float mountainProbability;
 
-    private GameObject[,] tiles;
+    private Tile[,] tiles;
 
     private void Start()
     {
@@ -29,6 +29,8 @@ public class MapGenerator : MonoBehaviour
             throw new System.ArgumentException("size must be even");
         }
 
+        MapManager.Instance.Tiles = new Tile[size, size];
+        tiles = MapManager.Instance.Tiles;
         GenerateMap();
     }
 
@@ -56,7 +58,6 @@ public class MapGenerator : MonoBehaviour
     private void GenerateMap()
     {
         Vector3 tileSize = grassTile.transform.localScale;
-        tiles = new GameObject[size, size];
 
         float[,] noiseMap = GenerateNoiseMap();
         for (int x = 0; x < size; x++)
@@ -64,7 +65,7 @@ public class MapGenerator : MonoBehaviour
             for (int y = 0; y < size; y++)
             {
                 tiles[x, y] = noiseMap[x, y] < waterProbability
-                    ? Instantiate(waterTile, new Vector3(x * tileSize.x, 0f, y * tileSize.z), Quaternion.identity)
+                    ? Instantiate(waterTile, new Vector3(x * tileSize.x, 0f, y * tileSize.z), Quaternion.identity).GetComponent<Tile>()
                     : null;
             }
         }
@@ -80,13 +81,14 @@ public class MapGenerator : MonoBehaviour
                     if (tiles[x, y] == null)
                     {
                         GameObject tile = noiseMap[x, y] > 1 - mountainProbability ? mountainTile : chunkTile;
-                        tiles[x, y] = Instantiate(tile, new Vector3(x * tileSize.x, 0f, y * tileSize.z), Quaternion.identity);
+                        tiles[x, y] = Instantiate(tile, new Vector3(x * tileSize.x, 0f, y * tileSize.z), Quaternion.identity).GetComponent<Tile>();
                     }
                 }
             }
         }
 
         SetupCoordinateSystem();
+        MapManager.Instance.Tiles = tiles;
     }
 
     private GameObject PickChunk()

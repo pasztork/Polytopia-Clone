@@ -7,22 +7,10 @@ public class BuildManager : MonoBehaviour
     // This could be a Singleton of it's own.
     // It still makes more sence to be a part of the BuildManager.
     [SerializeField] private BuildingBlueprintHolder buildingBlueprints;
-    public BuildingBlueprintHolder BuildingBlueprints
-    {
-        get
-        {
-            return buildingBlueprints;
-        }
-    }
-
-
-    // This might not be needed
-    public Tile SelectedTile { get; set; }
+    public BuildingBlueprintHolder BuildingBlueprints { get => buildingBlueprints; }
 
     public ResourceContainer ActiveResourceContainer { get; set; } = null;
     public BuildingHolder ActiveBuildingHolder { get; set; } = null;
-
-    [SerializeField] private GameObject troopBlueprint;
 
     private void Awake()
     {
@@ -65,13 +53,5 @@ public class BuildManager : MonoBehaviour
             ActiveBuildingHolder.BuildingOnTop == null &&
             ActiveResourceContainer.HasEnoughFor(cost) &&
             TurnManager.Instance.CurrentPossibleActions["Build"] > 0;
-    }
-
-    public void DeployTroop()
-    {
-        Instantiate(troopBlueprint,
-            ActiveBuildingHolder.transform.position + new Vector3(0f, 2f, 0f),
-            Quaternion.identity);
-        VisibilityManager.HideAll();
     }
 }

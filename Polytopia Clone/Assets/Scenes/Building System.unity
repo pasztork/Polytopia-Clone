@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 267283}
   - component: {fileID: 267282}
   m_Layer: 5
-  m_Name: Top Panel
+  m_Name: TopPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 170842878}
   - component: {fileID: 170842877}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: DirectionalLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,7 +339,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &230891562
 GameObject:
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 230891565}
   - component: {fileID: 230891564}
   m_Layer: 5
-  m_Name: Material Text
+  m_Name: MaterialText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -486,8 +486,9 @@ GameObject:
   m_Component:
   - component: {fileID: 277816173}
   - component: {fileID: 277816172}
+  - component: {fileID: 277816174}
   m_Layer: 0
-  m_Name: Map Generator
+  m_Name: MapManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -520,14 +521,26 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277816171}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.270503, y: -24.960579, z: 17.125257}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.270503, y: -24.423632, z: 11.219935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1199399707}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &277816174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277816171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620f98a8634ea9147b87daa1305fdd84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &320758662
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +629,7 @@ GameObject:
   - component: {fileID: 443467186}
   - component: {fileID: 443467188}
   m_Layer: 0
-  m_Name: Alice Player
+  m_Name: AlicePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -650,7 +663,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &443467188
 MonoBehaviour:
@@ -683,7 +696,7 @@ GameObject:
   - component: {fileID: 557253005}
   - component: {fileID: 557253004}
   m_Layer: 5
-  m_Name: Overlay Canvas
+  m_Name: OverlayCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -765,7 +778,7 @@ RectTransform:
   - {fileID: 2071925677}
   - {fileID: 267279}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -881,7 +894,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &621209044
 GameObject:
@@ -895,7 +908,7 @@ GameObject:
   - component: {fileID: 621209047}
   - component: {fileID: 621209046}
   m_Layer: 5
-  m_Name: Food Text
+  m_Name: FoodText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1145,7 +1158,7 @@ GameObject:
   - component: {fileID: 775090423}
   - component: {fileID: 775090426}
   m_Layer: 5
-  m_Name: Building Type Dropdown
+  m_Name: BuildingTypeDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1485,7 +1498,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &845240927
 GameObject:
@@ -1499,7 +1512,7 @@ GameObject:
   - component: {fileID: 845240930}
   - component: {fileID: 845240929}
   m_Layer: 5
-  m_Name: Build Text
+  m_Name: BuildText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1810,42 +1823,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1199399707}
-  - component: {fileID: 1199399706}
-  - component: {fileID: 1199399705}
   m_Layer: 0
-  m_Name: Game Manager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1199399705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199399704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89283e620d1a9fe41810cc735b5451f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingBlueprints: {fileID: 11400000, guid: cc58a184eaf14324ba63ce1bb5931330, type: 2}
-  troopBlueprint: {fileID: 3124203558222508765, guid: ca5b4f8b715e3f446b136cd16effb6cc, type: 3}
---- !u!114 &1199399706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199399704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162cb1f6c1cb6944aacea9ca7d3603dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseActionTracker: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
 --- !u!4 &1199399707
 Transform:
   m_ObjectHideFlags: 0
@@ -1857,9 +1841,12 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.5369467, z: 5.905322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 277816173}
+  - {fileID: 1946144601}
+  - {fileID: 1779191799}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1261422996
 GameObject:
@@ -2085,7 +2072,7 @@ GameObject:
   - component: {fileID: 1375935945}
   - component: {fileID: 1375935944}
   m_Layer: 5
-  m_Name: Build Button
+  m_Name: BuildButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2156,7 +2143,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1199399705}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
         m_MethodName: Build
         m_Mode: 1
@@ -2219,7 +2206,7 @@ GameObject:
   - component: {fileID: 1478770454}
   - component: {fileID: 1478770457}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2289,7 +2276,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 21.345, y: 0, z: 0}
 --- !u!114 &1478770457
 MonoBehaviour:
@@ -2356,7 +2343,7 @@ GameObject:
   - component: {fileID: 1530248600}
   - component: {fileID: 1530248599}
   m_Layer: 5
-  m_Name: Money Text
+  m_Name: MoneyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2492,7 +2479,7 @@ GameObject:
   - component: {fileID: 1545774513}
   - component: {fileID: 1545774512}
   m_Layer: 5
-  m_Name: Finish Turn Button
+  m_Name: FinishTurnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2563,7 +2550,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1199399706}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
         m_MethodName: NextPlayer
         m_Mode: 1
@@ -2625,7 +2612,7 @@ GameObject:
   - component: {fileID: 1574090546}
   - component: {fileID: 1574090548}
   m_Layer: 0
-  m_Name: Bob Player
+  m_Name: BobPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2659,7 +2646,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1574090548
 MonoBehaviour:
@@ -3004,7 +2991,7 @@ GameObject:
   - component: {fileID: 1733627262}
   - component: {fileID: 1733627261}
   m_Layer: 5
-  m_Name: Build Panel
+  m_Name: BuildPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3108,7 +3095,7 @@ GameObject:
   - component: {fileID: 1747506774}
   - component: {fileID: 1747506773}
   m_Layer: 5
-  m_Name: Finish Turn Text
+  m_Name: FinishTurnText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3233,6 +3220,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1747506771}
   m_CullTransparentMesh: 1
+--- !u!1 &1779191798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1779191799}
+  - component: {fileID: 1779191800}
+  m_Layer: 0
+  m_Name: BuildManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1779191799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779191798}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1199399707}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1779191800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779191798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89283e620d1a9fe41810cc735b5451f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingBlueprints: {fileID: 11400000, guid: cc58a184eaf14324ba63ce1bb5931330, type: 2}
 --- !u!1 &1821650438
 GameObject:
   m_ObjectHideFlags: 0
@@ -3245,7 +3277,7 @@ GameObject:
   - component: {fileID: 1821650441}
   - component: {fileID: 1821650440}
   m_Layer: 5
-  m_Name: Name Text
+  m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3370,6 +3402,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1821650438}
   m_CullTransparentMesh: 1
+--- !u!1 &1946144600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1946144601}
+  - component: {fileID: 1946144602}
+  m_Layer: 0
+  m_Name: TurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1946144601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946144600}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1199399707}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1946144602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946144600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162cb1f6c1cb6944aacea9ca7d3603dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseActionTracker: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
 --- !u!1 &1954401895
 GameObject:
   m_ObjectHideFlags: 0
@@ -3383,7 +3460,7 @@ GameObject:
   - component: {fileID: 1954401898}
   - component: {fileID: 1954401897}
   m_Layer: 5
-  m_Name: Finish Turn Panel
+  m_Name: FinishTurnPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3486,7 +3563,7 @@ GameObject:
   - component: {fileID: 2071925680}
   - component: {fileID: 2071925679}
   m_Layer: 5
-  m_Name: Bottom Panel
+  m_Name: BottomPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

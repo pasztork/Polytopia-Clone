@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class Tile : MonoBehaviour
 {
-    public List<GameObject> Neighbors { get; } = new List<GameObject>();
+    public List<Tile> Neighbors { get; } = new List<Tile>();
 
     [SerializeField] private Color neighborColor;
 
@@ -29,21 +29,21 @@ public class Tile : MonoBehaviour
             return;
         }
 
-        if (BuildManager.Instance.SelectedTile == this)
+        if (MapManager.Instance.SelectedTile == this)
         {
-            BuildManager.Instance.SelectedTile = null;
+            MapManager.Instance.SelectedTile = null;
             return;
         }
 
-        BuildManager.Instance.SelectedTile = this;
+        MapManager.Instance.SelectedTile = this;
 
     }
 
     private void HighlightNeighbors()
     {
-        foreach (GameObject neighbor in Neighbors)
+        foreach (Tile neighbor in Neighbors)
         {
-            if (BuildManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
+            if (MapManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
             {
                 neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<Renderer>().material.color + neighborColor;
             }
@@ -52,9 +52,9 @@ public class Tile : MonoBehaviour
 
     private void UnhighlightNeighbors()
     {
-        foreach (GameObject neighbor in Neighbors)
+        foreach (Tile neighbor in Neighbors)
         {
-            if (BuildManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
+            if (MapManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
             {
                 neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<HoverEffect>().StartColor;
             }
