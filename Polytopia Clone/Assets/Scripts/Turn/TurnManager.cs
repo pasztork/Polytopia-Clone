@@ -7,6 +7,13 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; private set; }
 
+    [SerializeField] private BaseActionCount baseActionTracker;
+
+    // Used to track how many actions a player can take in their turn.
+    // These should be copied at the beginning of the turn,
+    // to track what the player did and be able to still know what he can do.
+    private Dictionary<Player, Dictionary<string, int>> numActionsPerPlayer;
+
     // Should mostly be used by UI elements and not core game components
     // Can lead to unexpected behavior if not used so
     public event TurnEventDelegate StartTurn;
@@ -25,6 +32,7 @@ public class TurnManager : MonoBehaviour
             return;
         }
         Instance = this;
+        numActionsPerPlayer = new Dictionary<Player, Dictionary<string, int>>();
     }
 
     private void Update()
@@ -61,6 +69,7 @@ public class TurnManager : MonoBehaviour
         CurrentPlayer = playerNode.Value;
         BuildManager.Instance.ActiveResourceContainer =
             CurrentPlayer.GetComponent<ResourceContainer>();
+        numActionsPerPlayer.Add(CurrentPlayer, baseActionTracker.CreateDictionary());
     }
 
 }
