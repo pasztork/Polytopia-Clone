@@ -1,15 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ResourceContainer))]
 public class Player : MonoBehaviour
 {
-    public string Username { get { return username; } }
-    public BuildingBlueprintHolder BuildingBlueprintHolder { get { return buildingBlueprintHolder; } set { buildingBlueprintHolder = value; } }
-
     [SerializeField] private string username;
+    public string Username { get { return username; } }
 
-    // TODO: Use something else. ScrptableObject in here doesn't work.
-    [SerializeField] private BuildingBlueprintHolder buildingBlueprintHolder;
+    public IList<BuildingBase> AvailableBuildingBlueprints { get; private set; } = new List<BuildingBase>();
 
     private ResourceContainer resourceContainer;
 
@@ -21,7 +19,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         TurnManager.Instance.PlayerCreated(this);
-        BuildingBlueprintHolder = BuildManager.Instance.BuildingBlueprints;
+        AvailableBuildingBlueprints.Add(BuildManager.Instance.BuildingBlueprints["Farm"]);
     }
 
     public void StartTurn()

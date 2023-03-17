@@ -41,8 +41,8 @@ public class BuildingDropdownHandler : MonoBehaviour
     {
         dropdown.ClearOptions();
         buildings.Clear();
-        BuildingBlueprintHolder holder = TurnManager.Instance.CurrentPlayer.BuildingBlueprintHolder;
-        foreach (BuildingBase building in holder.Buildings.Values)
+        IList<BuildingBase> availableBuildingBlueprints = TurnManager.Instance.CurrentPlayer.AvailableBuildingBlueprints;
+        foreach (BuildingBase building in availableBuildingBlueprints)
         {
             Debug.Log(building.Cost);
             if (TurnManager.Instance.CurrentPlayer.GetComponent<ResourceContainer>().HasEnoughFor(building.Cost))
