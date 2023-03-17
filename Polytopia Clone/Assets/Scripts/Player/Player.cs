@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private string username;
     public string Username { get { return username; } }
 
+    [SerializeField] private string[] startingBuildings;
     public IList<BuildingBase> AvailableBuildingBlueprints { get; private set; } = new List<BuildingBase>();
 
     private ResourceContainer resourceContainer;
@@ -19,7 +20,10 @@ public class Player : MonoBehaviour
     private void Start()
     {
         TurnManager.Instance.PlayerCreated(this);
-        AvailableBuildingBlueprints.Add(BuildManager.Instance.BuildingBlueprints["Farm"]);
+        foreach (string building in startingBuildings)
+        {
+            AvailableBuildingBlueprints.Add(BuildManager.Instance.BuildingBlueprints[building]);
+        }
     }
 
     public void StartTurn()

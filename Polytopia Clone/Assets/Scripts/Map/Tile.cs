@@ -31,13 +31,12 @@ public class Tile : MonoBehaviour
 
         if (BuildManager.Instance.SelectedTile == this)
         {
-            BuildCanvas.Instance.Hide();
             BuildManager.Instance.SelectedTile = null;
             return;
         }
 
-        BuildCanvas.Instance.MoveToTile(this);
         BuildManager.Instance.SelectedTile = this;
+
     }
 
     private void HighlightNeighbors()

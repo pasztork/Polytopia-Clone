@@ -4,8 +4,5 @@
     {
         BuildManager.Instance.SelectedTile = null;
         BuildManager.Instance.ActiveBuildingHolder = null;
-
-        BuildCanvas.Instance.InvokeEvent();
-        BuildCanvas.Instance.Hide();
     }
 }

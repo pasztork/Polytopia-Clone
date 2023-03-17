@@ -41,21 +41,37 @@ public class BuildManager : MonoBehaviour
         {
             return;
         }
-        Cost cost = buildingBlueprint.Cost;
-        if (ActiveBuildingHolder != null && ActiveBuildingHolder.BuildingOnTop == null && ActiveResourceContainer.HasEnoughFor(cost))
+
+        if (CanBuild(buildingBlueprint))
         {
-            BuildingBase buildingInstance = Instantiate(buildingBlueprint, ActiveBuildingHolder.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+            BuildingBase buildingInstance =
+                Instantiate(buildingBlueprint,
+                    ActiveBuildingHolder.transform.position + new Vector3(0f, 1f, 0f),
+                    Quaternion.identity);
             ActiveBuildingHolder.BuildingOnTop = buildingInstance;
-            ActiveResourceContainer -= cost;
+            ActiveResourceContainer -= buildingBlueprint.Cost;
             ActiveBuildingHolder = null;
+            TurnManager.Instance.CurrentPossibleActions["Build"]--;
             VisibilityManager.HideAll();
             BuildingDropdownHandler.Instance.UpdateContent();
         }
     }
 
+    private bool CanBuild(BuildingBase blueprint)
+    {
+        Cost cost = blueprint.Cost;
+        return
+            ActiveBuildingHolder != null &&
+            ActiveBuildingHolder.BuildingOnTop == null &&
+            ActiveResourceContainer.HasEnoughFor(cost) &&
+            TurnManager.Instance.CurrentPossibleActions["Build"] > 0;
+    }
+
     public void DeployTroop()
     {
-        Instantiate(troopBlueprint, ActiveBuildingHolder.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        Instantiate(troopBlueprint,
+            ActiveBuildingHolder.transform.position + new Vector3(0f, 2f, 0f),
+            Quaternion.identity);
         VisibilityManager.HideAll();
     }
 }

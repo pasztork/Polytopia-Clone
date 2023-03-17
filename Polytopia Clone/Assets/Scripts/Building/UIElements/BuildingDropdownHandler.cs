@@ -44,8 +44,8 @@ public class BuildingDropdownHandler : MonoBehaviour
         IList<BuildingBase> availableBuildingBlueprints = TurnManager.Instance.CurrentPlayer.AvailableBuildingBlueprints;
         foreach (BuildingBase building in availableBuildingBlueprints)
         {
-            Debug.Log(building.Cost);
-            if (TurnManager.Instance.CurrentPlayer.GetComponent<ResourceContainer>().HasEnoughFor(building.Cost))
+            if (TurnManager.Instance.CurrentPlayer.GetComponent<ResourceContainer>().HasEnoughFor(building.Cost) &&
+                TurnManager.Instance.CurrentPossibleActions["Build"] > 0)
             {
                 dropdown.options.Add(new TMP_Dropdown.OptionData() { text = building.name });
                 buildings.Add(building.name, building);
