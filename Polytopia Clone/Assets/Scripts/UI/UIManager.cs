@@ -24,13 +24,8 @@ public class UIManager : MonoBehaviour
 
     public void HideAll()
     {
-<<<<<<< Updated upstream
-        MapManager.Instance.SelectedTile = null;
+        Controller.MapManager.Instance.SelectedTile = null;
         BuildManager.Instance.ActiveTileHolder = null;
         TrainManager.Instance.ActiveTileHolder = null;
-=======
-        Controller.MapManager.Instance.SelectedTile = null;
-        BuildManager.Instance.ActiveBuildingHolder = null;
->>>>>>> Stashed changes
     }
 }

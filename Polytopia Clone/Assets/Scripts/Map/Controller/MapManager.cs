@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using View;
 
 namespace Controller
 {
@@ -6,17 +9,11 @@ namespace Controller
     {
         public static MapManager Instance { get; private set; }
 
-        private Model.TileBase[,] tiles;
-        public Model.TileBase[,] Tiles
-        {
-            get
-            {
-                tiles ??= Model.MapManager.Instance.Tiles;
-                return tiles;
-            }
+        public event Action OnViewMappedToModel;
 
-            private set => tiles = value;
-        }
+        private Model.TileBase[,] tiles;
+
+        private Dictionary<Tile, Model.TileBase> viewToModelMap;
 
         public Tile SelectedTile { get; set; }
 
@@ -28,6 +25,24 @@ namespace Controller
                 return;
             }
             Instance = this;
+        }
+
+        private void Start()
+        {
+            tiles = Model.MapManager.Instance.Tiles;
+            MapBuilder.Instance.OnMapBuilt += MapViewToModel;
+            MapBuilder.Instance.BuildMapGFX(tiles);
+        }
+
+        private void MapViewToModel(Tile[,] viewTiles)
+        {
+            viewToModelMap = new Dictionary<Tile, Model.TileBase>();
+            int size = tiles.GetLength(0);
+            for (int x = 0; x < size; ++x)
+                for (int y = 0; y < size; ++y)
+                    viewToModelMap[viewTiles[x, y]] = tiles[x, y];
+
+            OnViewMappedToModel?.Invoke();
         }
     }
 }

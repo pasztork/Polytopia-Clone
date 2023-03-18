@@ -65,8 +65,8 @@ namespace Model
 
         private void SetupCoordinateSystem()
         {
-            for (int x = 0; x < size; x++)
-                for (int y = 0; y < size; y++)
+            for (int x = 0; x < size; ++x)
+                for (int y = 0; y < size; ++y)
                     AddNeighborsToList(x, y);
         }
 
