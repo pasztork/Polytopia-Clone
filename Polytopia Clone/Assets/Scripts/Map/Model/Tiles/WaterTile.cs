@@ -2,9 +2,6 @@
 {
     public class WaterTile : NonTraversableTile
     {
-        public override string ToString()
-        {
-            return "Water";
-        }
+        public override string ToString() => "Water";
     }
 }
