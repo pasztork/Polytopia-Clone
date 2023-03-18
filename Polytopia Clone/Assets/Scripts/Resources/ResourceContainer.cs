@@ -13,9 +13,9 @@ public class ResourceContainer : MonoBehaviour
     [SerializeField] private int materialCount = 0;
     [SerializeField] private int foodCount = 0;
 
-    public int MoneyCount { get => moneyCount; set { InfoPanel.Instance.UpdateContent(); moneyCount = value; } }
-    public int MaterialCount { get => materialCount; set { InfoPanel.Instance.UpdateContent(); materialCount = value; } }
-    public int FoodCount { get => foodCount; set { InfoPanel.Instance.UpdateContent(); foodCount = value; } }
+    public int MoneyCount { get => moneyCount; set { moneyCount = value;  InfoPanel.Instance.UpdateContent(); } }
+    public int MaterialCount { get => materialCount; set { materialCount = value;  InfoPanel.Instance.UpdateContent(); } }
+    public int FoodCount { get => foodCount; set { foodCount = value;  InfoPanel.Instance.UpdateContent(); } }
 
     [Header("Base Production")]
     [SerializeField] private int baseMoneyProductionRate = 5;
