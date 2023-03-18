@@ -13,8 +13,8 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private BuildingBlueprintHolder buildingBlueprints;
     public BuildingBlueprintHolder BuildingBlueprints { get => buildingBlueprints; }
 
-    public ResourceContainer ActiveResourceContainer { get; set; } = null;
-    public BuildingHolder ActiveBuildingHolder { get; set; } = null;
+    public ResourceContainer ActiveResourceContainer { get; set; }
+    public BuildingHolder ActiveBuildingHolder { get; set; }
 
     public BuildingBase Blueprint { private get; set; }
 

@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float panSpeed = 30f;
-    [SerializeField] private float minY = 10f;
-    [SerializeField] private float maxY = 80f;
-    [SerializeField] private float rotationSpeed = 2f;
+    [SerializeField] private float panSpeed;
+    [SerializeField] private float minY;
+    [SerializeField] private float maxY;
+    [SerializeField] private float rotationSpeed;
 
     private readonly Dictionary<string, Vector3> keyVectorPairs = new()
     {
@@ -26,12 +26,8 @@ public class CameraController : MonoBehaviour
     private void Move()
     {
         foreach (string key in keyVectorPairs.Keys)
-        {
             if (Input.GetKey(key))
-            {
                 transform.Translate(keyVectorPairs[key] * panSpeed * Time.deltaTime, Space.Self);
-            }
-        }
     }
 
     private void Rotate()

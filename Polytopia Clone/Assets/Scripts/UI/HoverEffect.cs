@@ -57,7 +57,7 @@ public class HoverEffect : MonoBehaviour
 
     private void Set()
     {
-        renderer.material.color = hoverColor;
+        renderer.material.color += hoverColor;
     }
 
     private void Reset()

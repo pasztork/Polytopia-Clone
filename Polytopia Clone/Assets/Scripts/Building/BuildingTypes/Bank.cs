@@ -3,7 +3,7 @@
 public class Bank : BuildingBase
 {
     [Header("Production Settings")]
-    [SerializeField] private int productionRate = 0;
+    [SerializeField] private int productionRate;
 
     private void Awake()
     {

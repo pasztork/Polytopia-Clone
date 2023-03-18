@@ -1,7 +1,7 @@
 ﻿public abstract class ProducerBase
 {
     protected ResourceContainer resourceContainer;
-    protected int productionRate = 0;
+    protected int productionRate;
 
     public ProducerBase(ResourceContainer resourceContainer, int productionRate)
     {

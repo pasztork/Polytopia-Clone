@@ -17,9 +17,8 @@ public class Tile : MonoBehaviour
     private void OnMouseEnter()
     {
         if (EventSystem.current.IsPointerOverGameObject())
-        {
             return;
-        }
+
         HighlightNeighbors();
     }
 
@@ -31,9 +30,7 @@ public class Tile : MonoBehaviour
     private void OnMouseDown()
     {
         if (EventSystem.current.IsPointerOverGameObject())
-        {
             return;
-        }
 
         if (MapManager.Instance.SelectedTile == this)
         {
@@ -48,22 +45,14 @@ public class Tile : MonoBehaviour
     private void HighlightNeighbors()
     {
         foreach (Tile neighbor in Neighbors)
-        {
             if (MapManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
-            {
                 neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<Renderer>().material.color + neighborColor;
-            }
-        }
     }
 
     private void UnhighlightNeighbors()
     {
         foreach (Tile neighbor in Neighbors)
-        {
             if (MapManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
-            {
                 neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<HoverEffect>().StartColor;
-            }
-        }
     }
 }
