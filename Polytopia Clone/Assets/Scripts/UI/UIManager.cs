@@ -19,11 +19,13 @@ public class UIManager : MonoBehaviour
         TurnManager.Instance.StartTurn += HideAll;
         Plane.Instance.OnPlaneClick += HideAll;
         BuildManager.Instance.OnBuild += HideAll;
+        TrainManager.Instance.OnTrain += HideAll;
     }
 
     public void HideAll()
     {
         MapManager.Instance.SelectedTile = null;
-        BuildManager.Instance.ActiveBuildingHolder = null;
+        BuildManager.Instance.ActiveTileHolder = null;
+        TrainManager.Instance.ActiveTileHolder = null;
     }
 }

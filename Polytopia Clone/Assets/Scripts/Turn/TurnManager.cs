@@ -37,6 +37,7 @@ public class TurnManager : MonoBehaviour
     private void Start()
     {
         BuildManager.Instance.OnBuild += () => --CurrentPossibleActions["Build"];
+        TrainManager.Instance.OnTrain += () => --CurrentPossibleActions["Train"];
         CurrentPlayer.StartTurn();
         StartTurn?.Invoke();
     }

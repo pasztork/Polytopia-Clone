@@ -12,4 +12,9 @@ public class City : BuildingBase
         SetupProducer(new MaterialProducer(resourceContainer, productionRate));
         SetupProducer(new FoodProducer(resourceContainer, productionRate));
     }
+
+    private void OnMouseDown()
+    {
+        InvokeOnBuildingClick();
+    }
 }

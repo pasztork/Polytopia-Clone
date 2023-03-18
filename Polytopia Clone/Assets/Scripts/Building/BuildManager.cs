@@ -14,7 +14,7 @@ public class BuildManager : MonoBehaviour
     public BuildingBlueprintHolder BuildingBlueprints { get => buildingBlueprints; }
 
     public ResourceContainer ActiveResourceContainer { get; set; }
-    public BuildingHolder ActiveBuildingHolder { get; set; }
+    public TileHolder ActiveTileHolder { get; set; }
 
     public BuildingBase Blueprint { private get; set; }
 
@@ -39,11 +39,11 @@ public class BuildManager : MonoBehaviour
         {
             BuildingBase buildingInstance =
                 Instantiate(Blueprint,
-                    ActiveBuildingHolder.transform.position + new Vector3(0f, 1f, 0f),
+                    ActiveTileHolder.transform.position + new Vector3(0f, 1f, 0f),
                     Quaternion.identity);
-            ActiveBuildingHolder.BuildingOnTop = buildingInstance;
+            ActiveTileHolder.BuildingOnTop = buildingInstance;
             ActiveResourceContainer -= Blueprint.Cost;
-            ActiveBuildingHolder = null;
+            ActiveTileHolder = null;
 
             OnBuild?.Invoke();
         }
@@ -52,7 +52,7 @@ public class BuildManager : MonoBehaviour
     private bool CanBuild(BuildingBase blueprint)
     {
         return
-            ActiveBuildingHolder != null ? ActiveBuildingHolder.IsEmpty : true &&
+            (ActiveTileHolder != null ? ActiveTileHolder.HasBuilding : false) &&
             ActiveResourceContainer.HasEnoughFor(blueprint.Cost) &&
             TurnManager.Instance.CurrentPossibleActions["Build"] > 0;
     }

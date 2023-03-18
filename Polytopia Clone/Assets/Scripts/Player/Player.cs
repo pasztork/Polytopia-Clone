@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] private string[] startingBuildings;
     public IList<BuildingBase> AvailableBuildingBlueprints { get; private set; } = new List<BuildingBase>();
 
+    [SerializeField] private string[] startingTroops;
+    public IList<TroopBase> AvailableTroopBlueprints { get; private set; } = new List<TroopBase>();
+
     private ResourceContainer resourceContainer;
 
     private void Awake()
@@ -23,6 +26,11 @@ public class Player : MonoBehaviour
         foreach (string building in startingBuildings)
         {
             AvailableBuildingBlueprints.Add(BuildManager.Instance.BuildingBlueprints[building]);
+        }
+
+        foreach(string troop in startingTroops)
+        {
+            AvailableTroopBlueprints.Add(TrainManager.Instance.TroopBlueprints[troop]);
         }
     }
 
