@@ -34,27 +34,6 @@ public class MapGenerator : MonoBehaviour
         GenerateMap();
     }
 
-    // TODO: Don't include in release
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            DestroyMap();
-            GenerateMap();
-        }
-    }
-
-    private void DestroyMap()
-    {
-        for (int x = 0; x < size; x++)
-        {
-            for (int y = 0; y < size; y++)
-            {
-                Destroy(tiles[x, y]);
-            }
-        }
-    }
-
     private void GenerateMap()
     {
         Vector3 tileSize = grassTile.transform.localScale;

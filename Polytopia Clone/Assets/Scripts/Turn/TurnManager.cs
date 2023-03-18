@@ -7,8 +7,8 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; private set; }
 
+    // TODO: Not TurnManager's responsability?
     [SerializeField] private BaseActionCount baseActionTracker;
-
     // Used to track how many actions a player can take in their turn.
     // These should be copied at the beginning of the turn,
     // to track what the player did and be able to still know what he can do.
@@ -20,10 +20,8 @@ public class TurnManager : MonoBehaviour
     public event TurnEventDelegate StartTurn;
 
     public Player CurrentPlayer { get; private set; }
-
     private readonly LinkedList<Player> players = new LinkedList<Player>();
     private LinkedListNode<Player> playerNode;
-    private bool started = false;
 
     private void Awake()
     {
@@ -36,20 +34,15 @@ public class TurnManager : MonoBehaviour
         possibleActionsPerPlayer = new Dictionary<Player, Dictionary<string, int>>();
     }
 
-    private void Update()
+    private void Start()
     {
-        if (!started)
-        {
-            CurrentPlayer.StartTurn();
-            StartTurn?.Invoke();
-            started = true;
-        }
+        BuildManager.Instance.OnBuild += () => --CurrentPossibleActions["Build"];
+        CurrentPlayer.StartTurn();
+        StartTurn?.Invoke();
     }
 
     public void NextPlayer()
     {
-        VisibilityManager.HideAll();
-
         CurrentPlayer.EndTurn();
         playerNode = playerNode.Next ?? players.First;
         CurrentPlayer = playerNode.Value;
@@ -86,5 +79,4 @@ public class TurnManager : MonoBehaviour
         }
         return copy;
     }
-
 }

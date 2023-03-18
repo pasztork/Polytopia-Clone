@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class HoverEffect : MonoBehaviour
 {
-    public Color StartColor { get; private set; }
+    public Color StartColor { get; set; }
 
     [SerializeField] private Color hoverColor;
     private new Renderer renderer;
@@ -14,29 +14,54 @@ public class HoverEffect : MonoBehaviour
         StartColor = renderer.material.color;
     }
 
-    private void OnMouseEnter()
+    private void Start()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        TurnManager.Instance.StartTurn += Reset;
+        HoverManager.Instance.OnTileClicked += (hoverEffect) =>
         {
-            return;
-        }
-        Set();
+            if (hoverEffect == this)
+            {
+                Set();
+                return;
+            }
+            Reset();
+
+        };
+        HoverManager.Instance.OnTileExited += (hoverEffect) =>
+        {
+            if (HoverManager.Instance.Selected != this && hoverEffect == this)
+                Reset();
+        };
+        Plane.Instance.OnPlaneClick += Reset;
     }
 
-    private void OnMouseExit() { Reset(); }
+    private void OnMouseEnter()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
+            Set();
+    }
+
+    private void OnMouseExit()
+    {
+        HoverManager.Instance.AnnounceOnExitEvent(this);
+    }
 
     private void OnMouseDown()
     {
-        Set();
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            HoverManager.Instance.AnnounceOnClickEvent(this);
+            HoverManager.Instance.Selected = this;
+        }
     }
 
-    private void Set() { renderer.material.color = hoverColor; }
+    private void Set()
+    {
+        renderer.material.color = hoverColor;
+    }
 
     private void Reset()
     {
-        if (BuildManager.Instance.ActiveBuildingHolder?.gameObject != gameObject && renderer.material.color != StartColor)
-        {
-            renderer.material.color = StartColor;
-        }
+        renderer.material.color = StartColor;
     }
 }

@@ -6,7 +6,13 @@ public class Tile : MonoBehaviour
 {
     public List<Tile> Neighbors { get; } = new List<Tile>();
 
+    private Color startColor;
     [SerializeField] private Color neighborColor;
+
+    private void Awake()
+    {
+        startColor = GetComponent<Renderer>().material.color;
+    }
 
     private void OnMouseEnter()
     {

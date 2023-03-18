@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance { get; private set; }
+
+    public event Action OnBuild;
+    public event Action OnBuildAttempted;
 
     // This could be a Singleton of it's own.
     // It still makes more sence to be a part of the BuildManager.
@@ -11,6 +15,8 @@ public class BuildManager : MonoBehaviour
 
     public ResourceContainer ActiveResourceContainer { get; set; } = null;
     public BuildingHolder ActiveBuildingHolder { get; set; } = null;
+
+    public BuildingBase Blueprint { private get; set; }
 
     private void Awake()
     {
@@ -24,34 +30,30 @@ public class BuildManager : MonoBehaviour
 
     public void Build()
     {
-        BuildingBase buildingBlueprint = BuildingDropdownHandler.Instance.SelectedItem;
-        if (buildingBlueprint == null)
-        {
+        // Should throw error if there are no subscribers.
+        OnBuildAttempted.Invoke();
+        if (Blueprint == null)
             return;
-        }
 
-        if (CanBuild(buildingBlueprint))
+        if (CanBuild(Blueprint))
         {
             BuildingBase buildingInstance =
-                Instantiate(buildingBlueprint,
+                Instantiate(Blueprint,
                     ActiveBuildingHolder.transform.position + new Vector3(0f, 1f, 0f),
                     Quaternion.identity);
             ActiveBuildingHolder.BuildingOnTop = buildingInstance;
-            ActiveResourceContainer -= buildingBlueprint.Cost;
+            ActiveResourceContainer -= Blueprint.Cost;
             ActiveBuildingHolder = null;
-            TurnManager.Instance.CurrentPossibleActions["Build"]--;
-            VisibilityManager.HideAll();
-            BuildingDropdownHandler.Instance.UpdateContent();
+
+            OnBuild?.Invoke();
         }
     }
 
     private bool CanBuild(BuildingBase blueprint)
     {
-        Cost cost = blueprint.Cost;
         return
-            ActiveBuildingHolder != null &&
-            ActiveBuildingHolder.BuildingOnTop == null &&
-            ActiveResourceContainer.HasEnoughFor(cost) &&
+            ActiveBuildingHolder != null ? ActiveBuildingHolder.IsEmpty : true &&
+            ActiveResourceContainer.HasEnoughFor(blueprint.Cost) &&
             TurnManager.Instance.CurrentPossibleActions["Build"] > 0;
     }
 }

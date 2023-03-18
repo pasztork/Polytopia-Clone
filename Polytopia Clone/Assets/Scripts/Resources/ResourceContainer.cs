@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
-
 
 public class ResourceContainer : MonoBehaviour
 {
-    // This should only be used by those objects that produce resources
-    public delegate void ProduceDelegate();
-    public event ProduceDelegate Produce;
+    public event Action Produce;
 
     public IList<ProducerBase> Producers { get; private set; }
 
