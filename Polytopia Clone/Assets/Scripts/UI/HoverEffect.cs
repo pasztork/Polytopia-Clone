@@ -32,7 +32,7 @@ public class HoverEffect : MonoBehaviour
             if (HoverManager.Instance.Selected != this && hoverEffect == this)
                 Reset();
         };
-        Plane.Instance.OnPlaneClick += Reset;
+        View.Plane.Instance.OnPlaneClick += Reset;
     }
 
     private void OnMouseEnter()

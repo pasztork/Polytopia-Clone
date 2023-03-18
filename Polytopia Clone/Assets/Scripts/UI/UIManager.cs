@@ -17,15 +17,20 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         TurnManager.Instance.StartTurn += HideAll;
-        Plane.Instance.OnPlaneClick += HideAll;
+        View.Plane.Instance.OnPlaneClick += HideAll;
         BuildManager.Instance.OnBuild += HideAll;
         TrainManager.Instance.OnTrain += HideAll;
     }
 
     public void HideAll()
     {
+<<<<<<< Updated upstream
         MapManager.Instance.SelectedTile = null;
         BuildManager.Instance.ActiveTileHolder = null;
         TrainManager.Instance.ActiveTileHolder = null;
+=======
+        Controller.MapManager.Instance.SelectedTile = null;
+        BuildManager.Instance.ActiveBuildingHolder = null;
+>>>>>>> Stashed changes
     }
 }

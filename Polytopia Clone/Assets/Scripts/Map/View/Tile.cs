@@ -9,10 +9,8 @@ public class Tile : MonoBehaviour
     private Color startColor;
     [SerializeField] private Color neighborColor;
 
-    private void Awake()
-    {
+    private void Awake() =>
         startColor = GetComponent<Renderer>().material.color;
-    }
 
     private void OnMouseEnter()
     {
@@ -22,37 +20,34 @@ public class Tile : MonoBehaviour
         HighlightNeighbors();
     }
 
-    private void OnMouseExit()
-    {
+    private void OnMouseExit() =>
         UnhighlightNeighbors();
-    }
 
     private void OnMouseDown()
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (MapManager.Instance.SelectedTile == this)
+        if (Controller.MapManager.Instance.SelectedTile == this)
         {
-            MapManager.Instance.SelectedTile = null;
+            Controller.MapManager.Instance.SelectedTile = null;
             return;
         }
 
-        MapManager.Instance.SelectedTile = this;
-
+        Controller.MapManager.Instance.SelectedTile = this;
     }
 
     private void HighlightNeighbors()
     {
         foreach (Tile neighbor in Neighbors)
-            if (MapManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
+            if (Controller.MapManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
                 neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<Renderer>().material.color + neighborColor;
     }
 
     private void UnhighlightNeighbors()
     {
         foreach (Tile neighbor in Neighbors)
-            if (MapManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
+            if (Controller.MapManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
                 neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<HoverEffect>().StartColor;
     }
 }

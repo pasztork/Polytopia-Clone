@@ -485,7 +485,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 277816173}
-  - component: {fileID: 277816172}
+  - component: {fileID: 277816175}
   - component: {fileID: 277816174}
   m_Layer: 0
   m_Name: MapManager
@@ -494,26 +494,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &277816172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277816171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c6f9d21a69fa674eb30ef2e403459df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grassTile: {fileID: 9167121083804675461, guid: 623f7f3e4a4704143a8390a912d515e4, type: 3}
-  sandTile: {fileID: 9167121083804675461, guid: 9e548f36ebb79f1408d3895d41725602, type: 3}
-  waterTile: {fileID: 9167121083804675461, guid: a4988970db42dc04baca511593bba24d, type: 3}
-  mountainTile: {fileID: 9167121083804675461, guid: 06f9069c6056e27498d6bc2bff4c8f86, type: 3}
-  size: 16
-  scale: 0.1
-  waterProbability: 0.4
-  mountainProbability: 0.2
 --- !u!4 &277816173
 Transform:
   m_ObjectHideFlags: 0
@@ -521,8 +501,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277816171}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.270503, y: -24.423632, z: 11.219935}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -538,9 +518,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 277816171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 620f98a8634ea9147b87daa1305fdd84, type: 3}
+  m_Script: {fileID: 11500000, guid: bf6e610e58a46314988ee1e8c962b40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &277816175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277816171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 866b8abd594e2764a86ae6d7af90efba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileBlueprints:
+    m_keys:
+    - Grass
+    - Sand
+    - Rock
+    - Water
+    m_values:
+    - {fileID: 3075795380664745628, guid: 623f7f3e4a4704143a8390a912d515e4, type: 3}
+    - {fileID: 3075795380664745628, guid: 9e548f36ebb79f1408d3895d41725602, type: 3}
+    - {fileID: 3075795380664745628, guid: 06f9069c6056e27498d6bc2bff4c8f86, type: 3}
+    - {fileID: 3075795380664745628, guid: a4988970db42dc04baca511593bba24d, type: 3}
 --- !u!1 &320758662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1823,6 +1826,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1199399707}
+  - component: {fileID: 1199399708}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1849,6 +1853,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1199399708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199399704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63afd0f1c60fd554c86ca0bb18446f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapSize: 16
+  waterProbability: 0.4
 --- !u!1 &1261422996
 GameObject:
   m_ObjectHideFlags: 0
