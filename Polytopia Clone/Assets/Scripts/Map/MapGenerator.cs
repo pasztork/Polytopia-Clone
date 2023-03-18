@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// TODO: Make generator independent of type of tiles in the game
 public class MapGenerator : MonoBehaviour
 {
     [Header("Grass Chunk")]
