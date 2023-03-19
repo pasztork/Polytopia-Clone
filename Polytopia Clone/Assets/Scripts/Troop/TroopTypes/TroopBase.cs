@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class TroopBase : MonoBehaviour
@@ -7,4 +8,11 @@ public abstract class TroopBase : MonoBehaviour
     [SerializeField] private TroopProperty troopProperty;
     public Cost Cost { get => cost; }
     public TroopProperty TroopProperty { get => troopProperty; }
+
+    public event Action OnTroopClick;
+
+    private void OnMouseDown()
+    {
+        OnTroopClick?.Invoke();
+    }
 }

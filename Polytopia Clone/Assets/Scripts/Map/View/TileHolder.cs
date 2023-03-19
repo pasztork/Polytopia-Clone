@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,7 +5,7 @@ public class TileHolder : MonoBehaviour
 {
     private BuildingBase buildingOnTop;
     public BuildingBase BuildingOnTop { 
-        get => buildingOnTop; 
+        get => buildingOnTop;
         set 
         {
             if (buildingOnTop != null)
@@ -22,7 +20,7 @@ public class TileHolder : MonoBehaviour
         } 
     }
 
-    public TroopBase TroopOnTop { get; set; }
+    public TroopBase TroopOnTop;
 
     public bool HasBuilding { get => BuildingOnTop == null; }
 

@@ -39,7 +39,7 @@ public class TrainManager : MonoBehaviour
             float pos = ActiveTileHolder.gameObject.GetComponent<BoxCollider>().size.x;
             TroopBase troopInstance =
                 Instantiate(Blueprint,
-                    ActiveTileHolder.transform.position + new Vector3(pos, 1f, pos),
+                    ActiveTileHolder.transform.position + new Vector3(pos, 1.5f, pos),
                     Blueprint.gameObject.transform.rotation);
             ActiveTileHolder.TroopOnTop = troopInstance;
             ActiveResourceContainer -= Blueprint.Cost;
