@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (TroopManager.Instance.SelectedTroop?.Tiles.Contains(this) ?? false)
+        if (false)
         {
             GetComponent<Renderer>().material.color = hoverColor;
             return;
@@ -42,7 +42,7 @@ public class Tile : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (TroopManager.Instance.SelectedTroop?.Tiles.Contains(this) ?? false)
+        if (false)
         {
             GetComponent<Renderer>().material.color = selectColor;
             return;

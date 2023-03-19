@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -732,6 +732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6e610e58a46314988ee1e8c962b40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 16
+  waterProbability: 0.4
 --- !u!114 &277816175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,8 +918,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 443467187}
-  - component: {fileID: 443467186}
-  - component: {fileID: 443467188}
+  - component: {fileID: 443467189}
   m_Layer: 0
   m_Name: AlicePlayer
   m_TagString: Untagged
@@ -925,23 +926,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &443467186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443467185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca6da303f938f244b8b7d4ac824206da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  username: Alice
-  startingBuildings:
-  - Farm
-  startingTroops:
-  - Warrior
 --- !u!4 &443467187
 Transform:
   m_ObjectHideFlags: 0
@@ -957,7 +941,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &443467188
+--- !u!114 &443467189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -966,15 +950,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 443467185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd676dd41b1f9814abeb48d3f3ef5cf9, type: 3}
+  m_Script: {fileID: 11500000, guid: 204ffeb058082614a9fb2b67f904664d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyCount: 0
-  materialCount: 0
-  foodCount: 0
-  baseMoneyProductionRate: 10
-  baseMaterialProductionRate: 10
-  baseFoodProductionRate: 10
+  name: Alice
 --- !u!1 &464702764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,50 +1912,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746908161}
   m_CullTransparentMesh: 1
---- !u!1 &760866072
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 760866073}
-  - component: {fileID: 760866074}
-  m_Layer: 0
-  m_Name: TroopManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &760866073
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760866072}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1199399707}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &760866074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760866072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 381bf76a5e0158b4c9e77cf1158cf06b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &770370847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,7 +2267,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1199399707}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &798907984
 MonoBehaviour:
@@ -3020,8 +2955,6 @@ Transform:
   - {fileID: 1946144601}
   - {fileID: 1779191799}
   - {fileID: 1286251067}
-  - {fileID: 1990352744}
-  - {fileID: 760866073}
   - {fileID: 798907983}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -3038,8 +2971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63afd0f1c60fd554c86ca0bb18446f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: 16
-  waterProbability: 0.4
 --- !u!1 &1261422996
 GameObject:
   m_ObjectHideFlags: 0
@@ -3184,8 +3115,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1286251067}
-  - component: {fileID: 1286251068}
   - component: {fileID: 1286251070}
+  - component: {fileID: 1286251071}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -3208,18 +3139,6 @@ Transform:
   m_Father: {fileID: 1199399707}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1286251068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286251066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b9ecf72e5130924c991e3826fb43ec3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1286251070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3230,6 +3149,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2147423aba9c0f348b71997eb9655f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1286251071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286251066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17559ff5574368943986c31b35a43b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1359472246
@@ -3393,7 +3324,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1779191800}
-        m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Controller.BuildManager, Assembly-CSharp
         m_MethodName: Build
         m_Mode: 1
         m_Arguments:
@@ -4023,8 +3954,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1946144602}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: NextPlayer
+        m_TargetAssemblyTypeName: Controller.TurnManager, Assembly-CSharp
+        m_MethodName: FinishTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4081,8 +4012,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1574090547}
-  - component: {fileID: 1574090546}
-  - component: {fileID: 1574090548}
+  - component: {fileID: 1574090549}
   m_Layer: 0
   m_Name: BobPlayer
   m_TagString: Untagged
@@ -4090,23 +4020,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1574090546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574090545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca6da303f938f244b8b7d4ac824206da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  username: Bob
-  startingBuildings:
-  - City
-  startingTroops:
-  - Warrior
 --- !u!4 &1574090547
 Transform:
   m_ObjectHideFlags: 0
@@ -4122,7 +4035,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1574090548
+--- !u!114 &1574090549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4131,15 +4044,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1574090545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd676dd41b1f9814abeb48d3f3ef5cf9, type: 3}
+  m_Script: {fileID: 11500000, guid: 204ffeb058082614a9fb2b67f904664d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyCount: 0
-  materialCount: 0
-  foodCount: 0
-  baseMoneyProductionRate: 10
-  baseMaterialProductionRate: 10
-  baseFoodProductionRate: 10
+  name: Bob
 --- !u!1 &1632069492
 GameObject:
   m_ObjectHideFlags: 0
@@ -4195,6 +4103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bea71084e47584cad00fde88232e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropdown: {fileID: 0}
 --- !u!114 &1632069495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4891,7 +4800,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89283e620d1a9fe41810cc735b5451f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingBlueprints: {fileID: 11400000, guid: cc58a184eaf14324ba63ce1bb5931330, type: 2}
+  blueprints:
+    m_keys:
+    - Bank
+    - City
+    - Farm
+    - Supplier
+    m_values:
+    - {fileID: 745713856436684065, guid: f79534cdcfa6f954fb2d1e563b75c3d3, type: 3}
+    - {fileID: 4787953681856402325, guid: 63baf07eac0846d4783a8369d8f4f4fd, type: 3}
+    - {fileID: 3568811158906727637, guid: 7028d18608f301247815865b28cf234c, type: 3}
+    - {fileID: 6679960410637966285, guid: 28075208b8a5552469c0c4055a509753, type: 3}
 --- !u!1 &1821650438
 GameObject:
   m_ObjectHideFlags: 0
@@ -5070,10 +4989,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1946144600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162cb1f6c1cb6944aacea9ca7d3603dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 3deb7434148fc4b43836c603bf4c4a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseActionTracker: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
+  baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
 --- !u!1 &1954401895
 GameObject:
   m_ObjectHideFlags: 0
@@ -5178,51 +5097,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954401895}
   m_CullTransparentMesh: 1
---- !u!1 &1990352742
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1990352744}
-  - component: {fileID: 1990352743}
-  m_Layer: 0
-  m_Name: TrainManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1990352743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990352742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00c8aef3da0560b4cbe126e39e97f6fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  troopBlueprints: {fileID: 11400000, guid: 1831df08a1801f14a8b65cec90145277, type: 2}
---- !u!4 &1990352744
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990352742}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1199399707}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2071209609
 GameObject:
   m_ObjectHideFlags: 0
@@ -5307,7 +5181,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1990352743}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TrainManager, Assembly-CSharp
         m_MethodName: Train
         m_Mode: 1

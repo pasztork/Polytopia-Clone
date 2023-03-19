@@ -1,7 +1,6 @@
 ﻿namespace Model
 {
-    public class NonTraversableTile : TileBase
+    public abstract class NonTraversableTile : TileBase
     {
-
     }
 }

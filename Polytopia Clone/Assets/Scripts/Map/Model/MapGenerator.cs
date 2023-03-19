@@ -10,8 +10,6 @@ namespace Model
                 instance ??= new MapGenerator();
                 return instance;
             }
-
-            private set => instance = value;
         }
 
         private TileBase[,] tiles;

@@ -10,14 +10,11 @@
                 instance ??= new GameManager();
                 return instance;
             }
-
-            private set => instance = value;
         }
 
-        public void Start(int mapSize, float waterProbability)
+        public void Start()
         {
-            MapManager.Instance.Size = mapSize;
-            MapManager.Instance.GenerateMap(waterProbability);
+            TurnManager.Instance.Start();
         }
     }
 }

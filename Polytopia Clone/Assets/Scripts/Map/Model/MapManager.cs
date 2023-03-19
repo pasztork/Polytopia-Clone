@@ -12,19 +12,20 @@ namespace Model
                 instance ??= new MapManager();
                 return instance;
             }
-            private set => instance = value;
         }
 
         private int size;
         public int Size
         {
-            private get => size;
             set
             {
                 size = value;
                 tiles = new TileBase[size, size];
             }
         }
+
+        private float waterProbability;
+        public float WaterProbabilty { get => waterProbability; set => waterProbability = value; }
 
         private TileBase[,] tiles;
         public TileBase[,] Tiles
@@ -35,10 +36,8 @@ namespace Model
 
         public TileBase SelectedTile { get; set; }
 
-        public void GenerateMap(float nonTraversableTileProbability)
-        {
-            MapGenerator.Instance.GenerateMap(nonTraversableTileProbability);
-        }
+        public void GenerateMap() =>
+            MapGenerator.Instance.GenerateMap(waterProbability);
 
         public void LoadMap()
         {

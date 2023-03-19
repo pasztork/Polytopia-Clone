@@ -12,9 +12,19 @@ namespace Controller
         public event Action OnViewMappedToModel;
         public event Action<Tile> OnTileSelected;
 
+        [SerializeField] private int size;
+        public int Size { get => size; }
+
+        [SerializeField] private float waterProbability;
+        public float WaterProbability { get => waterProbability; }
+
         private Model.TileBase[,] tiles;
 
-        private Dictionary<Tile, Model.TileBase> viewToModelMap;
+        public Dictionary<Tile, Model.TileBase> ViewToModelMap { get; }
+            = new Dictionary<Tile, Model.TileBase>();
+
+        public Dictionary<Model.TileBase, Tile> ModelToViewMap { get; }
+            = new Dictionary<Model.TileBase, Tile>();
 
         private Tile selectedTile;
         public Tile SelectedTile
@@ -57,11 +67,15 @@ namespace Controller
 
         private void MapViewToModel(Tile[,] viewTiles)
         {
-            viewToModelMap = new Dictionary<Tile, Model.TileBase>();
             int size = tiles.GetLength(0);
             for (int x = 0; x < size; ++x)
+            {
                 for (int y = 0; y < size; ++y)
-                    viewToModelMap[viewTiles[x, y]] = tiles[x, y];
+                {
+                    ViewToModelMap[viewTiles[x, y]] = tiles[x, y];
+                    ModelToViewMap[tiles[x, y]] = viewTiles[x, y];
+                }
+            }
 
             OnViewMappedToModel?.Invoke();
         }
