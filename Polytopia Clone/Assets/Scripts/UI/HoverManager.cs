@@ -5,8 +5,8 @@ public class HoverManager : MonoBehaviour
 {
     public static HoverManager Instance { get; private set; }
 
-    public event Action<HoverEffect> OnTileClicked;
-    public event Action<HoverEffect> OnTileExited;
+    public event Action<HoverEffect> OnClicked;
+    public event Action<HoverEffect> OnExited;
 
     public HoverEffect Selected { get; set; }
 
@@ -20,13 +20,13 @@ public class HoverManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AnnounceOnClickEvent(HoverEffect hoverEffect)
+    public void AnnounceOnClickedEvent(HoverEffect hoverEffect)
     {
-        OnTileClicked?.Invoke(hoverEffect);
+        OnClicked?.Invoke(hoverEffect);
     }
 
-    public void AnnounceOnExitEvent(HoverEffect hoverEffect)
+    public void AnnounceOnExitedEvent(HoverEffect hoverEffect)
     {
-        OnTileExited?.Invoke(hoverEffect);
+        OnExited?.Invoke(hoverEffect);
     }
 }

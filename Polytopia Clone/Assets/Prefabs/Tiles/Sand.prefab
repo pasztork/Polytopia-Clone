@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 309509902570223260}
   - component: {fileID: 863268850090957838}
   - component: {fileID: 3075795380664745628}
-  - component: {fileID: 5971991316555320416}
   - component: {fileID: 5791034713053712318}
   m_Layer: 0
   m_Name: Sand
@@ -112,20 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5329d3ac65abda643a4f32d1a925a20f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighborColor: {r: 0.78431374, g: 0, b: 1, a: 0.11764706}
---- !u!114 &5971991316555320416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9167121083804675461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3df49a69dc2a99f44b88bc249a9bcc84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   hoverColor: {r: 1, g: 1, b: 0, a: 0.5882353}
+  neighborColor: {r: 0.78431374, g: 0, b: 1, a: 0.11764706}
 --- !u!114 &5791034713053712318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,3 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708601a017cfd5d43b6292fa77158c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TroopOnTop: {fileID: 0}

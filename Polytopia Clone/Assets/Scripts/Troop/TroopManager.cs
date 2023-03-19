@@ -1,12 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class TroopManager : MonoBehaviour
 {
     public static TroopManager Instance { get; private set; }
 
-    public TroopBase SelectedTroop { get; set; }
+    public event Action<TroopBase> OnTroopSelected;
+
+    private TroopBase selectedTroop;
+    public TroopBase SelectedTroop
+    {
+        get => selectedTroop;
+        set
+        {
+            selectedTroop = value;
+            HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTroop);
+            OnTroopSelected?.Invoke(selectedTroop);
+        }
+    }
 
     private void Awake()
     {
@@ -16,5 +27,18 @@ public class TroopManager : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        HighlightManager.Instance.MonoBehaviourSelected += (monoBehaviour) =>
+        {
+            if (selectedTroop == monoBehaviour)
+                return;
+
+            TroopBase original = selectedTroop;
+            selectedTroop = null;
+            original?.Deselect();
+        };
     }
 }

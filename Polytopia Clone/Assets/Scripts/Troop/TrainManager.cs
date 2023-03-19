@@ -5,6 +5,7 @@ public class TrainManager : MonoBehaviour
 {
     public static TrainManager Instance { get; private set; }
 
+    public event Action<TroopBase> OnTroopClicked;
     public event Action OnTrain;
     public event Action OnTrainAttempted;
 
@@ -30,12 +31,13 @@ public class TrainManager : MonoBehaviour
     public void Train()
     {
         OnTrainAttempted.Invoke();
-        if(Blueprint == null)
+        if (Blueprint == null)
         {
             return;
         }
 
-        if (CanTrain(Blueprint)) { 
+        if (CanTrain(Blueprint))
+        {
             float pos = ActiveTileHolder.gameObject.GetComponent<BoxCollider>().size.x;
             TroopBase troopInstance =
                 Instantiate(Blueprint,

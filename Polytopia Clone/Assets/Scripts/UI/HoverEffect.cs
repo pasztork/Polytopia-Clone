@@ -17,7 +17,7 @@ public class HoverEffect : MonoBehaviour
     private void Start()
     {
         TurnManager.Instance.StartTurn += Reset;
-        HoverManager.Instance.OnTileClicked += (hoverEffect) =>
+        HoverManager.Instance.OnClicked += (hoverEffect) =>
         {
             if (hoverEffect == this)
             {
@@ -27,7 +27,7 @@ public class HoverEffect : MonoBehaviour
             Reset();
 
         };
-        HoverManager.Instance.OnTileExited += (hoverEffect) =>
+        HoverManager.Instance.OnExited += (hoverEffect) =>
         {
             if (HoverManager.Instance.Selected != this && hoverEffect == this)
                 Reset();
@@ -43,14 +43,14 @@ public class HoverEffect : MonoBehaviour
 
     private void OnMouseExit()
     {
-        HoverManager.Instance.AnnounceOnExitEvent(this);
+        HoverManager.Instance.AnnounceOnExitedEvent(this);
     }
 
     private void OnMouseDown()
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            HoverManager.Instance.AnnounceOnClickEvent(this);
+            HoverManager.Instance.AnnounceOnClickedEvent(this);
             HoverManager.Instance.Selected = this;
         }
     }

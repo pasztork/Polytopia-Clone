@@ -10,12 +10,23 @@ namespace Controller
         public static MapManager Instance { get; private set; }
 
         public event Action OnViewMappedToModel;
+        public event Action<Tile> OnTileSelected;
 
         private Model.TileBase[,] tiles;
 
         private Dictionary<Tile, Model.TileBase> viewToModelMap;
 
-        public Tile SelectedTile { get; set; }
+        private Tile selectedTile;
+        public Tile SelectedTile
+        {
+            get => selectedTile;
+            set
+            {
+                selectedTile = value;
+                OnTileSelected?.Invoke(selectedTile);
+                HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTile);
+            }
+        }
 
         private void Awake()
         {
@@ -32,6 +43,16 @@ namespace Controller
             tiles = Model.MapManager.Instance.Tiles;
             MapBuilder.Instance.OnMapBuilt += MapViewToModel;
             MapBuilder.Instance.BuildMapGFX(tiles);
+
+            HighlightManager.Instance.MonoBehaviourSelected += (monoBehaviour) =>
+            {
+                if (selectedTile == monoBehaviour)
+                    return;
+
+                Tile original = selectedTile;
+                selectedTile = null;
+                original?.Deselect();
+            };
         }
 
         private void MapViewToModel(Tile[,] viewTiles)

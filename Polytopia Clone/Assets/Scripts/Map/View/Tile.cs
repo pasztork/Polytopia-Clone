@@ -6,36 +6,39 @@ public class Tile : MonoBehaviour
 {
     public List<Tile> Neighbors { get; } = new List<Tile>();
 
-    private Color startColor;
+    public Color StartColor;
+    [SerializeField] private Color hoverColor;
     [SerializeField] private Color neighborColor;
 
-    private void Awake() =>
-        startColor = GetComponent<Renderer>().material.color;
+    private void Awake()
+    {
+        StartColor = GetComponent<Renderer>().material.color;
+        Controller.MapManager.Instance.OnTileSelected += (tile) =>
+        {
+            if (tile == this)
+                return;
+
+            GetComponent<Renderer>().material.color = StartColor;
+        };
+    }
 
     private void OnMouseEnter()
     {
         if (EventSystem.current.IsPointerOverGameObject())
+        {
+            Deselect();
             return;
+        }
 
+        GetComponent<Renderer>().material.color = hoverColor;
         HighlightNeighbors();
     }
 
     private void OnMouseExit() =>
-        UnhighlightNeighbors();
+        Deselect();
 
-    private void OnMouseDown()
-    {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-
-        if (Controller.MapManager.Instance.SelectedTile == this)
-        {
-            Controller.MapManager.Instance.SelectedTile = null;
-            return;
-        }
-
-        Controller.MapManager.Instance.SelectedTile = this;
-    }
+    private void OnMouseDown() =>
+        Select();
 
     private void HighlightNeighbors()
     {
@@ -48,6 +51,31 @@ public class Tile : MonoBehaviour
     {
         foreach (Tile neighbor in Neighbors)
             if (Controller.MapManager.Instance.SelectedTile?.gameObject != neighbor.gameObject)
-                neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<HoverEffect>().StartColor;
+                neighbor.GetComponent<Renderer>().material.color = neighbor.GetComponent<Tile>().StartColor;
+    }
+
+    public void Select()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            Deselect();
+            return;
+        }
+
+        if (Controller.MapManager.Instance.SelectedTile == this)
+        {
+            Controller.MapManager.Instance.SelectedTile = null;
+            return;
+        }
+
+        Controller.MapManager.Instance.SelectedTile = this;
+    }
+
+    public void Deselect()
+    {
+        UnhighlightNeighbors();
+
+        if (Controller.MapManager.Instance.SelectedTile != this)
+            GetComponent<Renderer>().material.color = StartColor;
     }
 }
