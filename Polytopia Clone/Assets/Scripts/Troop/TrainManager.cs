@@ -5,6 +5,7 @@ public class TrainManager : MonoBehaviour
 {
     public static TrainManager Instance { get; private set; }
 
+    public event Action<TroopBase> OnTroopClicked;
     public event Action OnTrain;
     public event Action OnTrainAttempted;
 
@@ -43,7 +44,6 @@ public class TrainManager : MonoBehaviour
                     ActiveTileHolder.transform.position + new Vector3(pos, 1.5f, pos),
                     Blueprint.gameObject.transform.rotation);
             ActiveTileHolder.TroopOnTop = troopInstance;
-            troopInstance.Tile = ActiveTileHolder.gameObject.GetComponent<Tile>();
             ActiveResourceContainer -= Blueprint.Cost;
             ActiveTileHolder = null;
 
