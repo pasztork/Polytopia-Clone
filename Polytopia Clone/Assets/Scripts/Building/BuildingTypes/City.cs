@@ -13,8 +13,9 @@ public class City : BuildingBase
         SetupProducer(new FoodProducer(resourceContainer, productionRate));
     }
 
-    private void OnMouseDown()
+    protected override void OnMouseDown()
     {
-        InvokeOnBuildingClick();
+        base.OnMouseDown();
+        FireOnBuildingClickedEvent();
     }
 }

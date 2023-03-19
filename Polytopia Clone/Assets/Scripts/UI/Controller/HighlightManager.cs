@@ -17,6 +17,12 @@ public class HighlightManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        TurnManager.Instance.StartTurn +=
+            () => FireMonoBehaviourSelectedEvent(null);
+    }
+
     public void FireMonoBehaviourSelectedEvent(MonoBehaviour monoBehaviour) =>
         MonoBehaviourSelected(monoBehaviour);
 }
