@@ -13,8 +13,10 @@ namespace Model
         public IList<string> AvailableBuildings { get => availableBuildings; set => availableBuildings = value; }
 
 
-        public Player()
+        public Player(string name, Dictionary<string, int> actionCount)
         {
+            Name = name;
+            ActionCount = actionCount;
             TurnManager.Instance.PlayerCreated(this);
         }
 

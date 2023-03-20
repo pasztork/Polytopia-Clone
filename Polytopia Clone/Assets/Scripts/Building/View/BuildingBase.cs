@@ -10,6 +10,7 @@ namespace View
 
         [Header("Cost Settings")]
         [SerializeField] protected Controller.Cost cost;
+        public Controller.Cost Cost { get => cost; }
 
         [Header("Production Settings")]
         [SerializeField] protected int productionRate;

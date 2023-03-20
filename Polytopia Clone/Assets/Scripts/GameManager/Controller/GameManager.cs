@@ -10,11 +10,6 @@ namespace Controller
             Model.MapManager.Instance.GenerateMap();
         }
 
-        private void OnEnable()
-        {
-            SetupTurnManager();
-        }
-
         private void Start()
         {
             Model.GameManager.Instance.Start();
@@ -24,12 +19,6 @@ namespace Controller
         {
             Model.MapManager.Instance.Size = MapManager.Instance.Size;
             Model.MapManager.Instance.WaterProbabilty = MapManager.Instance.WaterProbability;
-        }
-
-        private void SetupTurnManager()
-        {
-            Model.TurnManager.Instance.BaseActionCount =
-                TurnManager.Instance.BaseActionCount.CreateDictionary();
         }
     }
 }

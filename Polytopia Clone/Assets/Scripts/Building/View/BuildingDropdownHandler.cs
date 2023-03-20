@@ -26,8 +26,12 @@ namespace View
             dropdown.ClearOptions();
             IList<string> availableBuildings = player.AvailableBuildings;
             foreach (string buildingName in availableBuildings)
-                if (Model.TurnManager.Instance.CurrentActionCount["Build"] > 0)
+            {
+                BuildingBase building = buildings[buildingName];
+                Model.Cost cost = new Model.Cost(building.Cost.MoneyCost, building.Cost.MaterialCost, building.Cost.FoodCost);
+                if (player.ResourceContainer.HasEnoughFor(cost) && Model.TurnManager.Instance.CurrentActionCount["Build"] > 0)
                     dropdown.options.Add(new TMP_Dropdown.OptionData() { text = buildingName });
+            }
             dropdown.value = 0;
             dropdown.RefreshShownValue();
         }

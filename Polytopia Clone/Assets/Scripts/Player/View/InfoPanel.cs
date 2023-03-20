@@ -20,18 +20,16 @@ namespace View
                 return;
             }
             Instance = this;
-        }
-
-        private void Start()
-        {
             Model.TurnManager.Instance.OnTurnStarted += UpdateContent;
             Model.BuildManager.Instance.OnBuildingBuilt += UpdateContent;
         }
 
+        private void Start()
+        {
+        }
+
         public void UpdateContent(Model.Player player)
         {
-            Debug.Log("UpdateContent called");
-            Debug.Log(player.Name);
             nameText.text = player.Name;
             Model.ResourceContainer resourceContainer = player.ResourceContainer;
             moneyText.text = $"Money: {resourceContainer.MoneyCount}";

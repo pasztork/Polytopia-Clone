@@ -17,8 +17,6 @@ namespace Model
 
         public event Action<Player> OnTurnStarted;
 
-        public Dictionary<string, int> BaseActionCount { private get; set; }
-
         public Dictionary<string, int> CurrentActionCount { get; private set; }
 
         public Player CurrentPlayer { get; private set; }
@@ -55,7 +53,6 @@ namespace Model
         public void PlayerCreated(Player player)
         {
             players.AddFirst(player);
-            player.ActionCount = CopyDictionary(BaseActionCount);
         }
 
         public Dictionary<string, int> CopyDictionary(Dictionary<string, int> original)
