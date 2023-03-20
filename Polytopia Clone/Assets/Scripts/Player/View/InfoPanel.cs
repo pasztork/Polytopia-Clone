@@ -22,8 +22,11 @@ namespace View
             Instance = this;
         }
 
-        private void Start() =>
+        private void Start()
+        {
             Model.TurnManager.Instance.OnTurnStarted += UpdateContent;
+            Model.BuildManager.Instance.OnBuildingBuilt += UpdateContent;
+        }
 
         public void UpdateContent(Model.Player player)
         {

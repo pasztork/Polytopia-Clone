@@ -954,6 +954,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Alice
+  startingBuildings:
+  - City
   baseProduction:
     m_keys:
     - Money
@@ -2108,6 +2110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e16206027b2d6c458295100dfea6f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildings:
+    m_keys:
+    - City
+    m_values:
+    - {fileID: 4787953681856402325, guid: 63baf07eac0846d4783a8369d8f4f4fd, type: 3}
 --- !u!1 &781778728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,7 +2280,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1199399707}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &798907984
 MonoBehaviour:
@@ -2938,7 +2945,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1199399707}
   - component: {fileID: 1199399708}
-  - component: {fileID: 1199399709}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2959,10 +2965,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 277816173}
-  - {fileID: 1946144601}
   - {fileID: 1779191799}
   - {fileID: 1286251067}
   - {fileID: 798907983}
+  - {fileID: 1736152996}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2978,19 +2984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63afd0f1c60fd554c86ca0bb18446f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1199399709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199399704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3deb7434148fc4b43836c603bf4c4a27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
 --- !u!1 &1261422996
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,7 +3150,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1199399707}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1286251070
 MonoBehaviour:
@@ -3973,7 +3966,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1199399709}
+      - m_Target: {fileID: 1736152997}
         m_TargetAssemblyTypeName: Controller.TurnManager, Assembly-CSharp
         m_MethodName: FinishTurn
         m_Mode: 1
@@ -4068,6 +4061,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Bob
+  startingBuildings:
+  - City
   baseProduction:
     m_keys:
     - Money
@@ -4631,6 +4626,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733627259}
   m_CullTransparentMesh: 1
+--- !u!1 &1736152995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1736152996}
+  - component: {fileID: 1736152997}
+  m_Layer: 0
+  m_Name: TurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1736152996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736152995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1199399707}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1736152997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736152995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3deb7434148fc4b43836c603bf4c4a27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
 --- !u!1 &1747506771
 GameObject:
   m_ObjectHideFlags: 0
@@ -4798,7 +4838,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1199399707}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1779191800
 MonoBehaviour:
@@ -4960,37 +5000,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1821650438}
   m_CullTransparentMesh: 1
---- !u!1 &1946144600
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1946144601}
-  m_Layer: 0
-  m_Name: TurnManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1946144601
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1946144600}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1199399707}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954401895
 GameObject:
   m_ObjectHideFlags: 0

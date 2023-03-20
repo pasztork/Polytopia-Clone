@@ -14,6 +14,7 @@
             city.Producers.Add(new Model.MoneyProducer(player.ResourceContainer, productionRate));
             city.Producers.Add(new Model.MaterialProducer(player.ResourceContainer, productionRate));
             city.Producers.Add(new Model.FoodProducer(player.ResourceContainer, productionRate));
+            city.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return city;
         }
     }

@@ -10,7 +10,7 @@ namespace Model
         public string Name { get; set; }
 
         private IList<string> availableBuildings = new List<string>();
-        public IList<string> AvailableBuildings { get => availableBuildings; }
+        public IList<string> AvailableBuildings { get => availableBuildings; set => availableBuildings = value; }
 
 
         public Player()

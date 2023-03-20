@@ -9,7 +9,7 @@ namespace View
         public event Action OnBuildingClicked;
 
         [Header("Cost Settings")]
-        [SerializeField] private Controller.Cost cost;
+        [SerializeField] protected Controller.Cost cost;
 
         [Header("Production Settings")]
         [SerializeField] protected int productionRate;
