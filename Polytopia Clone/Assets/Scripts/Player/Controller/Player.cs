@@ -5,14 +5,14 @@ namespace Controller
     public class Player : MonoBehaviour
     {
         [SerializeField] private new string name;
+        [SerializeField] private SerializableDictionary<string, int> baseProduction;
 
         private void Start()
         {
-            TurnManager.Instance.OnCreated += () =>
-            {
-                Model.Player player = new Model.Player();
-                player.Name = name;
-            };
+            Model.Player player = new Model.Player { Name = name };
+            player.ResourceContainer.BaseMoneyProduction = baseProduction["Money"];
+            player.ResourceContainer.BaseMaterialProduction = baseProduction["Material"];
+            player.ResourceContainer.BaseFoodProduction = baseProduction["Food"];
         }
     }
 }

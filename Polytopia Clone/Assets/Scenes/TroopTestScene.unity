@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 267281}
   - component: {fileID: 267280}
   - component: {fileID: 267283}
-  - component: {fileID: 267282}
+  - component: {fileID: 267284}
   m_Layer: 5
   m_Name: TopPanel
   m_TagString: Untagged
@@ -205,22 +205,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267278}
   m_CullTransparentMesh: 1
---- !u!114 &267282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 267278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3016edd1f6ffbe64987eb5c63ebebac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyText: {fileID: 1530248599}
-  materialText: {fileID: 230891564}
-  foodText: {fileID: 621209046}
-  nameText: {fileID: 1821650440}
 --- !u!114 &267283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +231,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &267284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75465ff27976dd444b88cc382ee8b607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyText: {fileID: 1530248599}
+  materialText: {fileID: 230891564}
+  foodText: {fileID: 621209046}
+  nameText: {fileID: 1821650440}
 --- !u!1 &27519550
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,6 +954,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Alice
+  baseProduction:
+    m_keys:
+    - Money
+    - Material
+    - Food
+    m_values: 050000000500000005000000
 --- !u!1 &464702764
 GameObject:
   m_ObjectHideFlags: 0
@@ -2932,6 +2938,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1199399707}
   - component: {fileID: 1199399708}
+  - component: {fileID: 1199399709}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2971,6 +2978,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63afd0f1c60fd554c86ca0bb18446f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1199399709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199399704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3deb7434148fc4b43836c603bf4c4a27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
 --- !u!1 &1261422996
 GameObject:
   m_ObjectHideFlags: 0
@@ -3953,7 +3973,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1946144602}
+      - m_Target: {fileID: 1199399709}
         m_TargetAssemblyTypeName: Controller.TurnManager, Assembly-CSharp
         m_MethodName: FinishTurn
         m_Mode: 1
@@ -4048,6 +4068,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Bob
+  baseProduction:
+    m_keys:
+    - Money
+    - Material
+    - Food
+    m_values: 050000000500000005000000
 --- !u!1 &1632069492
 GameObject:
   m_ObjectHideFlags: 0
@@ -4060,7 +4086,6 @@ GameObject:
   - component: {fileID: 1632069497}
   - component: {fileID: 1632069496}
   - component: {fileID: 1632069495}
-  - component: {fileID: 1632069494}
   m_Layer: 5
   m_Name: TrainingTypeDropdown
   m_TagString: Untagged
@@ -4091,19 +4116,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1632069494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1632069492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99bea71084e47584cad00fde88232e96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropdown: {fileID: 0}
 --- !u!114 &1632069495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4957,7 +4969,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1946144601}
-  - component: {fileID: 1946144602}
   m_Layer: 0
   m_Name: TurnManager
   m_TagString: Untagged
@@ -4980,19 +4991,6 @@ Transform:
   m_Father: {fileID: 1199399707}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1946144602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1946144600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3deb7434148fc4b43836c603bf4c4a27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
 --- !u!1 &1954401895
 GameObject:
   m_ObjectHideFlags: 0

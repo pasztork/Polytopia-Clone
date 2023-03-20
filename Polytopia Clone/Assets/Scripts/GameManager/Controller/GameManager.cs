@@ -10,9 +10,13 @@ namespace Controller
             Model.MapManager.Instance.GenerateMap();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             SetupTurnManager();
+        }
+
+        private void Start()
+        {
             Model.GameManager.Instance.Start();
         }
 

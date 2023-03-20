@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Controller
@@ -7,8 +6,6 @@ namespace Controller
     public class TurnManager : MonoBehaviour
     {
         public static TurnManager Instance { get; private set; }
-
-        public event Action OnCreated;
 
         [SerializeField] private BaseActionCount baseActionCount;
         public BaseActionCount BaseActionCount { get => baseActionCount; }
@@ -23,11 +20,6 @@ namespace Controller
                 return;
             }
             Instance = this;
-        }
-
-        private void Start()
-        {
-            OnCreated?.Invoke();
         }
 
         public void FinishTurn() =>
