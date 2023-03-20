@@ -33,11 +33,17 @@ namespace Model
         public bool Build(TileBase tile, BuildingBase building)
         {
             if (!CanBuild(building))
+            {
+                building.StopProduction();
                 return false;
+            }
 
             bool built = tile.SetBuildingOnTop(building);
             if (!built)
+            {
+                building.StopProduction();
                 return false;
+            }
 
             ResourceContainer -= building.Cost;
             Buildings.Add(building);

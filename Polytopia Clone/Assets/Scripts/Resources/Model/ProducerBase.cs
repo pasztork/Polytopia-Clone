@@ -12,6 +12,11 @@
             resourceContainer.Produce += Produce;
         }
 
+        public void Unsubscribe()
+        {
+            resourceContainer.Produce -= Produce;
+        }
+
         public abstract void Produce();
     }
 }

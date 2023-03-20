@@ -16,5 +16,11 @@ namespace Model
             }
             set => producers = value;
         }
+
+        public void StopProduction()
+        {
+            foreach (var producer in producers)
+                producer.Unsubscribe();
+        }
     }
 }
