@@ -9,7 +9,6 @@ namespace Controller
         public static TroopManager Instance { get; private set; }
 
         public event Action OnTrainAttempted;
-        public event Action<View.TroopBase> OnTroopSelected;
 
         public Dictionary<View.TroopBase, Model.TroopBase> ViewToModelMap { get; }
             = new Dictionary<View.TroopBase, Model.TroopBase>();
@@ -27,7 +26,6 @@ namespace Controller
             set
             {
                 selectedTroop = value;
-                OnTroopSelected?.Invoke(selectedTroop);
                 View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTroop);
             }
         }
