@@ -31,7 +31,8 @@ namespace Controller
             set
             {
                 selectedTile = value;
-                View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTile);
+                if (selectedTile != null)
+                    View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTile);
             }
         }
 

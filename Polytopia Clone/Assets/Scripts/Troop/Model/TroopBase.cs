@@ -6,7 +6,7 @@ namespace Model
 {
     public abstract class TroopBase
     {
-        public event Action OnDied;
+        public event Action OnDamageTaken;
 
         public Cost Cost { get; set; }
         public TroopProperty TroopProperty { get; set; }
@@ -35,17 +35,17 @@ namespace Model
             return true;
         }
 
-        // Tells wheter or not troop died.
+        // Tells whether or not troop died.
         public bool TakeDamage(int damage)
         {
             TroopProperty.Health -= damage;
+            OnDamageTaken?.Invoke();
 
             if (TroopProperty.Health > 0)
                 return false;
 
             Player.Troops.Remove(this);
             Tile.TroopOnTop = null;
-            OnDied?.Invoke();
             return true;
         }
 

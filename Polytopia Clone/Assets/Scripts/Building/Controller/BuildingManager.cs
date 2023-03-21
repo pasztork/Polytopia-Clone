@@ -9,7 +9,6 @@ namespace Controller
         public static BuildingManager Instance { get; private set; }
 
         public event Action OnBuildAttempted;
-        public event Action<View.BuildingBase> OnBuildingSelected;
 
         public Dictionary<View.BuildingBase, Model.BuildingBase> ViewToModelMap { get; }
             = new Dictionary<View.BuildingBase, Model.BuildingBase>();
@@ -27,8 +26,8 @@ namespace Controller
             set
             {
                 selectedBuilding = value;
-                OnBuildingSelected?.Invoke(selectedBuilding);
-                View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedBuilding);
+                if (selectedBuilding != null)
+                    View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedBuilding);
             }
         }
 

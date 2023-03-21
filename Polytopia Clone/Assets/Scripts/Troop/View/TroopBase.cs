@@ -1,13 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace View
 {
     public abstract class TroopBase : MonoBehaviour
     {
-        public event Action OnTroopClicked;
-
         [Header("Cost Settings")]
         [SerializeField] protected Controller.Cost cost;
         public Controller.Cost Cost { get => cost; }
@@ -20,23 +17,21 @@ namespace View
         [SerializeField] private Color selectColor;
         private Color startColor;
 
-        public void FireOnTroopClickedEvent() =>
-            OnTroopClicked?.Invoke();
-
         public abstract Model.TroopBase ToModel(Model.Player player);
 
-        private void Start()
+        private void Awake()
         {
             startColor = GetComponent<Renderer>().material.color;
 
-            HighlightManager.Instance.OnMonoBehaviourSelected += (mono) =>
-            {
-                if (mono == this)
-                    return;
+            HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
+        }
 
-                // Controller.TrainManager.Instance.SelectedTroop = null;
-                GetComponent<Renderer>().material.color = startColor;
-            };
+        protected void DeselectIfNotSelected(MonoBehaviour mono)
+        {
+            if (mono == this)
+                return;
+
+            GetComponent<Renderer>().material.color = startColor;
         }
 
         private void OnMouseEnter()
@@ -52,6 +47,12 @@ namespace View
 
         protected virtual void OnMouseDown()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Deselect();
+                return;
+            }
+
             TroopBase selectedTroop = Controller.TroopManager.Instance.SelectedTroop;
             if (selectedTroop != this && selectedTroop != null)
             {
@@ -59,29 +60,14 @@ namespace View
                 return;
             }
 
-            Select();
+            Controller.MapManager.Instance.SelectedTile = null;
+            Controller.BuildingManager.Instance.SelectedBuilding = null;
+            Controller.TroopManager.Instance.SelectedTroop = this;
         }
 
         private void OnMouseExit()
         {
             Deselect();
-        }
-
-        public void Select()
-        {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                Deselect();
-                return;
-            }
-
-            if (Controller.TroopManager.Instance.SelectedTroop == this)
-            {
-                Controller.TroopManager.Instance.SelectedTroop = null;
-                return;
-            }
-
-            Controller.TroopManager.Instance.SelectedTroop = this;
         }
 
         public void Deselect()

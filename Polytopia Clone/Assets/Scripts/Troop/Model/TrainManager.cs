@@ -35,8 +35,7 @@ namespace Model
 
         private bool CanPutTroopOn(TileBase tile)
         {
-            return tile.TroopOnTop == null &&
-                    TurnManager.Instance.CurrentActionCount["Train"] > 0;
+            return TurnManager.Instance.CurrentActionCount["Train"] > 0;
         }
     }
 }

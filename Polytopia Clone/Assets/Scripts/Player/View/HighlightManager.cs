@@ -25,7 +25,9 @@ namespace View
                 (player) => FireMonoBehaviourSelectedEvent(null);
         }
 
-        public void FireMonoBehaviourSelectedEvent(MonoBehaviour monoBehaviour) =>
+        public void FireMonoBehaviourSelectedEvent(MonoBehaviour monoBehaviour)
+        {
             OnMonoBehaviourSelected(monoBehaviour);
+        }
     }
 }

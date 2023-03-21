@@ -53,7 +53,8 @@ namespace Model
 
         public bool Train(BuildingBase building, TroopBase troop)
         {
-            if (!ResourceContainer.HasEnoughFor(troop.Cost))
+            if (!Buildings.Contains(building) ||
+                !ResourceContainer.HasEnoughFor(troop.Cost))
                 return false;
 
             bool trained = building.Tile.TrainTroop(troop);
@@ -80,7 +81,7 @@ namespace Model
 
         public bool Attack(TroopBase attacker, TroopBase target)
         {
-            if (Troops.Contains(attacker) && Troops.Contains(target))
+            if (Troops.Contains(attacker) && Troops.Contains(target) || !Troops.Contains(attacker))
                 return false;
 
             return attacker.Attack(target);

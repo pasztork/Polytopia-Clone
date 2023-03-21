@@ -4,12 +4,18 @@
     {
         public override bool SetBuildingOnTop(BuildingBase buildingOnTop)
         {
+            if (BuildingOnTop != null)
+                return false;
+
             BuildingOnTop = buildingOnTop;
             return true;
         }
 
         public override bool TrainTroop(TroopBase troop)
         {
+            if (TroopOnTop != null)
+                return false;
+
             TroopOnTop = troop;
             return true;
         }

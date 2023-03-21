@@ -26,7 +26,8 @@ namespace Controller
             set
             {
                 selectedTroop = value;
-                View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTroop);
+                if (selectedTroop != null)
+                    View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTroop);
             }
         }
 
@@ -51,23 +52,27 @@ namespace Controller
                 return;
 
             View.BuildingBase building = BuildingManager.Instance.SelectedBuilding;
-            Model.TroopBase troop =
-                Blueprint.ToModel(Model.TurnManager.Instance.CurrentPlayer);
             Model.BuildingBase modelBuilding =
                 BuildingManager.Instance.ViewToModelMap[building];
-            bool trained =
-                Model.TrainManager.Instance.Train(modelBuilding, troop);
-
-            if (!trained)
-                return;
-
             View.Tile tile = MapManager.Instance.ModelToViewMap[modelBuilding.Tile];
             View.TroopBase viewTroop = Instantiate(Blueprint,
                 tile.transform.position + new Vector3(1f, 1.5f, 1f),
                 Quaternion.identity);
+            Model.TroopBase troop =
+                viewTroop.ToModel(Model.TurnManager.Instance.CurrentPlayer);
+            bool trained =
+                Model.TrainManager.Instance.Train(modelBuilding, troop);
+
+            if (!trained)
+            {
+                Destroy(viewTroop);
+                return;
+            }
 
             ViewToModelMap[viewTroop] = troop;
             ModelToViewMap[troop] = viewTroop;
+            BuildingManager.Instance.SelectedBuilding = null;
+            View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
 
         public void MoveSelectedTroop(View.Tile tile)
@@ -81,6 +86,7 @@ namespace Controller
 
             SelectedTroop.Move(tile);
             SelectedTroop = null;
+            View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
 
         public void Attack(View.TroopBase target)
@@ -93,6 +99,7 @@ namespace Controller
                 return;
 
             SelectedTroop = null;
+            View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
     }
 }

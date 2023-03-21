@@ -1,13 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace View
 {
     public abstract class BuildingBase : MonoBehaviour
     {
-        public event Action OnBuildingClicked;
-
         [Header("Cost Settings")]
         [SerializeField] protected Controller.Cost cost;
         public Controller.Cost Cost { get => cost; }
@@ -17,26 +14,20 @@ namespace View
 
         [Header("Highlight Settings")]
         [SerializeField] private Color hoverColor;
-        private Color StartColor;
-
-        public void FireOnBuildingClickedEvent()
-        {
-            OnBuildingClicked?.Invoke();
-        }
+        private Color startColor;
 
         public abstract Model.BuildingBase ToModel(Model.Player player);
 
-        private void Start()
+        private void Awake()
         {
-            StartColor = GetComponent<Renderer>().material.color;
+            startColor = GetComponent<Renderer>().material.color;
 
             HighlightManager.Instance.OnMonoBehaviourSelected += (mono) =>
             {
                 if (mono == this)
                     return;
 
-                // Controller.BuildManager.Instance.SelectedBuilding = null;
-                GetComponent<Renderer>().material.color = StartColor;
+                GetComponent<Renderer>().material.color = startColor;
             };
         }
 
@@ -51,13 +42,7 @@ namespace View
             GetComponent<Renderer>().material.color = hoverColor;
         }
 
-        protected virtual void OnMouseDown() =>
-            Select();
-
-        private void OnMouseExit() =>
-            Deselect();
-
-        public void Select()
+        protected virtual void OnMouseDown()
         {
             if (EventSystem.current.IsPointerOverGameObject())
             {
@@ -65,19 +50,20 @@ namespace View
                 return;
             }
 
-            if (Controller.BuildingManager.Instance.SelectedBuilding == this)
-            {
-                Controller.BuildingManager.Instance.SelectedBuilding = null;
-                return;
-            }
-
+            Controller.TroopManager.Instance.SelectedTroop = null;
+            Controller.MapManager.Instance.SelectedTile = null;
             Controller.BuildingManager.Instance.SelectedBuilding = this;
+        }
+
+        private void OnMouseExit()
+        {
+            Deselect();
         }
 
         public void Deselect()
         {
             if (Controller.BuildingManager.Instance.SelectedBuilding != this)
-                GetComponent<Renderer>().material.color = StartColor;
+                GetComponent<Renderer>().material.color = startColor;
         }
     }
 }

@@ -8,23 +8,19 @@ namespace View
     {
         public List<Tile> Neighbors { get; } = new List<Tile>();
 
-        public Color StartColor;
         [SerializeField] private Color hoverColor;
-        [SerializeField] private Color neighborColor;
-        [SerializeField] private Color selectColor;
-        public Color SelectColor { get => selectColor; private set => selectColor = value; }
+        public Color startColor;
 
         private void Awake()
         {
-            StartColor = GetComponent<Renderer>().material.color;
+            startColor = GetComponent<Renderer>().material.color;
 
             HighlightManager.Instance.OnMonoBehaviourSelected += (mono) =>
             {
                 if (mono == this)
                     return;
 
-                // Controller.BuildManager.Instance.SelectedBuilding = null;
-                GetComponent<Renderer>().material.color = StartColor;
+                GetComponent<Renderer>().material.color = startColor;
             };
         }
 
@@ -46,29 +42,27 @@ namespace View
 
         private void OnMouseDown()
         {
-            if (Controller.TroopManager.Instance.SelectedTroop != null)
-            {
-                Controller.TroopManager.Instance.MoveSelectedTroop(this);
-                return;
-            }
-            Select();
-        }
-
-        public void Select()
-        {
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 Deselect();
                 return;
             }
 
+            if (Controller.TroopManager.Instance.SelectedTroop != null)
+            {
+                Controller.TroopManager.Instance.MoveSelectedTroop(this);
+                return;
+            }
+
+            Controller.TroopManager.Instance.SelectedTroop = null;
+            Controller.BuildingManager.Instance.SelectedBuilding = null;
             Controller.MapManager.Instance.SelectedTile = this;
         }
 
         public void Deselect()
         {
             if (Controller.MapManager.Instance.SelectedTile != this)
-                GetComponent<Renderer>().material.color = StartColor;
+                GetComponent<Renderer>().material.color = startColor;
         }
     }
 }

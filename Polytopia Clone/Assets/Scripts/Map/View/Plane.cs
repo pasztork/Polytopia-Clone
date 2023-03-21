@@ -20,7 +20,12 @@ namespace View
         private void OnMouseDown()
         {
             if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                Controller.MapManager.Instance.SelectedTile = null;
+                Controller.BuildingManager.Instance.SelectedBuilding = null;
+                Controller.TroopManager.Instance.SelectedTroop = null;
                 HighlightManager.Instance.FireMonoBehaviourSelectedEvent(this);
+            }
         }
     }
 }

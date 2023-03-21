@@ -29,9 +29,10 @@ namespace Model
             return built;
         }
 
-        private bool CanBuildOn(TileBase tile) =>
-            tile.BuildingOnTop == null &&
-            TurnManager.Instance.CurrentActionCount["Build"] > 0;
+        private bool CanBuildOn(TileBase tile)
+        {
+            return TurnManager.Instance.CurrentActionCount["Build"] > 0;
+        }
 
 
     }
