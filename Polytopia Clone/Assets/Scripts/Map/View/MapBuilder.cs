@@ -33,8 +33,8 @@ namespace View
             viewTiles = new Tile[size, size];
 
             tileSize = GetTileSize();
-            for (int x = 0; x < size; ++x)
-                for (int y = 0; y < size; ++y)
+            for (int x = 0; x < size; x++)
+                for (int y = 0; y < size; y++)
                     SetupTile(x, y);
 
             OnMapBuilt?.Invoke(viewTiles);
@@ -57,8 +57,8 @@ namespace View
 
         private void SetupNeighbors()
         {
-            for (int x = 0; x < size; ++x)
-                for (int y = 0; y < size; ++y)
+            for (int x = 0; x < size; x++)
+                for (int y = 0; y < size; y++)
                     AddNeighborsToList(x, y);
         }
 

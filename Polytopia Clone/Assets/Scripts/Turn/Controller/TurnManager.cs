@@ -19,7 +19,9 @@ namespace Controller
             Instance = this;
         }
 
-        public void FinishTurn() =>
+        public void FinishTurn()
+        {
             Model.TurnManager.Instance.FinishTurn();
+        }
     }
 }

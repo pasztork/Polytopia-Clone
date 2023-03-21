@@ -66,9 +66,9 @@ namespace Controller
         private void MapViewToModel(View.Tile[,] viewTiles)
         {
             int size = tiles.GetLength(0);
-            for (int x = 0; x < size; ++x)
+            for (int x = 0; x < size; x++)
             {
-                for (int y = 0; y < size; ++y)
+                for (int y = 0; y < size; y++)
                 {
                     ViewToModelMap[viewTiles[x, y]] = tiles[x, y];
                     ModelToViewMap[tiles[x, y]] = viewTiles[x, y];
