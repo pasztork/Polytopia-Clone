@@ -18,22 +18,18 @@ namespace Model
 
         public bool Build(TileBase tile, BuildingBase building)
         {
-            if (!CanBuildOn(tile))
+            if (TurnManager.Instance.CurrentActionCount["Build"] <= 0)
                 return false;
 
             bool built = TurnManager.Instance.CurrentPlayer.Build(tile, building);
 
             if (built)
+            {
+                TurnManager.Instance.CurrentActionCount["Build"]--;
                 OnBuildingBuilt?.Invoke(TurnManager.Instance.CurrentPlayer);
+            }
 
             return built;
         }
-
-        private bool CanBuildOn(TileBase tile)
-        {
-            return TurnManager.Instance.CurrentActionCount["Build"] > 0;
-        }
-
-
     }
 }

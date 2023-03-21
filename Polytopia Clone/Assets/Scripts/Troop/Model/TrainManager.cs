@@ -18,7 +18,7 @@ namespace Model
 
         public bool Train(BuildingBase building, TroopBase troop)
         {
-            if (!CanPutTroopOn(building.Tile))
+            if (TurnManager.Instance.CurrentActionCount["Train"] <= 0)
                 return false;
 
             bool trained = TurnManager.Instance.CurrentPlayer.Train(building, troop);
@@ -27,15 +27,11 @@ namespace Model
             {
                 troop.Tile = building.Tile;
                 troop.Player = TurnManager.Instance.CurrentPlayer;
+                TurnManager.Instance.CurrentActionCount["Train"]--;
                 OnTroopTrained?.Invoke(TurnManager.Instance.CurrentPlayer);
             }
 
             return trained;
-        }
-
-        private bool CanPutTroopOn(TileBase tile)
-        {
-            return TurnManager.Instance.CurrentActionCount["Train"] > 0;
         }
     }
 }

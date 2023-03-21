@@ -5,11 +5,7 @@
         public override Model.TroopBase ToModel(Model.Player player)
         {
             Model.TroopBase warrior = new Model.Warrior();
-            warrior.OnDamageTaken += () =>
-            {
-                HighlightManager.Instance.OnMonoBehaviourSelected -= DeselectIfNotSelected;
-                Destroy(gameObject);
-            };
+            warrior.OnDamageTaken += Kill;
             warrior.TroopProperty = new Model.TroopProperty(
                 troopProperties.Health, troopProperties.Damage,
                 troopProperties.MovementRange, troopProperties.AttackRange);

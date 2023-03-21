@@ -22,7 +22,6 @@ namespace View
         private void Awake()
         {
             startColor = GetComponent<Renderer>().material.color;
-
             HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
         }
 
@@ -79,6 +78,12 @@ namespace View
         public void Move(Tile tile)
         {
             transform.position = tile.transform.position + new Vector3(1f, 1.5f, 1f);
+        }
+
+        public void Kill()
+        {
+            HighlightManager.Instance.OnMonoBehaviourSelected -= DeselectIfNotSelected;
+            Destroy(gameObject);
         }
     }
 }
