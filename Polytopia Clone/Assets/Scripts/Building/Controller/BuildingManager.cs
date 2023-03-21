@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Controller
 {
-    public class BuildManager : MonoBehaviour
+    public class BuildingManager : MonoBehaviour
     {
-        public static BuildManager Instance { get; private set; }
+        public static BuildingManager Instance { get; private set; }
 
         public event Action OnBuildAttempted;
         public event Action<View.BuildingBase> OnBuildingSelected;

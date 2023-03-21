@@ -1115,7 +1115,7 @@ MonoBehaviour:
     - Money
     - Material
     - Food
-    m_values: 050000000500000005000000
+    m_values: 640000006400000064000000
   baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
 --- !u!1 &557253003
 GameObject:
@@ -3759,7 +3759,7 @@ MonoBehaviour:
     - Money
     - Material
     - Food
-    m_values: 050000000500000005000000
+    m_values: 640000006400000064000000
   baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
 --- !u!1 &1593288351
 GameObject:

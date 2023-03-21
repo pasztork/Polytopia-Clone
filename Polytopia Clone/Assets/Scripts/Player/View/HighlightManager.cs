@@ -7,7 +7,7 @@ namespace View
     {
         public static HighlightManager Instance { get; private set; }
 
-        public event Action<MonoBehaviour> MonoBehaviourSelected;
+        public event Action<MonoBehaviour> OnMonoBehaviourSelected;
 
         private void Awake()
         {
@@ -26,6 +26,6 @@ namespace View
         }
 
         public void FireMonoBehaviourSelectedEvent(MonoBehaviour monoBehaviour) =>
-            MonoBehaviourSelected(monoBehaviour);
+            OnMonoBehaviourSelected(monoBehaviour);
     }
 }

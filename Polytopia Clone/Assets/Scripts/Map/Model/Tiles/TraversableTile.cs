@@ -13,5 +13,15 @@
             TroopOnTop = troop;
             return true;
         }
+
+        public override bool AcceptTroop(TroopBase troop)
+        {
+            if (TroopOnTop != null)
+                return false;
+
+            troop.Tile.TroopOnTop = null;
+            TroopOnTop = troop;
+            return true;
+        }
     }
 }

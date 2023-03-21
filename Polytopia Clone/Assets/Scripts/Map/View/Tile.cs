@@ -17,21 +17,8 @@ namespace View
         private void Awake()
         {
             StartColor = GetComponent<Renderer>().material.color;
-            Controller.MapManager.Instance.OnTileSelected += (tile) =>
-            {
-                if (tile == this)
-                    return;
 
-                GetComponent<Renderer>().material.color = StartColor;
-            };
-
-            Model.TurnManager.Instance.OnTurnStarted += (player) =>
-            {
-                // Controller.MapManager.Instance.SelectedTile = null;
-                GetComponent<Renderer>().material.color = StartColor;
-            };
-
-            HighlightManager.Instance.MonoBehaviourSelected += (mono) =>
+            HighlightManager.Instance.OnMonoBehaviourSelected += (mono) =>
             {
                 if (mono == this)
                     return;
@@ -43,11 +30,6 @@ namespace View
 
         private void OnMouseEnter()
         {
-            if (false)
-            {
-                GetComponent<Renderer>().material.color = hoverColor;
-                return;
-            }
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 Deselect();
@@ -59,16 +41,18 @@ namespace View
 
         private void OnMouseExit()
         {
-            if (false)
-            {
-                GetComponent<Renderer>().material.color = selectColor;
-                return;
-            }
             Deselect();
         }
 
-        private void OnMouseDown() =>
+        private void OnMouseDown()
+        {
+            if (Controller.TroopManager.Instance.SelectedTroop != null)
+            {
+                Controller.TroopManager.Instance.MoveSelectedTroop(this);
+                return;
+            }
             Select();
+        }
 
         public void Select()
         {
@@ -77,11 +61,7 @@ namespace View
                 Deselect();
                 return;
             }
-            if (Controller.MapManager.Instance.SelectedTile == this)
-            {
-                Controller.MapManager.Instance.SelectedTile = null;
-                return;
-            }
+
             Controller.MapManager.Instance.SelectedTile = this;
         }
 

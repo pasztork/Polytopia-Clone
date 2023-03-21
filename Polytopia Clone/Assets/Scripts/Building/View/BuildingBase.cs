@@ -29,21 +29,8 @@ namespace View
         private void Start()
         {
             StartColor = GetComponent<Renderer>().material.color;
-            BuildingManager.Instance.OnBuildingSelected += (building) =>
-            {
-                if (building == this)
-                    return;
 
-                GetComponent<Renderer>().material.color = StartColor;
-            };
-
-            Model.TurnManager.Instance.OnTurnStarted += (player) =>
-            {
-                // Controller.BuildManager.Instance.SelectedBuilding = null;
-                GetComponent<Renderer>().material.color = StartColor;
-            };
-
-            HighlightManager.Instance.MonoBehaviourSelected += (mono) =>
+            HighlightManager.Instance.OnMonoBehaviourSelected += (mono) =>
             {
                 if (mono == this)
                     return;
@@ -78,18 +65,18 @@ namespace View
                 return;
             }
 
-            if (Controller.BuildManager.Instance.SelectedBuilding == this)
+            if (Controller.BuildingManager.Instance.SelectedBuilding == this)
             {
-                Controller.BuildManager.Instance.SelectedBuilding = null;
+                Controller.BuildingManager.Instance.SelectedBuilding = null;
                 return;
             }
 
-            Controller.BuildManager.Instance.SelectedBuilding = this;
+            Controller.BuildingManager.Instance.SelectedBuilding = this;
         }
 
         public void Deselect()
         {
-            if (Controller.BuildManager.Instance.SelectedBuilding != this)
+            if (Controller.BuildingManager.Instance.SelectedBuilding != this)
                 GetComponent<Renderer>().material.color = StartColor;
         }
     }

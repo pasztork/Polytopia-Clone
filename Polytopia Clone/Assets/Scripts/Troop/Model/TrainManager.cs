@@ -24,7 +24,11 @@ namespace Model
             bool trained = TurnManager.Instance.CurrentPlayer.Train(building, troop);
 
             if (trained)
+            {
+                troop.Tile = building.Tile;
+                troop.Player = TurnManager.Instance.CurrentPlayer;
                 OnTroopTrained?.Invoke(TurnManager.Instance.CurrentPlayer);
+            }
 
             return trained;
         }

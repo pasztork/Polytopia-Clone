@@ -21,7 +21,7 @@ namespace View
             Model.TurnManager.Instance.OnTurnStarted += UpdateContent;
             Model.BuildManager.Instance.OnBuildingBuilt += UpdateContent;
             Model.TrainManager.Instance.OnTroopTrained += UpdateContent;
-            Controller.BuildManager.Instance.OnBuildAttempted += SetSelected;
+            Controller.BuildingManager.Instance.OnBuildAttempted += SetSelected;
         }
 
         private void UpdateContent(Model.Player player)
@@ -41,7 +41,7 @@ namespace View
 
         private void SetSelected()
         {
-            Controller.BuildManager.Instance.Blueprint = dropdown.options.Count > 0 ?
+            Controller.BuildingManager.Instance.Blueprint = dropdown.options.Count > 0 ?
                 buildings[dropdown.options[dropdown.value].text] : null;
         }
     }

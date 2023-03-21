@@ -1,13 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace View
 {
     public class BuildingManager : MonoBehaviour
     {
         public static BuildingManager Instance { get; private set; }
-
-        public event Action<BuildingBase> OnBuildingSelected;
 
         private BuildingBase selectedBuilding;
         public BuildingBase SelectedBuilding
@@ -17,7 +14,6 @@ namespace View
             {
                 selectedBuilding = value;
                 HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedBuilding);
-                OnBuildingSelected?.Invoke(selectedBuilding);
             }
         }
 
@@ -33,7 +29,7 @@ namespace View
 
         private void Start()
         {
-            HighlightManager.Instance.MonoBehaviourSelected += (monoBehaviour) =>
+            HighlightManager.Instance.OnMonoBehaviourSelected += (monoBehaviour) =>
             {
                 if (selectedBuilding == monoBehaviour)
                     return;

@@ -17,39 +17,25 @@ namespace View
 
         [Header("Highlight Settings")]
         [SerializeField] private Color hoverColor;
-        private Color StartColor;
+        [SerializeField] private Color selectColor;
+        private Color startColor;
 
-        public void FireOnTroopClickedEvent()
-        {
+        public void FireOnTroopClickedEvent() =>
             OnTroopClicked?.Invoke();
-        }
 
         public abstract Model.TroopBase ToModel(Model.Player player);
 
         private void Start()
         {
-            StartColor = GetComponent<Renderer>().material.color;
-            TroopManager.Instance.OnTroopSelected += (troop) =>
-            {
-                if (troop == this)
-                    return;
+            startColor = GetComponent<Renderer>().material.color;
 
-                GetComponent<Renderer>().material.color = StartColor;
-            };
-
-            Model.TurnManager.Instance.OnTurnStarted += (player) =>
-            {
-                // Controller.TrainManager.Instance.SelectedTroop = null;
-                GetComponent<Renderer>().material.color = StartColor;
-            };
-
-            HighlightManager.Instance.MonoBehaviourSelected += (mono) =>
+            HighlightManager.Instance.OnMonoBehaviourSelected += (mono) =>
             {
                 if (mono == this)
                     return;
 
                 // Controller.TrainManager.Instance.SelectedTroop = null;
-                GetComponent<Renderer>().material.color = StartColor;
+                GetComponent<Renderer>().material.color = startColor;
             };
         }
 
@@ -66,6 +52,13 @@ namespace View
 
         protected virtual void OnMouseDown()
         {
+            TroopBase selectedTroop = Controller.TroopManager.Instance.SelectedTroop;
+            if (selectedTroop != this && selectedTroop != null)
+            {
+                Controller.TroopManager.Instance.Attack(this);
+                return;
+            }
+
             Select();
         }
 
@@ -82,19 +75,24 @@ namespace View
                 return;
             }
 
-            if (TroopManager.Instance.SelectedTroop == this)
+            if (Controller.TroopManager.Instance.SelectedTroop == this)
             {
-                TroopManager.Instance.SelectedTroop = null;
+                Controller.TroopManager.Instance.SelectedTroop = null;
                 return;
             }
 
-            TroopManager.Instance.SelectedTroop = this;
+            Controller.TroopManager.Instance.SelectedTroop = this;
         }
 
         public void Deselect()
         {
-            if (TroopManager.Instance.SelectedTroop != this)
-                GetComponent<Renderer>().material.color = StartColor;
+            if (Controller.TroopManager.Instance.SelectedTroop != this)
+                GetComponent<Renderer>().material.color = startColor;
+        }
+
+        public void Move(Tile tile)
+        {
+            transform.position = tile.transform.position + new Vector3(1f, 1.5f, 1f);
         }
     }
 }

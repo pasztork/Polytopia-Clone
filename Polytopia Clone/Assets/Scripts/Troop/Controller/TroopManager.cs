@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace Controller
 {
-    public class TrainManager : MonoBehaviour
+    public class TroopManager : MonoBehaviour
     {
-        public static TrainManager Instance { get; private set; }
+        public static TroopManager Instance { get; private set; }
 
         public event Action OnTrainAttempted;
+        public event Action<View.TroopBase> OnTroopSelected;
 
         public Dictionary<View.TroopBase, Model.TroopBase> ViewToModelMap { get; }
             = new Dictionary<View.TroopBase, Model.TroopBase>();
@@ -18,6 +19,18 @@ namespace Controller
 
         [SerializeField] private SerializableDictionary<string, View.TroopBase> blueprints;
         public SerializableDictionary<string, View.TroopBase> Blueprints { get => blueprints; }
+
+        private View.TroopBase selectedTroop;
+        public View.TroopBase SelectedTroop
+        {
+            get => selectedTroop;
+            set
+            {
+                selectedTroop = value;
+                OnTroopSelected?.Invoke(selectedTroop);
+                View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTroop);
+            }
+        }
 
         public View.TroopBase Blueprint { private get; set; }
 
@@ -39,11 +52,11 @@ namespace Controller
             if (Blueprint == null)
                 return;
 
-            View.BuildingBase building = BuildManager.Instance.SelectedBuilding;
+            View.BuildingBase building = BuildingManager.Instance.SelectedBuilding;
             Model.TroopBase troop =
                 Blueprint.ToModel(Model.TurnManager.Instance.CurrentPlayer);
             Model.BuildingBase modelBuilding =
-                BuildManager.Instance.ViewToModelMap[building];
+                BuildingManager.Instance.ViewToModelMap[building];
             bool trained =
                 Model.TrainManager.Instance.Train(modelBuilding, troop);
 
@@ -57,6 +70,31 @@ namespace Controller
 
             ViewToModelMap[viewTroop] = troop;
             ModelToViewMap[troop] = viewTroop;
+        }
+
+        public void MoveSelectedTroop(View.Tile tile)
+        {
+            Model.TroopBase modelTroop = ViewToModelMap[SelectedTroop];
+            Model.TileBase modelTile = MapManager.Instance.ViewToModelMap[tile];
+
+            bool moved = Model.TurnManager.Instance.CurrentPlayer.MoveTroop(modelTroop, modelTile);
+            if (!moved)
+                return;
+
+            SelectedTroop.Move(tile);
+            SelectedTroop = null;
+        }
+
+        public void Attack(View.TroopBase target)
+        {
+            Model.TroopBase modelAttacker = ViewToModelMap[selectedTroop];
+            Model.TroopBase modelTarget = ViewToModelMap[target];
+
+            bool success = Model.TurnManager.Instance.CurrentPlayer.Attack(modelAttacker, modelTarget);
+            if (!success)
+                return;
+
+            SelectedTroop = null;
         }
     }
 }

@@ -9,7 +9,6 @@ namespace Controller
         public static MapManager Instance { get; private set; }
 
         public event Action OnViewMappedToModel;
-        public event Action<View.Tile> OnTileSelected;
 
         [SerializeField] private int size;
         public int Size { get => size; }
@@ -32,7 +31,6 @@ namespace Controller
             set
             {
                 selectedTile = value;
-                OnTileSelected?.Invoke(selectedTile);
                 View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTile);
             }
         }
@@ -53,7 +51,7 @@ namespace Controller
             View.MapBuilder.Instance.OnMapBuilt += MapViewToModel;
             View.MapBuilder.Instance.BuildMapGFX(tiles);
 
-            View.HighlightManager.Instance.MonoBehaviourSelected += (monoBehaviour) =>
+            View.HighlightManager.Instance.OnMonoBehaviourSelected += (monoBehaviour) =>
             {
                 if (selectedTile == monoBehaviour)
                     return;

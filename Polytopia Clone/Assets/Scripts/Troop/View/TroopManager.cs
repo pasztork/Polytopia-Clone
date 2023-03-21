@@ -1,25 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace View
 {
     public class TroopManager : MonoBehaviour
     {
         public static TroopManager Instance { get; private set; }
-
-        public event Action<TroopBase> OnTroopSelected;
-
-        private TroopBase selectedTroop;
-        public TroopBase SelectedTroop
-        {
-            get => selectedTroop;
-            set
-            {
-                selectedTroop = value;
-                HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTroop);
-                OnTroopSelected?.Invoke(selectedTroop);
-            }
-        }
 
         private void Awake()
         {
@@ -33,15 +18,21 @@ namespace View
 
         private void Start()
         {
-            HighlightManager.Instance.MonoBehaviourSelected += (monoBehaviour) =>
+            HighlightManager.Instance.OnMonoBehaviourSelected += (monoBehaviour) =>
             {
-                if (selectedTroop == monoBehaviour)
+                TroopBase troop = Controller.TroopManager.Instance.SelectedTroop;
+                if (troop == monoBehaviour)
                     return;
 
-                TroopBase original = selectedTroop;
-                selectedTroop = null;
+                TroopBase original = troop;
+                troop = null;
                 original?.Deselect();
             };
+        }
+
+        public void Kill(TroopBase troop)
+        {
+            DestroyImmediate(troop.gameObject, true);
         }
     }
 }

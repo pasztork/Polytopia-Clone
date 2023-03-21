@@ -32,7 +32,7 @@ namespace Model
 
         public bool Build(TileBase tile, BuildingBase building)
         {
-            if (!CanBuild(building))
+            if (!ResourceContainer.HasEnoughFor(building.Cost))
             {
                 building.StopProduction();
                 return false;
@@ -51,12 +51,9 @@ namespace Model
             return true;
         }
 
-        private bool CanBuild(BuildingBase building) =>
-            ResourceContainer.HasEnoughFor(building.Cost);
-
         public bool Train(BuildingBase building, TroopBase troop)
         {
-            if (!CanTrain(troop))
+            if (!ResourceContainer.HasEnoughFor(troop.Cost))
                 return false;
 
             bool trained = building.Tile.TrainTroop(troop);
@@ -64,14 +61,29 @@ namespace Model
                 return false;
 
             ResourceContainer -= troop.Cost;
-            troop.Tile = building.Tile;
             Troops.Add(troop);
             return true;
         }
 
-        private bool CanTrain(TroopBase troop)
+        public bool MoveTroop(TroopBase troop, TileBase target)
         {
-            return ResourceContainer.HasEnoughFor(troop.Cost);
+            if (!Troops.Contains(troop))
+                return false;
+
+            bool accepted = target.AcceptTroop(troop);
+            if (!accepted)
+                return false;
+
+            bool moved = troop.Move(target);
+            return moved;
+        }
+
+        public bool Attack(TroopBase attacker, TroopBase target)
+        {
+            if (Troops.Contains(attacker) && Troops.Contains(target))
+                return false;
+
+            return attacker.Attack(target);
         }
     }
 }
