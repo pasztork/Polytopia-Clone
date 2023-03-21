@@ -22,7 +22,7 @@ namespace Model
         public TroopBase()
         {
             TurnManager.Instance.OnTurnStarted +=
-                (player) => movedInTurn = true;
+                (player) => movedInTurn = false;
         }
 
         public bool Move(TileBase target)
