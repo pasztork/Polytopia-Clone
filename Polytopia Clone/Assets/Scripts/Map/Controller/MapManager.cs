@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using View;
 
 namespace Controller
 {
@@ -10,7 +9,7 @@ namespace Controller
         public static MapManager Instance { get; private set; }
 
         public event Action OnViewMappedToModel;
-        public event Action<Tile> OnTileSelected;
+        public event Action<View.Tile> OnTileSelected;
 
         [SerializeField] private int size;
         public int Size { get => size; }
@@ -20,21 +19,21 @@ namespace Controller
 
         private Model.TileBase[,] tiles;
 
-        public Dictionary<Tile, Model.TileBase> ViewToModelMap { get; }
-            = new Dictionary<Tile, Model.TileBase>();
+        public Dictionary<View.Tile, Model.TileBase> ViewToModelMap { get; }
+            = new Dictionary<View.Tile, Model.TileBase>();
 
-        public Dictionary<Model.TileBase, Tile> ModelToViewMap { get; }
-            = new Dictionary<Model.TileBase, Tile>();
+        public Dictionary<Model.TileBase, View.Tile> ModelToViewMap { get; }
+            = new Dictionary<Model.TileBase, View.Tile>();
 
-        private Tile selectedTile;
-        public Tile SelectedTile
+        private View.Tile selectedTile;
+        public View.Tile SelectedTile
         {
             get => selectedTile;
             set
             {
                 selectedTile = value;
                 OnTileSelected?.Invoke(selectedTile);
-                HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTile);
+                View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTile);
             }
         }
 
@@ -51,21 +50,21 @@ namespace Controller
         private void Start()
         {
             tiles = Model.MapManager.Instance.Tiles;
-            MapBuilder.Instance.OnMapBuilt += MapViewToModel;
-            MapBuilder.Instance.BuildMapGFX(tiles);
+            View.MapBuilder.Instance.OnMapBuilt += MapViewToModel;
+            View.MapBuilder.Instance.BuildMapGFX(tiles);
 
-            HighlightManager.Instance.MonoBehaviourSelected += (monoBehaviour) =>
+            View.HighlightManager.Instance.MonoBehaviourSelected += (monoBehaviour) =>
             {
                 if (selectedTile == monoBehaviour)
                     return;
 
-                Tile original = selectedTile;
+                View.Tile original = selectedTile;
                 selectedTile = null;
                 original?.Deselect();
             };
         }
 
-        private void MapViewToModel(Tile[,] viewTiles)
+        private void MapViewToModel(View.Tile[,] viewTiles)
         {
             int size = tiles.GetLength(0);
             for (int x = 0; x < size; ++x)

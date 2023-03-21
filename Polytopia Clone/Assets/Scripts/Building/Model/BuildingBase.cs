@@ -5,6 +5,7 @@ namespace Model
     public abstract class BuildingBase
     {
         public Cost Cost { get; set; }
+        public TileBase Tile { get; set; }
 
         protected IList<ProducerBase> producers;
         public IList<ProducerBase> Producers
@@ -21,6 +22,11 @@ namespace Model
         {
             foreach (var producer in producers)
                 producer.Unsubscribe();
+        }
+
+        public virtual bool TrainTroop(TroopBase troop)
+        {
+            return false;
         }
     }
 }

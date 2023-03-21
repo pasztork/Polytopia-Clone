@@ -1,25 +1,37 @@
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace View
 {
-    public class Tile : MonoBehaviour
+    public abstract class TroopBase : MonoBehaviour
     {
-        public List<Tile> Neighbors { get; } = new List<Tile>();
+        public event Action OnTroopClicked;
 
-        public Color StartColor;
+        [Header("Cost Settings")]
+        [SerializeField] protected Controller.Cost cost;
+        public Controller.Cost Cost { get => cost; }
+
+        [Header("Troop Properties")]
+        public Controller.TroopProperty troopProperties;
+
+        [Header("Highlight Settings")]
         [SerializeField] private Color hoverColor;
-        [SerializeField] private Color neighborColor;
-        [SerializeField] private Color selectColor;
-        public Color SelectColor { get => selectColor; private set => selectColor = value; }
+        private Color StartColor;
 
-        private void Awake()
+        public void FireOnTroopClickedEvent()
+        {
+            OnTroopClicked?.Invoke();
+        }
+
+        public abstract Model.TroopBase ToModel(Model.Player player);
+
+        private void Start()
         {
             StartColor = GetComponent<Renderer>().material.color;
-            Controller.MapManager.Instance.OnTileSelected += (tile) =>
+            TroopManager.Instance.OnTroopSelected += (troop) =>
             {
-                if (tile == this)
+                if (troop == this)
                     return;
 
                 GetComponent<Renderer>().material.color = StartColor;
@@ -27,7 +39,7 @@ namespace View
 
             Model.TurnManager.Instance.OnTurnStarted += (player) =>
             {
-                // Controller.MapManager.Instance.SelectedTile = null;
+                // Controller.TrainManager.Instance.SelectedTroop = null;
                 GetComponent<Renderer>().material.color = StartColor;
             };
 
@@ -36,18 +48,13 @@ namespace View
                 if (mono == this)
                     return;
 
-                // Controller.BuildManager.Instance.SelectedBuilding = null;
+                // Controller.TrainManager.Instance.SelectedTroop = null;
                 GetComponent<Renderer>().material.color = StartColor;
             };
         }
 
         private void OnMouseEnter()
         {
-            if (false)
-            {
-                GetComponent<Renderer>().material.color = hoverColor;
-                return;
-            }
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 Deselect();
@@ -57,18 +64,15 @@ namespace View
             GetComponent<Renderer>().material.color = hoverColor;
         }
 
-        private void OnMouseExit()
+        protected virtual void OnMouseDown()
         {
-            if (false)
-            {
-                GetComponent<Renderer>().material.color = selectColor;
-                return;
-            }
-            Deselect();
+            Select();
         }
 
-        private void OnMouseDown() =>
-            Select();
+        private void OnMouseExit()
+        {
+            Deselect();
+        }
 
         public void Select()
         {
@@ -77,17 +81,19 @@ namespace View
                 Deselect();
                 return;
             }
-            if (Controller.MapManager.Instance.SelectedTile == this)
+
+            if (TroopManager.Instance.SelectedTroop == this)
             {
-                Controller.MapManager.Instance.SelectedTile = null;
+                TroopManager.Instance.SelectedTroop = null;
                 return;
             }
-            Controller.MapManager.Instance.SelectedTile = this;
+
+            TroopManager.Instance.SelectedTroop = this;
         }
 
         public void Deselect()
         {
-            if (Controller.MapManager.Instance.SelectedTile != this)
+            if (TroopManager.Instance.SelectedTroop != this)
                 GetComponent<Renderer>().material.color = StartColor;
         }
     }

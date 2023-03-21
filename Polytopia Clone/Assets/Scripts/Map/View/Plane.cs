@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,8 +6,6 @@ namespace View
     public class Plane : MonoBehaviour
     {
         public static Plane Instance { get; private set; }
-
-        public event Action OnPlaneClick;
 
         private void Awake()
         {
@@ -23,7 +20,7 @@ namespace View
         private void OnMouseDown()
         {
             if (!EventSystem.current.IsPointerOverGameObject())
-                OnPlaneClick?.Invoke();
+                HighlightManager.Instance.FireMonoBehaviourSelectedEvent(this);
         }
     }
 }

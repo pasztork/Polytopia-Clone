@@ -7,6 +7,7 @@ namespace Controller
     {
         [SerializeField] private new string name;
         [SerializeField] private string[] startingBuildings;
+        [SerializeField] private string[] startingTroops;
         [SerializeField] private SerializableDictionary<string, int> baseProduction;
         [SerializeField] private BaseActionCount baseActionCount;
 
@@ -17,6 +18,7 @@ namespace Controller
             player.ResourceContainer.BaseMaterialProduction = baseProduction["Material"];
             player.ResourceContainer.BaseFoodProduction = baseProduction["Food"];
             player.AvailableBuildings = startingBuildings.ToList();
+            player.AvailableTroops = startingTroops.ToList();
         }
     }
 }

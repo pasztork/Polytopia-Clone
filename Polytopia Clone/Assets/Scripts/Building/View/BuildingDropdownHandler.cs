@@ -11,13 +11,16 @@ namespace View
         [SerializeField] private SerializableDictionary<string, BuildingBase> buildings;
         private TMP_Dropdown dropdown = null;
 
-        private void Awake() =>
+        private void Awake()
+        {
             dropdown = GetComponent<TMP_Dropdown>();
+        }
 
         private void Start()
         {
             Model.TurnManager.Instance.OnTurnStarted += UpdateContent;
             Model.BuildManager.Instance.OnBuildingBuilt += UpdateContent;
+            Model.TrainManager.Instance.OnTroopTrained += UpdateContent;
             Controller.BuildManager.Instance.OnBuildAttempted += SetSelected;
         }
 

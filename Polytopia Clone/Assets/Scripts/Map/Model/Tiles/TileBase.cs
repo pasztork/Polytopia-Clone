@@ -6,7 +6,12 @@ namespace Model
     {
         public IList<TileBase> Neighbors { get; } = new List<TileBase>();
         public BuildingBase BuildingOnTop { get; protected set; }
+        public TroopBase TroopOnTop { get; protected set; }
 
         public virtual bool SetBuildingOnTop(BuildingBase buildingOnTop) => false;
+        public virtual bool TrainTroop(TroopBase troop)
+        {
+            return false;
+        }
     }
 }

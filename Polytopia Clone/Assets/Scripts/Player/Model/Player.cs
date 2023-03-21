@@ -7,11 +7,11 @@ namespace Model
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
         public Dictionary<string, int> ActionCount { get; set; }
         public IList<BuildingBase> Buildings { get; } = new List<BuildingBase>();
+        public IList<TroopBase> Troops { get; } = new List<TroopBase>();
         public string Name { get; set; }
 
-        private IList<string> availableBuildings = new List<string>();
-        public IList<string> AvailableBuildings { get => availableBuildings; set => availableBuildings = value; }
-
+        public IList<string> AvailableBuildings { get; set; }
+        public IList<string> AvailableTroops { get; set; }
 
         public Player(string name, Dictionary<string, int> actionCount)
         {
@@ -46,11 +46,32 @@ namespace Model
             }
 
             ResourceContainer -= building.Cost;
+            building.Tile = tile;
             Buildings.Add(building);
             return true;
         }
 
         private bool CanBuild(BuildingBase building) =>
             ResourceContainer.HasEnoughFor(building.Cost);
+
+        public bool Train(BuildingBase building, TroopBase troop)
+        {
+            if (!CanTrain(troop))
+                return false;
+
+            bool trained = building.Tile.TrainTroop(troop);
+            if (!trained)
+                return false;
+
+            ResourceContainer -= troop.Cost;
+            troop.Tile = building.Tile;
+            Troops.Add(troop);
+            return true;
+        }
+
+        private bool CanTrain(TroopBase troop)
+        {
+            return ResourceContainer.HasEnoughFor(troop.Cost);
+        }
     }
 }

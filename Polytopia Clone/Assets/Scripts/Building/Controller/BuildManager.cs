@@ -9,6 +9,7 @@ namespace Controller
         public static BuildManager Instance { get; private set; }
 
         public event Action OnBuildAttempted;
+        public event Action<View.BuildingBase> OnBuildingSelected;
 
         public Dictionary<View.BuildingBase, Model.BuildingBase> ViewToModelMap { get; }
             = new Dictionary<View.BuildingBase, Model.BuildingBase>();
@@ -18,6 +19,18 @@ namespace Controller
 
         [SerializeField] private SerializableDictionary<string, View.BuildingBase> blueprints;
         public SerializableDictionary<string, View.BuildingBase> Blueprints { get => blueprints; }
+
+        private View.BuildingBase selectedBuilding;
+        public View.BuildingBase SelectedBuilding
+        {
+            get => selectedBuilding;
+            set
+            {
+                selectedBuilding = value;
+                OnBuildingSelected?.Invoke(selectedBuilding);
+                View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedBuilding);
+            }
+        }
 
         public View.BuildingBase Blueprint { private get; set; }
 
@@ -39,7 +52,7 @@ namespace Controller
             if (Blueprint == null)
                 return;
 
-            Tile tile = MapManager.Instance.SelectedTile;
+            View.Tile tile = MapManager.Instance.SelectedTile;
             Model.BuildingBase building =
                 Blueprint.ToModel(Model.TurnManager.Instance.CurrentPlayer);
             bool built =

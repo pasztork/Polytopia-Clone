@@ -26,7 +26,10 @@ namespace Model
         public void Start()
         {
             BuildManager.Instance.OnBuildingBuilt +=
-                (player) => --CurrentActionCount["Build"];
+                (player) => CurrentActionCount["Build"]--;
+
+            TrainManager.Instance.OnTroopTrained +=
+                (player) => CurrentActionCount["Train"]--;
 
             playerNode = players.Last;
             CurrentPlayer = playerNode.Value;

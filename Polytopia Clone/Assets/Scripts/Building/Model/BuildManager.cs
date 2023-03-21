@@ -18,7 +18,7 @@ namespace Model
 
         public bool Build(TileBase tile, BuildingBase building)
         {
-            if (tile.BuildingOnTop != null || !CanBuildOn(tile))
+            if (!CanBuildOn(tile))
                 return false;
 
             bool built = TurnManager.Instance.CurrentPlayer.Build(tile, building);

@@ -36,6 +36,21 @@ namespace View
 
                 GetComponent<Renderer>().material.color = StartColor;
             };
+
+            Model.TurnManager.Instance.OnTurnStarted += (player) =>
+            {
+                // Controller.BuildManager.Instance.SelectedBuilding = null;
+                GetComponent<Renderer>().material.color = StartColor;
+            };
+
+            HighlightManager.Instance.MonoBehaviourSelected += (mono) =>
+            {
+                if (mono == this)
+                    return;
+
+                // Controller.BuildManager.Instance.SelectedBuilding = null;
+                GetComponent<Renderer>().material.color = StartColor;
+            };
         }
 
         private void OnMouseEnter()
@@ -63,18 +78,18 @@ namespace View
                 return;
             }
 
-            if (BuildingManager.Instance.SelectedBuilding == this)
+            if (Controller.BuildManager.Instance.SelectedBuilding == this)
             {
-                BuildingManager.Instance.SelectedBuilding = null;
+                Controller.BuildManager.Instance.SelectedBuilding = null;
                 return;
             }
 
-            BuildingManager.Instance.SelectedBuilding = this;
+            Controller.BuildManager.Instance.SelectedBuilding = this;
         }
 
         public void Deselect()
         {
-            if (BuildingManager.Instance.SelectedBuilding != this)
+            if (Controller.BuildManager.Instance.SelectedBuilding != this)
                 GetComponent<Renderer>().material.color = StartColor;
         }
     }

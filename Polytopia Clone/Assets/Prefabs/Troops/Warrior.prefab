@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 192332905623899280}
   - component: {fileID: 3573502393572134665}
   - component: {fileID: 4394839279379804233}
-  - component: {fileID: 5375845514463080574}
+  - component: {fileID: 106070691296940910}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -100,7 +100,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5375845514463080574
+--- !u!114 &106070691296940910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,11 +109,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3124203558222508765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05dcb2fc5642ca3489b9469a8a8e9bd7, type: 3}
+  m_Script: {fileID: 11500000, guid: 5dbfd4ab8f1d18c438944b0917caacdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 2207b5efeca0de445aaa5201760bdd39, type: 2}
-  troopProperty: {fileID: 11400000, guid: 582646f15bc28b842858afdc9bbe3592, type: 2}
+  troopProperties: {fileID: 11400000, guid: 582646f15bc28b842858afdc9bbe3592, type: 2}
   hoverColor: {r: 1, g: 1, b: 0, a: 0.5882353}
 --- !u!1 &6929022493180609845
 GameObject:
