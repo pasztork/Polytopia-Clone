@@ -892,50 +892,6 @@ MonoBehaviour:
     - {fileID: 3075795380664745628, guid: 06f9069c6056e27498d6bc2bff4c8f86, type: 3}
     - {fileID: 3075795380664745628, guid: 9e548f36ebb79f1408d3895d41725602, type: 3}
     - {fileID: 3075795380664745628, guid: a4988970db42dc04baca511593bba24d, type: 3}
---- !u!1 &285068006
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 285068007}
-  - component: {fileID: 285068008}
-  m_Layer: 0
-  m_Name: TroopManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &285068007
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285068006}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1199399707}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &285068008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285068006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 347236ed8173219418d44cde8d0915da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &320758662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,7 +979,7 @@ GameObject:
   - component: {fileID: 340401484}
   - component: {fileID: 340401483}
   m_Layer: 0
-  m_Name: TrainManager
+  m_Name: TroopManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1059,7 +1015,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1199399707}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &443467185
 GameObject:
@@ -2171,50 +2127,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781778728}
   m_CullTransparentMesh: 1
---- !u!1 &798907982
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 798907983}
-  - component: {fileID: 798907984}
-  m_Layer: 0
-  m_Name: BuildingManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &798907983
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 798907982}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1199399707}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &798907984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 798907982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd97c50668db6db40aa74075b634eb82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &803808004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,9 +2777,7 @@ Transform:
   - {fileID: 1736152996}
   - {fileID: 277816173}
   - {fileID: 1779191799}
-  - {fileID: 798907983}
   - {fileID: 340401484}
-  - {fileID: 285068007}
   - {fileID: 1539761426}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -3557,7 +3467,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1199399707}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1539761427
 MonoBehaviour:
@@ -4701,7 +4611,7 @@ GameObject:
   - component: {fileID: 1779191799}
   - component: {fileID: 1779191800}
   m_Layer: 0
-  m_Name: BuildManager
+  m_Name: BuildingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

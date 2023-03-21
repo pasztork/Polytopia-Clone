@@ -13,15 +13,24 @@ namespace Model
         public TileBase Tile { get; set; }
         public Player Player { get; set; }
 
+        private bool movedInTurn = false;
+
         // Doesn't contain Tile.
         public IList<TileBase> TilesInMovementRange { get => GetTilesInRange(TroopProperty.MovementRange); }
         public IList<TileBase> TilesInAttackRange { get => GetTilesInRange(TroopProperty.AttackRange); }
 
+        public TroopBase()
+        {
+            TurnManager.Instance.OnTurnStarted +=
+                (player) => movedInTurn = true;
+        }
+
         public bool Move(TileBase target)
         {
-            if (!TilesInMovementRange.Contains(target))
+            if (!TilesInMovementRange.Contains(target) || movedInTurn)
                 return false;
 
+            movedInTurn = true;
             Tile = target;
             return true;
         }
