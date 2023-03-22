@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1003,7 +1003,7 @@ MonoBehaviour:
     m_keys:
     - Warrior
     m_values:
-    - {fileID: 106070691296940910, guid: fc92250376aaef44295085964b5384a7, type: 3}
+    - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
 --- !u!4 &340401484
 Transform:
   m_ObjectHideFlags: 0
@@ -1617,7 +1617,7 @@ MonoBehaviour:
     m_keys:
     - Warrior
     m_values:
-    - {fileID: 3824320536629923728, guid: 3139c2f3905f2e44dae31c782c5ee5fd, type: 3}
+    - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
 --- !u!1 &729774940
 GameObject:
   m_ObjectHideFlags: 0
@@ -4647,8 +4647,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blueprints:
-    m_keys: []
-    m_values: []
+    m_keys:
+    - City
+    m_values:
+    - {fileID: 4787953681856402325, guid: 63baf07eac0846d4783a8369d8f4f4fd, type: 3}
 --- !u!1 &1821650438
 GameObject:
   m_ObjectHideFlags: 0
