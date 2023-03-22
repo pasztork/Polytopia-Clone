@@ -24,8 +24,9 @@ namespace Model
             }
         }
 
-        private float waterProbability;
-        public float WaterProbabilty { get => waterProbability; set => waterProbability = value; }
+        public float WaterProbability { get; set; }
+        public int MinMountainCount { get; set; }
+        public int MaxMountainCount { get; set; }
 
         private TileBase[,] tiles;
         public TileBase[,] Tiles
@@ -36,8 +37,10 @@ namespace Model
 
         public TileBase SelectedTile { get; set; }
 
-        public void GenerateMap() =>
-            MapGenerator.Instance.GenerateMap(waterProbability);
+        public void GenerateMap()
+        {
+            MapGenerator.Instance.GenerateMap(WaterProbability, MinMountainCount, MaxMountainCount);
+        }
 
         public void LoadMap()
         {

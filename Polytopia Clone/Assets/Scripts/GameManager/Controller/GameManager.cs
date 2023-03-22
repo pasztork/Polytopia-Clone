@@ -18,7 +18,9 @@ namespace Controller
         private void CreateMap()
         {
             Model.MapManager.Instance.Size = MapManager.Instance.Size;
-            Model.MapManager.Instance.WaterProbabilty = MapManager.Instance.WaterProbability;
+            Model.MapManager.Instance.WaterProbability = MapManager.Instance.WaterProbability;
+            Model.MapManager.Instance.MinMountainCount = MapManager.Instance.MinMountainCount;
+            Model.MapManager.Instance.MaxMountainCount = MapManager.Instance.MaxMountainCount;
         }
     }
 }
