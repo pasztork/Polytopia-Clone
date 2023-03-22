@@ -8,6 +8,7 @@ TagManager:
   - Sand
   - Mountain
   - Water
+  - Forest
   layers:
   - Default
   - TransparentFX
