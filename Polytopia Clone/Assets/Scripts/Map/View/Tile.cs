@@ -67,7 +67,7 @@ namespace View
                 return;
             }
 
-            if (Controller.TroopManager.Instance.SelectedTroop != null)
+            if (Controller.TroopManager.Instance.SelectedTroop != null && previousColor == selectColor)
             {
                 Controller.TroopManager.Instance.MoveSelectedTroop(this);
                 return;

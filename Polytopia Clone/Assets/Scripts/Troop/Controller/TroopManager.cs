@@ -1,8 +1,6 @@
-﻿using Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using View;
 
 namespace Controller
 {
@@ -82,12 +80,13 @@ namespace Controller
         {
             Model.TroopBase modelTroop = ViewToModelMap[SelectedTroop];
             Model.TileBase modelTile = MapManager.Instance.ViewToModelMap[tile];
+            View.Tile from = MapManager.Instance.ModelToViewMap[modelTroop.Tile];
 
             bool moved = Model.TurnManager.Instance.CurrentPlayer.MoveTroop(modelTroop, modelTile);
             if (!moved)
                 return;
 
-            SelectedTroop.Move(tile);
+            SelectedTroop.Move(from, tile);
             SelectedTroop = null;
             View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
