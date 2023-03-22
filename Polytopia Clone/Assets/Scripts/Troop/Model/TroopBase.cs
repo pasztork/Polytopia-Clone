@@ -40,13 +40,9 @@ namespace Model
             return true;
         }
 
-        public bool Attack(TroopBase troop)
+        public virtual bool Attack(TroopBase troop)
         {
-            if (!TilesInAttackRange.Contains(troop.Tile))
-                return false;
-
-            troop.TakeDamage(TroopProperty.Damage);
-            return true;
+            return false;
         }
 
         // Tells whether or not troop died.
