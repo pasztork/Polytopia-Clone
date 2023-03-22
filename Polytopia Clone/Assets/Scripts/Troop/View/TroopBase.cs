@@ -247,7 +247,7 @@ namespace View
 
                 foreach (Tile tile in toAdd)
                 {
-                    if (!tile.CompareTag("Water") && Controller.MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
+                    if (!tile.CompareTag("Water") && !tile.CompareTag("Mountain") && Controller.MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
                         reachables.Add(tile);
                 }
             }
