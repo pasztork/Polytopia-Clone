@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 192332905623899280}
   - component: {fileID: 3573502393572134665}
   - component: {fileID: 4394839279379804233}
+  - component: {fileID: -1699723509975437972}
   m_Layer: 0
   m_Name: Builder
   m_TagString: Untagged
@@ -215,6 +216,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-1699723509975437972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124203558222508765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9eabcce7cb18d468ac7f297c0add82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: {fileID: 11400000, guid: ba0f92338f920804e836f17d05b58bfd, type: 2}
+  troopProperties: {fileID: 11400000, guid: 3de1cc1271e8e044d8b762a0f4906f9f, type: 2}
+  hoverColor: {r: 1, g: 1, b: 0, a: 0.5019608}
+  selectColor: {r: 1, g: 0, b: 1, a: 0.5019608}
 --- !u!1 &5272841271002025970
 GameObject:
   m_ObjectHideFlags: 0
