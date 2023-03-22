@@ -24,10 +24,6 @@ namespace Model
             }
         }
 
-        public float WaterProbability { get; set; }
-        public int MinMountainCount { get; set; }
-        public int MaxMountainCount { get; set; }
-
         private TileBase[,] tiles;
         public TileBase[,] Tiles
         {
@@ -39,7 +35,7 @@ namespace Model
 
         public void GenerateMap()
         {
-            MapGenerator.Instance.GenerateMap(WaterProbability, MinMountainCount, MaxMountainCount);
+            MapGenerator.Instance.GenerateMap();
         }
 
         public void LoadMap()

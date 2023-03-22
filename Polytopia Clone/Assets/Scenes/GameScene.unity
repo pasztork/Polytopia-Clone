@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -870,7 +870,10 @@ MonoBehaviour:
   size: 16
   minMountainCount: 5
   maxMountainCount: 15
-  waterProbability: 0.3
+  minForrestCountPerChunk: 2
+  maxForrestCountPerChunk: 5
+  desertChunkProbability: 0.15
+  waterTileProbability: 0.4
 --- !u!114 &277816175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -889,11 +892,13 @@ MonoBehaviour:
     - Rock
     - Sand
     - Water
+    - Forrest
     m_values:
     - {fileID: 3075795380664745628, guid: 623f7f3e4a4704143a8390a912d515e4, type: 3}
     - {fileID: 3075795380664745628, guid: 06f9069c6056e27498d6bc2bff4c8f86, type: 3}
     - {fileID: 3075795380664745628, guid: 9e548f36ebb79f1408d3895d41725602, type: 3}
     - {fileID: 3075795380664745628, guid: a4988970db42dc04baca511593bba24d, type: 3}
+    - {fileID: 3075795380664745628, guid: 15e9e1178ee3dab4fb3f9fb9f06bf55c, type: 3}
 --- !u!1 &320758662
 GameObject:
   m_ObjectHideFlags: 0

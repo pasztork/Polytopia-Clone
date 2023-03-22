@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,19 +18,19 @@ namespace Model
         private TileBase[,] tiles;
         private float[,] noiseMap;
         private int size;
-        private int minMountainCount;
-        private int maxMountainCount;
-        private float waterTileProbability;
 
-        public void GenerateMap(float waterTileProbability, int minMountainCount, int maxMountainCount)
+        public int MinMountainCount { private get; set; }
+        public int MaxMountainCount { private get; set; }
+        public int MinForrestCountPerChunk { private get; set; }
+        public int MaxForrestCountPerChunk { private get; set; }
+        public float WaterTileProbability { private get; set; }
+        public float DesertChunkProbability { private get; set; }
+
+        public void GenerateMap()
         {
 
             tiles = MapManager.Instance.Tiles;
             size = MapManager.Instance.Tiles.GetLength(0);
-            this.minMountainCount = minMountainCount;
-            this.maxMountainCount = maxMountainCount;
-            this.waterTileProbability = waterTileProbability;
-
             noiseMap = PerlinNoise.GenerateNoiseMap(size);
             GenerateWaterTiles();
             FillEmptyTiles();
@@ -42,7 +41,7 @@ namespace Model
         {
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    tiles[x, y] = noiseMap[x, y] < waterTileProbability
+                    tiles[x, y] = noiseMap[x, y] < WaterTileProbability
                         ? new WaterTile()
                         : null;
         }
@@ -53,17 +52,12 @@ namespace Model
 
             (int, int)[] offsets = { (0, 0), (0, 1), (1, 0), (1, 1) };
             foreach ((int, int) offset in offsets)
-            {
-                string chunkType = PickChunk();
-                for (int x = offset.Item1 * size / 2; x < (offset.Item1 + 1) * size / 2; x++)
-                    for (int y = offset.Item2 * size / 2; y < (offset.Item2 + 1) * size / 2; y++)
-                        tiles[x, y] ??= GetNewTile(chunkType);
-            }
+                GenerateChunk(offset);
         }
 
         private void GenerateMountains()
         {
-            int actualMountainCount = new System.Random().Next(maxMountainCount - minMountainCount + 1) + minMountainCount;
+            int actualMountainCount = new System.Random().Next(MaxMountainCount - MinMountainCount + 1) + MinMountainCount;
             if (actualMountainCount == 0)
                 return;
 
@@ -74,7 +68,7 @@ namespace Model
                         emptyCoords.Add((x, y));
 
             IList<(int, int)> mountainCoords = new List<(int, int)>();
-            System.Random rand = new System.Random(DateTime.Now.Millisecond);
+            System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
             for (int i = 0; i < actualMountainCount; i++)
             {
                 (int, int) pair = emptyCoords[rand.Next(emptyCoords.Count)];
@@ -86,25 +80,40 @@ namespace Model
                 tiles[mountainCoord.Item1, mountainCoord.Item2] = new RockTile();
         }
 
-        private (int, int) FindSmallesPair(IList<(int, int)> pairs)
+        private void GenerateChunk((int, int) offset)
         {
-            return pairs
-                .Select((pair) => new { Pair = pair, Value = noiseMap[pair.Item1, pair.Item2] })
-                .OrderBy((pair) => pair.Value).First().Pair;
+            if (new System.Random().NextDouble() < DesertChunkProbability)
+            {
+                GenerateDesert(offset);
+                return;
+            }
+
+            GenerateGrassLand(offset);
         }
 
-        private string PickChunk()
+        private void GenerateDesert((int, int) offset)
         {
-            return new System.Random().Next(2) == 0
-                ? "Grass"
-                : "Sand";
+            for (int x = offset.Item1 * size / 2; x < (offset.Item1 + 1) * size / 2; x++)
+                for (int y = offset.Item2 * size / 2; y < (offset.Item2 + 1) * size / 2; y++)
+                    tiles[x, y] ??= new SandTile();
         }
 
-        private TraversableTile GetNewTile(string chunkType)
+        private void GenerateGrassLand((int, int) offset)
         {
-            return chunkType == "Grass"
-                ? new GrassTile()
-                : new SandTile();
+            IList<(int, int, float)> emptyCoords = new List<(int, int, float)>();
+            for (int x = offset.Item1 * size / 2; x < (offset.Item1 + 1) * size / 2; x++)
+                for (int y = offset.Item2 * size / 2; y < (offset.Item2 + 1) * size / 2; y++)
+                    if (tiles[x, y] == null)
+                        emptyCoords.Add((x, y, noiseMap[x, y]));
+
+            int actualForrestCount = new System.Random().Next(
+                MaxForrestCountPerChunk - MinForrestCountPerChunk + 1) + MinForrestCountPerChunk;
+            foreach ((int, int) forrestCoord in
+                emptyCoords.OrderBy(x => x.Item3).TakeLast(System.Math.Min(emptyCoords.Count, actualForrestCount)).Select(x => (x.Item1, x.Item2)))
+                tiles[forrestCoord.Item1, forrestCoord.Item2] = new ForrestTile();
+
+            foreach ((int, int) coord in emptyCoords.Select(x => (x.Item1, x.Item2)))
+                tiles[coord.Item1, coord.Item2] ??= new GrassTile();
         }
 
         private void SetupCoordinateSystem()

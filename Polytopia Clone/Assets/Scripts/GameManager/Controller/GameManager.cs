@@ -6,7 +6,7 @@ namespace Controller
     {
         private void Awake()
         {
-            CreateMap();
+            SetupGeneration();
             Model.MapManager.Instance.GenerateMap();
         }
 
@@ -15,12 +15,15 @@ namespace Controller
             Model.GameManager.Instance.Start();
         }
 
-        private void CreateMap()
+        private void SetupGeneration()
         {
             Model.MapManager.Instance.Size = MapManager.Instance.Size;
-            Model.MapManager.Instance.WaterProbability = MapManager.Instance.WaterProbability;
-            Model.MapManager.Instance.MinMountainCount = MapManager.Instance.MinMountainCount;
-            Model.MapManager.Instance.MaxMountainCount = MapManager.Instance.MaxMountainCount;
+            Model.MapGenerator.Instance.MinMountainCount = MapManager.Instance.MinMountainCount;
+            Model.MapGenerator.Instance.MaxMountainCount = MapManager.Instance.MaxMountainCount;
+            Model.MapGenerator.Instance.MinForrestCountPerChunk = MapManager.Instance.MinForrestCountPerChunk;
+            Model.MapGenerator.Instance.MaxForrestCountPerChunk = MapManager.Instance.MaxForrestCountPerChunk;
+            Model.MapGenerator.Instance.WaterTileProbability = MapManager.Instance.WaterTileProbability;
+            Model.MapGenerator.Instance.DesertChunkProbability = MapManager.Instance.DesertChunkProbability;
         }
     }
 }
