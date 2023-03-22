@@ -5,7 +5,7 @@
         public override Model.TroopBase ToModel(Model.Player player)
         {
             Model.TroopBase warrior = new Model.Warrior();
-            warrior.OnDamageTaken += Kill;
+            warrior.OnDamageTaken += TakeDamage;
             warrior.TroopProperty = new Model.TroopProperty(
                 troopProperties.Health, troopProperties.Damage,
                 troopProperties.MovementRange, troopProperties.AttackRange);

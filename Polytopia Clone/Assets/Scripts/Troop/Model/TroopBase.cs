@@ -6,7 +6,8 @@ namespace Model
 {
     public abstract class TroopBase
     {
-        public event Action OnDamageTaken;
+        // The argument of the method is the remainging health.
+        public event Action<int> OnDamageTaken;
 
         public Cost Cost { get; set; }
         public TroopProperty TroopProperty { get; set; }
@@ -52,7 +53,7 @@ namespace Model
         public bool TakeDamage(int damage)
         {
             TroopProperty.Health -= damage;
-            OnDamageTaken?.Invoke();
+            OnDamageTaken?.Invoke(TroopProperty.Health);
 
             if (TroopProperty.Health > 0)
                 return false;

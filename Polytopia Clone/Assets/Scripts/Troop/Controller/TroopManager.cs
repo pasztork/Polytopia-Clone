@@ -65,7 +65,7 @@ namespace Controller
 
             if (!trained)
             {
-                viewTroop.Kill();
+                viewTroop.TakeDamage(0);
                 Destroy(viewTroop);
                 return;
             }

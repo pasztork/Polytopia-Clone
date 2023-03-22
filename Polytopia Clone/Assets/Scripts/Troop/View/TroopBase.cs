@@ -1,5 +1,4 @@
-﻿using Controller;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,15 +21,22 @@ namespace View
         [SerializeField] private Color selectColor;
         private Color startColor;
 
-        public abstract Model.TroopBase ToModel(Model.Player player);
 
         private IList<Tile> TilesToHighLight = new List<Tile>();
         private IList<TroopBase> EnemiesToHighLight = new List<TroopBase>();
+
+        public abstract Model.TroopBase ToModel(Model.Player player);
+
 
         private void Awake()
         {
             startColor = GetComponent<Renderer>().material.color;
             HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
+        }
+
+        private void Start()
+        {
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Initialize(troopProperties.Health);
         }
 
         protected void DeselectIfNotSelected(MonoBehaviour mono)
@@ -43,7 +49,7 @@ namespace View
 
         private void OnMouseEnter()
         {
-            if (EventSystem.current.IsPointerOverGameObject() || GetComponent<Renderer>().material.color == selectColor 
+            if (EventSystem.current.IsPointerOverGameObject() || GetComponent<Renderer>().material.color == selectColor
                 || !Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
@@ -54,12 +60,12 @@ namespace View
 
         private void OnMouseOver()
         {
-            if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
 
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 DeselectAttack();
                 SelectMove();
@@ -75,13 +81,13 @@ namespace View
         {
             if (GetComponent<Renderer>().material.color == selectColor)
             {
-                TroopManager.Instance.Attack(this);
+                Controller.TroopManager.Instance.Attack(this);
             }
         }
 
         private void OnMouseExit()
         {
-            if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -125,7 +131,8 @@ namespace View
                 }
             }
 
-            Func<Tile, IEnumerable<Tile>> shortestPath = v => {
+            Func<Tile, IEnumerable<Tile>> shortestPath = v =>
+            {
                 var path = new List<Tile> { };
 
                 var current = v;
@@ -145,7 +152,7 @@ namespace View
 
         private IEnumerator MoveAlong(IEnumerable<Tile> path)
         {
-            MapManager.Instance.SelectedTile = null;
+            Controller.MapManager.Instance.SelectedTile = null;
             Vector3 offset = new Vector3(1f, 1.5f, 1f);
             foreach (Tile step in path)
             {
@@ -156,12 +163,6 @@ namespace View
             }
         }
 
-        public void Kill()
-        {
-            HighlightManager.Instance.OnMonoBehaviourSelected -= DeselectIfNotSelected;
-            Destroy(gameObject);
-        }
-
         public void SelectMove()
         {
             if (EventSystem.current.IsPointerOverGameObject())
@@ -170,8 +171,8 @@ namespace View
                 return;
             }
 
-            var prev = TroopManager.Instance.SelectedTroop;
-            TroopManager.Instance.SelectedTroop = this;
+            var prev = Controller.TroopManager.Instance.SelectedTroop;
+            Controller.TroopManager.Instance.SelectedTroop = this;
 
             if (prev != null)
             {
@@ -195,8 +196,8 @@ namespace View
                 return;
             }
 
-            var prev = TroopManager.Instance.SelectedTroop;
-            TroopManager.Instance.SelectedTroop = this;
+            var prev = Controller.TroopManager.Instance.SelectedTroop;
+            Controller.TroopManager.Instance.SelectedTroop = this;
 
             if (prev != null)
             {
@@ -205,7 +206,7 @@ namespace View
 
             EnemiesToHighLight.Clear();
             EnemiesToHighLight = GetEnemiesInRange(troopProperties.AttackRange);
-            foreach(TroopBase enemy in EnemiesToHighLight)
+            foreach (TroopBase enemy in EnemiesToHighLight)
             {
                 enemy.GetComponent<Renderer>().material.color = selectColor;
             }
@@ -224,18 +225,18 @@ namespace View
 
         public void DeselectAttack()
         {
-            foreach(TroopBase enemy in EnemiesToHighLight)
+            foreach (TroopBase enemy in EnemiesToHighLight)
             {
-                if(enemy != null)
-                enemy.GetComponent<Renderer>().material.color = startColor;
+                if (enemy != null)
+                    enemy.GetComponent<Renderer>().material.color = startColor;
             }
             EnemiesToHighLight.Clear();
         }
 
         private IList<Tile> GetTilesInRange(int range)
         {
-            Model.TroopBase modelTroop = TroopManager.Instance.ViewToModelMap[this];
-            Tile currentTile = MapManager.Instance.ModelToViewMap[modelTroop.Tile];
+            Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
+            Tile currentTile = Controller.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
             ISet<Tile> reachables = new HashSet<Tile> { currentTile };
             for (int i = 0; i < range; i++)
             {
@@ -246,7 +247,7 @@ namespace View
 
                 foreach (Tile tile in toAdd)
                 {
-                    if(!tile.CompareTag("Water") && MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
+                    if (!tile.CompareTag("Water") && Controller.MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
                         reachables.Add(tile);
                 }
             }
@@ -256,17 +257,29 @@ namespace View
 
         private IList<TroopBase> GetEnemiesInRange(int range)
         {
-            Model.TroopBase modelTroop = TroopManager.Instance.ViewToModelMap[this];
+            Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
             IList<Model.TileBase> tiles = modelTroop.TilesInAttackRange;
             IList<TroopBase> enemies = new List<TroopBase>();
-            foreach(Model.TileBase tile in tiles)
+            foreach (Model.TileBase tile in tiles)
             {
-                if(tile.TroopOnTop != null && tile.TroopOnTop.Player != modelTroop.Player)
+                if (tile.TroopOnTop != null && tile.TroopOnTop.Player != modelTroop.Player)
                 {
-                    enemies.Add(TroopManager.Instance.ModelToViewMap[tile.TroopOnTop]);
+                    enemies.Add(Controller.TroopManager.Instance.ModelToViewMap[tile.TroopOnTop]);
                 }
             }
             return enemies.ToList();
+        }
+
+        public void TakeDamage(int remainingHealth)
+        {
+            if (remainingHealth <= 0)
+            {
+                HighlightManager.Instance.OnMonoBehaviourSelected -= DeselectIfNotSelected;
+                Destroy(gameObject);
+                return;
+            }
+
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
         }
     }
 }
