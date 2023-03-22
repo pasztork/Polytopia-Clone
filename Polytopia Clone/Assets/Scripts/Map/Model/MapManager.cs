@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -31,6 +32,8 @@ namespace Model
             private set => tiles ??= value;
         }
 
+        public IList<TileBase> StartingTiles { get; } = new List<TileBase>();
+
         public TileBase SelectedTile { get; set; }
 
         public void GenerateMap()
@@ -41,6 +44,14 @@ namespace Model
         public void LoadMap()
         {
             throw new NotImplementedException();
+        }
+
+        public TileBase GetStartingTile()
+        {
+            Random rand = new Random(DateTime.Now.Millisecond);
+            TileBase tile = StartingTiles[rand.Next(StartingTiles.Count)];
+            StartingTiles.Remove(tile);
+            return tile;
         }
     }
 }

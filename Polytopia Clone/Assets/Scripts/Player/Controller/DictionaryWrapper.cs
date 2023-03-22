@@ -4,14 +4,14 @@ using UnityEngine;
 namespace Controller
 {
     [CreateAssetMenu]
-    public class BaseActionCount : ScriptableObject
+    public class DictionaryWrapper : ScriptableObject
     {
-        [SerializeField] private SerializableDictionary<string, int> baseActionCount;
+        [SerializeField] private SerializableDictionary<string, int> serializableDictionary;
 
         public Dictionary<string, int> CreateDictionary()
         {
             Dictionary<string, int> dictionary = new Dictionary<string, int>();
-            foreach (KeyValuePair<string, int> kvp in baseActionCount)
+            foreach (KeyValuePair<string, int> kvp in serializableDictionary)
             {
                 string keyCopy = string.Copy(kvp.Key);
                 int valueCopy = kvp.Value;

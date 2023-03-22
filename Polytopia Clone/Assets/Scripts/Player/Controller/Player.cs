@@ -8,17 +8,23 @@ namespace Controller
         [SerializeField] private new string name;
         [SerializeField] private string[] startingBuildings;
         [SerializeField] private string[] startingTroops;
-        [SerializeField] private SerializableDictionary<string, int> baseProduction;
-        [SerializeField] private BaseActionCount baseActionCount;
+        [SerializeField] private DictionaryWrapper baseProduction;
+        [SerializeField] private DictionaryWrapper baseActionCount;
 
-        private void Awake()
+        private void Start()
         {
-            Model.Player player = new Model.Player(name, baseActionCount.CreateDictionary());
-            player.ResourceContainer.BaseMoneyProduction = baseProduction["Money"];
-            player.ResourceContainer.BaseMaterialProduction = baseProduction["Material"];
-            player.ResourceContainer.BaseFoodProduction = baseProduction["Food"];
+            Model.Player player = new Model.Player(name);
+            player.StartingProduction = baseProduction.CreateDictionary();
+            player.ActionCount = baseActionCount.CreateDictionary();
             player.AvailableBuildings = startingBuildings.ToList();
             player.AvailableTroops = startingTroops.ToList();
+
+            player.OnStartingCitySpawned += BuildStartingCity;
+        }
+
+        private void BuildStartingCity(Model.TileBase modelTile, Model.BuildingBase modelBuilding)
+        {
+            BuildingManager.Instance.BuildStartingCity(modelTile, modelBuilding);
         }
     }
 }

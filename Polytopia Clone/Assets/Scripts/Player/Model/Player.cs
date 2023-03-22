@@ -1,23 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Model
 {
     public class Player
     {
+        public event Action<TileBase, BuildingBase> OnStartingCitySpawned;
+
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
         public Dictionary<string, int> ActionCount { get; set; }
+
+        public Dictionary<string, int> StartingProduction { private get; set; }
         public IList<BuildingBase> Buildings { get; } = new List<BuildingBase>();
         public IList<TroopBase> Troops { get; } = new List<TroopBase>();
+
         public string Name { get; set; }
 
         public IList<string> AvailableBuildings { get; set; }
         public IList<string> AvailableTroops { get; set; }
 
-        public Player(string name, Dictionary<string, int> actionCount)
+        public Player(string name)
         {
             Name = name;
-            ActionCount = actionCount;
             TurnManager.Instance.PlayerCreated(this);
+            GameManager.Instance.Players.Add(this);
         }
 
         public void StartTurn()
@@ -81,6 +87,20 @@ namespace Model
                 return false;
 
             return attacker.Attack(target);
+        }
+
+        public void SetupStartingPosition()
+        {
+            BuildingBase city = new City();
+            city.Producers.Add(new MoneyProducer(ResourceContainer, StartingProduction["Money"]));
+            city.Producers.Add(new MaterialProducer(ResourceContainer, StartingProduction["Material"]));
+            city.Producers.Add(new FoodProducer(ResourceContainer, StartingProduction["Food"]));
+            TileBase tile = MapManager.Instance.GetStartingTile();
+            city.Tile = tile;
+            tile.SetBuildingOnTop(city);
+            Buildings.Add(city);
+
+            OnStartingCitySpawned?.Invoke(tile, city);
         }
     }
 }

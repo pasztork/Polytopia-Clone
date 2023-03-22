@@ -23,7 +23,6 @@ namespace Model
 
         public void GenerateMap()
         {
-
             tiles = MapManager.Instance.Tiles;
             size = MapManager.Instance.Tiles.GetLength(0);
             noiseMap = PerlinNoise.GenerateNoiseMap(size);
@@ -90,9 +89,22 @@ namespace Model
 
         private void GenerateDesert((int, int) offset)
         {
+            IList<TileBase> startingTileContenders = new List<TileBase>();
             for (int x = offset.Item1 * size / 2; x < (offset.Item1 + 1) * size / 2; x++)
+            {
                 for (int y = offset.Item2 * size / 2; y < (offset.Item2 + 1) * size / 2; y++)
-                    tiles[x, y] ??= new SandTile();
+                {
+                    if (tiles[x, y] == null)
+                    {
+                        TileBase sand = new SandTile();
+                        tiles[x, y] = sand;
+                        startingTileContenders.Add(sand);
+                    }
+                }
+            }
+
+            System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
+            MapManager.Instance.StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
         }
 
         private void GenerateGrassLand((int, int) offset)
@@ -113,8 +125,19 @@ namespace Model
                     .Select(x => (x.Item1, x.Item2)))
                 tiles[forrestCoord.Item1, forrestCoord.Item2] = new ForrestTile();
 
+            IList<TileBase> startingTileContenders = new List<TileBase>();
             foreach ((int, int) coord in emptyCoords.Select(x => (x.Item1, x.Item2)))
-                tiles[coord.Item1, coord.Item2] ??= new GrassTile();
+            {
+                if (tiles[coord.Item1, coord.Item2] == null)
+                {
+                    TileBase grass = new GrassTile();
+                    tiles[coord.Item1, coord.Item2] = grass;
+                    startingTileContenders.Add(grass);
+                }
+            }
+
+            System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
+            MapManager.Instance.StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
         }
 
         private void SetupCoordinateSystem()

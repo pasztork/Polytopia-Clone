@@ -69,5 +69,15 @@ namespace Controller
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
         }
+
+        public void BuildStartingCity(Model.TileBase modelTile, Model.BuildingBase modelBuilding)
+        {
+            View.Tile viewTile = MapManager.Instance.ModelToViewMap[modelTile];
+            View.BuildingBase viewBuilding = Instantiate(blueprints["City"],
+                viewTile.transform.position + new Vector3(0f, 1f, 0f),
+                Quaternion.identity);
+            ViewToModelMap[viewBuilding] = modelBuilding;
+            ModelToViewMap[modelBuilding] = viewBuilding;
+        }
     }
 }

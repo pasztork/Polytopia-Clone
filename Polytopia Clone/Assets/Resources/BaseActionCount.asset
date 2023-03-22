@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be908bfb311bdcf40922f1ace5019e71, type: 3}
   m_Name: BaseActionCount
   m_EditorClassIdentifier: 
-  baseActionCount:
+  serializableDictionary:
     m_keys:
     - Build
     - Train
