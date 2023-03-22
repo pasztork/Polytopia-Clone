@@ -10,17 +10,29 @@ namespace View
 
         [SerializeField] private Color hoverColor;
         public Color startColor;
+        [SerializeField] private Color selectColor;
+        public Color SelectColor { get => selectColor; set => selectColor = value; }
+        public Color TileColor 
+        { 
+            get => GetComponent<Renderer>().material.color;
+            set
+            {
+                previousColor = TileColor;
+                GetComponent<Renderer>().material.color = value;
+            }
+        }
+        private Color previousColor;
 
         private void Awake()
         {
-            startColor = GetComponent<Renderer>().material.color;
+            startColor = TileColor;
 
             HighlightManager.Instance.OnMonoBehaviourSelected += (mono) =>
             {
                 if (mono == this)
                     return;
 
-                GetComponent<Renderer>().material.color = startColor;
+                TileColor = startColor;
             };
         }
 
@@ -32,12 +44,19 @@ namespace View
                 return;
             }
 
-            GetComponent<Renderer>().material.color = hoverColor;
+            TileColor = hoverColor;
         }
 
         private void OnMouseExit()
         {
-            Deselect();
+            if(previousColor != selectColor)
+            {
+                Deselect();
+            }
+            else
+            {
+                TileColor = previousColor;
+            }
         }
 
         private void OnMouseDown()
@@ -62,7 +81,7 @@ namespace View
         public void Deselect()
         {
             if (Controller.MapManager.Instance.SelectedTile != this)
-                GetComponent<Renderer>().material.color = startColor;
+                TileColor = startColor;
         }
     }
 }

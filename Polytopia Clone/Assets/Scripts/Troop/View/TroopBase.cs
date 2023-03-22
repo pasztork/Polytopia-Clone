@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Controller;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace View
@@ -16,12 +19,13 @@ namespace View
         [SerializeField] private Color hoverColor;
         [SerializeField] private Color selectColor;
         private Color startColor;
+        public Color TroopColor { get => GetComponent<Renderer>().material.color; set => GetComponent<Renderer>().material.color = value; }
 
         public abstract Model.TroopBase ToModel(Model.Player player);
 
         private void Awake()
         {
-            startColor = GetComponent<Renderer>().material.color;
+            startColor = TroopColor;
             HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
         }
 
@@ -30,49 +34,79 @@ namespace View
             if (mono == this)
                 return;
 
-            GetComponent<Renderer>().material.color = startColor;
+            TroopColor = startColor;
         }
 
         private void OnMouseEnter()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (EventSystem.current.IsPointerOverGameObject() || TroopColor == selectColor)
             {
-                Deselect();
                 return;
             }
 
-            GetComponent<Renderer>().material.color = hoverColor;
+            TroopColor = hoverColor;
         }
 
-        protected virtual void OnMouseDown()
+        private void OnMouseOver()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            if(Input.GetMouseButtonDown(0))
             {
-                Deselect();
-                return;
+                if(TroopColor == selectColor)
+                {
+                    Controller.TroopManager.Instance.SelectedTroop = this;
+                }
+                else
+                {
+                    DeselectAttack();
+                    SelectMove();
+                }
             }
-
-            TroopBase selectedTroop = Controller.TroopManager.Instance.SelectedTroop;
-            if (selectedTroop != this && selectedTroop != null)
+            else if (Input.GetMouseButtonDown(1))
             {
-                Controller.TroopManager.Instance.Attack(this);
-                return;
+                if(TroopColor == selectColor)
+                {
+                    Controller.TroopManager.Instance.SelectedTroop = this;
+                }
+                else
+                {
+                    DeselectMove();
+                    SelectAttack();
+                }
             }
-
-            Controller.MapManager.Instance.SelectedTile = null;
-            Controller.BuildingManager.Instance.SelectedBuilding = null;
-            Controller.TroopManager.Instance.SelectedTroop = this;
         }
+
+        //protected virtual void OnMouseDown()
+        //{
+        //    if (EventSystem.current.IsPointerOverGameObject())
+        //    {
+        //        Deselect();
+        //        return;
+        //    }
+
+        //    TroopBase selectedTroop = Controller.TroopManager.Instance.SelectedTroop;
+        //    if (selectedTroop != this && selectedTroop != null)
+        //    {
+        //        Controller.TroopManager.Instance.Attack(this);
+        //        return;
+        //    }
+
+        //    Controller.MapManager.Instance.SelectedTile = null;
+        //    Controller.BuildingManager.Instance.SelectedBuilding = null;
+        //    Controller.TroopManager.Instance.SelectedTroop = this;
+        //}
 
         private void OnMouseExit()
         {
-            Deselect();
+            if(Controller.TroopManager.Instance.SelectedTroop != this && TroopColor != selectColor)
+            {
+                TroopColor = startColor;
+            }
         }
 
         public void Deselect()
         {
             if (Controller.TroopManager.Instance.SelectedTroop != this)
-                GetComponent<Renderer>().material.color = startColor;
+                TroopColor = startColor;
         }
 
         public void Move(Tile tile)
@@ -84,6 +118,45 @@ namespace View
         {
             HighlightManager.Instance.OnMonoBehaviourSelected -= DeselectIfNotSelected;
             Destroy(gameObject);
+        }
+
+        public void SelectMove()
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                DeselectMove();
+                return;
+            }
+
+            var prev = TroopManager.Instance.SelectedTroop;
+            TroopManager.Instance.SelectedTroop = this;
+
+            if (prev != null)
+            {
+                prev.DeselectMove();
+            }
+
+            IList<Tile> tiles = Controller.TroopManager.Instance.GetTilesForMove();
+            foreach (var tile in tiles)
+            {
+                tile.GetComponent<Renderer>().material.color = tile.SelectColor;
+            }
+            TroopColor = hoverColor;
+        }
+
+        public void SelectAttack()
+        {
+
+        }
+
+        public void DeselectMove()
+        {
+
+        }
+
+        public void DeselectAttack()
+        {
+
         }
     }
 }

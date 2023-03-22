@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using View;
 
 namespace Controller
 {
@@ -48,7 +50,7 @@ namespace Controller
             // Should throw error if there are no subscribers.
             // Whoever responds should set the value of Blueprint.
             OnTrainAttempted.Invoke();
-            if (Blueprint == null)
+            if (Blueprint == null || BuildingManager.Instance.SelectedBuilding == null)
                 return;
 
             View.BuildingBase building = BuildingManager.Instance.SelectedBuilding;
@@ -101,6 +103,17 @@ namespace Controller
 
             SelectedTroop = null;
             View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
+        }
+
+        public IList<Tile> GetTilesForMove()
+        {
+            Model.TroopBase modelTroop = ViewToModelMap[SelectedTroop];
+            IList<Tile> result = new List<Tile>();
+            foreach(var t in modelTroop.TilesInMovementRange)
+            {
+                result.Add(Controller.MapManager.Instance. ModelToViewMap[t]);
+            }
+            return result;
         }
     }
 }
