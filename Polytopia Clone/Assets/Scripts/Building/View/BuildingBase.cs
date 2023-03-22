@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Controller;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace View
@@ -32,7 +33,11 @@ namespace View
         }
 
         private void OnMouseEnter()
-        {
+        {   
+            if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(BuildingManager.Instance.ViewToModelMap[this]))
+            {
+                return;
+            }
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 Deselect();
@@ -44,6 +49,10 @@ namespace View
 
         protected virtual void OnMouseDown()
         {
+            if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(BuildingManager.Instance.ViewToModelMap[this]))
+            {
+                return;
+            }
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 Deselect();
@@ -57,6 +66,10 @@ namespace View
 
         private void OnMouseExit()
         {
+            if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(BuildingManager.Instance.ViewToModelMap[this]))
+            {
+                return;
+            }
             Deselect();
         }
 

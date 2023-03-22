@@ -44,7 +44,8 @@ namespace View
 
         private void OnMouseEnter()
         {
-            if (EventSystem.current.IsPointerOverGameObject() || TroopColor == selectColor)
+            if (EventSystem.current.IsPointerOverGameObject() || TroopColor == selectColor 
+                || !Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -54,6 +55,11 @@ namespace View
 
         private void OnMouseOver()
         {
+            if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(TroopManager.Instance.ViewToModelMap[this]))
+            {
+                return;
+            }
+
             if(Input.GetMouseButtonDown(0))
             {
                 if(TroopColor == selectColor)
@@ -82,7 +88,12 @@ namespace View
 
         private void OnMouseExit()
         {
-            if(Controller.TroopManager.Instance.SelectedTroop != this && TroopColor != selectColor)
+            if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(TroopManager.Instance.ViewToModelMap[this]))
+            {
+                return;
+            }
+
+            if (Controller.TroopManager.Instance.SelectedTroop != this && TroopColor != selectColor)
             {
                 TroopColor = startColor;
             }
