@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1007,8 +1007,16 @@ MonoBehaviour:
   blueprints:
     m_keys:
     - Warrior
+    - Archer
+    - Builder
+    - Scout
+    - Settler
     m_values:
     - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
+    - {fileID: 1114098095113398107, guid: 138af4d9e449dea47bd08fe8c53d0b50, type: 3}
+    - {fileID: -1699723509975437972, guid: e6528a6ae017c644d80eafdb3a0ab419, type: 3}
+    - {fileID: -8072061295275181274, guid: 39368c97665d5434ca59db23c2691816, type: 3}
+    - {fileID: 1916921291909066819, guid: a9b2ecc8e91b6204e842e551dcab6c14, type: 3}
 --- !u!4 &340401484
 Transform:
   m_ObjectHideFlags: 0
@@ -1073,6 +1081,10 @@ MonoBehaviour:
   - City
   startingTroops:
   - Warrior
+  - Archer
+  - Builder
+  - Settler
+  - Scout
   baseProduction:
     m_keys:
     - Money
@@ -1621,8 +1633,16 @@ MonoBehaviour:
   troops:
     m_keys:
     - Warrior
+    - Archer
+    - Builder
+    - Settler
+    - Scout
     m_values:
     - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
+    - {fileID: 1114098095113398107, guid: 138af4d9e449dea47bd08fe8c53d0b50, type: 3}
+    - {fileID: -1699723509975437972, guid: e6528a6ae017c644d80eafdb3a0ab419, type: 3}
+    - {fileID: 1916921291909066819, guid: a9b2ecc8e91b6204e842e551dcab6c14, type: 3}
+    - {fileID: -8072061295275181274, guid: 39368c97665d5434ca59db23c2691816, type: 3}
 --- !u!1 &729774940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3671,6 +3691,10 @@ MonoBehaviour:
   - City
   startingTroops:
   - Warrior
+  - Archer
+  - Builder
+  - Settler
+  - Scout
   baseProduction:
     m_keys:
     - Money

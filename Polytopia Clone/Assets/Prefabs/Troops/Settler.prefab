@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 192332905623899280}
   - component: {fileID: 3573502393572134665}
   - component: {fileID: 4394839279379804233}
+  - component: {fileID: 1916921291909066819}
   m_Layer: 0
   m_Name: Settler
   m_TagString: Untagged
@@ -251,6 +252,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1916921291909066819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124203558222508765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdfec65ecb8b0154883e978f32c7bcc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: {fileID: 11400000, guid: b7a91fa418d9bb84882b31dc5410c213, type: 2}
+  troopProperties: {fileID: 11400000, guid: 6e49c305a524b564fbd464344079ed5f, type: 2}
+  hoverColor: {r: 1, g: 1, b: 0, a: 0.5019608}
+  selectColor: {r: 1, g: 0, b: 1, a: 0.5019608}
 --- !u!1 &4124491565012953854
 GameObject:
   m_ObjectHideFlags: 0
