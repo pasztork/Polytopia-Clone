@@ -104,16 +104,5 @@ namespace Controller
             SelectedTroop = null;
             View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
-
-        public IList<Tile> GetTilesForMove()
-        {
-            Model.TroopBase modelTroop = ViewToModelMap[SelectedTroop];
-            IList<Tile> result = new List<Tile>();
-            foreach(var t in modelTroop.TilesInMovementRange)
-            {
-                result.Add(Controller.MapManager.Instance. ModelToViewMap[t]);
-            }
-            return result;
-        }
     }
 }
