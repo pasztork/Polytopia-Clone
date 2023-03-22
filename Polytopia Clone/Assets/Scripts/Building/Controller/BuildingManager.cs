@@ -48,7 +48,7 @@ namespace Controller
             // Should throw error if there are no subscribers.
             // Whoever responds should set the value of Blueprint.
             OnBuildAttempted.Invoke();
-            if (Blueprint == null)
+            if (Blueprint == null || MapManager.Instance.SelectedTile == null)
                 return;
 
             View.Tile tile = MapManager.Instance.SelectedTile;
