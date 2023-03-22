@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WarriorProperty
   m_EditorClassIdentifier: 
   health: 5
-  damage: 50
+  damage: 1
   movementRange: 1
   attackRange: 1

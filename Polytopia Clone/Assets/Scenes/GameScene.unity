@@ -868,7 +868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 16
-  waterProbability: 0.4
+  waterProbability: 0.2
 --- !u!114 &277816175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1615,7 +1615,7 @@ MonoBehaviour:
     m_keys:
     - Warrior
     m_values:
-    - {fileID: 106070691296940910, guid: fc92250376aaef44295085964b5384a7, type: 3}
+    - {fileID: 3824320536629923728, guid: 3139c2f3905f2e44dae31c782c5ee5fd, type: 3}
 --- !u!1 &729774940
 GameObject:
   m_ObjectHideFlags: 0
@@ -4645,16 +4645,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blueprints:
-    m_keys:
-    - Bank
-    - City
-    - Farm
-    - Supplier
-    m_values:
-    - {fileID: 745713856436684065, guid: f79534cdcfa6f954fb2d1e563b75c3d3, type: 3}
-    - {fileID: 4787953681856402325, guid: 63baf07eac0846d4783a8369d8f4f4fd, type: 3}
-    - {fileID: 3568811158906727637, guid: 7028d18608f301247815865b28cf234c, type: 3}
-    - {fileID: 6679960410637966285, guid: 28075208b8a5552469c0c4055a509753, type: 3}
+    m_keys: []
+    m_values: []
 --- !u!1 &1821650438
 GameObject:
   m_ObjectHideFlags: 0
