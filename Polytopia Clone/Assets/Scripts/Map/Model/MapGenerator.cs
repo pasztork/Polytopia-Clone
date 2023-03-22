@@ -19,12 +19,7 @@ namespace Model
         private float[,] noiseMap;
         private int size;
 
-        public int MinMountainCount { private get; set; }
-        public int MaxMountainCount { private get; set; }
-        public int MinForrestCountPerChunk { private get; set; }
-        public int MaxForrestCountPerChunk { private get; set; }
-        public float WaterTileProbability { private get; set; }
-        public float DesertChunkProbability { private get; set; }
+        public MapGenerationProperties MGP { private get; set; }
 
         public void GenerateMap()
         {
@@ -41,7 +36,7 @@ namespace Model
         {
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    tiles[x, y] = noiseMap[x, y] < WaterTileProbability
+                    tiles[x, y] = noiseMap[x, y] < MGP.WaterTileProbability
                         ? new WaterTile()
                         : null;
         }
@@ -57,7 +52,9 @@ namespace Model
 
         private void GenerateMountains()
         {
-            int actualMountainCount = new System.Random().Next(MaxMountainCount - MinMountainCount + 1) + MinMountainCount;
+            int actualMountainCount = new System.Random(System.DateTime.Now.Millisecond).Next(
+                MGP.MaxMountainCount - MGP.MinMountainCount + 1)
+                + MGP.MinMountainCount;
             if (actualMountainCount == 0)
                 return;
 
@@ -82,7 +79,7 @@ namespace Model
 
         private void GenerateChunk((int, int) offset)
         {
-            if (new System.Random().NextDouble() < DesertChunkProbability)
+            if (new System.Random().NextDouble() < MGP.DesertChunkProbability)
             {
                 GenerateDesert(offset);
                 return;
@@ -106,10 +103,14 @@ namespace Model
                     if (tiles[x, y] == null)
                         emptyCoords.Add((x, y, noiseMap[x, y]));
 
-            int actualForrestCount = new System.Random().Next(
-                MaxForrestCountPerChunk - MinForrestCountPerChunk + 1) + MinForrestCountPerChunk;
+            int actualForrestCount = new System.Random(System.DateTime.Now.Millisecond).Next(
+                MGP.MaxForrestCountPerChunk - MGP.MinForrestCountPerChunk + 1)
+                + MGP.MinForrestCountPerChunk;
+
             foreach ((int, int) forrestCoord in
-                emptyCoords.OrderBy(x => x.Item3).TakeLast(System.Math.Min(emptyCoords.Count, actualForrestCount)).Select(x => (x.Item1, x.Item2)))
+                emptyCoords.OrderBy(x => x.Item3)
+                    .TakeLast(System.Math.Min(emptyCoords.Count, actualForrestCount))
+                    .Select(x => (x.Item1, x.Item2)))
                 tiles[forrestCoord.Item1, forrestCoord.Item2] = new ForrestTile();
 
             foreach ((int, int) coord in emptyCoords.Select(x => (x.Item1, x.Item2)))
