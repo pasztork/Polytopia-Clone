@@ -17,8 +17,8 @@ namespace View
         public Controller.TroopProperty troopProperties;
 
         [Header("Highlight Settings")]
-        [SerializeField] private Color hoverColor;
-        [SerializeField] private Color selectColor;
+        private Color hoverColor = Color.yellow;
+        private Color selectColor = Color.magenta;
         private Color startColor;
 
 
