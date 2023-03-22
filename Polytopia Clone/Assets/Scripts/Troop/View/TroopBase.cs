@@ -21,7 +21,6 @@ namespace View
         [SerializeField] private Color hoverColor;
         [SerializeField] private Color selectColor;
         private Color startColor;
-        public Color TroopColor { get => GetComponent<Renderer>().material.color; set => GetComponent<Renderer>().material.color = value; }
 
         public abstract Model.TroopBase ToModel(Model.Player player);
 
@@ -30,7 +29,7 @@ namespace View
 
         private void Awake()
         {
-            startColor = TroopColor;
+            startColor = GetComponent<Renderer>().material.color;
             HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
         }
 
@@ -39,18 +38,18 @@ namespace View
             if (mono == this)
                 return;
 
-            TroopColor = startColor;
+            GetComponent<Renderer>().material.color = startColor;
         }
 
         private void OnMouseEnter()
         {
-            if (EventSystem.current.IsPointerOverGameObject() || TroopColor == selectColor 
+            if (EventSystem.current.IsPointerOverGameObject() || GetComponent<Renderer>().material.color == selectColor 
                 || !Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
 
-            TroopColor = hoverColor;
+            GetComponent<Renderer>().material.color = hoverColor;
         }
 
         private void OnMouseOver()
@@ -62,27 +61,21 @@ namespace View
 
             if(Input.GetMouseButtonDown(0))
             {
-                if(TroopColor == selectColor)
-                {
-                    TroopManager.Instance.SelectedTroop = this;
-                }
-                else
-                {
-                    DeselectAttack();
-                    SelectMove();
-                }
+                DeselectAttack();
+                SelectMove();
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                if(TroopColor == selectColor)
-                {
-                    TroopManager.Instance.SelectedTroop = this;
-                }
-                else
-                {
-                    DeselectMove();
-                    SelectAttack();
-                }
+                DeselectMove();
+                SelectAttack();
+            }
+        }
+
+        private void OnMouseDown()
+        {
+            if (GetComponent<Renderer>().material.color == selectColor)
+            {
+                TroopManager.Instance.Attack(this);
             }
         }
 
@@ -93,16 +86,16 @@ namespace View
                 return;
             }
 
-            if (Controller.TroopManager.Instance.SelectedTroop != this && TroopColor != selectColor)
+            if (Controller.TroopManager.Instance.SelectedTroop != this && GetComponent<Renderer>().material.color != selectColor)
             {
-                TroopColor = startColor;
+                GetComponent<Renderer>().material.color = startColor;
             }
         }
 
         public void Deselect()
         {
             if (Controller.TroopManager.Instance.SelectedTroop != this)
-                TroopColor = startColor;
+                GetComponent<Renderer>().material.color = startColor;
         }
 
         public void Move(Tile from, Tile to)
@@ -191,7 +184,7 @@ namespace View
             {
                 tile.GetComponent<Renderer>().material.color = tile.SelectColor;
             }
-            TroopColor = hoverColor;
+            GetComponent<Renderer>().material.color = hoverColor;
         }
 
         public void SelectAttack()
@@ -214,9 +207,9 @@ namespace View
             EnemiesToHighLight = GetEnemiesInRange(troopProperties.AttackRange);
             foreach(TroopBase enemy in EnemiesToHighLight)
             {
-                enemy.TroopColor = selectColor;
+                enemy.GetComponent<Renderer>().material.color = selectColor;
             }
-            TroopColor = hoverColor;
+            GetComponent<Renderer>().material.color = hoverColor;
         }
 
         public void DeselectMove()
@@ -225,7 +218,7 @@ namespace View
             {
                 tile.TileColor = tile.startColor;
             }
-            TroopColor = startColor;
+            GetComponent<Renderer>().material.color = startColor;
             TilesToHighLight.Clear();
         }
 
@@ -233,7 +226,8 @@ namespace View
         {
             foreach(TroopBase enemy in EnemiesToHighLight)
             {
-                enemy.TroopColor = startColor;
+                if(enemy != null)
+                enemy.GetComponent<Renderer>().material.color = startColor;
             }
             EnemiesToHighLight.Clear();
         }
@@ -252,7 +246,7 @@ namespace View
 
                 foreach (Tile tile in toAdd)
                 {
-                    if(!tile.CompareTag("Water"))
+                    if(!tile.CompareTag("Water") && MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
                         reachables.Add(tile);
                 }
             }
