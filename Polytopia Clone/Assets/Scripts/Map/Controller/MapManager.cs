@@ -13,23 +13,8 @@ namespace Controller
         [SerializeField] private int size;
         public int Size { get => size; }
 
-        [SerializeField] private int minMountainCount;
-        public int MinMountainCount { get => minMountainCount; }
-
-        [SerializeField] private int maxMountainCount;
-        public int MaxMountainCount { get => maxMountainCount; }
-
-        [SerializeField] private int minForrestCountPerChunk;
-        public int MinForrestCountPerChunk { get => minForrestCountPerChunk; }
-
-        [SerializeField] private int maxForrestCountPerChunk;
-        public int MaxForrestCountPerChunk { get => maxForrestCountPerChunk; }
-
-        [SerializeField] private float desertChunkProbability;
-        public float DesertChunkProbability { get => desertChunkProbability; }
-
-        [SerializeField] private float waterTileProbability;
-        public float WaterTileProbability { get => waterTileProbability; }
+        [SerializeField] private MapGenerationProperties generationProperties;
+        public MapGenerationProperties GenerationProperties { get => generationProperties; }
 
         private Model.TileBase[,] tiles;
 
