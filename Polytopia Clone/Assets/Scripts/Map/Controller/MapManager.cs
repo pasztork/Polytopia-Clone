@@ -13,6 +13,12 @@ namespace Controller
         [SerializeField] private int size;
         public int Size { get => size; }
 
+        [SerializeField] private int minMountainCount;
+        public int MinMountainCount { get => minMountainCount; }
+
+        [SerializeField] private int maxMountainCount;
+        public int MaxMountainCount { get => maxMountainCount; }
+
         [SerializeField] private float waterProbability;
         public float WaterProbability { get => waterProbability; }
 

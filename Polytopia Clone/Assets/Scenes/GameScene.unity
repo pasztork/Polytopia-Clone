@@ -868,7 +868,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 16
-  waterProbability: 0.2
+  minMountainCount: 5
+  maxMountainCount: 15
+  waterProbability: 0.3
 --- !u!114 &277816175
 MonoBehaviour:
   m_ObjectHideFlags: 0
