@@ -30,6 +30,10 @@ namespace Model
             if (!TilesInMovementRange.Contains(target) || movedInTurn)
                 return false;
 
+            bool accepted = target.AcceptTroop(this);
+            if (!accepted)
+                return false;
+
             movedInTurn = true;
             Tile = target;
             return true;

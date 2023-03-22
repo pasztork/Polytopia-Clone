@@ -71,10 +71,6 @@ namespace Model
             if (!Troops.Contains(troop))
                 return false;
 
-            bool accepted = target.AcceptTroop(troop);
-            if (!accepted)
-                return false;
-
             bool moved = troop.Move(target);
             return moved;
         }
