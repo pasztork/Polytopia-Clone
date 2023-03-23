@@ -6,14 +6,21 @@ namespace Model
     public class City : BuildingBase
     {
         private readonly int range;
+        private bool troopTrained;
 
         public City(int range) : base()
         {
             this.range = range;
+            TurnManager.Instance.OnTurnStarted +=
+                (player) => troopTrained = false;
         }
 
         public override bool TrainTroop(TroopBase troop)
         {
+            if (troopTrained)
+                return false;
+
+            troopTrained = true;
             return Tile.TrainTroop(troop);
         }
 

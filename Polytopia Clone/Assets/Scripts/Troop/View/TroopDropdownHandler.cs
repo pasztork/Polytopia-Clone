@@ -31,7 +31,7 @@ namespace View
             {
                 TroopBase troop = troops[troopName];
                 Model.Cost cost = new Model.Cost(troop.Cost.MoneyCost, troop.Cost.MaterialCost, troop.Cost.FoodCost);
-                if (player.ResourceContainer.HasEnoughFor(cost) && Model.TurnManager.Instance.CurrentActionCount["Train"] > 0)
+                if (player.ResourceContainer.HasEnoughFor(cost))
                     dropdown.options.Add(new TMP_Dropdown.OptionData() { text = troopName });
             }
             dropdown.value = 0;

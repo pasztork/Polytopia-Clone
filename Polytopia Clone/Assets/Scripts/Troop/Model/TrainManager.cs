@@ -18,16 +18,12 @@ namespace Model
 
         public bool Train(BuildingBase building, TroopBase troop)
         {
-            if (TurnManager.Instance.CurrentActionCount["Train"] <= 0)
-                return false;
-
             bool trained = TurnManager.Instance.CurrentPlayer.Train(building, troop);
 
             if (trained)
             {
                 troop.Tile = building.Tile;
                 troop.Player = TurnManager.Instance.CurrentPlayer;
-                TurnManager.Instance.CurrentActionCount["Train"]--;
                 OnTroopTrained?.Invoke(TurnManager.Instance.CurrentPlayer);
             }
 

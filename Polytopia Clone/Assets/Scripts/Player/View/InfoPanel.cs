@@ -22,6 +22,7 @@ namespace View
             Instance = this;
             Model.TurnManager.Instance.OnTurnStarted += UpdateContent;
             Model.BuildManager.Instance.OnBuildingBuilt += UpdateContent;
+            Model.TrainManager.Instance.OnTroopTrained += UpdateContent;
         }
 
         private void Start()

@@ -65,7 +65,7 @@ namespace Model
                 !ResourceContainer.HasEnoughFor(troop.Cost))
                 return false;
 
-            bool trained = building.Tile.TrainTroop(troop);
+            bool trained = building.TrainTroop(troop);
             if (!trained)
                 return false;
 

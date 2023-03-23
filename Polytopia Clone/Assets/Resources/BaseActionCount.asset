@@ -15,5 +15,4 @@ MonoBehaviour:
   serializableDictionary:
     m_keys:
     - Build
-    - Train
-    m_values: 0100000002000000
+    m_values: 01000000
