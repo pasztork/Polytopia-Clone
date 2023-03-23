@@ -14,7 +14,7 @@ namespace Model
         public TileBase Tile { get; set; }
         public Player Player { get; set; }
 
-        private bool movedInTurn = false;
+        private bool movedInTurn;
 
         // Doesn't contain Tile.
         public IList<TileBase> TilesInMovementRange { get => GetTilesInRange(TroopProperty.MovementRange); }

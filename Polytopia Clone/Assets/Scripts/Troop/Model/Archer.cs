@@ -1,14 +1,6 @@
 namespace Model
 {
-    public class Archer : TroopBase
+    public class Archer : OffensiveTroop
     {
-        public override bool Attack(TroopBase troop)
-        {
-            if (!TilesInAttackRange.Contains(troop.Tile))
-                return false;
-
-            troop.TakeDamage(TroopProperty.Damage);
-            return true;
-        }
     }
 }
