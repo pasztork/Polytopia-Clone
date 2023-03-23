@@ -11,8 +11,10 @@ namespace Model
         public Dictionary<string, int> ActionCount { get; set; }
 
         public Dictionary<string, int> StartingProduction { private get; set; }
+        public int StartingCityRange { private get; set; }
         public IList<BuildingBase> Buildings { get; } = new List<BuildingBase>();
         public IList<TroopBase> Troops { get; } = new List<TroopBase>();
+        public ISet<TileBase> AvailableTiles { get; } = new HashSet<TileBase>();
 
         public string Name { get; set; }
 
@@ -38,7 +40,7 @@ namespace Model
 
         public bool Build(TileBase tile, BuildingBase building)
         {
-            if (!ResourceContainer.HasEnoughFor(building.Cost))
+            if (!ResourceContainer.HasEnoughFor(building.Cost) || !AvailableTiles.Contains(tile))
             {
                 building.StopProduction();
                 return false;
@@ -53,7 +55,7 @@ namespace Model
 
             ResourceContainer -= building.Cost;
             building.Tile = tile;
-            Buildings.Add(building);
+            AddBuilding(building);
             return true;
         }
 
@@ -91,16 +93,23 @@ namespace Model
 
         public void SetupStartingPosition()
         {
-            BuildingBase city = new City();
+            BuildingBase city = new City(StartingCityRange);
             city.Producers.Add(new MoneyProducer(ResourceContainer, StartingProduction["Money"]));
             city.Producers.Add(new MaterialProducer(ResourceContainer, StartingProduction["Material"]));
             city.Producers.Add(new FoodProducer(ResourceContainer, StartingProduction["Food"]));
             TileBase tile = MapManager.Instance.GetStartingTile();
             city.Tile = tile;
             tile.SetBuildingOnTop(city);
-            Buildings.Add(city);
+            AvailableTiles.Add(tile);
+            AddBuilding(city);
 
             OnStartingCitySpawned?.Invoke(tile, city);
+        }
+
+        private void AddBuilding(BuildingBase building)
+        {
+            Buildings.Add(building);
+            AvailableTiles.UnionWith(building.GetTilesInRange());
         }
     }
 }

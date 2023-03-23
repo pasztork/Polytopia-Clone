@@ -28,5 +28,10 @@ namespace Model
         {
             return false;
         }
+
+        public virtual IList<TileBase> GetTilesInRange()
+        {
+            return null;
+        }
     }
 }

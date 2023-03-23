@@ -6,6 +6,7 @@ namespace Controller
     public class Player : MonoBehaviour
     {
         [SerializeField] private new string name;
+        [SerializeField] private int startingCityRange;
         [SerializeField] private string[] startingBuildings;
         [SerializeField] private string[] startingTroops;
         [SerializeField] private DictionaryWrapper baseProduction;
@@ -14,6 +15,7 @@ namespace Controller
         private void Start()
         {
             Model.Player player = new Model.Player(name);
+            player.StartingCityRange = startingCityRange;
             player.StartingProduction = baseProduction.CreateDictionary();
             player.ActionCount = baseActionCount.CreateDictionary();
             player.AvailableBuildings = startingBuildings.ToList();

@@ -1027,61 +1027,6 @@ Transform:
   m_Father: {fileID: 1199399707}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &359973071
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 359973073}
-  - component: {fileID: 359973072}
-  m_Layer: 0
-  m_Name: ChloePlayer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &359973072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359973071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 204ffeb058082614a9fb2b67f904664d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Chloe
-  startingBuildings:
-  - City
-  startingTroops:
-  - Warrior
-  - Archer
-  - Builder
-  - Settler
-  - Scout
-  baseProduction: {fileID: 11400000, guid: 162aac4ea07c4e047859bfe06ea3ed85, type: 2}
-  baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
---- !u!4 &359973073
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359973071}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &443467185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,6 +1072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Alice
+  startingCityRange: 1
   startingBuildings:
   - City
   startingTroops:
@@ -1232,7 +1178,7 @@ RectTransform:
   - {fileID: 2071925677}
   - {fileID: 267279}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2690,61 +2636,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
---- !u!1 &1045902419
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1045902421}
-  - component: {fileID: 1045902420}
-  m_Layer: 0
-  m_Name: DanielPlayer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1045902420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045902419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 204ffeb058082614a9fb2b67f904664d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Daniel
-  startingBuildings:
-  - City
-  startingTroops:
-  - Warrior
-  - Archer
-  - Builder
-  - Settler
-  - Scout
-  baseProduction: {fileID: 11400000, guid: 162aac4ea07c4e047859bfe06ea3ed85, type: 2}
-  baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
---- !u!4 &1045902421
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045902419}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1095395296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,7 +2798,7 @@ Transform:
   - {fileID: 340401484}
   - {fileID: 1539761426}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1249122853
 GameObject:
@@ -3787,6 +3678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Bob
+  startingCityRange: 1
   startingBuildings:
   - City
   startingTroops:
