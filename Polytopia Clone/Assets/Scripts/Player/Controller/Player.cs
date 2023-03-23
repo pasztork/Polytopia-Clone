@@ -11,6 +11,7 @@ namespace Controller
         [SerializeField] private string[] startingTroops;
         [SerializeField] private DictionaryWrapper baseProduction;
         [SerializeField] private DictionaryWrapper baseActionCount;
+        [SerializeField] private Color color;
 
         private void Start()
         {
@@ -24,9 +25,9 @@ namespace Controller
             player.OnStartingCitySpawned += BuildStartingCity;
         }
 
-        private void BuildStartingCity(Model.TileBase modelTile, Model.BuildingBase modelBuilding)
+        private void BuildStartingCity(Model.Player player, Model.TileBase modelTile, Model.BuildingBase modelBuilding)
         {
-            BuildingManager.Instance.BuildStartingCity(modelTile, modelBuilding);
+            BuildingManager.Instance.BuildStartingCity(modelTile, modelBuilding, player.Name);
         }
     }
 }

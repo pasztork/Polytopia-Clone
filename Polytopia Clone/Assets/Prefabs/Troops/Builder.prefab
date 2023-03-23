@@ -230,8 +230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: ba0f92338f920804e836f17d05b58bfd, type: 2}
   troopProperties: {fileID: 11400000, guid: 3de1cc1271e8e044d8b762a0f4906f9f, type: 2}
-  hoverColor: {r: 1, g: 1, b: 0, a: 0.5019608}
-  selectColor: {r: 1, g: 0, b: 1, a: 0.5019608}
 --- !u!1 &5272841271002025970
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +470,7 @@ GameObject:
   - component: {fileID: 6047780902774383192}
   - component: {fileID: 7460404531081883473}
   - component: {fileID: 4670672695893240498}
+  - component: {fileID: 4863902201837745254}
   m_Layer: 5
   m_Name: Builder Text
   m_TagString: Untagged
@@ -596,6 +595,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4863902201837745254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8866229187683362956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e45dee18793024bbaa1024545d6416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 4670672695893240498}
 --- !u!1 &8915938143569176471
 GameObject:
   m_ObjectHideFlags: 0

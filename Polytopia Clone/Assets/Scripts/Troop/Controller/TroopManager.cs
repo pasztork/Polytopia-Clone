@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using View;
 
 namespace Controller
 {
@@ -69,6 +70,8 @@ namespace Controller
                 Destroy(viewTroop);
                 return;
             }
+
+            viewTroop.GetComponentInChildren<NameText>().Name = Model.TurnManager.Instance.CurrentPlayer.Name;
 
             ViewToModelMap[viewTroop] = troop;
             ModelToViewMap[troop] = viewTroop;

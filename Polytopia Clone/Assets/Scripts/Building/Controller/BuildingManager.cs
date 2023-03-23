@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using View;
 
 namespace Controller
 {
@@ -65,17 +66,20 @@ namespace Controller
             View.BuildingBase viewBuilding = Instantiate(Blueprint,
                 tile.transform.position + new Vector3(0f, 1f, 0f),
                 Quaternion.identity);
+            viewBuilding.GetComponentInChildren<NameText>().Name = Model.TurnManager.Instance.CurrentPlayer.Name;
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
         }
 
-        public void BuildStartingCity(Model.TileBase modelTile, Model.BuildingBase modelBuilding)
+        public void BuildStartingCity(Model.TileBase modelTile, Model.BuildingBase modelBuilding, string name)
         {
             View.Tile viewTile = MapManager.Instance.ModelToViewMap[modelTile];
             View.BuildingBase viewBuilding = Instantiate(blueprints["City"],
-                viewTile.transform.position + new Vector3(0f, 1f, 0f),
-                Quaternion.identity);
+                    viewTile.transform.position + new Vector3(0f, 1f, 0f),
+                    Quaternion.identity);
+            viewBuilding.GetComponentInChildren<NameText>().Name = name;
+
             ViewToModelMap[viewBuilding] = modelBuilding;
             ModelToViewMap[modelBuilding] = viewBuilding;
         }

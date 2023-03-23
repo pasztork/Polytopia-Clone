@@ -1083,6 +1083,7 @@ MonoBehaviour:
   - Scout
   baseProduction: {fileID: 11400000, guid: 162aac4ea07c4e047859bfe06ea3ed85, type: 2}
   baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
+  color: {r: 0.9811321, g: 0.36561054, b: 0.36561054, a: 0.39215687}
 --- !u!1 &557253003
 GameObject:
   m_ObjectHideFlags: 0
@@ -3689,6 +3690,7 @@ MonoBehaviour:
   - Scout
   baseProduction: {fileID: 11400000, guid: 162aac4ea07c4e047859bfe06ea3ed85, type: 2}
   baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
+  color: {r: 0.33490568, g: 0.5704744, b: 1, a: 0.39215687}
 --- !u!1 &1593288351
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ namespace Model
 {
     public class Player
     {
-        public event Action<TileBase, BuildingBase> OnStartingCitySpawned;
+        public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
         public Dictionary<string, int> ActionCount { get; set; }
@@ -103,7 +103,7 @@ namespace Model
             AvailableTiles.Add(tile);
             AddBuilding(city);
 
-            OnStartingCitySpawned?.Invoke(tile, city);
+            OnStartingCitySpawned?.Invoke(this, tile, city);
         }
 
         private void AddBuilding(BuildingBase building)

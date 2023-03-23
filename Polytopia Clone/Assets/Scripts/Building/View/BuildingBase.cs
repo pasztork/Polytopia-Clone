@@ -33,7 +33,7 @@ namespace View
         }
 
         private void OnMouseEnter()
-        {   
+        {
             if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(BuildingManager.Instance.ViewToModelMap[this]))
             {
                 return;
