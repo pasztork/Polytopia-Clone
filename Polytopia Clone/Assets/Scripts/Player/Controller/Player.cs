@@ -11,7 +11,6 @@ namespace Controller
         [SerializeField] private string[] startingTroops;
         [SerializeField] private DictionaryWrapper baseProduction;
         [SerializeField] private DictionaryWrapper baseActionCount;
-        [SerializeField] private Color color;
 
         private void Start()
         {

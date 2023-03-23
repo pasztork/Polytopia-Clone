@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 72f08735c3a907b44a1b3f7823ff7145, type: 2}
-  productionRate: 100
+  productionRate: 20
   hoverColor: {r: 1, g: 1, b: 0, a: 0.5882353}
   range: 1
 --- !u!1 &3866958734694324670

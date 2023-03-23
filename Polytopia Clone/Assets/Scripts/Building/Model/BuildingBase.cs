@@ -31,7 +31,7 @@ namespace Model
 
         public virtual IList<TileBase> GetTilesInRange()
         {
-            return null;
+            return new List<TileBase>();
         }
     }
 }

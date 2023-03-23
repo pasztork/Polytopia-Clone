@@ -6,6 +6,7 @@
         {
             Model.BuildingBase supplier = new Model.Supplier();
             supplier.Producers.Add(new Model.MaterialProducer(player.ResourceContainer, productionRate));
+            supplier.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return supplier;
         }
     }

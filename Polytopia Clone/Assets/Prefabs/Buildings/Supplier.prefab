@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: d0dc8dfd73b6aa349a0f889b5db5eb58, type: 2}
-  productionRate: 0
+  productionRate: 30
   hoverColor: {r: 1, g: 1, b: 0, a: 0.5882353}
 --- !u!1 &3154714475175299488
 GameObject:

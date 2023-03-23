@@ -17,10 +17,13 @@ namespace Model
         public void StartTurn() =>
             Produce?.Invoke();
 
-        public bool HasEnoughFor(Cost cost) =>
+        public bool HasEnoughFor(Cost cost)
+        {
+            return
                 MoneyCount >= cost.MoneyCost &&
                 MaterialCount >= cost.MaterialCost &&
                 FoodCount >= cost.FoodCost;
+        }
 
         public static ResourceContainer operator -(ResourceContainer resourceContainer, Cost cost)
         {
