@@ -1,6 +1,6 @@
 namespace View
 {
-    public class Scout : TroopBase
+    public class Scout : OffensiveTroop
     {
         public override Model.TroopBase ToModel(Model.Player player)
         {

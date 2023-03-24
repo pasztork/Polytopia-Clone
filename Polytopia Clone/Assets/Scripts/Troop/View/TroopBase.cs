@@ -18,13 +18,12 @@ namespace View
         public Controller.TroopProperty troopProperties;
 
         [Header("Highlight Settings")]
-        private Color hoverColor = Color.yellow;
-        private Color selectColor = Color.magenta;
-        private Color startColor;
+        protected Color hoverColor = Color.yellow;
+        protected Color selectColor = Color.magenta;
+        protected Color startColor;
 
 
         private IList<Tile> TilesToHighLight = new List<Tile>();
-        private IList<TroopBase> EnemiesToHighLight = new List<TroopBase>();
 
         public abstract Model.TroopBase ToModel(Model.Player player);
 
@@ -58,7 +57,7 @@ namespace View
             GetComponent<Renderer>().material.color = hoverColor;
         }
 
-        private void OnMouseOver()
+        public virtual void OnMouseOver()
         {
             if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
@@ -67,13 +66,11 @@ namespace View
 
             if (Input.GetMouseButtonDown(0))
             {
-                DeselectAttack();
                 SelectMove();
             }
             else if (Input.GetMouseButtonDown(1))
             {
                 DeselectMove();
-                SelectAttack();
             }
         }
 
@@ -96,12 +93,6 @@ namespace View
             {
                 GetComponent<Renderer>().material.color = startColor;
             }
-        }
-
-        public void Deselect()
-        {
-            if (Controller.TroopManager.Instance.SelectedTroop != this)
-                GetComponent<Renderer>().material.color = startColor;
         }
 
         public void Move(Tile from, Tile to)
@@ -188,31 +179,6 @@ namespace View
             GetComponent<Renderer>().material.color = hoverColor;
         }
 
-        public void SelectAttack()
-        {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                DeselectAttack();
-                return;
-            }
-
-            var prev = Controller.TroopManager.Instance.SelectedTroop;
-            Controller.TroopManager.Instance.SelectedTroop = this;
-
-            if (prev != null)
-            {
-                prev.DeselectAttack();
-            }
-
-            EnemiesToHighLight.Clear();
-            EnemiesToHighLight = GetEnemiesInRange(troopProperties.AttackRange);
-            foreach (TroopBase enemy in EnemiesToHighLight)
-            {
-                enemy.GetComponent<Renderer>().material.color = selectColor;
-            }
-            GetComponent<Renderer>().material.color = hoverColor;
-        }
-
         public void DeselectMove()
         {
             foreach (Tile tile in TilesToHighLight)
@@ -221,16 +187,6 @@ namespace View
             }
             GetComponent<Renderer>().material.color = startColor;
             TilesToHighLight.Clear();
-        }
-
-        public void DeselectAttack()
-        {
-            foreach (TroopBase enemy in EnemiesToHighLight)
-            {
-                if (enemy != null)
-                    enemy.GetComponent<Renderer>().material.color = startColor;
-            }
-            EnemiesToHighLight.Clear();
         }
 
         private IList<Tile> GetTilesInRange(int range)
@@ -253,21 +209,6 @@ namespace View
             }
             reachables.Remove(currentTile);
             return reachables.ToList();
-        }
-
-        private IList<TroopBase> GetEnemiesInRange(int range)
-        {
-            Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
-            IList<Model.TileBase> tiles = modelTroop.TilesInAttackRange;
-            IList<TroopBase> enemies = new List<TroopBase>();
-            foreach (Model.TileBase tile in tiles)
-            {
-                if (tile.TroopOnTop != null && tile.TroopOnTop.Player != modelTroop.Player)
-                {
-                    enemies.Add(Controller.TroopManager.Instance.ModelToViewMap[tile.TroopOnTop]);
-                }
-            }
-            return enemies.ToList();
         }
 
         public void TakeDamage(int remainingHealth)
