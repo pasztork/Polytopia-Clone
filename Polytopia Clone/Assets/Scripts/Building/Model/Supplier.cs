@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public class Supplier : BuildingBase
+    public class Supplier : NonTrainingBuilding
     {
 
     }

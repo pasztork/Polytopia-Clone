@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Model
 {
-    public class City : BuildingBase
+    public class City : TroopTrainingBuilding
     {
         private readonly int range;
         private bool troopTrained;

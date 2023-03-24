@@ -18,8 +18,8 @@ namespace Controller
             {
                 MinMountainCount = minMountainCount,
                 MaxMountainCount = maxMountainCount,
-                MinForrestCountPerChunk = minForrestCountPerChunk,
-                MaxForrestCountPerChunk = maxForrestCountPerChunk,
+                MinForestCountPerChunk = minForrestCountPerChunk,
+                MaxForestCountPerChunk = maxForrestCountPerChunk,
                 DesertChunkProbability = desertChunkProbability,
                 WaterTileProbability = waterTileProbability
             };

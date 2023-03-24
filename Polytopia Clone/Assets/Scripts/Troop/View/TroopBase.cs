@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace View
 {
@@ -216,6 +215,7 @@ namespace View
             if (remainingHealth <= 0)
             {
                 HighlightManager.Instance.OnMonoBehaviourSelected -= DeselectIfNotSelected;
+                DeselectMove();
                 Destroy(gameObject);
                 return;
             }

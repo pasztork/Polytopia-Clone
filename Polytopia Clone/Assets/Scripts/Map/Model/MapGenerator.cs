@@ -116,8 +116,8 @@ namespace Model
                         emptyCoords.Add((x, y, noiseMap[x, y]));
 
             int actualForrestCount = new System.Random(System.DateTime.Now.Millisecond).Next(
-                MGP.MaxForrestCountPerChunk - MGP.MinForrestCountPerChunk + 1)
-                + MGP.MinForrestCountPerChunk;
+                MGP.MaxForestCountPerChunk - MGP.MinForestCountPerChunk + 1)
+                + MGP.MinForestCountPerChunk;
 
             foreach ((int, int) forrestCoord in
                 emptyCoords.OrderBy(x => x.Item3)

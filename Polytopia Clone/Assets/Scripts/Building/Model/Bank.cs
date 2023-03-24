@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public class Bank : BuildingBase
+    public class Bank : NonTrainingBuilding
     {
 
     }

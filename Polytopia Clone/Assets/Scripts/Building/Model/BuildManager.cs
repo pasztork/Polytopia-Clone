@@ -16,12 +16,20 @@ namespace Model
 
         public event Action<Player> OnBuildingBuilt;
 
-        public bool Build(TileBase tile, BuildingBase building)
+        public bool Build(TroopBase troop, BuildingBase building)
         {
             if (TurnManager.Instance.CurrentActionCount["Build"] <= 0)
                 return false;
 
-            bool built = TurnManager.Instance.CurrentPlayer.Build(tile, building);
+            bool built;
+            if(building is TroopTrainingBuilding)
+            {
+                built = TurnManager.Instance.CurrentPlayer.Build(troop, building as TroopTrainingBuilding);
+            }
+            else
+            {
+                built = TurnManager.Instance.CurrentPlayer.Build(troop, building as NonTrainingBuilding);
+            }
 
             if (built)
             {

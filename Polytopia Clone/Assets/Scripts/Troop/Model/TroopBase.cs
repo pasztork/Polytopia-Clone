@@ -45,6 +45,16 @@ namespace Model
             return false;
         }
 
+        public virtual bool CanBuild(NonTrainingBuilding building)
+        {
+            return false;
+        }
+
+        public virtual bool CanBuild(TroopTrainingBuilding building)
+        {
+            return false;
+        }
+
         // Tells whether or not troop died.
         public bool TakeDamage(int damage)
         {

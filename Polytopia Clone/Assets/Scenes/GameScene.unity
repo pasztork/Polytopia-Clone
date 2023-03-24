@@ -3337,6 +3337,18 @@ PrefabInstance:
       propertyPath: playerColor.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[3]
+      value: Builder
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[4]
+      value: Settler
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
 --- !u!1 &1530248597
@@ -5418,11 +5430,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.data[3]
       value: Builder
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[4]
+      value: Settler
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}

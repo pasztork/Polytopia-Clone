@@ -49,26 +49,24 @@ namespace Controller
             // Should throw error if there are no subscribers.
             // Whoever responds should set the value of Blueprint.
             OnBuildAttempted.Invoke();
-            if (Blueprint == null || MapManager.Instance.SelectedTile == null)
+            if (Blueprint == null || TroopManager.Instance.SelectedTroop == null)
+            {
                 return;
+            }
 
-            View.Tile tile = MapManager.Instance.SelectedTile;
-            Model.BuildingBase building =
-                Blueprint.ToModel(Model.TurnManager.Instance.CurrentPlayer);
-            bool built =
-                Model.BuildManager.Instance.Build(
-                    MapManager.Instance.ViewToModelMap[tile],
-                    building);
+            Model.TroopBase troop = TroopManager.Instance.ViewToModelMap[TroopManager.Instance.SelectedTroop];
+            Model.BuildingBase building = Blueprint.ToModel(Model.TurnManager.Instance.CurrentPlayer);
+            bool built = Model.BuildManager.instance.Build(troop, building);
 
             if (!built)
                 return;
 
-            View.BuildingBase viewBuilding = Instantiate(Blueprint,
-                tile.transform.position + new Vector3(0f, 1f, 0f),
-                Quaternion.identity);
-            NameText buildingText = viewBuilding.GetComponentInChildren<NameText>();
-            //buildingText.Name = Model.TurnManager.Instance.CurrentPlayer.Name;
-            buildingText.BackgroundColor = TurnManager.Instance.PlayerColors[Model.TurnManager.Instance.CurrentPlayer.Name];
+            Tile tile = MapManager.Instance.ModelToViewMap[troop.Tile];
+            View.BuildingBase viewBuilding = 
+                Instantiate(Blueprint, tile.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+
+            viewBuilding.GetComponentInChildren<NameText>().BackgroundColor = 
+                TurnManager.Instance.PlayerColors[Model.TurnManager.Instance.CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;

@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public class Farm : BuildingBase
+    public class Farm : NonTrainingBuilding
     {
 
     }
