@@ -11,10 +11,12 @@ namespace Controller
         [SerializeField] private string[] startingTroops;
         [SerializeField] private DictionaryWrapper baseProduction;
         [SerializeField] private DictionaryWrapper baseActionCount;
+        [SerializeField] private Color playerColor;
 
         private void Start()
         {
             Model.Player player = new Model.Player(name);
+            TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
             player.StartingCityRange = startingCityRange;
             player.StartingProduction = baseProduction.CreateDictionary();
             player.ActionCount = baseActionCount.CreateDictionary();

@@ -727,3 +727,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 3889920580498683680}
+  namePanel: {fileID: 330314386479485614}

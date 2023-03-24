@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3329,6 +3329,14 @@ PrefabInstance:
       propertyPath: name
       value: Bob
       objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.a
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
 --- !u!1 &1530248597
@@ -5391,6 +5399,22 @@ PrefabInstance:
     - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.a
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}

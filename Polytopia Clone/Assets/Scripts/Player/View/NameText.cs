@@ -1,23 +1,25 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace View
 {
     public class NameText : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI nameText;
+        [SerializeField] private Image namePanel;
 
         public string Name
         {
             set
             {
-                SetOwnerName(value);
+                nameText.text = value;
             }
         }
 
-        private void SetOwnerName(string name)
+        public Color BackgroundColor
         {
-            nameText.text += $"\n{name}";
+            set => namePanel.color = value;
         }
     }
 }

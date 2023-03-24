@@ -9,6 +9,8 @@ namespace Controller
 
         public Dictionary<string, int> CurrentPossibleActions { get; private set; }
 
+        public Dictionary<string, Color> PlayerColors { get; private set; } = new Dictionary<string, Color>();
+
         private void Awake()
         {
             if (Instance != null)

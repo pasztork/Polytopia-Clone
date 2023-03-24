@@ -66,7 +66,9 @@ namespace Controller
             View.BuildingBase viewBuilding = Instantiate(Blueprint,
                 tile.transform.position + new Vector3(0f, 1f, 0f),
                 Quaternion.identity);
-            viewBuilding.GetComponentInChildren<NameText>().Name = Model.TurnManager.Instance.CurrentPlayer.Name;
+            NameText buildingText = viewBuilding.GetComponentInChildren<NameText>();
+            //buildingText.Name = Model.TurnManager.Instance.CurrentPlayer.Name;
+            buildingText.BackgroundColor = TurnManager.Instance.PlayerColors[Model.TurnManager.Instance.CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
@@ -78,7 +80,9 @@ namespace Controller
             View.BuildingBase viewBuilding = Instantiate(blueprints["City"],
                     viewTile.transform.position + new Vector3(0f, 1f, 0f),
                     Quaternion.identity);
-            viewBuilding.GetComponentInChildren<NameText>().Name = name;
+            NameText buildingText = viewBuilding.GetComponentInChildren<NameText>();
+            buildingText.Name = name + "\nCapital";
+            buildingText.BackgroundColor = TurnManager.Instance.PlayerColors[name];
 
             ViewToModelMap[viewBuilding] = modelBuilding;
             ModelToViewMap[modelBuilding] = viewBuilding;

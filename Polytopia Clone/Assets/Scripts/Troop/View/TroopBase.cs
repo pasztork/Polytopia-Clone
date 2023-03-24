@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace View
 {
@@ -26,7 +27,6 @@ namespace View
         private IList<TroopBase> EnemiesToHighLight = new List<TroopBase>();
 
         public abstract Model.TroopBase ToModel(Model.Player player);
-
 
         private void Awake()
         {

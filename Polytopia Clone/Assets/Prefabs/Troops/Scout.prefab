@@ -341,6 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 4708620246625141623}
+  namePanel: {fileID: 657569058350756959}
 --- !u!1 &3124203558222508765
 GameObject:
   m_ObjectHideFlags: 0
