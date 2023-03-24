@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Model
 {
     public abstract class BuildingBase
     {
+        // Owner player subscribes to event.
+        public event Action<BuildingBase> OnBuildingDestroyed;
+
         public Cost Cost { get; set; }
         public TileBase Tile { get; set; }
+        public int Health { private get; set; }
 
         protected IList<ProducerBase> producers;
         public IList<ProducerBase> Producers
@@ -32,6 +37,17 @@ namespace Model
         public virtual IList<TileBase> GetTilesInRange()
         {
             return new List<TileBase>();
+        }
+
+        public bool TakeDamage(int damage)
+        {
+            Health -= damage;
+            if (Health > 0)
+                return false;
+
+            Tile.BuildingOnTop = null;
+            OnBuildingDestroyed.Invoke(this);
+            return true;
         }
     }
 }
