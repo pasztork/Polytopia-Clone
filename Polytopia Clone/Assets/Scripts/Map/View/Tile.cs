@@ -49,13 +49,13 @@ namespace View
 
         private void OnMouseExit()
         {
-            if(previousColor != selectColor)
+            if(previousColor != hoverColor || previousColor != startColor)
             {
-                Deselect();
+                TileColor = previousColor;
             }
             else
             {
-                TileColor = previousColor;
+                Deselect();
             }
         }
 

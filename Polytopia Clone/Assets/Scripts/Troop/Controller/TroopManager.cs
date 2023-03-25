@@ -53,17 +53,11 @@ namespace Controller
             if (Blueprint == null || BuildingManager.Instance.SelectedBuilding == null)
                 return;
 
-            View.BuildingBase building = BuildingManager.Instance.SelectedBuilding;
-            Model.BuildingBase modelBuilding =
-                BuildingManager.Instance.ViewToModelMap[building];
+            Model.BuildingBase modelBuilding = BuildingManager.Instance.ViewToModelMap[BuildingManager.Instance.SelectedBuilding];
             View.Tile tile = MapManager.Instance.ModelToViewMap[modelBuilding.Tile];
-            View.TroopBase viewTroop = Instantiate(Blueprint,
-                tile.transform.position + new Vector3(1f, 1.5f, 1f),
-                Quaternion.identity);
-            Model.TroopBase troop =
-                viewTroop.ToModel(Model.TurnManager.Instance.CurrentPlayer);
-            bool trained =
-                Model.TrainManager.Instance.Train(modelBuilding, troop);
+            View.TroopBase viewTroop = Instantiate(Blueprint, tile.transform.position + new Vector3(1f, 1.5f, 1f), Quaternion.identity);
+            Model.TroopBase troop = viewTroop.ToModel(Model.TurnManager.Instance.CurrentPlayer);
+            bool trained = Model.TrainManager.Instance.Train(modelBuilding, troop);
 
             if (!trained)
             {
@@ -71,9 +65,7 @@ namespace Controller
                 Destroy(viewTroop);
                 return;
             }
-            NameText troopNameText = viewTroop.GetComponentInChildren<NameText>();
-            //troopNameText.Name = Model.TurnManager.Instance.CurrentPlayer.Name;
-            troopNameText.BackgroundColor = TurnManager.Instance.PlayerColors[Model.TurnManager.Instance.CurrentPlayer.Name];
+            viewTroop.GetComponentInChildren<NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.TurnManager.Instance.CurrentPlayer.Name];
 
             ViewToModelMap[viewTroop] = troop;
             ModelToViewMap[troop] = viewTroop;

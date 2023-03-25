@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Model
 {
@@ -114,6 +115,14 @@ namespace Model
             return attacker.Attack(target);
         }
 
+        public bool Attack(TroopBase attacker, BuildingBase target)
+        {
+            if (Troops.Contains(attacker) && Buildings.Contains(target) || !Troops.Contains(attacker))
+                return false;
+
+            return attacker.Attack(target);
+        }
+
         public void SetupStartingPosition()
         {
             BuildingBase city = new City(StartingCityRange);
@@ -122,6 +131,7 @@ namespace Model
             city.Producers.Add(new FoodProducer(ResourceContainer, StartingProduction["Food"]));
             TileBase tile = MapManager.Instance.GetStartingTile();
             city.Tile = tile;
+            city.Player = this;
             tile.SetBuildingOnTop(city);
             AvailableTiles.Add(tile);
             AddBuilding(city);
@@ -133,6 +143,22 @@ namespace Model
         {
             Buildings.Add(building);
             AvailableTiles.UnionWith(building.GetTilesInRange());
+        }
+
+        public void RemoveBuilding(BuildingBase building)
+        {
+            Buildings.Remove(building);
+            GetAllAvailableTiles();
+            building.DestroyEveryThingInRange(AvailableTiles);
+        }
+
+        private void GetAllAvailableTiles()
+        {
+            AvailableTiles.Clear();
+            foreach(var building in Buildings)
+            {
+                AvailableTiles.UnionWith(building.GetTilesInRange());
+            }
         }
     }
 }

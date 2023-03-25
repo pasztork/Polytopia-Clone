@@ -1,9 +1,14 @@
+using Controller;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace View
 {
     public class Builder : TroopBase
     {
+        public ISet<Model.TileBase> TilesToBuild = new HashSet<Model.TileBase>();
+
         public override Model.TroopBase ToModel(Model.Player player)
         {
             Model.TroopBase builder = new Model.Builder();
@@ -13,6 +18,72 @@ namespace View
                 troopProperties.MovementRange, troopProperties.AttackRange);
             builder.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return builder;
+        }
+
+        public override void OnMouseOver()
+        {
+            if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+            {
+                return;
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                DeselectBuild();
+                SelectMove();
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                DeselectMove();
+                SelectBuild();
+            }
+        }
+
+        public void SelectBuild()
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                DeselectBuild();
+                return;
+            }
+
+            var prev = Controller.TroopManager.Instance.SelectedTroop;
+            Controller.TroopManager.Instance.SelectedTroop = this;
+
+            TilesToBuild = Model.TurnManager.Instance.CurrentPlayer.AvailableTiles;
+            var playerColor = TurnManager.Instance.PlayerColors[TroopManager.Instance.ViewToModelMap[this].Player.Name]; 
+            foreach (var tile in TilesToBuild)
+            {
+                if(tile.BuildingOnTop == null)
+                {
+                    MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color = playerColor;
+                }
+            }
+            GetComponent<Renderer>().material.color = hoverColor;
+        }
+
+        public void DeselectBuild()
+        {
+            foreach (var tile in TilesToBuild)
+            {
+                if (tile.BuildingOnTop == null)
+                {
+                    MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color = MapManager.Instance.ModelToViewMap[tile].startColor;
+                }
+            }
+        }
+
+        public override void TakeDamage(int remainingHealth)
+        {
+            if (remainingHealth <= 0)
+            {
+                HighlightManager.Instance.OnMonoBehaviourSelected -= DeselectIfNotSelected;
+                DeselectBuild();
+                Destroy(gameObject);
+                return;
+            }
+
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
         }
     }
 }

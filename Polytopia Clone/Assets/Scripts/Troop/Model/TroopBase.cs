@@ -45,6 +45,11 @@ namespace Model
             return false;
         }
 
+        public virtual bool Attack(BuildingBase troop)
+        {
+            return false;
+        }
+
         public virtual bool CanBuild(NonTrainingBuilding building)
         {
             return false;

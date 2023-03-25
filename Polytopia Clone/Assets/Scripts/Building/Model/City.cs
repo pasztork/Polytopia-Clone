@@ -6,22 +6,12 @@ namespace Model
     public class City : TroopTrainingBuilding
     {
         private readonly int range;
-        private bool troopTrained;
 
         public City(int range) : base()
         {
             this.range = range;
             TurnManager.Instance.OnTurnStarted +=
                 (player) => troopTrained = false;
-        }
-
-        public override bool TrainTroop(TroopBase troop)
-        {
-            if (troopTrained)
-                return false;
-
-            troopTrained = true;
-            return Tile.TrainTroop(troop);
         }
 
         public override IList<TileBase> GetTilesInRange()
@@ -39,6 +29,16 @@ namespace Model
             }
             reachables.Remove(Tile);
             return reachables.ToList();
+        }
+
+        public override void DestroyEveryThingInRange(ISet<TileBase> availableTiles)
+        {
+            var cityRange = GetTilesInRange();
+            foreach (TileBase tile in cityRange)
+            {
+                if(!availableTiles.Contains(tile) && tile.BuildingOnTop != null && tile.BuildingOnTop.Player == Player)
+                tile.BuildingOnTop.TakeDamage(tile.BuildingOnTop.BuildingProperty.Health);
+            }
         }
     }
 }

@@ -5,6 +5,8 @@
         public override Model.BuildingBase ToModel(Model.Player player)
         {
             Model.BuildingBase bank = new Model.Bank();
+            bank.OnDamageTaken += TakeDamage;
+            bank.BuildingProperty = new Model.BuildingProperty(buildingProperties.Health);
             bank.Producers.Add(new Model.MoneyProducer(player.ResourceContainer, productionRate));
             bank.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return bank;

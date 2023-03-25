@@ -210,7 +210,7 @@ namespace View
             return reachables.ToList();
         }
 
-        public void TakeDamage(int remainingHealth)
+        public virtual void TakeDamage(int remainingHealth)
         {
             if (remainingHealth <= 0)
             {

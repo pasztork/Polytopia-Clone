@@ -6,11 +6,12 @@ namespace Model
     public abstract class BuildingBase
     {
         // Owner player subscribes to event.
-        public event Action<BuildingBase> OnBuildingDestroyed;
+        public event Action<int> OnDamageTaken;
 
         public Cost Cost { get; set; }
         public TileBase Tile { get; set; }
-        public int Health { private get; set; }
+        public BuildingProperty BuildingProperty { get; set; }
+        public Player Player { get; set; }
 
         protected IList<ProducerBase> producers;
         public IList<ProducerBase> Producers
@@ -39,14 +40,22 @@ namespace Model
             return new List<TileBase>();
         }
 
+        public virtual void DestroyEveryThingInRange(ISet<TileBase> availableTiles)
+        {
+            return;
+        }
+
         public bool TakeDamage(int damage)
         {
-            Health -= damage;
-            if (Health > 0)
+            BuildingProperty.Health -= damage;
+            OnDamageTaken?.Invoke(BuildingProperty.Health);
+
+            if (BuildingProperty.Health > 0)
                 return false;
 
+            StopProduction();
+            Player.RemoveBuilding(this);
             Tile.BuildingOnTop = null;
-            OnBuildingDestroyed.Invoke(this);
             return true;
         }
     }

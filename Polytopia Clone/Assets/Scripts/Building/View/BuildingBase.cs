@@ -13,8 +13,12 @@ namespace View
         [Header("Production Settings")]
         [SerializeField] protected int productionRate;
 
+        [Header("Building Properties")]
+        public Controller.BuildingProperty buildingProperties;
+
         [Header("Highlight Settings")]
-        [SerializeField] private Color hoverColor;
+        private Color hoverColor = Color.yellow;
+        private Color selectColor = Color.magenta;
         private Color startColor;
 
         public abstract Model.BuildingBase ToModel(Model.Player player);
@@ -22,14 +26,16 @@ namespace View
         private void Awake()
         {
             startColor = GetComponent<Renderer>().material.color;
+            HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Initialize(buildingProperties.Health);
+        }
 
-            HighlightManager.Instance.OnMonoBehaviourSelected += (mono) =>
-            {
-                if (mono == this)
-                    return;
+        protected void DeselectIfNotSelected(MonoBehaviour mono)
+        {
+            if (mono == this)
+                return;
 
-                GetComponent<Renderer>().material.color = startColor;
-            };
+            GetComponent<Renderer>().material.color = startColor;
         }
 
         private void OnMouseEnter()
@@ -51,6 +57,10 @@ namespace View
         {
             if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(BuildingManager.Instance.ViewToModelMap[this]))
             {
+                if(GetComponent<Renderer>().material.color == selectColor)
+                {
+                    BuildingManager.Instance.Attack(this);
+                }
                 return;
             }
             if (EventSystem.current.IsPointerOverGameObject())
@@ -59,9 +69,9 @@ namespace View
                 return;
             }
 
-            Controller.TroopManager.Instance.SelectedTroop = null;
-            Controller.MapManager.Instance.SelectedTile = null;
-            Controller.BuildingManager.Instance.SelectedBuilding = this;
+            TroopManager.Instance.SelectedTroop = null;
+            MapManager.Instance.SelectedTile = null;
+            BuildingManager.Instance.SelectedBuilding = this;
         }
 
         private void OnMouseExit()
@@ -77,6 +87,19 @@ namespace View
         {
             if (Controller.BuildingManager.Instance.SelectedBuilding != this)
                 GetComponent<Renderer>().material.color = startColor;
+        }
+
+        public void TakeDamage(int remainingHealth)
+        {
+            if (remainingHealth <= 0)
+            {
+                HighlightManager.Instance.OnMonoBehaviourSelected -= DeselectIfNotSelected;
+                Deselect();
+                Destroy(gameObject);
+                return;
+            }
+
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
         }
     }
 }

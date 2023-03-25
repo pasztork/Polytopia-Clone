@@ -19,5 +19,15 @@
             troop.TakeDamage(TroopProperty.Damage);
             return true;
         }
+
+        public override bool Attack(BuildingBase building)
+        {
+            if (!TilesInAttackRange.Contains(building.Tile) || attackedInTurn)
+                return false;
+
+            attackedInTurn = true;
+            building.TakeDamage(TroopProperty.Damage);
+            return true;
+        }
     }
 }

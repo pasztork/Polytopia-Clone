@@ -33,6 +33,7 @@ namespace Model
 
             if (built)
             {
+                building.Player = TurnManager.Instance.CurrentPlayer;
                 TurnManager.Instance.CurrentActionCount["Build"]--;
                 OnBuildingBuilt?.Invoke(TurnManager.Instance.CurrentPlayer);
             }

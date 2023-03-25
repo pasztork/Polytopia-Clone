@@ -189,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 575ee8395ed2a3e43beca80f72450ca7, type: 2}
   productionRate: 5
-  hoverColor: {r: 1, g: 1, b: 0, a: 0.5882353}
+  buildingProperties: {fileID: 11400000, guid: 6421fdaaffc8855449ac237d2658fdf6, type: 2}
 --- !u!1 &4768171254953242592
 GameObject:
   m_ObjectHideFlags: 0

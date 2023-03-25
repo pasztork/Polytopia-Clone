@@ -55,35 +55,48 @@ namespace Controller
             }
 
             Model.TroopBase troop = TroopManager.Instance.ViewToModelMap[TroopManager.Instance.SelectedTroop];
-            Model.BuildingBase building = Blueprint.ToModel(Model.TurnManager.Instance.CurrentPlayer);
+            Tile tile = MapManager.Instance.ModelToViewMap[troop.Tile];
+            View.BuildingBase viewBuilding = Instantiate(Blueprint, tile.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+            Model.BuildingBase building = viewBuilding.ToModel(Model.TurnManager.Instance.CurrentPlayer);
             bool built = Model.BuildManager.instance.Build(troop, building);
 
             if (!built)
+            {
+                viewBuilding.TakeDamage(0);
+                Destroy(viewBuilding);
                 return;
+            }
 
-            Tile tile = MapManager.Instance.ModelToViewMap[troop.Tile];
-            View.BuildingBase viewBuilding = 
-                Instantiate(Blueprint, tile.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
-
-            viewBuilding.GetComponentInChildren<NameText>().BackgroundColor = 
-                TurnManager.Instance.PlayerColors[Model.TurnManager.Instance.CurrentPlayer.Name];
+            viewBuilding.GetComponentInChildren<NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.TurnManager.Instance.CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
+            TroopManager.Instance.SelectedTroop = null;
+            View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
 
         public void BuildStartingCity(Model.TileBase modelTile, Model.BuildingBase modelBuilding, string name)
         {
             View.Tile viewTile = MapManager.Instance.ModelToViewMap[modelTile];
-            View.BuildingBase viewBuilding = Instantiate(blueprints["City"],
-                    viewTile.transform.position + new Vector3(0f, 1f, 0f),
-                    Quaternion.identity);
+            View.BuildingBase viewBuilding = Instantiate(blueprints["City"], viewTile.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
             NameText buildingText = viewBuilding.GetComponentInChildren<NameText>();
             buildingText.Name = name + "\nCapital";
             buildingText.BackgroundColor = TurnManager.Instance.PlayerColors[name];
+            modelBuilding.BuildingProperty = new Model.BuildingProperty(viewBuilding.buildingProperties.Health);
+            modelBuilding.OnDamageTaken += viewBuilding.TakeDamage;
 
             ViewToModelMap[viewBuilding] = modelBuilding;
             ModelToViewMap[modelBuilding] = viewBuilding;
+        }
+
+        public void Attack(BuildingBase building)
+        {
+            Model.TroopBase modelAttacker = TroopManager.Instance.ViewToModelMap[TroopManager.Instance.SelectedTroop];
+            Model.BuildingBase modelTarget = ViewToModelMap[building];
+
+            bool success = Model.TurnManager.Instance.CurrentPlayer.Attack(modelAttacker, modelTarget);
+            if (!success)
+                return;
         }
     }
 }
