@@ -867,7 +867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6e610e58a46314988ee1e8c962b40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 12
+  size: 8
   generationProperties: {fileID: 11400000, guid: eb6aad47dc6291a45862497600d698ba, type: 2}
 --- !u!114 &277816175
 MonoBehaviour:
