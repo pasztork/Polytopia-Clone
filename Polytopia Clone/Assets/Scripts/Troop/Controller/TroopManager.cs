@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
-using View;
 
 namespace Controller
 {
@@ -65,7 +63,7 @@ namespace Controller
                 Destroy(viewTroop);
                 return;
             }
-            viewTroop.GetComponentInChildren<NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.TurnManager.Instance.CurrentPlayer.Name];
+            viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.TurnManager.Instance.CurrentPlayer.Name];
 
             ViewToModelMap[viewTroop] = troop;
             ModelToViewMap[troop] = viewTroop;

@@ -2,7 +2,6 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using Controller;
 
 namespace View
 {
@@ -81,7 +80,7 @@ namespace View
             {
                 if (tile.TroopOnTop != null && tile.TroopOnTop.Player != modelTroop.Player)
                 {
-                    enemies.Add(TroopManager.Instance.ModelToViewMap[tile.TroopOnTop]);
+                    enemies.Add(Controller.TroopManager.Instance.ModelToViewMap[tile.TroopOnTop]);
                 }
             }
             return enemies.ToList();
@@ -96,7 +95,7 @@ namespace View
             {
                 if(tile.BuildingOnTop != null && !Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(tile.BuildingOnTop))
                 {
-                    buildings.Add(BuildingManager.Instance.ModelToViewMap[tile.BuildingOnTop]);
+                    buildings.Add(Controller.BuildingManager.Instance.ModelToViewMap[tile.BuildingOnTop]);
                 }
             }
             return buildings.ToList();

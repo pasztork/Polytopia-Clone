@@ -1,5 +1,4 @@
-﻿using Controller;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace View
@@ -40,7 +39,7 @@ namespace View
 
         private void OnMouseEnter()
         {
-            if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(BuildingManager.Instance.ViewToModelMap[this]))
+            if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -55,11 +54,11 @@ namespace View
 
         protected virtual void OnMouseDown()
         {
-            if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(BuildingManager.Instance.ViewToModelMap[this]))
+            if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
             {
                 if(GetComponent<Renderer>().material.color == selectColor)
                 {
-                    BuildingManager.Instance.Attack(this);
+                    Controller.BuildingManager.Instance.Attack(this);
                 }
                 return;
             }
@@ -69,14 +68,14 @@ namespace View
                 return;
             }
 
-            TroopManager.Instance.SelectedTroop = null;
-            MapManager.Instance.SelectedTile = null;
-            BuildingManager.Instance.SelectedBuilding = this;
+            Controller.TroopManager.Instance.SelectedTroop = null;
+            Controller.MapManager.Instance.SelectedTile = null;
+            Controller.BuildingManager.Instance.SelectedBuilding = this;
         }
 
         private void OnMouseExit()
         {
-            if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(BuildingManager.Instance.ViewToModelMap[this]))
+            if (!Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
