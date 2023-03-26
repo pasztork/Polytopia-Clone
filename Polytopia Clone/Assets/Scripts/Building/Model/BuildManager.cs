@@ -21,19 +21,7 @@ namespace Model
             if (TurnManager.Instance.CurrentActionCount["Build"] <= 0)
                 return false;
 
-            bool built;
-            if(building is TroopTrainingBuilding)
-            {
-                built = TurnManager.Instance.CurrentPlayer.Build(troop, building as TroopTrainingBuilding);
-            }
-            else if(building is NonTrainingBuilding)
-            {
-                built = TurnManager.Instance.CurrentPlayer.Build(troop, building as NonTrainingBuilding);
-            }
-            else
-            {
-                built = TurnManager.Instance.CurrentPlayer.Build(troop, building as WaterTroopTrainingBuilding);
-            }
+            bool built = TurnManager.Instance.CurrentPlayer.Build(troop, building);
 
             if (built)
             {

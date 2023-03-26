@@ -39,12 +39,12 @@ namespace Model
 
         }
 
-        // TODO: Tile.SetBuildingOnTop(TroopTrainingBuilding)
-        // & Tile.SetBuildingOnTop(NonTrainingBuilding)
-        // These should replace both of these methods
-        public bool Build(TroopBase troop, TroopTrainingBuilding building)
+        public bool Build(TroopBase troop, BuildingBase building)
         {
-            if (!ResourceContainer.HasEnoughFor(building.Cost) || AvailableTiles.Contains(troop.Tile) || !Troops.Contains(troop) || !troop.CanBuild(building))
+            RequirementsListBase requirements = building.Requirements;
+            troop.FillRequirements(requirements);
+            bool requirementsMet = requirements.RequirementsMet(ResourceContainer, AvailableTiles, troop.Tile);
+            if (!requirementsMet || !Troops.Contains(troop))
             {
                 building.StopProduction();
                 return false;
@@ -57,52 +57,8 @@ namespace Model
                 return false;
             }
 
-            ResourceContainer -= building.Cost;
             building.Tile = troop.Tile;
-            AddBuilding(building);
-            troop.TakeDamage(troop.TroopProperty.Health);
-            return true;
-        }
-
-        public bool Build(TroopBase troop, WaterTroopTrainingBuilding building)
-        {
-            if (!ResourceContainer.HasEnoughFor(building.Cost) || !AvailableTiles.Contains(troop.Tile) || !Troops.Contains(troop) || !troop.CanBuild(building))
-            {
-                building.StopProduction();
-                return false;
-            }
-
-            bool built = troop.Tile.SetBuildingOnTop(building);
-            if (!built)
-            {
-                building.StopProduction();
-                return false;
-            }
-
             ResourceContainer -= building.Cost;
-            building.Tile = troop.Tile;
-            AddBuilding(building);
-            troop.TakeDamage(troop.TroopProperty.Health);
-            return true;
-        }
-
-        public bool Build(TroopBase troop, NonTrainingBuilding building)
-        {
-            if (!ResourceContainer.HasEnoughFor(building.Cost) || !AvailableTiles.Contains(troop.Tile) || !Troops.Contains(troop) || !troop.CanBuild(building))
-            {
-                building.StopProduction();
-                return false;
-            }
-
-            bool built = troop.Tile.SetBuildingOnTop(building);
-            if (!built)
-            {
-                building.StopProduction();
-                return false;
-            }
-
-            ResourceContainer -= building.Cost;
-            building.Tile = troop.Tile;
             AddBuilding(building);
             troop.TakeDamage(troop.TroopProperty.Health);
             return true;
