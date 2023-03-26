@@ -867,7 +867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6e610e58a46314988ee1e8c962b40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 16
   generationProperties: {fileID: 11400000, guid: eb6aad47dc6291a45862497600d698ba, type: 2}
 --- !u!114 &277816175
 MonoBehaviour:
@@ -1006,12 +1006,14 @@ MonoBehaviour:
     - Builder
     - Scout
     - Settler
+    - Catapult
     m_values:
     - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
     - {fileID: 1114098095113398107, guid: 138af4d9e449dea47bd08fe8c53d0b50, type: 3}
     - {fileID: -1699723509975437972, guid: e6528a6ae017c644d80eafdb3a0ab419, type: 3}
     - {fileID: -8072061295275181274, guid: 39368c97665d5434ca59db23c2691816, type: 3}
     - {fileID: 1916921291909066819, guid: a9b2ecc8e91b6204e842e551dcab6c14, type: 3}
+    - {fileID: 7170643737726286824, guid: 0aacdf6adf797434097ee976ea5bef2a, type: 3}
 --- !u!4 &340401484
 Transform:
   m_ObjectHideFlags: 0
@@ -1572,12 +1574,14 @@ MonoBehaviour:
     - Builder
     - Settler
     - Scout
+    - Catapult
     m_values:
     - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
     - {fileID: 1114098095113398107, guid: 138af4d9e449dea47bd08fe8c53d0b50, type: 3}
     - {fileID: -1699723509975437972, guid: e6528a6ae017c644d80eafdb3a0ab419, type: 3}
     - {fileID: 1916921291909066819, guid: a9b2ecc8e91b6204e842e551dcab6c14, type: 3}
     - {fileID: -8072061295275181274, guid: 39368c97665d5434ca59db23c2691816, type: 3}
+    - {fileID: 7170643737726286824, guid: 0aacdf6adf797434097ee976ea5bef2a, type: 3}
 --- !u!1 &729774940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3339,7 +3343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.data[3]
@@ -3348,6 +3352,10 @@ PrefabInstance:
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.data[4]
       value: Settler
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[5]
+      value: Catapult
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
@@ -5430,7 +5438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.data[3]
@@ -5439,6 +5447,10 @@ PrefabInstance:
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.data[4]
       value: Settler
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[5]
+      value: Catapult
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}

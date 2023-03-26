@@ -1,8 +1,10 @@
-﻿namespace Model
+﻿using System.Collections.Generic;
+
+namespace Model
 {
     public abstract class OffensiveTroop : TroopBase
     {
-        private bool attackedInTurn;
+        protected bool attackedInTurn;
 
         public OffensiveTroop() : base()
         {
@@ -22,7 +24,7 @@
 
         public override bool Attack(BuildingBase building)
         {
-            var tilesInRange = TilesInAttackRange;
+            IList<TileBase> tilesInRange = TilesInAttackRange;
             tilesInRange.Add(Tile);
             if (!tilesInRange.Contains(building.Tile) || attackedInTurn)
                 return false;

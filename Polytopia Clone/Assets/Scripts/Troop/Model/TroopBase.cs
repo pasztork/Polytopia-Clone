@@ -74,7 +74,7 @@ namespace Model
             return true;
         }
 
-        private IList<TileBase> GetTilesInRange(int range)
+        protected virtual IList<TileBase> GetTilesInRange(int range)
         {
             ISet<TileBase> reachables = new HashSet<TileBase> { Tile };
             for (int i = 0; i < range; i++)
