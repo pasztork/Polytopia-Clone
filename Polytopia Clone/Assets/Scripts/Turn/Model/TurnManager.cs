@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
@@ -16,6 +17,7 @@ namespace Model
         }
 
         public event Action<Player> OnTurnStarted;
+        public event Action<Player> OnWinnerDecided;
 
         public Dictionary<string, int> CurrentActionCount { get; private set; }
 
@@ -50,6 +52,7 @@ namespace Model
         public void PlayerCreated(Player player)
         {
             players.AddFirst(player);
+            player.OnEliminitad += HandlePlayerEliminated;
         }
 
         public Dictionary<string, int> CopyDictionary(Dictionary<string, int> original)
@@ -61,6 +64,19 @@ namespace Model
                 copy[keyCopy] = kvp.Value;
             }
             return copy;
+        }
+
+        private void HandlePlayerEliminated(Player player)
+        {
+            players.Remove(player);
+            if (players.Count == 1)
+                StopGame();
+        }
+
+        private void StopGame()
+        {
+            OnWinnerDecided?.Invoke(players.ElementAt(0));
+            players.Clear();
         }
     }
 }

@@ -36,8 +36,8 @@ namespace Model
             var cityRange = GetTilesInRange();
             foreach (TileBase tile in cityRange)
             {
-                if(!availableTiles.Contains(tile) && tile.BuildingOnTop != null && tile.BuildingOnTop.Player == Player)
-                tile.BuildingOnTop.TakeDamage(tile.BuildingOnTop.BuildingProperty.Health);
+                if (!availableTiles.Contains(tile) && tile.BuildingOnTop != null && tile.BuildingOnTop.Player == Player)
+                    tile.BuildingOnTop.TakeDamage(tile.BuildingOnTop.BuildingProperty.Health);
             }
         }
     }
