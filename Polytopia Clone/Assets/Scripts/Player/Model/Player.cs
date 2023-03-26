@@ -6,6 +6,7 @@ namespace Model
     public class Player
     {
         public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
+        public event Action<Player> OnEliminitad;
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
         public Dictionary<string, int> ActionCount { get; set; }
@@ -38,6 +39,9 @@ namespace Model
 
         }
 
+        // TODO: Tile.SetBuildingOnTop(TroopTrainingBuilding)
+        // & Tile.SetBuildingOnTop(NonTrainingBuilding)
+        // These should replace both of these methods
         public bool Build(TroopBase troop, TroopTrainingBuilding building)
         {
             if (!ResourceContainer.HasEnoughFor(building.Cost) || AvailableTiles.Contains(troop.Tile) || !Troops.Contains(troop) || !troop.CanBuild(building))
@@ -149,12 +153,15 @@ namespace Model
             Buildings.Remove(building);
             GetAllAvailableTiles();
             building.DestroyEveryThingInRange(AvailableTiles);
+
+            if (Buildings.Count == 0)
+                OnEliminitad.Invoke(this);
         }
 
         private void GetAllAvailableTiles()
         {
             AvailableTiles.Clear();
-            foreach(var building in Buildings)
+            foreach (var building in Buildings)
             {
                 AvailableTiles.UnionWith(building.GetTilesInRange());
             }
