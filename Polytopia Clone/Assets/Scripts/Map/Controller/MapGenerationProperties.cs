@@ -7,8 +7,8 @@ namespace Controller
     {
         [SerializeField] private int minMountainCount;
         [SerializeField] private int maxMountainCount;
-        [SerializeField] private int minForrestCountPerChunk;
-        [SerializeField] private int maxForrestCountPerChunk;
+        [SerializeField] private int minForestCountPerChunk;
+        [SerializeField] private int maxForestCountPerChunk;
         [SerializeField] private float desertChunkProbability;
         [SerializeField] private float waterTileProbability;
 
@@ -18,8 +18,8 @@ namespace Controller
             {
                 MinMountainCount = minMountainCount,
                 MaxMountainCount = maxMountainCount,
-                MinForestCountPerChunk = minForrestCountPerChunk,
-                MaxForestCountPerChunk = maxForrestCountPerChunk,
+                MinForestCountPerChunk = minForestCountPerChunk,
+                MaxForestCountPerChunk = maxForestCountPerChunk,
                 DesertChunkProbability = desertChunkProbability,
                 WaterTileProbability = waterTileProbability
             };

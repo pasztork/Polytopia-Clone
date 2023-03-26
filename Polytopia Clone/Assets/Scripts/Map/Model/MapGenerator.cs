@@ -115,15 +115,15 @@ namespace Model
                     if (tiles[x, y] == null)
                         emptyCoords.Add((x, y, noiseMap[x, y]));
 
-            int actualForrestCount = new System.Random(System.DateTime.Now.Millisecond).Next(
+            int actualForestCount = new System.Random(System.DateTime.Now.Millisecond).Next(
                 MGP.MaxForestCountPerChunk - MGP.MinForestCountPerChunk + 1)
                 + MGP.MinForestCountPerChunk;
 
-            foreach ((int, int) forrestCoord in
+            foreach ((int, int) forestCoord in
                 emptyCoords.OrderBy(x => x.Item3)
-                    .TakeLast(System.Math.Min(emptyCoords.Count, actualForrestCount))
+                    .TakeLast(System.Math.Min(emptyCoords.Count, actualForestCount))
                     .Select(x => (x.Item1, x.Item2)))
-                tiles[forrestCoord.Item1, forrestCoord.Item2] = new ForrestTile();
+                tiles[forestCoord.Item1, forestCoord.Item2] = new ForestTile();
 
             IList<TileBase> startingTileContenders = new List<TileBase>();
             foreach ((int, int) coord in emptyCoords.Select(x => (x.Item1, x.Item2)))

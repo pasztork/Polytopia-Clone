@@ -887,7 +887,7 @@ MonoBehaviour:
     - Rock
     - Sand
     - Water
-    - Forrest
+    - Forest
     m_values:
     - {fileID: 3075795380664745628, guid: 623f7f3e4a4704143a8390a912d515e4, type: 3}
     - {fileID: 3075795380664745628, guid: 06f9069c6056e27498d6bc2bff4c8f86, type: 3}
