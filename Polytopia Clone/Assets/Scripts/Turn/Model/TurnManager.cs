@@ -19,8 +19,6 @@ namespace Model
         public event Action<Player> OnTurnStarted;
         public event Action<Player> OnWinnerDecided;
 
-        public Dictionary<string, int> CurrentActionCount { get; private set; }
-
         public Player CurrentPlayer { get; private set; }
         private readonly LinkedList<Player> players = new LinkedList<Player>();
         private LinkedListNode<Player> playerNode;
@@ -29,7 +27,6 @@ namespace Model
         {
             playerNode = players.Last;
             CurrentPlayer = playerNode.Value;
-            CurrentActionCount = CopyDictionary(CurrentPlayer.ActionCount);
             CurrentPlayer.StartTurn();
             OnTurnStarted?.Invoke(CurrentPlayer);
         }
@@ -44,7 +41,6 @@ namespace Model
         {
             playerNode = playerNode.Next ?? players.First;
             CurrentPlayer = playerNode.Value;
-            CurrentActionCount = CopyDictionary(CurrentPlayer.ActionCount);
             CurrentPlayer.StartTurn();
             OnTurnStarted?.Invoke(CurrentPlayer);
         }
@@ -53,17 +49,6 @@ namespace Model
         {
             players.AddFirst(player);
             player.OnEliminitad += HandlePlayerEliminated;
-        }
-
-        public Dictionary<string, int> CopyDictionary(Dictionary<string, int> original)
-        {
-            Dictionary<string, int> copy = new Dictionary<string, int>();
-            foreach (KeyValuePair<string, int> kvp in original)
-            {
-                string keyCopy = string.Copy(kvp.Key);
-                copy[keyCopy] = kvp.Value;
-            }
-            return copy;
         }
 
         private void HandlePlayerEliminated(Player player)

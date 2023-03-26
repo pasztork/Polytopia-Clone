@@ -19,7 +19,6 @@ namespace Controller
             TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
             player.StartingCityRange = startingCityRange;
             player.StartingProduction = baseProduction.CreateDictionary();
-            player.ActionCount = baseActionCount.CreateDictionary();
             player.AvailableBuildings = startingBuildings.ToList();
             player.AvailableTroops = startingTroops.ToList();
 

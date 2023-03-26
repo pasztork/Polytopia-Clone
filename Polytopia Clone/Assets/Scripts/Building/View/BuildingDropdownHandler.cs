@@ -32,7 +32,7 @@ namespace View
             {
                 BuildingBase building = buildings[buildingName];
                 Model.Cost cost = new Model.Cost(building.Cost.MoneyCost, building.Cost.MaterialCost, building.Cost.FoodCost);
-                if (player.ResourceContainer.HasEnoughFor(cost) && Model.TurnManager.Instance.CurrentActionCount["Build"] > 0)
+                if (player.ResourceContainer.HasEnoughFor(cost))
                     dropdown.options.Add(new TMP_Dropdown.OptionData() { text = buildingName });
             }
             dropdown.value = 0;

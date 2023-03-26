@@ -9,7 +9,6 @@ namespace Model
         public event Action<Player> OnEliminitad;
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
-        public Dictionary<string, int> ActionCount { get; set; }
 
         public Dictionary<string, int> StartingProduction { private get; set; }
         public int StartingCityRange { private get; set; }

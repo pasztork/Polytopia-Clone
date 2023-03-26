@@ -18,15 +18,11 @@ namespace Model
 
         public bool Build(TroopBase troop, BuildingBase building)
         {
-            if (TurnManager.Instance.CurrentActionCount["Build"] <= 0)
-                return false;
-
             bool built = TurnManager.Instance.CurrentPlayer.Build(troop, building);
 
             if (built)
             {
                 building.Player = TurnManager.Instance.CurrentPlayer;
-                TurnManager.Instance.CurrentActionCount["Build"]--;
                 OnBuildingBuilt?.Invoke(TurnManager.Instance.CurrentPlayer);
             }
 
