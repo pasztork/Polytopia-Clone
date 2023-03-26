@@ -60,6 +60,11 @@ namespace Model
             return false;
         }
 
+        public virtual bool CanBuild(WaterTroopTrainingBuilding building)
+        {
+            return false;
+        }
+
         // Tells whether or not troop died.
         public bool TakeDamage(int damage)
         {

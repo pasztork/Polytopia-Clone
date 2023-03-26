@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public class NonTrainingBuilding : BuildingBase
+    public abstract class NonTrainingBuilding : BuildingBase
     {
     }
 }

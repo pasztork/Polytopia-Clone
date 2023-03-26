@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -70,6 +71,25 @@ namespace View
                         = Controller.MapManager.Instance.ModelToViewMap[tile].startColor;
                 }
             }
+        }
+
+        protected override IList<Tile> GetTilesInRange(int range)
+        {
+            Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
+            Tile currentTile = Controller.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
+            ISet<Tile> reachables = new HashSet<Tile> { currentTile };
+            for (int i = 0; i < range; i++)
+            {
+                ISet<Tile> toAdd = new HashSet<Tile>();
+                foreach (Tile reachable in reachables)
+                    foreach (Tile tile in reachable.Neighbors)
+                        toAdd.Add(tile);
+
+                foreach (Tile tile in toAdd)
+                    reachables.Add(tile);
+            }
+            reachables.Remove(currentTile);
+            return reachables.ToList();
         }
 
         public override void TakeDamage(int remainingHealth)

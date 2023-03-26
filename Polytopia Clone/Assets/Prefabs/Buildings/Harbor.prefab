@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8045664100818579048}
   - component: {fileID: 996278019777713656}
   - component: {fileID: 5336888032748915815}
-  - component: {fileID: 6679960410637966285}
+  - component: {fileID: 2744604881689590860}
   m_Layer: 0
-  m_Name: Supplier
+  m_Name: Harbor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 90dd9a1006c679843a81a7a335e34449, type: 2}
+  - {fileID: 2100000, guid: eb864a49594d17c4995a177d1093777b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,7 +99,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6679960410637966285
+--- !u!114 &2744604881689590860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,12 +108,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1899269663787993928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 890ad9df80267c745a23711a4ecbeb63, type: 3}
+  m_Script: {fileID: 11500000, guid: 3214cb63632ca60478cf9b62a7c1f8f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: d0dc8dfd73b6aa349a0f889b5db5eb58, type: 2}
-  productionRate: 20
-  buildingProperties: {fileID: 11400000, guid: 9d6f5dea9f6601a43b225f5dd48a3b02, type: 2}
+  cost: {fileID: 11400000, guid: c502eaf1a93ea484a841667495f6ced3, type: 2}
+  productionRate: 15
+  buildingProperties: {fileID: 11400000, guid: 10198b42aaf15654894ce61113561825, type: 2}
 --- !u!1 &3154714475175299488
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 5579131732815387589}
   - component: {fileID: 7349543623655377122}
   m_Layer: 5
-  m_Name: Supplier Text
+  m_Name: Harbor Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Supplier
+  m_text: Harbor
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
   m_sharedMaterial: {fileID: 7072222655331372664, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}

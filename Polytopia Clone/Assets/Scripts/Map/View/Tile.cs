@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,8 +7,11 @@ namespace View
 {
     public class Tile : MonoBehaviour
     {
+        [SerializeField] private Vector3 offset;
+        public Vector3 Offset { get => offset; private set => offset = value; }
         public List<Tile> Neighbors { get; } = new List<Tile>();
 
+        [Header("Colors")]
         [SerializeField] private Color hoverColor;
         public Color startColor;
         [SerializeField] private Color selectColor;

@@ -143,11 +143,10 @@ namespace View
         private IEnumerator MoveAlong(IEnumerable<Tile> path)
         {
             Controller.MapManager.Instance.SelectedTile = null;
-            Vector3 offset = new Vector3(1f, 1.5f, 1f);
             foreach (Tile step in path)
             {
                 Vector3 center = step.gameObject.transform.position;
-                Vector3 nextPosition = center + offset;
+                Vector3 nextPosition = center + step.Offset;
                 gameObject.transform.position = nextPosition;
                 yield return new WaitForSeconds(0.25f);
             }
@@ -188,7 +187,7 @@ namespace View
             TilesToHighLight.Clear();
         }
 
-        private IList<Tile> GetTilesInRange(int range)
+        protected virtual IList<Tile> GetTilesInRange(int range)
         {
             Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
             Tile currentTile = Controller.MapManager.Instance.ModelToViewMap[modelTroop.Tile];

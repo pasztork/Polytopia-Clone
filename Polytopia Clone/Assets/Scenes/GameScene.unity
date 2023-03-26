@@ -1007,6 +1007,7 @@ MonoBehaviour:
     - Scout
     - Settler
     - Catapult
+    - Boat
     m_values:
     - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
     - {fileID: 1114098095113398107, guid: 138af4d9e449dea47bd08fe8c53d0b50, type: 3}
@@ -1014,6 +1015,7 @@ MonoBehaviour:
     - {fileID: -8072061295275181274, guid: 39368c97665d5434ca59db23c2691816, type: 3}
     - {fileID: 1916921291909066819, guid: a9b2ecc8e91b6204e842e551dcab6c14, type: 3}
     - {fileID: 7170643737726286824, guid: 0aacdf6adf797434097ee976ea5bef2a, type: 3}
+    - {fileID: 6337031454758992141, guid: ca5b4f8b715e3f446b136cd16effb6cc, type: 3}
 --- !u!4 &340401484
 Transform:
   m_ObjectHideFlags: 0
@@ -1575,6 +1577,7 @@ MonoBehaviour:
     - Settler
     - Scout
     - Catapult
+    - Boat
     m_values:
     - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
     - {fileID: 1114098095113398107, guid: 138af4d9e449dea47bd08fe8c53d0b50, type: 3}
@@ -1582,6 +1585,7 @@ MonoBehaviour:
     - {fileID: 1916921291909066819, guid: a9b2ecc8e91b6204e842e551dcab6c14, type: 3}
     - {fileID: -8072061295275181274, guid: 39368c97665d5434ca59db23c2691816, type: 3}
     - {fileID: 7170643737726286824, guid: 0aacdf6adf797434097ee976ea5bef2a, type: 3}
+    - {fileID: 6337031454758992141, guid: ca5b4f8b715e3f446b136cd16effb6cc, type: 3}
 --- !u!1 &729774940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,11 +1963,13 @@ MonoBehaviour:
     - Bank
     - Farm
     - Supplier
+    - Harbor
     m_values:
     - {fileID: 4787953681856402325, guid: 63baf07eac0846d4783a8369d8f4f4fd, type: 3}
     - {fileID: 745713856436684065, guid: f79534cdcfa6f954fb2d1e563b75c3d3, type: 3}
     - {fileID: 3568811158906727637, guid: 7028d18608f301247815865b28cf234c, type: 3}
     - {fileID: 6679960410637966285, guid: 28075208b8a5552469c0c4055a509753, type: 3}
+    - {fileID: 2744604881689590860, guid: 4ff824f1bf9ceb447a677ce673f31d79, type: 3}
 --- !u!1 &781778728
 GameObject:
   m_ObjectHideFlags: 0
@@ -3343,7 +3349,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.size
-      value: 6
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.data[3]
@@ -3356,6 +3366,18 @@ PrefabInstance:
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.data[5]
       value: Catapult
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[6]
+      value: Boat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[4]
+      value: Harbor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[5]
+      value: Boat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
@@ -4651,11 +4673,13 @@ MonoBehaviour:
     - Bank
     - Farm
     - Supplier
+    - Harbor
     m_values:
     - {fileID: 4787953681856402325, guid: 63baf07eac0846d4783a8369d8f4f4fd, type: 3}
     - {fileID: 745713856436684065, guid: f79534cdcfa6f954fb2d1e563b75c3d3, type: 3}
     - {fileID: 3568811158906727637, guid: 7028d18608f301247815865b28cf234c, type: 3}
     - {fileID: 6679960410637966285, guid: 28075208b8a5552469c0c4055a509753, type: 3}
+    - {fileID: 2744604881689590860, guid: 4ff824f1bf9ceb447a677ce673f31d79, type: 3}
 --- !u!1 &1821650438
 GameObject:
   m_ObjectHideFlags: 0
@@ -5438,7 +5462,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.size
-      value: 6
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.data[3]
@@ -5451,6 +5479,18 @@ PrefabInstance:
     - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: startingTroops.Array.data[5]
       value: Catapult
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[6]
+      value: Boat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[4]
+      value: Harbor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045575, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[5]
+      value: Boat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}

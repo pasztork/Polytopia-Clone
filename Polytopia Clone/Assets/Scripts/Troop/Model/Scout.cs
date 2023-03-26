@@ -1,6 +1,6 @@
 namespace Model
 {
-    public class Scout : OffensiveTroop
+    public class Scout : OffensiveTroop, LandTroop
     {
     }
 }

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9dc01c6983c93f4eab61e303884207f, type: 3}
-  m_Name: BoatCost
+  m_Script: {fileID: 11500000, guid: fe5d97a28c77d4e47b8ce3d88ec69add, type: 3}
+  m_Name: BoatProperty
   m_EditorClassIdentifier: 
-  moneyCost: 120
-  materialCost: 120
-  foodCost: 50
+  health: 10
+  damage: 7
+  movementRange: 3
+  attackRange: 3

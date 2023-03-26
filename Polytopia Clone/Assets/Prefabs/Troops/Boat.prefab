@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 192332905623899280}
   - component: {fileID: 3573502393572134665}
   - component: {fileID: 4394839279379804233}
+  - component: {fileID: 6337031454758992141}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Untagged
@@ -309,6 +310,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6337031454758992141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124203558222508765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6860f4451c6c93641af9869da9ea6a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: {fileID: 11400000, guid: 1b9d7b33805c54c47be4b9dfb4faa8d3, type: 2}
+  troopProperties: {fileID: 11400000, guid: 00db7e7c47f568149aaf09ace66d4d05, type: 2}
 --- !u!1 &3596784418568348281
 GameObject:
   m_ObjectHideFlags: 0

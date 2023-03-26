@@ -26,9 +26,13 @@ namespace Model
             {
                 built = TurnManager.Instance.CurrentPlayer.Build(troop, building as TroopTrainingBuilding);
             }
-            else
+            else if(building is NonTrainingBuilding)
             {
                 built = TurnManager.Instance.CurrentPlayer.Build(troop, building as NonTrainingBuilding);
+            }
+            else
+            {
+                built = TurnManager.Instance.CurrentPlayer.Build(troop, building as WaterTroopTrainingBuilding);
             }
 
             if (built)

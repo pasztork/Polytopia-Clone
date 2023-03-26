@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Model
 {
-    public class Catapult : OffensiveTroop
+    public class Catapult : OffensiveTroop, LandTroop
     {
         public override bool Attack(TroopBase troop)
         {

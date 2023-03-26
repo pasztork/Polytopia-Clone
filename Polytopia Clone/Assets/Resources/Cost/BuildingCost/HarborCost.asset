@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9dc01c6983c93f4eab61e303884207f, type: 3}
-  m_Name: BoatCost
+  m_Name: HarborCost
   m_EditorClassIdentifier: 
-  moneyCost: 120
-  materialCost: 120
-  foodCost: 50
+  moneyCost: 20
+  materialCost: 20
+  foodCost: 20

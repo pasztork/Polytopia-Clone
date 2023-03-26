@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minMountainCount: 10
   maxMountainCount: 15
-  minForestCountPerChunk: 0
-  maxForestCountPerChunk: 0
+  minForestCountPerChunk: 5
+  maxForestCountPerChunk: 10
   desertChunkProbability: 0.2
   waterTileProbability: 0.4

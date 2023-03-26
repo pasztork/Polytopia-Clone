@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public class TroopTrainingBuilding : BuildingBase
+    public abstract class TroopTrainingBuilding : BuildingBase
     {
         protected bool troopTrained;
         public override bool TrainTroop(TroopBase troop)

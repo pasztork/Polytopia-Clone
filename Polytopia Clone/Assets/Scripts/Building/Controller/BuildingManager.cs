@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Controller
 {
@@ -55,7 +56,7 @@ namespace Controller
 
             Model.TroopBase troop = TroopManager.Instance.ViewToModelMap[TroopManager.Instance.SelectedTroop];
             View.Tile tile = MapManager.Instance.ModelToViewMap[troop.Tile];
-            View.BuildingBase viewBuilding = Instantiate(Blueprint, tile.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+            View.BuildingBase viewBuilding = Instantiate(Blueprint, tile.transform.position + new Vector3(0f, tile.Offset.y, 0f), Quaternion.identity);
             Model.BuildingBase building = viewBuilding.ToModel(Model.TurnManager.Instance.CurrentPlayer);
             bool built = Model.BuildManager.instance.Build(troop, building);
 
@@ -77,7 +78,7 @@ namespace Controller
         public void BuildStartingCity(Model.TileBase modelTile, Model.BuildingBase modelBuilding, string name)
         {
             View.Tile viewTile = MapManager.Instance.ModelToViewMap[modelTile];
-            View.BuildingBase viewBuilding = Instantiate(blueprints["City"], viewTile.transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+            View.BuildingBase viewBuilding = Instantiate(blueprints["City"], viewTile.transform.position + new Vector3(0f, viewTile.Offset.y, 0f), Quaternion.identity);
             View.NameText buildingText = viewBuilding.GetComponentInChildren<View.NameText>();
             buildingText.Name = name + "\nCapital";
             buildingText.BackgroundColor = TurnManager.Instance.PlayerColors[name];
