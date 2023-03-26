@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4671,18 +4671,16 @@ MonoBehaviour:
   blueprints:
     m_keys:
     - City
-    - Bank
     - Farm
     - Supplier
+    - Bank
     - Harbor
     m_values:
     - {fileID: 4787953681856402325, guid: 63baf07eac0846d4783a8369d8f4f4fd, type: 3}
-    - {fileID: 745713856436684065, guid: f79534cdcfa6f954fb2d1e563b75c3d3, type: 3}
     - {fileID: 3568811158906727637, guid: 7028d18608f301247815865b28cf234c, type: 3}
     - {fileID: 6679960410637966285, guid: 28075208b8a5552469c0c4055a509753, type: 3}
-<<<<<<< HEAD
+    - {fileID: 745713856436684065, guid: f79534cdcfa6f954fb2d1e563b75c3d3, type: 3}
     - {fileID: 2744604881689590860, guid: 4ff824f1bf9ceb447a677ce673f31d79, type: 3}
-=======
 --- !u!1 &1804549422
 GameObject:
   m_ObjectHideFlags: 0
@@ -4818,7 +4816,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804549422}
   m_CullTransparentMesh: 1
->>>>>>> f155947d8cec1191f8fe9a1a763cde1f100ada32
 --- !u!1 &1821650438
 GameObject:
   m_ObjectHideFlags: 0
