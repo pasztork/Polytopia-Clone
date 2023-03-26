@@ -22,7 +22,9 @@
 
         public override bool Attack(BuildingBase building)
         {
-            if (!TilesInAttackRange.Contains(building.Tile) || attackedInTurn)
+            var tilesInRange = TilesInAttackRange;
+            tilesInRange.Add(Tile);
+            if (!tilesInRange.Contains(building.Tile) || attackedInTurn)
                 return false;
 
             attackedInTurn = true;

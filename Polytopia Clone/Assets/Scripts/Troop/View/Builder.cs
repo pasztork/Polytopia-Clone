@@ -1,4 +1,3 @@
-using Controller;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -47,16 +46,15 @@ namespace View
                 return;
             }
 
-            var prev = Controller.TroopManager.Instance.SelectedTroop;
             Controller.TroopManager.Instance.SelectedTroop = this;
 
             TilesToBuild = Model.TurnManager.Instance.CurrentPlayer.AvailableTiles;
-            var playerColor = TurnManager.Instance.PlayerColors[TroopManager.Instance.ViewToModelMap[this].Player.Name]; 
+            var playerColor = Controller.TurnManager.Instance.PlayerColors[Controller.TroopManager.Instance.ViewToModelMap[this].Player.Name]; 
             foreach (var tile in TilesToBuild)
             {
                 if(tile.BuildingOnTop == null)
                 {
-                    MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color = playerColor;
+                    Controller.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color = playerColor;
                 }
             }
             GetComponent<Renderer>().material.color = hoverColor;
@@ -68,7 +66,8 @@ namespace View
             {
                 if (tile.BuildingOnTop == null)
                 {
-                    MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color = MapManager.Instance.ModelToViewMap[tile].startColor;
+                    Controller.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color 
+                        = Controller.MapManager.Instance.ModelToViewMap[tile].startColor;
                 }
             }
         }

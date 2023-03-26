@@ -37,13 +37,12 @@ namespace View
                 return;
             }
 
-            var prev = Controller.TroopManager.Instance.SelectedTroop;
             Controller.TroopManager.Instance.SelectedTroop = this;
 
             EnemiesToHighLight.Clear();
-            EnemiesToHighLight = GetEnemiesInRange(troopProperties.AttackRange);
+            EnemiesToHighLight = GetEnemiesInRange();
             BuildingsToHighLight.Clear();
-            BuildingsToHighLight = GetEnemyBuildingsInRange(troopProperties.AttackRange);
+            BuildingsToHighLight = GetEnemyBuildingsInRange();
             foreach (TroopBase enemy in EnemiesToHighLight)
             {
                 enemy.GetComponent<Renderer>().material.color = selectColor;
@@ -71,7 +70,7 @@ namespace View
             }
         }
 
-        public IList<TroopBase> GetEnemiesInRange(int range)
+        public IList<TroopBase> GetEnemiesInRange()
         {
             Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
             IList<Model.TileBase> tiles = modelTroop.TilesInAttackRange;
@@ -86,10 +85,11 @@ namespace View
             return enemies.ToList();
         }
 
-        public IList<BuildingBase> GetEnemyBuildingsInRange(int range)
+        public IList<BuildingBase> GetEnemyBuildingsInRange()
         {
             Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
             IList<Model.TileBase> tiles = modelTroop.TilesInAttackRange;
+            tiles.Add(modelTroop.Tile);
             IList<BuildingBase> buildings = new List<BuildingBase>();
             foreach(Model.TileBase tile in tiles)
             {
