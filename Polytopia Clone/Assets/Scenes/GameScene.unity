@@ -3272,6 +3272,7 @@ GameObject:
   - component: {fileID: 535253820}
   - component: {fileID: 535253819}
   - component: {fileID: 535253818}
+  - component: {fileID: 535253821}
   m_Layer: 5
   m_Name: Archery
   m_TagString: Untagged
@@ -3343,7 +3344,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 535253819}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535253821}
+        m_TargetAssemblyTypeName: View.TechTreeItem, Assembly-CSharp
+        m_MethodName: OnItemClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &535253819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3382,6 +3395,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 535253816}
   m_CullTransparentMesh: 1
+--- !u!114 &535253821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535253816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb6f7a1c0bdd6748ac7a37f59bbc98e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: {fileID: 11400000, guid: c74138a8a8af72d48b96070961a3c4bf, type: 2}
 --- !u!1 &557253003
 GameObject:
   m_ObjectHideFlags: 0
@@ -12403,6 +12429,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   techTreeWindow: {fileID: 200512522}
+  itemNameText: {fileID: 1565391551}
+  itemMoneyCostText: {fileID: 1190178449}
+  itemMaterialCostText: {fileID: 1933612674}
+  itemFoodCostText: {fileID: 974730088}
 --- !u!1 &1890424247
 GameObject:
   m_ObjectHideFlags: 0
