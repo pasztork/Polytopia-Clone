@@ -48,7 +48,7 @@ namespace Model
         public void PlayerCreated(Player player)
         {
             players.AddFirst(player);
-            player.OnEliminitad += HandlePlayerEliminated;
+            player.OnEliminited += HandlePlayerEliminated;
         }
 
         private void HandlePlayerEliminated(Player player)

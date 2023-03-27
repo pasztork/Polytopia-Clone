@@ -6,7 +6,7 @@ namespace Model
     public class Player
     {
         public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
-        public event Action<Player> OnEliminitad;
+        public event Action<Player> OnEliminited;
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
@@ -132,7 +132,7 @@ namespace Model
             building.DestroyEveryThingInRange(AvailableTiles);
 
             if (Buildings.Count == 0)
-                OnEliminitad.Invoke(this);
+                OnEliminited.Invoke(this);
         }
 
         private void GetAllAvailableTiles()
