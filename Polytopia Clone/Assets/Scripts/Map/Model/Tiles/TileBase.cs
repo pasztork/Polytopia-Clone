@@ -8,8 +8,8 @@ namespace Model
         public BuildingBase BuildingOnTop { get; set; }
         public TroopBase TroopOnTop { get; set; }
 
-        public virtual bool SetBuildingOnTop(BuildingBase buildingOnTop) => false;
-        public virtual bool TrainTroop(TroopBase troop) => false;
-        public virtual bool AcceptTroop(TroopBase troop) => false;
+        public abstract bool SetBuildingOnTop(BuildingBase buildingOnTop);
+        public abstract bool TrainTroop(TroopBase troop);
+        public abstract bool AcceptTroop(TroopBase troop);
     }
 }

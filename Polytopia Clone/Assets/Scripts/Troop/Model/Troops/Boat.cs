@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public class Boat : OffensiveTroop, WaterTroop
+    public class Boat : OffensiveWaterTroop
     {
     }
 }

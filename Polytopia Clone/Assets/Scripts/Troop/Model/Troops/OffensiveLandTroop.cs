@@ -2,11 +2,11 @@
 
 namespace Model
 {
-    public abstract class OffensiveTroop : TroopBase
+    public abstract class OffensiveLandTroop : LandTroop
     {
         protected bool attackedInTurn;
 
-        public OffensiveTroop() : base()
+        public OffensiveLandTroop() : base()
         {
             TurnManager.Instance.OnTurnStarted +=
                 (player) => attackedInTurn = false;

@@ -1,22 +1,29 @@
 ﻿namespace Model
 {
-    public abstract class WaterTroop : TroopBase
+    public abstract class WorkerTroop : TroopBase
     {
         public override bool Relocate(TraversableTile target)
         {
-            return false;
+            return MoveTo(target);
         }
 
         public override bool Relocate(WaterTile target)
         {
+            return MoveTo(target);
+        }
+
+        protected bool MoveTo(TileBase tile)
+        {
+            Tile.TroopOnTop = null;
             movedInTurn = true;
-            Tile = target;
+            Tile = tile;
             return true;
         }
 
         public override bool Train(TraversableTile tile)
         {
-            return false;
+            Tile = tile;
+            return true;
         }
 
         public override bool Train(NonTraversableTile tile)
@@ -26,8 +33,7 @@
 
         public override bool Train(WaterTile tile)
         {
-            Tile = tile;
-            return true;
+            return false;
         }
     }
 }

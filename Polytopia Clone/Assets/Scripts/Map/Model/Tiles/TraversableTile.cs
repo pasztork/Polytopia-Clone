@@ -16,6 +16,10 @@
             if (TroopOnTop != null)
                 return false;
 
+            bool success = troop.Train(this);
+            if (!success)
+                return false;
+
             TroopOnTop = troop;
             return true;
         }
@@ -25,7 +29,10 @@
             if (TroopOnTop != null)
                 return false;
 
-            troop.Tile.TroopOnTop = null;
+            bool success = troop.Relocate(this);
+            if (!success)
+                return false;
+
             TroopOnTop = troop;
             return true;
         }

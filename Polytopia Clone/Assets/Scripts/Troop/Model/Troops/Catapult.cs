@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Model
 {
-    public class Catapult : OffensiveTroop, LandTroop
+    public class Catapult : OffensiveLandTroop
     {
         public override bool Attack(TroopBase troop)
         {
@@ -31,7 +31,7 @@ namespace Model
             attackedInTurn = true;
             building.TakeDamage(TroopProperty.Damage);
 
-            if(building.Tile.TroopOnTop != null && building.Tile.TroopOnTop.Player != Player)
+            if (building.Tile.TroopOnTop != null && building.Tile.TroopOnTop.Player != Player)
                 building.Tile.TroopOnTop.TakeDamage(TroopProperty.Damage);
 
             AttackNeighbors(building.Tile);
@@ -47,7 +47,7 @@ namespace Model
                     neighbor.TroopOnTop.TakeDamage(TroopProperty.Damage / 2);
                 }
 
-                if(neighbor.BuildingOnTop != null && neighbor.BuildingOnTop.Player != Player)
+                if (neighbor.BuildingOnTop != null && neighbor.BuildingOnTop.Player != Player)
                 {
                     neighbor.BuildingOnTop.TakeDamage(TroopProperty.Damage / 2);
                 }
@@ -60,7 +60,7 @@ namespace Model
             IList<TileBase> notReachables = base.GetTilesInRange(range - 1);
 
             var reachables = allTiles.ToHashSet();
-            foreach(TileBase tile in notReachables)
+            foreach (TileBase tile in notReachables)
             {
                 reachables.Remove(tile);
             }

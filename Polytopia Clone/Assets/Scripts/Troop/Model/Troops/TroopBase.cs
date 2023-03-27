@@ -14,7 +14,7 @@ namespace Model
         public TileBase Tile { get; set; }
         public Player Player { get; set; }
 
-        private bool movedInTurn;
+        protected bool movedInTurn = false;
 
         // Doesn't contain Tile.
         public IList<TileBase> TilesInMovementRange { get => GetTilesInRange(TroopProperty.MovementRange); }
@@ -32,13 +32,24 @@ namespace Model
                 return false;
 
             bool accepted = target.AcceptTroop(this);
-            if (!accepted)
-                return false;
-
-            movedInTurn = true;
-            Tile = target;
-            return true;
+            return accepted;
         }
+
+        // These are used to remove typechecking.
+        public abstract bool Relocate(TraversableTile target);
+
+        public abstract bool Relocate(WaterTile target);
+
+        public virtual bool Relocate(RockTile target)
+        {
+            return false;
+        }
+
+        public abstract bool Train(TraversableTile tile);
+
+        public abstract bool Train(NonTraversableTile tile);
+
+        public abstract bool Train(WaterTile tile);
 
         public virtual bool Attack(TroopBase troop)
         {
@@ -81,6 +92,9 @@ namespace Model
             return reachables.ToList();
         }
 
-        public virtual void FillRequirements(RequirementsListBase requirements) { }
+        public virtual void FillRequirements(RequirementsListBase requirements)
+        {
+            // Do nothing.
+        }
     }
 }

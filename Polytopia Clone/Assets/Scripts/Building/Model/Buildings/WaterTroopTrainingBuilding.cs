@@ -14,12 +14,9 @@
             if (troopTrained)
                 return false;
 
-            if (troop is WaterTroop)
-            {
-                troopTrained = true;
-                return Tile.TrainTroop(troop);
-            }
-            return false;
+            bool tileAccepted = Tile.TrainTroop(troop);
+            troopTrained = tileAccepted;
+            return tileAccepted;
         }
     }
 }

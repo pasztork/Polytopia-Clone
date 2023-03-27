@@ -1,6 +1,6 @@
 namespace Model
 {
-    public class Settler : TroopBase, LandTroop, WaterTroop
+    public class Settler : WorkerTroop
     {
         public override void FillRequirements(RequirementsListBase requirements)
         {

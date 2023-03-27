@@ -10,7 +10,6 @@ namespace Controller
         [SerializeField] private string[] startingBuildings;
         [SerializeField] private string[] startingTroops;
         [SerializeField] private DictionaryWrapper baseProduction;
-        [SerializeField] private DictionaryWrapper baseActionCount;
         [SerializeField] private Color playerColor;
 
         private void Start()

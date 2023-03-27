@@ -1,11 +1,16 @@
 namespace Model
 {
-    public class Builder : TroopBase, LandTroop, WaterTroop
+    public class Builder : WorkerTroop
     {
         public override void FillRequirements(RequirementsListBase requirements)
         {
             requirements.NonTrainingBuilderFound = true;
             requirements.WaterBuilderFound = true;
+        }
+
+        public override bool Relocate(RockTile target)
+        {
+            return MoveTo(target);
         }
     }
 }

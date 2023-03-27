@@ -2,6 +2,9 @@
 {
     public class SandTile : TraversableTile
     {
-        public override string ToString() => "Sand";
+        public override string ToString()
+        {
+            return "Sand";
+        }
     }
 }

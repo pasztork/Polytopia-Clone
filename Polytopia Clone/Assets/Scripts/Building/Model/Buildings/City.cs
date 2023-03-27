@@ -10,8 +10,6 @@ namespace Model
         public City(int range) : base()
         {
             this.range = range;
-            TurnManager.Instance.OnTurnStarted +=
-                (player) => troopTrained = false;
         }
 
         public override IList<TileBase> GetTilesInRange()
