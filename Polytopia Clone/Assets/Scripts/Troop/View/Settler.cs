@@ -1,6 +1,6 @@
 namespace View
 {
-    public class Settler : TroopBase
+    public class Settler : WorkerTroop
     {
         public override Model.TroopBase ToModel(Model.Player player)
         {
