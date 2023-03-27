@@ -67,4 +67,4 @@ crashlytics-build.properties
 .vsconfig
 
 # Log files
-[Aa]ssets/Log/
+Polytopia Clone/Assets/Log/*
