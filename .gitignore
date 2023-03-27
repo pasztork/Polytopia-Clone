@@ -65,3 +65,6 @@ crashlytics-build.properties
 
 # Visual Studio
 .vsconfig
+
+# Log files
+[Aa]ssets/Log/
