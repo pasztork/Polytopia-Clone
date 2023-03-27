@@ -9,11 +9,11 @@ namespace Model
 {
     public class JsonDataHolder
     {
-        public Player Player { get; set; }
-        public LogActions LogActions { get; set; }
-        public List<TileBase> Tiles { get; set; }
-        public List<TroopBase> Troops { get; set; }
-        public List<BuildingBase> Buildings { get; set; }
+        public string Player { get; set; } = null;
+        public LogActions Action { get; set; } = LogActions.Non;
+        public List<TileBase> Tiles { get; set; } = null;
+        public List<TroopBase> Troops { get; set; } = null;
+        public List<BuildingBase> Buildings { get; set; } = null;
 
         //public TechController Tech { get; set; }
     }

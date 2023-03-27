@@ -24,7 +24,11 @@ namespace Model
             }
         }
         
-        public delegate void LogDelegate(JsonDataHolder dataHolder);
-        public event LogDelegate LogEvent;
+        public event Action<JsonDataHolder> LogEvent;
+
+        public void TriggerEvent(JsonDataHolder data)
+        {
+            LogEvent?.Invoke(data);
+        }
     }
 }

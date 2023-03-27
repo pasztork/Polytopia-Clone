@@ -1,0 +1,4 @@
+{"Player":"Alice","Action":1,"Tiles":null,"Troops":null,"Buildings":null}
+{"Player":"Alice","Action":1,"Tiles":null,"Troops":null,"Buildings":null}
+{"Player":"Alice","Action":0,"Tiles":null,"Troops":null,"Buildings":null}
+{"Player":"Alice","Action":5,"Tiles":null,"Troops":null,"Buildings":null}

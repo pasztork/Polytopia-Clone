@@ -24,9 +24,13 @@ namespace Model
             {
                 building.Player = TurnManager.Instance.CurrentPlayer;
                 OnBuildingBuilt?.Invoke(TurnManager.Instance.CurrentPlayer);
+                LogDataWrapper.Instance.TriggerBuild(troop, building);
+                LogDataWrapper.Instance.TriggerTroopDeath(troop);
             }
 
             return built;
         }
+
+        
     }
 }

@@ -25,6 +25,7 @@ namespace Model
                 troop.Tile = building.Tile;
                 troop.Player = TurnManager.Instance.CurrentPlayer;
                 OnTroopTrained?.Invoke(TurnManager.Instance.CurrentPlayer);
+                LogDataWrapper.Instance.TriggerTrain(troop);
             }
 
             return trained;
