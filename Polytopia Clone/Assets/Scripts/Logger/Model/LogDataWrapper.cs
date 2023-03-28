@@ -1,10 +1,5 @@
 ﻿using Assets.Scripts.Logger.Model;
-using Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
 {
@@ -40,7 +35,7 @@ namespace Model
 
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = DependencyContainer.Get<TurnManager>().CurrentPlayer.Name,
+                Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Build,
                 Buildings = new System.Collections.Generic.List<Identity> { build },
                 //Tiles = new System.Collections.Generic.List<Identity> 
@@ -57,7 +52,7 @@ namespace Model
         {
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = DependencyContainer.Get<TurnManager>().CurrentPlayer.Name,
+                Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Destroy,
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{
@@ -70,7 +65,7 @@ namespace Model
                     {
                         Name = troop.ToString(),
                         Id = TroopToIdDic[troop]
-        } 
+        }
                 }
             };
 
@@ -89,7 +84,7 @@ namespace Model
 
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = DependencyContainer.Get<TurnManager>().CurrentPlayer.Name,
+                Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Train,
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{

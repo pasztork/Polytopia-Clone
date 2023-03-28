@@ -22,7 +22,7 @@ namespace Model
 
         public TroopBase()
         {
-            DependencyContainer.Get<TurnManager>().OnTurnStarted +=
+            DependencyContainer.Get<TurnManagerBase>().OnTurnStarted +=
                 (player) => movedInTurn = false;
         }
 

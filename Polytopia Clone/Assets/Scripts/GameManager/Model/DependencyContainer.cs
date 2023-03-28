@@ -16,22 +16,22 @@ namespace Model
 
         public DependencyContainer()
         {
-            Register<GameManager>();
-            Register<MapManager>();
-            Register<MapGenerator>();
-            Register<TurnManager>();
-            Register<BuildManager>();
-            Register<TrainManager>();
-            Register<TechTreeManager>();
+            Register<GameManagerBase, GameManager>();
+            Register<MapManagerBase, MapManager>();
+            Register<MapGeneratorBase, MapGenerator>();
+            Register<TurnManagerBase, TurnManager>();
+            Register<BuildManagerBase, BuildManager>();
+            Register<TrainManagerBase, TrainManager>();
+            Register<TechTreeManagerBase, TechTreeManager>();
         }
 
-        public void Register<T>()
+        public void Register<TBaseClass, TImplementation>()
         {
-            if (registeredObjects.ContainsKey(typeof(T)))
-                throw new InvalidOperationException($"Type {typeof(T)} is already registered");
+            if (registeredObjects.ContainsKey(typeof(TBaseClass)))
+                throw new InvalidOperationException($"Type {typeof(TBaseClass)} is already registered");
 
-            Type implementationType = typeof(T);
-            registeredObjects[typeof(T)] = Activator.CreateInstance(implementationType);
+            Type implementationType = typeof(TImplementation);
+            registeredObjects[typeof(TBaseClass)] = Activator.CreateInstance(implementationType);
         }
     }
 }

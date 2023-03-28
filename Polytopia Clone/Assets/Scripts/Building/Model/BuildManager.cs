@@ -1,26 +1,20 @@
-﻿using System;
-
-namespace Model
+﻿namespace Model
 {
-    public class BuildManager
+    public class BuildManager : BuildManagerBase
     {
-        public event Action<Player> OnBuildingBuilt;
-
-        public bool Build(TroopBase troop, BuildingBase building)
+        public override bool Build(TroopBase troop, BuildingBase building)
         {
-            bool built = DependencyContainer.Get<TurnManager>().CurrentPlayer.Build(troop, building);
+            bool built = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Build(troop, building);
 
             if (built)
             {
-                building.Player = DependencyContainer.Get<TurnManager>().CurrentPlayer;
-                OnBuildingBuilt?.Invoke(DependencyContainer.Get<TurnManager>().CurrentPlayer);
+                building.Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer;
+                RaiseOnBuildingBuilt(DependencyContainer.Get<TurnManagerBase>().CurrentPlayer);
                 LogDataWrapper.Instance.TriggerBuild(troop, building);
                 LogDataWrapper.Instance.TriggerTroopDeath(troop);
             }
 
             return built;
         }
-
-
     }
 }

@@ -48,7 +48,7 @@ namespace View
         private void OnMouseEnter()
         {
             if (EventSystem.current.IsPointerOverGameObject() || GetComponent<Renderer>().material.color == selectColor
-                || !Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+                || !Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -58,7 +58,7 @@ namespace View
 
         public virtual void OnMouseOver()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -83,7 +83,7 @@ namespace View
 
         private void OnMouseExit()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }

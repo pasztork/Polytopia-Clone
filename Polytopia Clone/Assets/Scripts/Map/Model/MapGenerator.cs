@@ -3,18 +3,16 @@ using System.Linq;
 
 namespace Model
 {
-    public class MapGenerator
+    public class MapGenerator : MapGeneratorBase
     {
         private TileBase[,] tiles;
         private float[,] noiseMap;
         private int size;
 
-        public MapGenerationProperties MGP { private get; set; }
-
-        public void GenerateMap()
+        public override void GenerateMap()
         {
-            tiles = DependencyContainer.Get<MapManager>().Tiles;
-            size = DependencyContainer.Get<MapManager>().Tiles.GetLength(0);
+            tiles = DependencyContainer.Get<MapManagerBase>().Tiles;
+            size = DependencyContainer.Get<MapManagerBase>().Tiles.GetLength(0);
             noiseMap = PerlinNoise.GenerateNoiseMap(size);
             GenerateWaterTiles();
             FillEmptyTiles();
@@ -94,7 +92,7 @@ namespace Model
             }
 
             System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
-            DependencyContainer.Get<MapManager>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
+            DependencyContainer.Get<MapManagerBase>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
         }
 
         private void GenerateGrassLand((int, int) offset)
@@ -127,7 +125,7 @@ namespace Model
             }
 
             System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
-            DependencyContainer.Get<MapManager>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
+            DependencyContainer.Get<MapManagerBase>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
         }
 
         private void SetupCoordinateSystem()
@@ -141,10 +139,10 @@ namespace Model
         {
             TileBase tile = tiles[x, y];
             (int, int)[] neighborCoordinates = {
-            (x - 1, y - 1), (x - 1, y), (x - 1, y + 1),
-            (x, y - 1),                 (x, y + 1),
-            (x + 1, y - 1), (x + 1, y), (x + 1, y + 1)
-        };
+                (x - 1, y - 1), (x - 1, y), (x - 1, y + 1),
+                (x, y - 1),                 (x, y + 1),
+                (x + 1, y - 1), (x + 1, y), (x + 1, y + 1)
+            };
             foreach ((int, int) coordinate in neighborCoordinates)
                 if (IsValidCoordinate(coordinate))
                     tile.Neighbors.Add(tiles[coordinate.Item1, coordinate.Item2]);

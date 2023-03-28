@@ -1,42 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Model
 {
-    public class MapManager
+    public class MapManager : MapManagerBase
     {
-        private int size;
-        public int Size
+        public override void GenerateMap()
         {
-            set
-            {
-                size = value;
-                tiles = new TileBase[size, size];
-            }
+            DependencyContainer.Get<MapGeneratorBase>().GenerateMap();
         }
 
-        private TileBase[,] tiles;
-        public TileBase[,] Tiles
-        {
-            get => tiles;
-            private set => tiles ??= value;
-        }
-
-        public IList<TileBase> StartingTiles { get; } = new List<TileBase>();
-
-        public TileBase SelectedTile { get; set; }
-
-        public void GenerateMap()
-        {
-            DependencyContainer.Get<MapGenerator>().GenerateMap();
-        }
-
-        public void LoadMap()
+        public override void LoadMap()
         {
             throw new NotImplementedException();
         }
 
-        public TileBase GetStartingTile()
+        public override TileBase GetStartingTile()
         {
             Random rand = new Random(DateTime.Now.Millisecond);
             TileBase tile = StartingTiles[rand.Next(StartingTiles.Count)];

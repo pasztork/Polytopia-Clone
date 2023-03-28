@@ -54,8 +54,8 @@ namespace Controller
             Model.BuildingBase modelBuilding = BuildingManager.Instance.ViewToModelMap[BuildingManager.Instance.SelectedBuilding];
             View.Tile tile = MapManager.Instance.ModelToViewMap[modelBuilding.Tile];
             View.TroopBase viewTroop = Instantiate(Blueprint, tile.transform.position + new Vector3(1f, 1.5f, 1f), Quaternion.identity);
-            Model.TroopBase troop = viewTroop.ToModel(Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer);
-            bool trained = Model.DependencyContainer.Get<Model.TrainManager>().Train(modelBuilding, troop);
+            Model.TroopBase troop = viewTroop.ToModel(Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer);
+            bool trained = Model.DependencyContainer.Get<Model.TrainManagerBase>().Train(modelBuilding, troop);
 
             if (!trained)
             {
@@ -63,7 +63,7 @@ namespace Controller
                 Destroy(viewTroop);
                 return;
             }
-            viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Name];
+            viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewTroop] = troop;
             ModelToViewMap[troop] = viewTroop;
@@ -77,7 +77,7 @@ namespace Controller
             Model.TileBase modelTile = MapManager.Instance.ViewToModelMap[tile];
             View.Tile from = MapManager.Instance.ModelToViewMap[modelTroop.Tile];
 
-            bool moved = Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.MoveTroop(modelTroop, modelTile);
+            bool moved = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.MoveTroop(modelTroop, modelTile);
             if (!moved)
                 return;
 
@@ -91,7 +91,7 @@ namespace Controller
             Model.TroopBase modelAttacker = ViewToModelMap[selectedTroop];
             Model.TroopBase modelTarget = ViewToModelMap[target];
 
-            bool success = Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Attack(modelAttacker, modelTarget);
+            bool success = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Attack(modelAttacker, modelTarget);
             if (!success)
                 return;
 

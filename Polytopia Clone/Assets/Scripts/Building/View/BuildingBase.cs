@@ -39,7 +39,7 @@ namespace View
 
         private void OnMouseEnter()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -54,9 +54,9 @@ namespace View
 
         protected virtual void OnMouseDown()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
             {
-                if(GetComponent<Renderer>().material.color == selectColor)
+                if (GetComponent<Renderer>().material.color == selectColor)
                 {
                     Controller.BuildingManager.Instance.Attack(this);
                 }
@@ -75,7 +75,7 @@ namespace View
 
         private void OnMouseExit()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }

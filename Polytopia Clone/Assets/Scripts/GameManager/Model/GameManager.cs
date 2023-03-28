@@ -1,18 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace Model
+﻿namespace Model
 {
-    public class GameManager
+    public class GameManager : GameManagerBase
     {
-        public IList<Player> Players { get; } = new List<Player>();
-
-        public void Start()
+        public override void Start()
         {
             foreach (Player player in Players)
                 player.SetupStartingPosition();
 
-            DependencyContainer.Get<TechTreeManager>().BuildTechTree();
-            DependencyContainer.Get<TurnManager>().Start();
+            DependencyContainer.Get<TechTreeManagerBase>().BuildTechTree();
+            DependencyContainer.Get<TurnManagerBase>().Start();
         }
     }
 }

@@ -1,20 +1,16 @@
-﻿using System;
-
-namespace Model
+﻿namespace Model
 {
-    public class TrainManager
+    public class TrainManager : TrainManagerBase
     {
-        public event Action<Player> OnTroopTrained;
-
-        public bool Train(BuildingBase building, TroopBase troop)
+        public override bool Train(BuildingBase building, TroopBase troop)
         {
-            bool trained = DependencyContainer.Get<TurnManager>().CurrentPlayer.Train(building, troop);
+            bool trained = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Train(building, troop);
 
             if (trained)
             {
                 troop.Tile = building.Tile;
-                troop.Player = DependencyContainer.Get<TurnManager>().CurrentPlayer;
-                OnTroopTrained?.Invoke(DependencyContainer.Get<TurnManager>().CurrentPlayer);
+                troop.Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer;
+                RaiseOnTroopTrained(DependencyContainer.Get<TurnManagerBase>().CurrentPlayer);
                 LogDataWrapper.Instance.TriggerTrain(troop);
             }
 

@@ -56,8 +56,8 @@ namespace Controller
             Model.TroopBase troop = TroopManager.Instance.ViewToModelMap[TroopManager.Instance.SelectedTroop];
             View.Tile tile = MapManager.Instance.ModelToViewMap[troop.Tile];
             View.BuildingBase viewBuilding = Instantiate(Blueprint, tile.transform.position + new Vector3(0f, tile.Offset.y, 0f), Quaternion.identity);
-            Model.BuildingBase building = viewBuilding.ToModel(Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer);
-            bool built = Model.DependencyContainer.Get<Model.BuildManager>().Build(troop, building);
+            Model.BuildingBase building = viewBuilding.ToModel(Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer);
+            bool built = Model.DependencyContainer.Get<Model.BuildManagerBase>().Build(troop, building);
 
             if (!built)
             {
@@ -66,7 +66,7 @@ namespace Controller
                 return;
             }
 
-            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Name];
+            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
@@ -93,7 +93,7 @@ namespace Controller
             Model.TroopBase modelAttacker = TroopManager.Instance.ViewToModelMap[TroopManager.Instance.SelectedTroop];
             Model.BuildingBase modelTarget = ViewToModelMap[building];
 
-            bool success = Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Attack(modelAttacker, modelTarget);
+            bool success = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Attack(modelAttacker, modelTarget);
             if (!success)
                 return;
         }

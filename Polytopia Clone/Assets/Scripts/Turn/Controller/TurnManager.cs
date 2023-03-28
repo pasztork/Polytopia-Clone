@@ -23,7 +23,7 @@ namespace Controller
         {
             TechTreeManager.Instance.EndTurn();
             TechTreeManager.Instance.TechTreeWindow.SetActive(false);
-            Model.DependencyContainer.Get<Model.TurnManager>().FinishTurn();
+            Model.DependencyContainer.Get<Model.TurnManagerBase>().FinishTurn();
         }
     }
 }

@@ -26,8 +26,8 @@ namespace Model
         public Player(string name)
         {
             Name = name;
-            DependencyContainer.Get<TurnManager>().PlayerCreated(this);
-            DependencyContainer.Get<GameManager>().Players.Add(this);
+            DependencyContainer.Get<TurnManagerBase>().PlayerCreated(this);
+            DependencyContainer.Get<GameManagerBase>().Players.Add(this);
         }
 
         public void StartTurn()
@@ -111,7 +111,7 @@ namespace Model
             city.Producers.Add(new MoneyProducer(ResourceContainer, StartingProduction["Money"]));
             city.Producers.Add(new MaterialProducer(ResourceContainer, StartingProduction["Material"]));
             city.Producers.Add(new FoodProducer(ResourceContainer, StartingProduction["Food"]));
-            TileBase tile = DependencyContainer.Get<MapManager>().GetStartingTile();
+            TileBase tile = DependencyContainer.Get<MapManagerBase>().GetStartingTile();
             city.Tile = tile;
             city.Player = this;
             tile.SetBuildingOnTop(city);
@@ -148,12 +148,12 @@ namespace Model
 
         public bool UnlockTech(TechTreeItemBase techToLearn)
         {
-            if(techToLearn == null || !ResourceContainer.HasEnoughFor(techToLearn.TechTreeItemProperty.Cost))
+            if (techToLearn == null || !ResourceContainer.HasEnoughFor(techToLearn.TechTreeItemProperty.Cost))
                 return false;
 
-            foreach(TechTreeItemBase tech in Techs)
+            foreach (TechTreeItemBase tech in Techs)
             {
-                if(tech.TechTreeItemProperty.Name == techToLearn.TechTreeItemProperty.Name && !tech.TechTreeItemProperty.IsUnlocked)
+                if (tech.TechTreeItemProperty.Name == techToLearn.TechTreeItemProperty.Name && !tech.TechTreeItemProperty.IsUnlocked)
                 {
                     tech.TechTreeItemProperty.IsUnlocked = true;
                     ResourceContainer -= techToLearn.TechTreeItemProperty.Cost;

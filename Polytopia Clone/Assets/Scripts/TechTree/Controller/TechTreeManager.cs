@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Controller
@@ -37,7 +35,7 @@ namespace Controller
 
         public void OnTechTreeButtonClick()
         {
-            var modelTechs = Model.TechTreeManager.Instance.TechsOfCurrentPlayer;
+            var modelTechs = Model.DependencyContainer.Get<Model.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
             if (modelTechs == null)
                 return;
 
@@ -47,7 +45,7 @@ namespace Controller
 
         private void UpdateTechElements(IList<Model.TechTreeItemBase> modelTechs)
         {
-            for(int i = 0; i < modelTechs.Count; i++)
+            for (int i = 0; i < modelTechs.Count; i++)
             {
                 if (modelTechs[i].TechTreeItemProperty.IsUnlocked)
                 {
@@ -66,7 +64,7 @@ namespace Controller
 
         public void ShowTechTreeItemInfo(View.TechTreeItem item)
         {
-            if(SelectedTechTreeItem != null)
+            if (SelectedTechTreeItem != null)
             {
                 SelectedTechTreeItem.ResetColor();
             }
@@ -81,10 +79,10 @@ namespace Controller
 
         public void OnLearnTechButtonClick()
         {
-            if(SelectedTechTreeItem == null)
+            if (SelectedTechTreeItem == null)
                 return;
 
-            bool learnt = Model.TechTreeManager.Instance.UnlockTech(SelectedTechTreeItem.ToModel());
+            bool learnt = Model.DependencyContainer.Get<Model.TechTreeManagerBase>().UnlockTech(SelectedTechTreeItem.ToModel());
             if (!learnt)
                 return;
 
@@ -94,7 +92,7 @@ namespace Controller
 
         public void EndTurn()
         {
-            if(SelectedTechTreeItem != null)
+            if (SelectedTechTreeItem != null)
             {
                 SelectedTechTreeItem.ResetColor();
                 SelectedTechTreeItem = null;
@@ -104,11 +102,11 @@ namespace Controller
 
         public void SetItemDescriptions()
         {
-            var modelTechs = Model.TechTreeManager.Instance.TechTreeModel;
+            var modelTechs = Model.DependencyContainer.Get<Model.TechTreeManagerBase>().TechTreeModel;
             if (modelTechs == null)
                 return;
 
-            for(int i = 0; i< modelTechs.Count; i++)
+            for (int i = 0; i < modelTechs.Count; i++)
             {
                 TechTreeItems[i].Description = modelTechs[i].TechTreeItemProperty.Description;
             }

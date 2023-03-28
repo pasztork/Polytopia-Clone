@@ -1,51 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Model
 {
-    public class TechTreeManager
+    public class TechTreeManager : TechTreeManagerBase
     {
-        private static TechTreeManager instance;
-        public static TechTreeManager Instance
+        public override IList<TechTreeItemBase> GetTechsOfCurrentPlayer()
         {
-            get
+            if (DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Techs == null)
             {
-                instance ??= new TechTreeManager();
-                return instance;
+                DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Techs = TechTreeModel;
+                return TechTreeModel;
             }
+            return DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Techs;
         }
 
-        public IList<TechTreeItemBase> TechTreeModel { get; private set; }
-
-        public IList<TechTreeItemBase> TechsOfCurrentPlayer
-        {
-            get
-            {
-                if (DependencyContainer.Get<TurnManager>().CurrentPlayer.Techs == null)
-                {
-                    DependencyContainer.Get<TurnManager>().CurrentPlayer.Techs = TechTreeModel;
-                    return TechTreeModel;
-                }
-                return DependencyContainer.Get<TurnManager>().CurrentPlayer.Techs;
-            }
-        }
-
-        public event Action<Player> OnTechUnlocked;
-
-        public bool UnlockTech(TechTreeItemBase tech)
+        public override bool UnlockTech(TechTreeItemBase tech)
         {
             if (tech == null)
                 return false;
 
-            bool learnt = DependencyContainer.Get<TurnManager>().CurrentPlayer.UnlockTech(tech);
+            bool learnt = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.UnlockTech(tech);
             if (learnt)
             {
-                OnTechUnlocked?.Invoke(DependencyContainer.Get<TurnManager>().CurrentPlayer);
+                RaiseOnTechUnlocked(DependencyContainer.Get<TurnManagerBase>().CurrentPlayer);
             }
             return learnt;
         }
 
-        public void BuildTechTree()
+        public override void BuildTechTree()
         {
             TechTreeModel = new List<TechTreeItemBase>();
         }
