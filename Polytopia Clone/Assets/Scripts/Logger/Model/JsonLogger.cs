@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Model
 {
-    public class JsonLogger : ILogger
+    public class JsonLogger
     {
         private static JsonLogger instance;
         public static JsonLogger Instance

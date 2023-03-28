@@ -10,6 +10,7 @@ namespace Model
     public class LogManager
     {
         private static LogManager instance;
+
         public static LogManager Instance 
         {
             get
@@ -17,8 +18,8 @@ namespace Model
                 if (instance == null)
                 {
                     instance = new LogManager();
-                    JsonLogger jsonLogger = JsonLogger.Instance;
-                    LogManager.Instance.LogEvent += jsonLogger.LogToFile;
+                    JsonLogger logger = JsonLogger.Instance;
+                    LogManager.Instance.LogEvent += logger.LogToFile;
                 }
                 return instance;
             }
