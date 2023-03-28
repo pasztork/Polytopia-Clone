@@ -1,5 +1,4 @@
-﻿using Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -17,13 +16,6 @@ namespace Controller
         private void Start()
         {
             Model.Player player = new Model.Player(name);
-            var viewTechs = TechTreeManager.Instance.TechTreeItems;
-            var modelTechs = new List<TechTreeItemBase>();
-            foreach ( var tech in viewTechs)
-            {
-                modelTechs.Add(tech.ToModel());
-            }
-            player.Techs = modelTechs;
             TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
             player.StartingCityRange = startingCityRange;
             player.StartingProduction = baseProduction.CreateDictionary();

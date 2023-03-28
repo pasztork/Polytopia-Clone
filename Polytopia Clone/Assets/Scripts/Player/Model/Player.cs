@@ -145,5 +145,22 @@ namespace Model
                 AvailableTiles.UnionWith(building.GetTilesInRange());
             }
         }
+
+        public bool UnlockTech(TechTreeItemBase techToLearn)
+        {
+            if(techToLearn == null || !ResourceContainer.HasEnoughFor(techToLearn.TechTreeItemProperty.Cost))
+                return false;
+
+            foreach(TechTreeItemBase tech in Techs)
+            {
+                if(tech.TechTreeItemProperty.Name == techToLearn.TechTreeItemProperty.Name && !tech.TechTreeItemProperty.IsUnlocked)
+                {
+                    tech.TechTreeItemProperty.IsUnlocked = true;
+                    ResourceContainer -= techToLearn.TechTreeItemProperty.Cost;
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

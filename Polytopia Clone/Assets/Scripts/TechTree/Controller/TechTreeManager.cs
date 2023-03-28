@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -33,16 +34,58 @@ namespace Controller
 
         public void OnTechTreeButtonClick()
         {
+            var modelTechs = Model.TechTreeManager.Instance.TechsOfCurrentPlayer;
+            if (modelTechs == null)
+                return;
+
+            UpdateTechElements(modelTechs);
             techTreeWindow.SetActive(!techTreeWindow.activeSelf);
+        }
+
+        private void UpdateTechElements(IList<Model.TechTreeItemBase> modelTechs)
+        {
+            for(int i = 0; i < modelTechs.Count; i++)
+            {
+                if (modelTechs[i].TechTreeItemProperty.IsUnlocked)
+                {
+                    TechTreeItems[i].ItemUnlocked();
+                }
+                else if (modelTechs[i].IsAvailable)
+                {
+                    TechTreeItems[i].ItemAvailable();
+                }
+                else
+                {
+                    TechTreeItems[i].ItemLocked();
+                }
+            }
         }
 
         public void ShowTechTreeItemInfo(View.TechTreeItem item)
         {
+            if(SelectedTechTreeItem != null)
+            {
+                SelectedTechTreeItem.ResetColor();
+            }
+
             SelectedTechTreeItem = item;
             itemNameText.text = item.Name;
             itemMoneyCostText.text = $"Money Cost: {item.Cost.MoneyCost}";
             itemMaterialCostText.text = $"Material Cost: {item.Cost.MaterialCost}";
             itemFoodCostText.text = $"Food Cost: {item.Cost.FoodCost}";
+        }
+
+        public void OnLearnTechButtonClick()
+        {
+            if(SelectedTechTreeItem == null)
+                return;
+
+            bool learnt = Model.TechTreeManager.Instance.UnlockTech(SelectedTechTreeItem.ToModel());
+            if (!learnt)
+                return;
+
+            SelectedTechTreeItem.ItemUnlocked();
+            SelectedTechTreeItem = null;
         }
     }
 }

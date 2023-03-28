@@ -20,6 +20,7 @@ namespace Model
         {
             foreach (Player player in Players)
                 player.SetupStartingPosition();
+            TechTreeManager.Instance.BuildTechTree();
             TurnManager.Instance.Start();
         }
     }

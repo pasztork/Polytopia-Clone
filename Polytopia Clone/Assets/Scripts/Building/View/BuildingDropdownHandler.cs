@@ -21,6 +21,7 @@ namespace View
             Model.TurnManager.Instance.OnTurnStarted += UpdateContent;
             Model.BuildManager.Instance.OnBuildingBuilt += UpdateContent;
             Model.TrainManager.Instance.OnTroopTrained += UpdateContent;
+            Model.TechTreeManager.Instance.OnTechUnlocked += UpdateContent;
             Controller.BuildingManager.Instance.OnBuildAttempted += SetSelected;
         }
 
