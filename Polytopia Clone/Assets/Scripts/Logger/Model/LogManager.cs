@@ -11,6 +11,13 @@ namespace Model
     {
         private static LogManager instance;
 
+        private static int buildId = 0;
+        private static int tileId = 0;
+        private static int troopId = 0;
+        public int BuildId { get { return buildId; } }
+        public int TroopId { get { return troopId; } }
+        public int TileId { get { return buildId; } }
+
         public static LogManager Instance 
         {
             get
@@ -31,5 +38,9 @@ namespace Model
         {
             LogEvent?.Invoke(data);
         }
+
+        public int IncrementBuildId() => buildId++;
+        public int IncrementTroopId() => troopId++;
+        public int IncrementTileId() => tileId++;
     }
 }

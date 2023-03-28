@@ -38,5 +38,10 @@ namespace Model
                     tile.BuildingOnTop.TakeDamage(tile.BuildingOnTop.BuildingProperty.Health);
             }
         }
+
+        public override string ToString()
+        {
+            return "City";
+        }
     }
 }

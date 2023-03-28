@@ -68,5 +68,9 @@ namespace Model
             reachables.Remove(Tile);
             return reachables.ToList();
         }
+        public override string ToString()
+        {
+            return "Catapult";
+        }
     }
 }

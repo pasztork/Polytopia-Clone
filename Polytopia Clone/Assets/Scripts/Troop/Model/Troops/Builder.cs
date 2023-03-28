@@ -12,5 +12,10 @@ namespace Model
         {
             return MoveTo(target);
         }
+
+        public override string ToString()
+        {
+            return "Builder";
+        }
     }
 }
