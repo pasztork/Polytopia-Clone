@@ -10,7 +10,7 @@ namespace Model
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
-        public IList<TechTreeItemBase> UnlockedTechs { get; private set; } = new List<TechTreeItemBase>();
+        public IList<TechTreeItemBase> Techs { get; set; } = new List<TechTreeItemBase>();
 
         public Dictionary<string, int> StartingProduction { private get; set; }
         public int StartingCityRange { private get; set; }

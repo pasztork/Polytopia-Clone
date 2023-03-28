@@ -21,6 +21,7 @@ namespace Controller
 
         public void FinishTurn()
         {
+            TechTreeManager.Instance.TechTreeWindow.SetActive(false);
             Model.TurnManager.Instance.FinishTurn();
         }
     }

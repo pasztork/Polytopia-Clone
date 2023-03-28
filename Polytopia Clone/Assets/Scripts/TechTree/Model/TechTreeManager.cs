@@ -14,11 +14,11 @@ namespace Model
             }
         }
 
-        public IList<TechTreeItemBase> UnlockedTechsByCurrentPlayer
+        public IList<TechTreeItemBase> TechsOfCurrentPlayer
         {
             get
             {
-                return TurnManager.Instance.CurrentPlayer.UnlockedTechs;
+                return TurnManager.Instance.CurrentPlayer.Techs;
             }
         }
     }

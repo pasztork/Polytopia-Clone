@@ -12428,6 +12428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fbab789e32a784293fe268e58285a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  techTreeItems:
+  - {fileID: 535253821}
   techTreeWindow: {fileID: 200512522}
   itemNameText: {fileID: 1565391551}
   itemMoneyCostText: {fileID: 1190178449}

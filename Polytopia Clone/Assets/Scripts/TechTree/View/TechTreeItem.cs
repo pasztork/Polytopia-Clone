@@ -8,8 +8,8 @@ namespace View
     {
         [SerializeField] protected Controller.Cost cost;
         public Controller.Cost Cost { get => cost; set => cost = value; }
-
         public string Name { get; set; }
+        public bool IsUnlocked { get; set; }
 
         private Color startColor;
         private Color selectColor = Color.magenta;
@@ -41,10 +41,14 @@ namespace View
             enabled = false;
         }
 
-        public Model.TechTreeItemBase ToModel(Model.Player player)
+        public Model.TechTreeItemBase ToModel()
         {
             Model.TechTreeItemBase techItem = new Model.TechTreeItemBase();
             techItem.TechTreeItemProperty = new Model.TechTreeItemProperty(name, new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost));
+            if(GetComponent<Image>().color == unlockColor)
+            {
+                techItem.TechTreeItemProperty.IsUnlocked = true;
+            }
             return techItem;
         }
     }
