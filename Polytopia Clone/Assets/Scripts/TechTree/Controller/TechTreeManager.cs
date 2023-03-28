@@ -76,7 +76,7 @@ namespace Controller
             itemMoneyCostText.text = $"Money Cost: {item.Cost.MoneyCost}";
             itemMaterialCostText.text = $"Material Cost: {item.Cost.MaterialCost}";
             itemFoodCostText.text = $"Food Cost: {item.Cost.FoodCost}";
-            itemDescriptionText.text = item.Description;
+            //itemDescriptionText.text = item.Description;
         }
 
         public void OnLearnTechButtonClick()
@@ -105,6 +105,9 @@ namespace Controller
         public void SetItemDescriptions()
         {
             var modelTechs = Model.TechTreeManager.Instance.TechTreeModel;
+            if (modelTechs == null)
+                return;
+
             for(int i = 0; i< modelTechs.Count; i++)
             {
                 TechTreeItems[i].Description = modelTechs[i].TechTreeItemProperty.Description;
