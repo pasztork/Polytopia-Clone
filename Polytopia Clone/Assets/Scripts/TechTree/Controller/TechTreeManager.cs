@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Controller
@@ -21,6 +22,7 @@ namespace Controller
         [SerializeField] private TextMeshProUGUI itemMoneyCostText;
         [SerializeField] private TextMeshProUGUI itemMaterialCostText;
         [SerializeField] private TextMeshProUGUI itemFoodCostText;
+        [SerializeField] private TextMeshProUGUI itemDescriptionText;
 
         private void Awake()
         {
@@ -30,6 +32,7 @@ namespace Controller
                 return;
             }
             Instance = this;
+            SetItemDescriptions();
         }
 
         public void OnTechTreeButtonClick()
@@ -73,6 +76,7 @@ namespace Controller
             itemMoneyCostText.text = $"Money Cost: {item.Cost.MoneyCost}";
             itemMaterialCostText.text = $"Material Cost: {item.Cost.MaterialCost}";
             itemFoodCostText.text = $"Food Cost: {item.Cost.FoodCost}";
+            itemDescriptionText.text = item.Description;
         }
 
         public void OnLearnTechButtonClick()
@@ -86,6 +90,25 @@ namespace Controller
 
             SelectedTechTreeItem.ItemUnlocked();
             SelectedTechTreeItem = null;
+        }
+
+        public void EndTurn()
+        {
+            if(SelectedTechTreeItem != null)
+            {
+                SelectedTechTreeItem.ResetColor();
+                SelectedTechTreeItem = null;
+            }
+            TechTreeWindow.SetActive(false);
+        }
+
+        public void SetItemDescriptions()
+        {
+            var modelTechs = Model.TechTreeManager.Instance.TechTreeModel;
+            for(int i = 0; i< modelTechs.Count; i++)
+            {
+                TechTreeItems[i].Description = modelTechs[i].TechTreeItemProperty.Description;
+            }
         }
     }
 }
