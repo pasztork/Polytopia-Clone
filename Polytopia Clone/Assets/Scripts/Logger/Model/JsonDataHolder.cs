@@ -1,4 +1,5 @@
-﻿using Controller;
+﻿using Assets.Scripts.Logger.Model;
+using Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace Model
     {
         public string Player { get; set; } = null;
         public LogActions Action { get; set; } = LogActions.Non;
-        public List<TileBase> Tiles { get; set; } = null;
-        public List<TroopBase> Troops { get; set; } = null;
-        public List<BuildingBase> Buildings { get; set; } = null;
+        public List<Identity> Tiles { get; set; } = null;
+        public List<Identity> Troops { get; set; } = null;
+        public List<Identity> Buildings { get; set; } = null;
 
         //public TechController Tech { get; set; }
     }
