@@ -26,8 +26,8 @@ namespace Model
         public Player(string name)
         {
             Name = name;
-            TurnManager.Instance.PlayerCreated(this);
-            GameManager.Instance.Players.Add(this);
+            DependencyContainer.Get<TurnManager>().PlayerCreated(this);
+            DependencyContainer.Get<GameManager>().Players.Add(this);
         }
 
         public void StartTurn()
@@ -111,7 +111,7 @@ namespace Model
             city.Producers.Add(new MoneyProducer(ResourceContainer, StartingProduction["Money"]));
             city.Producers.Add(new MaterialProducer(ResourceContainer, StartingProduction["Material"]));
             city.Producers.Add(new FoodProducer(ResourceContainer, StartingProduction["Food"]));
-            TileBase tile = MapManager.Instance.GetStartingTile();
+            TileBase tile = DependencyContainer.Get<MapManager>().GetStartingTile();
             city.Tile = tile;
             city.Player = this;
             tile.SetBuildingOnTop(city);

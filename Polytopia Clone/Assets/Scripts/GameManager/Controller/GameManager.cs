@@ -7,18 +7,18 @@ namespace Controller
         private void Awake()
         {
             SetupGeneration();
-            Model.MapManager.Instance.GenerateMap();
+            Model.DependencyContainer.Get<Model.MapManager>().GenerateMap();
         }
 
         private void Start()
         {
-            Model.GameManager.Instance.Start();
+            Model.DependencyContainer.Get<Model.GameManager>().Start();
         }
 
         private void SetupGeneration()
         {
-            Model.MapManager.Instance.Size = MapManager.Instance.Size;
-            Model.MapGenerator.Instance.MGP = MapManager.Instance.GenerationProperties.ToModel();
+            Model.DependencyContainer.Get<Model.MapManager>().Size = MapManager.Instance.Size;
+            Model.DependencyContainer.Get<Model.MapGenerator>().MGP = MapManager.Instance.GenerationProperties.ToModel();
         }
     }
 }

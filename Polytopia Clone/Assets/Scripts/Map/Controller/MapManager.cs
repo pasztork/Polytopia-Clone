@@ -48,7 +48,7 @@ namespace Controller
 
         private void Start()
         {
-            tiles = Model.MapManager.Instance.Tiles;
+            tiles = Model.DependencyContainer.Get<Model.MapManager>().Tiles;
             View.MapBuilder.Instance.OnMapBuilt += MapViewToModel;
             View.MapBuilder.Instance.BuildMapGFX(tiles);
 

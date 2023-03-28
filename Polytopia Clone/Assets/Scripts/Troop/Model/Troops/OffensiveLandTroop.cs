@@ -8,7 +8,7 @@ namespace Model
 
         public OffensiveLandTroop() : base()
         {
-            TurnManager.Instance.OnTurnStarted +=
+            DependencyContainer.Get<TurnManager>().OnTurnStarted +=
                 (player) => attackedInTurn = false;
         }
 

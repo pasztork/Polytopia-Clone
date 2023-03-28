@@ -1,7 +1,7 @@
-using UnityEngine.EventSystems;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace View
 {
@@ -12,7 +12,7 @@ namespace View
 
         public override void OnMouseOver()
         {
-            if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -65,8 +65,8 @@ namespace View
 
             foreach (BuildingBase building in BuildingsToHighLight)
             {
-                if(building != null)
-                    building.GetComponent <Renderer>().material.color = startColor;
+                if (building != null)
+                    building.GetComponent<Renderer>().material.color = startColor;
             }
         }
 
@@ -91,9 +91,9 @@ namespace View
             IList<Model.TileBase> tiles = modelTroop.TilesInAttackRange;
             tiles.Add(modelTroop.Tile);
             IList<BuildingBase> buildings = new List<BuildingBase>();
-            foreach(Model.TileBase tile in tiles)
+            foreach (Model.TileBase tile in tiles)
             {
-                if(tile.BuildingOnTop != null && !Model.TurnManager.Instance.CurrentPlayer.Buildings.Contains(tile.BuildingOnTop))
+                if (tile.BuildingOnTop != null && !Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Buildings.Contains(tile.BuildingOnTop))
                 {
                     buildings.Add(Controller.BuildingManager.Instance.ModelToViewMap[tile.BuildingOnTop]);
                 }

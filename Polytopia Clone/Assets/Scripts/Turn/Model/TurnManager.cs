@@ -6,16 +6,6 @@ namespace Model
 {
     public class TurnManager
     {
-        private static TurnManager instance;
-        public static TurnManager Instance
-        {
-            get
-            {
-                instance ??= new TurnManager();
-                return instance;
-            }
-        }
-
         public event Action<Player> OnTurnStarted;
         public event Action<Player> OnWinnerDecided;
 

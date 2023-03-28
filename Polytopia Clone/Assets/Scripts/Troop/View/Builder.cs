@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -22,7 +21,7 @@ namespace View
 
         public override void OnMouseOver()
         {
-            if (!Model.TurnManager.Instance.CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -49,11 +48,11 @@ namespace View
 
             Controller.TroopManager.Instance.SelectedTroop = this;
 
-            TilesToBuild = Model.TurnManager.Instance.CurrentPlayer.AvailableTiles;
-            var playerColor = Controller.TurnManager.Instance.PlayerColors[Controller.TroopManager.Instance.ViewToModelMap[this].Player.Name]; 
+            TilesToBuild = Model.DependencyContainer.Get<Model.TurnManager>().CurrentPlayer.AvailableTiles;
+            var playerColor = Controller.TurnManager.Instance.PlayerColors[Controller.TroopManager.Instance.ViewToModelMap[this].Player.Name];
             foreach (var tile in TilesToBuild)
             {
-                if(tile.BuildingOnTop == null)
+                if (tile.BuildingOnTop == null)
                 {
                     Controller.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color = playerColor;
                 }
@@ -67,7 +66,7 @@ namespace View
             {
                 if (tile.BuildingOnTop == null)
                 {
-                    Controller.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color 
+                    Controller.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color
                         = Controller.MapManager.Instance.ModelToViewMap[tile].startColor;
                 }
             }

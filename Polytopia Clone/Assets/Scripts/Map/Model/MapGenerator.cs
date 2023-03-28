@@ -5,16 +5,6 @@ namespace Model
 {
     public class MapGenerator
     {
-        public static MapGenerator instance;
-        public static MapGenerator Instance
-        {
-            get
-            {
-                instance ??= new MapGenerator();
-                return instance;
-            }
-        }
-
         private TileBase[,] tiles;
         private float[,] noiseMap;
         private int size;
@@ -23,8 +13,8 @@ namespace Model
 
         public void GenerateMap()
         {
-            tiles = MapManager.Instance.Tiles;
-            size = MapManager.Instance.Tiles.GetLength(0);
+            tiles = DependencyContainer.Get<MapManager>().Tiles;
+            size = DependencyContainer.Get<MapManager>().Tiles.GetLength(0);
             noiseMap = PerlinNoise.GenerateNoiseMap(size);
             GenerateWaterTiles();
             FillEmptyTiles();
@@ -104,7 +94,7 @@ namespace Model
             }
 
             System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
-            MapManager.Instance.StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
+            DependencyContainer.Get<MapManager>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
         }
 
         private void GenerateGrassLand((int, int) offset)
@@ -137,7 +127,7 @@ namespace Model
             }
 
             System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
-            MapManager.Instance.StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
+            DependencyContainer.Get<MapManager>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
         }
 
         private void SetupCoordinateSystem()

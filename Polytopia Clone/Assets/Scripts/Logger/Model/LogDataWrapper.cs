@@ -40,7 +40,7 @@ namespace Model
 
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = TurnManager.Instance.CurrentPlayer.Name,
+                Player = DependencyContainer.Get<TurnManager>().CurrentPlayer.Name,
                 Action = LogActions.Build,
                 Buildings = new System.Collections.Generic.List<Identity> { build },
                 //Tiles = new System.Collections.Generic.List<Identity> 
@@ -57,7 +57,7 @@ namespace Model
         {
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = TurnManager.Instance.CurrentPlayer.Name,
+                Player = DependencyContainer.Get<TurnManager>().CurrentPlayer.Name,
                 Action = LogActions.Destroy,
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{
@@ -89,7 +89,7 @@ namespace Model
 
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = TurnManager.Instance.CurrentPlayer.Name,
+                Player = DependencyContainer.Get<TurnManager>().CurrentPlayer.Name,
                 Action = LogActions.Train,
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{

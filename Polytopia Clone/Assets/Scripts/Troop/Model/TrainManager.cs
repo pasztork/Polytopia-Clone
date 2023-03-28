@@ -4,27 +4,17 @@ namespace Model
 {
     public class TrainManager
     {
-        public static TrainManager instance;
-        public static TrainManager Instance
-        {
-            get
-            {
-                instance ??= new TrainManager();
-                return instance;
-            }
-        }
-
         public event Action<Player> OnTroopTrained;
 
         public bool Train(BuildingBase building, TroopBase troop)
         {
-            bool trained = TurnManager.Instance.CurrentPlayer.Train(building, troop);
+            bool trained = DependencyContainer.Get<TurnManager>().CurrentPlayer.Train(building, troop);
 
             if (trained)
             {
                 troop.Tile = building.Tile;
-                troop.Player = TurnManager.Instance.CurrentPlayer;
-                OnTroopTrained?.Invoke(TurnManager.Instance.CurrentPlayer);
+                troop.Player = DependencyContainer.Get<TurnManager>().CurrentPlayer;
+                OnTroopTrained?.Invoke(DependencyContainer.Get<TurnManager>().CurrentPlayer);
                 LogDataWrapper.Instance.TriggerTrain(troop);
             }
 

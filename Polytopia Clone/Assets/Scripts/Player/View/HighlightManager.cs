@@ -21,7 +21,7 @@ namespace View
 
         private void Start()
         {
-            Model.TurnManager.Instance.OnTurnStarted +=
+            Model.DependencyContainer.Get<Model.TurnManager>().OnTurnStarted +=
                 (player) => FireMonoBehaviourSelectedEvent(null);
         }
 

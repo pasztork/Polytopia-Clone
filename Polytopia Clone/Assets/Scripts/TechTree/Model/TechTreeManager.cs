@@ -21,15 +21,12 @@ namespace Model
         {
             get
             {
-                if(TurnManager.Instance.CurrentPlayer.Techs == null)
+                if (DependencyContainer.Get<TurnManager>().CurrentPlayer.Techs == null)
                 {
-                    TurnManager.Instance.CurrentPlayer.Techs = TechTreeModel;
+                    DependencyContainer.Get<TurnManager>().CurrentPlayer.Techs = TechTreeModel;
                     return TechTreeModel;
                 }
-                else
-                {
-                    return TurnManager.Instance.CurrentPlayer.Techs;
-                }
+                return DependencyContainer.Get<TurnManager>().CurrentPlayer.Techs;
             }
         }
 
@@ -40,10 +37,10 @@ namespace Model
             if (tech == null)
                 return false;
 
-            bool learnt = TurnManager.Instance.CurrentPlayer.UnlockTech(tech);
+            bool learnt = DependencyContainer.Get<TurnManager>().CurrentPlayer.UnlockTech(tech);
             if (learnt)
             {
-                OnTechUnlocked?.Invoke(TurnManager.Instance.CurrentPlayer);
+                OnTechUnlocked?.Invoke(DependencyContainer.Get<TurnManager>().CurrentPlayer);
             }
             return learnt;
         }

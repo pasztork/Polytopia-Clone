@@ -18,10 +18,10 @@ namespace View
 
         private void Start()
         {
-            Model.TurnManager.Instance.OnTurnStarted += UpdateContent;
-            Model.BuildManager.Instance.OnBuildingBuilt += UpdateContent;
-            Model.TrainManager.Instance.OnTroopTrained += UpdateContent;
-            Model.TechTreeManager.Instance.OnTechUnlocked += UpdateContent;
+            Model.DependencyContainer.Get<Model.TurnManager>().OnTurnStarted += UpdateContent;
+            Model.DependencyContainer.Get<Model.BuildManager>().OnBuildingBuilt += UpdateContent;
+            Model.DependencyContainer.Get<Model.TrainManager>().OnTroopTrained += UpdateContent;
+            Model.DependencyContainer.Get<Model.TechTreeManager>().OnTechUnlocked += UpdateContent;
             Controller.BuildingManager.Instance.OnBuildAttempted += SetSelected;
         }
 

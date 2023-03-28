@@ -7,7 +7,7 @@
         public TroopTrainingBuilding()
         {
             Requirements = new TrainingRequirementsList();
-            TurnManager.Instance.OnTurnStarted +=
+            DependencyContainer.Get<TurnManager>().OnTurnStarted +=
                 (player) => troopTrained = false;
         }
 

@@ -5,16 +5,6 @@ namespace Model
 {
     public class MapManager
     {
-        public static MapManager instance;
-        public static MapManager Instance
-        {
-            get
-            {
-                instance ??= new MapManager();
-                return instance;
-            }
-        }
-
         private int size;
         public int Size
         {
@@ -38,7 +28,7 @@ namespace Model
 
         public void GenerateMap()
         {
-            MapGenerator.Instance.GenerateMap();
+            DependencyContainer.Get<MapGenerator>().GenerateMap();
         }
 
         public void LoadMap()
