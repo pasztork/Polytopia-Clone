@@ -2,8 +2,9 @@
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using UnityEngine;
 
-namespace Model
+namespace View
 {
     public class JsonLogger
     {
@@ -12,12 +13,16 @@ namespace Model
         {
             get
             {
-                instance ??= new JsonLogger();
+                if(instance == null)
+                {
+                    instance = new JsonLogger();
+                    Model.LogManager.Instance.LogEvent += instance.LogToFile;
+                }
                 return instance;
             }
         }
 
-        public void LogToFile(JsonDataHolder dataHolder)
+        public void LogToFile(Model.JsonDataHolder dataHolder)
         {
             string jsonString = JsonSerializer.Serialize(dataHolder);
             File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + "\n");

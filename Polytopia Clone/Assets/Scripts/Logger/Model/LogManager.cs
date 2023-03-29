@@ -10,6 +10,7 @@ namespace Model
     public class LogManager
     {
         private static LogManager instance;
+        public event Action<JsonDataHolder> LogEvent;
 
         private static int buildId = 0;
         private static int tileId = 0;
@@ -25,14 +26,11 @@ namespace Model
                 if (instance == null)
                 {
                     instance = new LogManager();
-                    JsonLogger logger = JsonLogger.Instance;
-                    LogManager.Instance.LogEvent += logger.LogToFile;
+                    LogDataWrapper.Instance.NewDataCreated += LogManager.Instance.TriggerEvent;
                 }
                 return instance;
             }
         }
-        
-        public event Action<JsonDataHolder> LogEvent;
 
         public void TriggerEvent(JsonDataHolder data)
         {

@@ -7,6 +7,11 @@ namespace Model
     {
         public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
         public event Action<Player> OnEliminited;
+        public event Action<BuildingBase> BuildCreated;
+        public event Action<TroopBase> TroopDeath;
+        public event Action<TroopBase> TroopTrained;
+        public event Action<TroopBase, TileBase, TileBase> TroopMoved;
+        public event Action<TroopBase, BuildingBase, TroopBase, TileBase> TroopAttacked;
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
@@ -62,6 +67,8 @@ namespace Model
             ResourceContainer -= building.Cost;
             AddBuilding(building);
             troop.TakeDamage(troop.TroopProperty.Health);
+            TroopDeath?.Invoke(troop);
+            BuildCreated(building);
             return true;
         }
 
@@ -77,6 +84,7 @@ namespace Model
 
             ResourceContainer -= troop.Cost;
             Troops.Add(troop);
+            TroopTrained?.Invoke(troop);
             return true;
         }
 
@@ -85,7 +93,11 @@ namespace Model
             if (!Troops.Contains(troop))
                 return false;
 
+            TileBase from = troop.Tile;
             bool moved = troop.Move(target);
+            if(moved)
+                TroopMoved?.Invoke(troop, from, target);
+
             return moved;
         }
 
@@ -94,15 +106,22 @@ namespace Model
             if (Troops.Contains(attacker) && Troops.Contains(target) || !Troops.Contains(attacker))
                 return false;
 
-            return attacker.Attack(target);
+            bool result = attacker.Attack(target);
+            if (result)
+                TroopAttacked?.Invoke(attacker, null, target, target.Tile);
+
+            return result;
         }
 
         public bool Attack(TroopBase attacker, BuildingBase target)
         {
             if (Troops.Contains(attacker) && Buildings.Contains(target) || !Troops.Contains(attacker))
                 return false;
+            bool result = attacker.Attack(target);
+            if (result)
+                TroopAttacked?.Invoke(attacker, target, null, target.Tile);
 
-            return attacker.Attack(target);
+            return result;
         }
 
         public void SetupStartingPosition()
@@ -117,7 +136,7 @@ namespace Model
             tile.SetBuildingOnTop(city);
             AvailableTiles.Add(tile);
             AddBuilding(city);
-
+            BuildCreated?.Invoke(city);
             OnStartingCitySpawned?.Invoke(this, tile, city);
         }
 

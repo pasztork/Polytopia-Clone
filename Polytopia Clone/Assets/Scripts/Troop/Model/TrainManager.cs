@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using System;
+
+namespace Model
 {
     public class TrainManager : TrainManagerBase
     {
@@ -11,7 +13,6 @@
                 troop.Tile = building.Tile;
                 troop.Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer;
                 RaiseOnTroopTrained(DependencyContainer.Get<TurnManagerBase>().CurrentPlayer);
-                LogDataWrapper.Instance.TriggerTrain(troop);
             }
 
             return trained;

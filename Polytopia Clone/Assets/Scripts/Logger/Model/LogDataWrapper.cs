@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Logger.Model;
+using System;
 using System.Collections.Generic;
 
 namespace Model
@@ -13,17 +14,35 @@ namespace Model
         private Dictionary<int, TileBase> IdToTileDic = new Dictionary<int, TileBase>();
         private Dictionary<TileBase, int> TileToIdDic = new Dictionary<TileBase, int>();
 
+        public event Action<JsonDataHolder> NewDataCreated;
+
         private static LogDataWrapper instance;
         public static LogDataWrapper Instance
         {
             get
             {
-                instance ??= new LogDataWrapper();
+                if(instance == null)
+                {
+                    instance = new LogDataWrapper();
+                    LogDataWrapper.Instance.SubscribeToEvents();
+                }
                 return instance;
             }
         }
 
-        public void TriggerBuild(TroopBase troop, BuildingBase building)
+        private void SubscribeToEvents()
+        {
+            foreach(var player in DependencyContainer.Get<GameManager>().Players)
+            {
+                player.BuildCreated += TriggerBuild;
+                player.TroopDeath += TriggerTroopDeath;
+                player.TroopTrained += TriggerTrain;
+                player.TroopMoved += TriggerTroopMoved;
+                player.TroopAttacked += TriggerAttacked;
+            }
+        }
+
+        public void TriggerBuild(BuildingBase building)
         {
             Identity build = new Identity()
             {
@@ -36,7 +55,7 @@ namespace Model
             JsonDataHolder datas = new JsonDataHolder()
             {
                 Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Build,
+                Action = LogActions.Build.ToString(),
                 Buildings = new System.Collections.Generic.List<Identity> { build },
                 //Tiles = new System.Collections.Generic.List<Identity> 
                 //{
@@ -45,7 +64,7 @@ namespace Model
                 //}
             };
 
-            LogManager.Instance.TriggerEvent(datas);
+            NewDataCreated?.Invoke(datas);
         }
 
         public void TriggerTroopDeath(TroopBase troop)
@@ -53,7 +72,7 @@ namespace Model
             JsonDataHolder datas = new JsonDataHolder()
             {
                 Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Destroy,
+                Action = LogActions.Destroy.ToString(),
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{
                 //     new Identity(){ Name = troop.Tile.ToString(),
@@ -65,11 +84,11 @@ namespace Model
                     {
                         Name = troop.ToString(),
                         Id = TroopToIdDic[troop]
-        }
+                    }
                 }
             };
 
-            LogManager.Instance.TriggerEvent(datas);
+            NewDataCreated?.Invoke(datas);
         }
 
         public void TriggerTrain(TroopBase troop)
@@ -85,7 +104,7 @@ namespace Model
             JsonDataHolder datas = new JsonDataHolder()
             {
                 Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Train,
+                Action = LogActions.Train.ToString(),
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{
                 //     new Identity(){ Name = troop.Tile.ToString(),
@@ -94,7 +113,57 @@ namespace Model
                 Troops = new System.Collections.Generic.List<Identity> { troopData }
             };
 
-            LogManager.Instance.TriggerEvent(datas);
+            NewDataCreated?.Invoke(datas);
+        }
+
+        public void TriggerTroopMoved(TroopBase troop, TileBase from, TileBase target)
+        {
+            Identity troopData = new Identity()
+            {
+                Name = troop.ToString(),
+                Id = TroopToIdDic[troop]
+            };
+
+            JsonDataHolder datas = new JsonDataHolder()
+            {
+                Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
+                Action = LogActions.Move.ToString(),
+                //Tiles = new System.Collections.Generic.List<Identity>
+                //{
+                //     new Identity(){ Name = troop.Tile.ToString(),
+                //                     Id = LogManager.Instance.IncrementTileId()}
+                //},
+                Troops = new System.Collections.Generic.List<Identity>{ troopData }
+            };
+        }
+
+        public void TriggerAttacked(TroopBase attacker, BuildingBase targetBuilding, TroopBase targetTroop, TileBase targetedTile)
+        {
+            List<Identity> troopData = new List<Identity>() { new Identity() { Id = TroopToIdDic[attacker], Name = attacker.ToString() } };
+
+            if(targetTroop != null)
+            {
+                troopData.Add(new Identity() { Id = TroopToIdDic[targetTroop], Name = targetTroop.ToString() });
+            }
+
+            List<Identity> buildData = new List<Identity>();
+            if(targetBuilding != null)
+            {
+                buildData.Add(new Identity() {  Name = targetBuilding.ToString(), Id = BuildingToIdDic[targetBuilding] });
+            }
+
+            JsonDataHolder datas = new JsonDataHolder()
+            {
+                Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
+                Action = LogActions.Attack.ToString(),
+                //Tiles = new System.Collections.Generic.List<Identity>
+                //{
+                //     new Identity(){ Name = targetedTile.ToString(),
+                //                     Id = LogManager.Instance.IncrementTileId()}
+                //},
+                Troops = troopData,
+                Buildings = buildData
+            };
         }
     }
 }

@@ -94,8 +94,6 @@ namespace Controller
             Model.BuildingBase modelTarget = ViewToModelMap[building];
 
             bool success = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Attack(modelAttacker, modelTarget);
-            if (!success)
-                return;
         }
     }
 }
