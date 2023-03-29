@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4361153787314045574}
-  - component: {fileID: 4361153787314045575}
+  - component: {fileID: 5187262714836610260}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4361153787314045575
+--- !u!114 &5187262714836610260
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,19 +41,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4361153787314045572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 204ffeb058082614a9fb2b67f904664d, type: 3}
+  m_Script: {fileID: 11500000, guid: de1290d6b62b72c40a300160874a2e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Alice
+  name: 
   startingCityRange: 1
   startingBuildings:
+  - Bank
   - City
   - Farm
+  - Harbor
   - Supplier
-  - Bank
   startingTroops:
-  - Warrior
   - Archer
+  - Boat
+  - Builder
+  - Catapult
   - Scout
-  baseProduction: {fileID: 11400000, guid: 162aac4ea07c4e047859bfe06ea3ed85, type: 2}
-  baseActionCount: {fileID: 11400000, guid: 47e8002c05ba4284985defb74d96e345, type: 2}
+  - Settler
+  - Warrior
+  baseProduction: {fileID: 11400000, guid: 25233a400f1565d4fae4986e12e6d627, type: 2}
+  playerColor: {r: 0, g: 0, b: 0, a: 0}

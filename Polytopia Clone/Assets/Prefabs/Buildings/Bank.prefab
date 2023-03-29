@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8045664100818579048}
   - component: {fileID: 996278019777713656}
   - component: {fileID: 5336888032748915815}
-  - component: {fileID: 745713856436684065}
+  - component: {fileID: 8630147465265288044}
   m_Layer: 0
   m_Name: Bank
   m_TagString: Untagged
@@ -99,7 +99,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &745713856436684065
+--- !u!114 &8630147465265288044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1899269663787993928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade9fec879ac3724286e2bdde3df9a13, type: 3}
+  m_Script: {fileID: 11500000, guid: c2926e2789af8e244bf77511cbe52398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 8efe7a559e6d4094d870114bca61f817, type: 2}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 4451576864982178699}
   - component: {fileID: 5833728334097726453}
   - component: {fileID: 7649839068673916567}
-  - component: {fileID: 5457851426570726637}
+  - component: {fileID: 2856281417215735657}
   m_Layer: 5
   m_Name: Bank Text
   m_TagString: Untagged
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5457851426570726637
+--- !u!114 &2856281417215735657
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2565244057679125780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e45dee18793024bbaa1024545d6416, type: 3}
+  m_Script: {fileID: 11500000, guid: 0daa7b6e03d30234e80ba1bd123bde9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 7649839068673916567}
@@ -274,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1873057679444426959}
   - component: {fileID: 2869217717268676699}
-  - component: {fileID: 1124451625722707919}
+  - component: {fileID: 4987663254771084788}
   m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1124451625722707919
+--- !u!114 &4987663254771084788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -364,13 +364,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3459220630078141429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743eaf19f57a09040bffa1ed9af263d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 186f0d1f1e7ce224a94f27530bacb433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gradient:
     serializedVersion: 2
-    key0: {r: 0.9960785, g: 0, b: 0, a: 1}
-    key1: {r: 0.07450981, g: 0.85098046, b: 0, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 1, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 9115729209869429038}
   - component: {fileID: 878989010049975205}
   - component: {fileID: 822062191285843823}
-  - component: {fileID: 299862554179515692}
+  - component: {fileID: 6575952449984313684}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -501,7 +501,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &299862554179515692
+--- !u!114 &6575952449984313684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -510,10 +510,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5575071657986846634}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f1e7a3289c5c1408eb138a75c23ce3, type: 3}
+  m_Script: {fileID: 11500000, guid: 110512200f48eef49988ade36a9817e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 4, z: 0}
 --- !u!1 &7435299182343767701
 GameObject:
   m_ObjectHideFlags: 0
