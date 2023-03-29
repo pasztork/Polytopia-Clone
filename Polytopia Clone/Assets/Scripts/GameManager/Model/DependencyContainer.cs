@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using View;
 
 namespace Model
 {
@@ -24,7 +23,6 @@ namespace Model
             Register<BuildManagerBase, BuildManager>();
             Register<TrainManagerBase, TrainManager>();
             Register<TechTreeManagerBase, TechTreeManager>();
-            Register<LoggerBase, JsonLogger>();
         }
 
         public void Register<TBaseClass, TImplementation>()
