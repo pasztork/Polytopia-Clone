@@ -6,19 +6,11 @@ namespace Model
     {
         public override IList<TechTreeItemBase> GetTechsOfCurrentPlayer()
         {
-            if (DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Techs == null)
-            {
-                DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Techs = TechTreeModel;
-                return TechTreeModel;
-            }
             return DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Techs;
         }
 
         public override bool UnlockTech(TechTreeItemBase tech)
         {
-            if (tech == null)
-                return false;
-
             bool learnt = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.UnlockTech(tech);
             if (learnt)
             {
@@ -27,9 +19,28 @@ namespace Model
             return learnt;
         }
 
-        public override void BuildTechTree(IList<TechTreeItemBase> items)
+        public override IList<TechTreeItemBase> ConnectTree(IList<TechTreeItemBase> items)
         {
-            TechTreeModel = new List<TechTreeItemBase>();
+            items[2].Requirements.Add(items[9]);
+            items[2].Requirements.Add(items[10]);
+            items[5].Requirements.Add(items[4]);
+            items[6].Requirements.Add(items[1]);
+            items[7].Requirements.Add(items[3]);
+            items[7].Requirements.Add(items[5]);
+            items[7].Requirements.Add(items[11]);
+            items[8].Requirements.Add(items[3]);
+            items[9].Requirements.Add(items[1]);
+            items[10].Requirements.Add(items[3]);
+            items[10].Requirements.Add(items[13]);
+            items[11].Requirements.Add(items[4]);
+            items[12].Requirements.Add(items[14]);
+            items[13].Requirements.Add(items[0]);
+            items[14].Requirements.Add(items[4]);
+            items[14].Requirements.Add(items[6]);
+            items[15].Requirements.Add(items[10]);
+            items[16].Requirements.Add(items[9]);
+            items[17].Requirements.Add(items[10]);
+            return items;
         }
     }
 }

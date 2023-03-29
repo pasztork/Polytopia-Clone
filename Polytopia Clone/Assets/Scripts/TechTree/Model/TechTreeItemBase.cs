@@ -2,10 +2,10 @@
 
 namespace Model
 {
-    public class TechTreeItemBase
+    public abstract class TechTreeItemBase
     {
         public TechTreeItemProperty TechTreeItemProperty { get; set; }
-        private IList<TechTreeItemBase> requirements = new List<TechTreeItemBase>();
+        public IList<TechTreeItemBase> Requirements { get; set; } = new List<TechTreeItemBase>();
 
         public TechTreeItemBase(string name, Cost cost, string description)
         {
@@ -16,9 +16,9 @@ namespace Model
         {
             get
             {
-                foreach (TechTreeItemBase tech in requirements)
+                foreach (TechTreeItemBase tech in Requirements)
                 {
-                    if (!tech.IsAvailable)
+                    if (!tech.TechTreeItemProperty.IsUnlocked)
                     {
                         return false;
                     }
@@ -26,9 +26,6 @@ namespace Model
                 return true;
             }
         }
-        public virtual void ActivateEffect()
-        {
-            return;
-        }
+        public abstract void ActivateEffect(Player player);
     }
 }

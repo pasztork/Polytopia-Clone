@@ -30,7 +30,6 @@ namespace Controller
                 return;
             }
             Instance = this;
-            InitializeTreeModel();
         }
 
         public void OnTechTreeButtonClick()
@@ -88,6 +87,8 @@ namespace Controller
 
             SelectedTechTreeItem.ItemUnlocked();
             SelectedTechTreeItem = null;
+            var modelTechs = Model.DependencyContainer.Get<Model.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
+            UpdateTechElements(modelTechs);
         }
 
         public void EndTurn()
@@ -100,14 +101,14 @@ namespace Controller
             TechTreeWindow.SetActive(false);
         }
 
-        public void InitializeTreeModel()
+        public IList<Model.TechTreeItemBase> GetNewTechTree()
         {
             IList<Model.TechTreeItemBase> modelItems = new List<Model.TechTreeItemBase>();
-            foreach(var item in TechTreeItems)
+            foreach (var item in TechTreeItems)
             {
                 modelItems.Add(item.ToModel());
             }
-            Model.DependencyContainer.Get<Model.TechTreeManagerBase>().BuildTechTree(modelItems);
+            return Model.DependencyContainer.Get<Model.TechTreeManagerBase>().ConnectTree(modelItems);
         }
     }
 }

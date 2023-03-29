@@ -16,6 +16,7 @@ namespace Controller
         private void Start()
         {
             Model.Player player = new Model.Player(name);
+            player.Techs = TechTreeManager.Instance.GetNewTechTree();
             TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
             player.StartingCityRange = startingCityRange;
             player.StartingProduction = baseProduction.CreateDictionary();

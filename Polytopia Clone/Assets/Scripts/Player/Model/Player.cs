@@ -17,7 +17,7 @@ namespace Model
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
-        public IList<TechTreeItemBase> Techs { get; set; } = new List<TechTreeItemBase>();
+        public IList<TechTreeItemBase> Techs { get; set; }
 
         public Dictionary<string, int> StartingProduction { private get; set; }
         public int StartingCityRange { private get; set; }
@@ -173,7 +173,7 @@ namespace Model
 
         public bool UnlockTech(TechTreeItemBase techToLearn)
         {
-            if (techToLearn == null || !ResourceContainer.HasEnoughFor(techToLearn.TechTreeItemProperty.Cost))
+            if (!ResourceContainer.HasEnoughFor(techToLearn.TechTreeItemProperty.Cost))
                 return false;
 
             foreach (TechTreeItemBase tech in Techs)
@@ -181,6 +181,7 @@ namespace Model
                 if (tech.TechTreeItemProperty.Name == techToLearn.TechTreeItemProperty.Name && !tech.TechTreeItemProperty.IsUnlocked)
                 {
                     tech.TechTreeItemProperty.IsUnlocked = true;
+                    tech.ActivateEffect(this);
                     ResourceContainer -= techToLearn.TechTreeItemProperty.Cost;
                     return true;
                 }
