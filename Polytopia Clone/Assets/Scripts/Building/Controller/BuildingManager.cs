@@ -54,7 +54,7 @@ namespace Controller
             }
 
             Model.TroopBase troop = TroopManager.Instance.ViewToModelMap[TroopManager.Instance.SelectedTroop];
-            View.Tile tile = MapManager.Instance.ModelToViewMap[troop.Tile];
+            View.Tile tile = View.MapManager.Instance.ModelToViewMap[troop.Tile];
             View.BuildingBase viewBuilding = Instantiate(Blueprint, tile.transform.position + new Vector3(0f, tile.Offset.y, 0f), Quaternion.identity);
             Model.BuildingBase building = viewBuilding.ToModel(Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer);
             bool built = Model.DependencyContainer.Get<Model.BuildManagerBase>().Build(troop, building);
@@ -76,7 +76,7 @@ namespace Controller
 
         public void BuildStartingCity(Model.TileBase modelTile, Model.BuildingBase modelBuilding, string name)
         {
-            View.Tile viewTile = MapManager.Instance.ModelToViewMap[modelTile];
+            View.Tile viewTile = View.MapManager.Instance.ModelToViewMap[modelTile];
             View.BuildingBase viewBuilding = Instantiate(blueprints["City"], viewTile.transform.position + new Vector3(0f, viewTile.Offset.y, 0f), Quaternion.identity);
             View.NameText buildingText = viewBuilding.GetComponentInChildren<View.NameText>();
             buildingText.Name = name + "\nCapital";

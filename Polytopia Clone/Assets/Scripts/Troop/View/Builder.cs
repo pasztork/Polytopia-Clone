@@ -54,7 +54,7 @@ namespace View
             {
                 if (tile.BuildingOnTop == null)
                 {
-                    Controller.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color = playerColor;
+                    View.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color = playerColor;
                 }
             }
             GetComponent<Renderer>().material.color = hoverColor;
@@ -66,8 +66,8 @@ namespace View
             {
                 if (tile.BuildingOnTop == null)
                 {
-                    Controller.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color
-                        = Controller.MapManager.Instance.ModelToViewMap[tile].startColor;
+                    View.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color
+                        = View.MapManager.Instance.ModelToViewMap[tile].startColor;
                 }
             }
         }

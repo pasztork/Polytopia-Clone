@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Controller
+namespace View
 {
     [CreateAssetMenu]
     public class MapGenerationProperties : ScriptableObject

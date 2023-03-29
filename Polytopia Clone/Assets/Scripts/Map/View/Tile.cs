@@ -79,12 +79,12 @@ namespace View
 
             Controller.TroopManager.Instance.SelectedTroop = null;
             Controller.BuildingManager.Instance.SelectedBuilding = null;
-            Controller.MapManager.Instance.SelectedTile = this;
+            View.MapManager.Instance.SelectedTile = this;
         }
 
         public void Deselect()
         {
-            if (Controller.MapManager.Instance.SelectedTile != this)
+            if (View.MapManager.Instance.SelectedTile != this)
                 TileColor = startColor;
         }
     }

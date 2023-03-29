@@ -142,7 +142,7 @@ namespace View
 
         private IEnumerator MoveAlong(IEnumerable<Tile> path)
         {
-            Controller.MapManager.Instance.SelectedTile = null;
+            View.MapManager.Instance.SelectedTile = null;
             foreach (Tile step in path)
             {
                 Vector3 center = step.gameObject.transform.position;
@@ -190,7 +190,7 @@ namespace View
         protected virtual IList<Tile> GetTilesInRange(int range)
         {
             Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
-            Tile currentTile = Controller.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
+            Tile currentTile = View.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
             ISet<Tile> reachables = new HashSet<Tile> { currentTile };
             for (int i = 0; i < range; i++)
             {
@@ -201,7 +201,7 @@ namespace View
 
                 foreach (Tile tile in toAdd)
                 {
-                    if (!tile.CompareTag("Water") && !tile.CompareTag("Mountain") && Controller.MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
+                    if (!tile.CompareTag("Water") && !tile.CompareTag("Mountain") && View.MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
                         reachables.Add(tile);
                 }
             }

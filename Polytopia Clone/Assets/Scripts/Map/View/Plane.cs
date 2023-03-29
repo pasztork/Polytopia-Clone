@@ -21,7 +21,7 @@ namespace View
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                Controller.MapManager.Instance.SelectedTile = null;
+                View.MapManager.Instance.SelectedTile = null;
                 Controller.BuildingManager.Instance.SelectedBuilding = null;
                 Controller.TroopManager.Instance.SelectedTroop = null;
                 HighlightManager.Instance.FireMonoBehaviourSelectedEvent(this);

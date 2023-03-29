@@ -52,7 +52,7 @@ namespace Controller
                 return;
 
             Model.BuildingBase modelBuilding = BuildingManager.Instance.ViewToModelMap[BuildingManager.Instance.SelectedBuilding];
-            View.Tile tile = MapManager.Instance.ModelToViewMap[modelBuilding.Tile];
+            View.Tile tile = View.MapManager.Instance.ModelToViewMap[modelBuilding.Tile];
             View.TroopBase viewTroop = Instantiate(Blueprint, tile.transform.position + new Vector3(1f, 1.5f, 1f), Quaternion.identity);
             Model.TroopBase troop = viewTroop.ToModel(Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer);
             bool trained = Model.DependencyContainer.Get<Model.TrainManagerBase>().Train(modelBuilding, troop);
@@ -74,8 +74,8 @@ namespace Controller
         public void MoveSelectedTroop(View.Tile tile)
         {
             Model.TroopBase modelTroop = ViewToModelMap[SelectedTroop];
-            Model.TileBase modelTile = MapManager.Instance.ViewToModelMap[tile];
-            View.Tile from = MapManager.Instance.ModelToViewMap[modelTroop.Tile];
+            Model.TileBase modelTile = View.MapManager.Instance.ViewToModelMap[tile];
+            View.Tile from = View.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
 
             bool moved = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.MoveTroop(modelTroop, modelTile);
             if (!moved)

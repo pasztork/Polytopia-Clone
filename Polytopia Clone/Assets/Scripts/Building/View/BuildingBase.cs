@@ -69,7 +69,7 @@ namespace View
             }
 
             Controller.TroopManager.Instance.SelectedTroop = null;
-            Controller.MapManager.Instance.SelectedTile = null;
+            View.MapManager.Instance.SelectedTile = null;
             Controller.BuildingManager.Instance.SelectedBuilding = this;
         }
 

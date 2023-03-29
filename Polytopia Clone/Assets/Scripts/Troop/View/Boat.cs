@@ -19,7 +19,7 @@ namespace View
         protected override IList<Tile> GetTilesInRange(int range)
         {
             Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
-            Tile currentTile = Controller.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
+            Tile currentTile = View.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
             ISet<Tile> reachables = new HashSet<Tile> { currentTile };
             for (int i = 0; i < range; i++)
             {
@@ -30,7 +30,7 @@ namespace View
 
                 foreach (Tile tile in toAdd)
                 {
-                    if (tile.CompareTag("Water") && Controller.MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
+                    if (tile.CompareTag("Water") && View.MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
                         reachables.Add(tile);
                 }
             }

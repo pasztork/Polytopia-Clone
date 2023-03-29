@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9911b7cff8dbfd64fb589c549bcbbae3, type: 3}
+  m_Script: {fileID: 11500000, guid: b48f24259b4c9ad4d9ed246ffcf66730, type: 3}
   m_Name: MapGenerationProperties
   m_EditorClassIdentifier: 
   minMountainCount: 3
   maxMountainCount: 5
-  minForestCountPerChunk: 5
-  maxForestCountPerChunk: 10
-  desertChunkProbability: 0.2
-  waterTileProbability: 0.4
+  minForestCountPerChunk: 3
+  maxForestCountPerChunk: 5
+  desertChunkProbability: 0.1
+  waterTileProbability: 0.2
