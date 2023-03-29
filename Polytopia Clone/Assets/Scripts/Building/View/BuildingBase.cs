@@ -13,7 +13,7 @@ namespace View
         [SerializeField] protected int productionRate;
 
         [Header("Building Properties")]
-        public Controller.BuildingProperty buildingProperties;
+        public View.BuildingProperty buildingProperties;
 
         [Header("Highlight Settings")]
         private Color hoverColor = Color.yellow;
@@ -39,7 +39,7 @@ namespace View
 
         private void OnMouseEnter()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(View.BuildingManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -54,11 +54,11 @@ namespace View
 
         protected virtual void OnMouseDown()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(View.BuildingManager.Instance.ViewToModelMap[this]))
             {
                 if (GetComponent<Renderer>().material.color == selectColor)
                 {
-                    Controller.BuildingManager.Instance.Attack(this);
+                    View.BuildingManager.Instance.Attack(this);
                 }
                 return;
             }
@@ -70,12 +70,12 @@ namespace View
 
             Controller.TroopManager.Instance.SelectedTroop = null;
             View.MapManager.Instance.SelectedTile = null;
-            Controller.BuildingManager.Instance.SelectedBuilding = this;
+            View.BuildingManager.Instance.SelectedBuilding = this;
         }
 
         private void OnMouseExit()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(Controller.BuildingManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(View.BuildingManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -84,7 +84,7 @@ namespace View
 
         public void Deselect()
         {
-            if (Controller.BuildingManager.Instance.SelectedBuilding != this)
+            if (View.BuildingManager.Instance.SelectedBuilding != this)
                 GetComponent<Renderer>().material.color = startColor;
         }
 

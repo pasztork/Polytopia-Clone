@@ -22,7 +22,7 @@ namespace View
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 View.MapManager.Instance.SelectedTile = null;
-                Controller.BuildingManager.Instance.SelectedBuilding = null;
+                View.BuildingManager.Instance.SelectedBuilding = null;
                 Controller.TroopManager.Instance.SelectedTroop = null;
                 HighlightManager.Instance.FireMonoBehaviourSelectedEvent(this);
             }

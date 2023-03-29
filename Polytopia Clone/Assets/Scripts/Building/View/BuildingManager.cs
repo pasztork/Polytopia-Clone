@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Controller
+namespace View
 {
     public class BuildingManager : MonoBehaviour
     {
         public static BuildingManager Instance { get; private set; }
 
+        // Used by UI elements
         public event Action OnBuildAttempted;
 
         public Dictionary<View.BuildingBase, Model.BuildingBase> ViewToModelMap { get; }
@@ -48,16 +49,16 @@ namespace Controller
             // Should throw error if there are no subscribers.
             // Whoever responds should set the value of Blueprint.
             OnBuildAttempted.Invoke();
-            if (Blueprint == null || TroopManager.Instance.SelectedTroop == null)
+            if (Blueprint == null || Controller.TroopManager.Instance.SelectedTroop == null)
             {
                 return;
             }
 
-            Model.TroopBase troop = TroopManager.Instance.ViewToModelMap[TroopManager.Instance.SelectedTroop];
+            Model.TroopBase troop = Controller.TroopManager.Instance.ViewToModelMap[Controller.TroopManager.Instance.SelectedTroop];
             View.Tile tile = View.MapManager.Instance.ModelToViewMap[troop.Tile];
             View.BuildingBase viewBuilding = Instantiate(Blueprint, tile.transform.position + new Vector3(0f, tile.Offset.y, 0f), Quaternion.identity);
             Model.BuildingBase building = viewBuilding.ToModel(Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer);
-            bool built = Model.DependencyContainer.Get<Model.BuildManagerBase>().Build(troop, building);
+            bool built = Controller.GameManager.Get<Controller.BuildingManagerBase>().Build(troop, building);
 
             if (!built)
             {
@@ -66,11 +67,11 @@ namespace Controller
                 return;
             }
 
-            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
+            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = Controller.TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
-            TroopManager.Instance.SelectedTroop = null;
+            Controller.TroopManager.Instance.SelectedTroop = null;
             View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
 
@@ -80,7 +81,7 @@ namespace Controller
             View.BuildingBase viewBuilding = Instantiate(blueprints["City"], viewTile.transform.position + new Vector3(0f, viewTile.Offset.y, 0f), Quaternion.identity);
             View.NameText buildingText = viewBuilding.GetComponentInChildren<View.NameText>();
             buildingText.Name = name + "\nCapital";
-            buildingText.BackgroundColor = TurnManager.Instance.PlayerColors[name];
+            buildingText.BackgroundColor = Controller.TurnManager.Instance.PlayerColors[name];
             modelBuilding.BuildingProperty = new Model.BuildingProperty(viewBuilding.buildingProperties.Health);
             modelBuilding.OnDamageTaken += viewBuilding.TakeDamage;
 
@@ -90,10 +91,9 @@ namespace Controller
 
         public void Attack(View.BuildingBase building)
         {
-            Model.TroopBase modelAttacker = TroopManager.Instance.ViewToModelMap[TroopManager.Instance.SelectedTroop];
+            Model.TroopBase modelAttacker = Controller.TroopManager.Instance.ViewToModelMap[Controller.TroopManager.Instance.SelectedTroop];
             Model.BuildingBase modelTarget = ViewToModelMap[building];
-
-            bool success = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Attack(modelAttacker, modelTarget);
+            Controller.GameManager.Get<Controller.BuildingManager>().Attack(modelAttacker, modelTarget);
         }
     }
 }

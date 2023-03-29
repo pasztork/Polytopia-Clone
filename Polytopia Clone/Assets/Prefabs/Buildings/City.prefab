@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 72f08735c3a907b44a1b3f7823ff7145, type: 2}
   productionRate: 20
-  buildingProperties: {fileID: 11400000, guid: b4b022708d1c9e24e953d88714740861, type: 2}
+  buildingProperties: {fileID: 11400000, guid: 8af98a4c0274d004dbd0218db6063b78, type: 2}
   range: 1
 --- !u!1 &3866958734694324670
 GameObject:

@@ -48,10 +48,10 @@ namespace Controller
             // Should throw error if there are no subscribers.
             // Whoever responds should set the value of Blueprint.
             OnTrainAttempted.Invoke();
-            if (Blueprint == null || BuildingManager.Instance.SelectedBuilding == null)
+            if (Blueprint == null || View.BuildingManager.Instance.SelectedBuilding == null)
                 return;
 
-            Model.BuildingBase modelBuilding = BuildingManager.Instance.ViewToModelMap[BuildingManager.Instance.SelectedBuilding];
+            Model.BuildingBase modelBuilding = View.BuildingManager.Instance.ViewToModelMap[View.BuildingManager.Instance.SelectedBuilding];
             View.Tile tile = View.MapManager.Instance.ModelToViewMap[modelBuilding.Tile];
             View.TroopBase viewTroop = Instantiate(Blueprint, tile.transform.position + new Vector3(1f, 1.5f, 1f), Quaternion.identity);
             Model.TroopBase troop = viewTroop.ToModel(Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer);
@@ -67,7 +67,7 @@ namespace Controller
 
             ViewToModelMap[viewTroop] = troop;
             ModelToViewMap[troop] = viewTroop;
-            BuildingManager.Instance.SelectedBuilding = null;
+            View.BuildingManager.Instance.SelectedBuilding = null;
             View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
 

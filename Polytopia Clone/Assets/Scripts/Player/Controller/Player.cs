@@ -27,7 +27,7 @@ namespace Controller
 
         private void BuildStartingCity(Model.Player player, Model.TileBase modelTile, Model.BuildingBase modelBuilding)
         {
-            BuildingManager.Instance.BuildStartingCity(modelTile, modelBuilding, player.Name);
+            View.BuildingManager.Instance.BuildStartingCity(modelTile, modelBuilding, player.Name);
         }
     }
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,8 +15,8 @@ namespace View
         public Color startColor;
         [SerializeField] private Color selectColor;
         public Color SelectColor { get => selectColor; set => selectColor = value; }
-        public Color TileColor 
-        { 
+        public Color TileColor
+        {
             get => GetComponent<Renderer>().material.color;
             set
             {
@@ -53,7 +52,7 @@ namespace View
 
         private void OnMouseExit()
         {
-            if(previousColor != hoverColor || previousColor != startColor)
+            if (previousColor != hoverColor || previousColor != startColor)
             {
                 TileColor = previousColor;
             }
@@ -78,7 +77,7 @@ namespace View
             }
 
             Controller.TroopManager.Instance.SelectedTroop = null;
-            Controller.BuildingManager.Instance.SelectedBuilding = null;
+            View.BuildingManager.Instance.SelectedBuilding = null;
             View.MapManager.Instance.SelectedTile = this;
         }
 

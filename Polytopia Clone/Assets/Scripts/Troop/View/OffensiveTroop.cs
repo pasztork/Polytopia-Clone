@@ -95,7 +95,7 @@ namespace View
             {
                 if (tile.BuildingOnTop != null && !Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(tile.BuildingOnTop))
                 {
-                    buildings.Add(Controller.BuildingManager.Instance.ModelToViewMap[tile.BuildingOnTop]);
+                    buildings.Add(View.BuildingManager.Instance.ModelToViewMap[tile.BuildingOnTop]);
                 }
             }
             return buildings.ToList();

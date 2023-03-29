@@ -38,7 +38,7 @@ namespace Controller
 
         public GameManager()
         {
-
+            dependencyContainer.Register<BuildingManagerBase, BuildingManager>();
         }
     }
 }
