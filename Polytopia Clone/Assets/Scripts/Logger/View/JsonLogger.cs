@@ -9,19 +9,14 @@ namespace View
 {
     public class JsonLogger
     {
-        private static JsonLogger instance;
-        public static JsonLogger Instance
+        private static JsonLogger instance = new JsonLogger();
+
+        private JsonLogger()
         {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new JsonLogger();
-                    Model.DependencyContainer.Get<Model.LogManager>().LogEvent += instance.LogToFile;
-                }
-                return instance;
-            }
+            Model.DependencyContainer.Get<Model.LogManager>().LogEvent += instance.LogToFile;
         }
+
+        public static JsonLogger Instance { get => instance; }
 
         public void LogToFile(Model.JsonDataHolder dataHolder)
         {
