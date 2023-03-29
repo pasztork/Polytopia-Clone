@@ -7348,7 +7348,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1779191800}
-        m_TargetAssemblyTypeName: Controller.BuildManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: View.BuildingManager, Assembly-CSharp
         m_MethodName: Build
         m_Mode: 1
         m_Arguments:
@@ -8284,7 +8284,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1736152997}
         m_TargetAssemblyTypeName: Controller.TurnManager, Assembly-CSharp
         m_MethodName: FinishTurn
         m_Mode: 1
@@ -9743,22 +9743,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1779191798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89283e620d1a9fe41810cc735b5451f0, type: 3}
+  m_Script: {fileID: 11500000, guid: d56648a73138a1f40a99d054a8fb1a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blueprints:
     m_keys:
+    - Bank
     - City
     - Farm
-    - Supplier
-    - Bank
     - Harbor
+    - Supplier
     m_values:
+    - {fileID: 745713856436684065, guid: f79534cdcfa6f954fb2d1e563b75c3d3, type: 3}
     - {fileID: 4787953681856402325, guid: 63baf07eac0846d4783a8369d8f4f4fd, type: 3}
     - {fileID: 3568811158906727637, guid: 7028d18608f301247815865b28cf234c, type: 3}
-    - {fileID: 6679960410637966285, guid: 28075208b8a5552469c0c4055a509753, type: 3}
-    - {fileID: 745713856436684065, guid: f79534cdcfa6f954fb2d1e563b75c3d3, type: 3}
     - {fileID: 2744604881689590860, guid: 4ff824f1bf9ceb447a677ce673f31d79, type: 3}
+    - {fileID: 6679960410637966285, guid: 28075208b8a5552469c0c4055a509753, type: 3}
 --- !u!1 &1804549422
 GameObject:
   m_ObjectHideFlags: 0

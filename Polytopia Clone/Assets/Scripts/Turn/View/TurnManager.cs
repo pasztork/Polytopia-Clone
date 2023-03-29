@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Controller
+namespace View
 {
     public class TurnManager : MonoBehaviour
     {
@@ -21,9 +21,8 @@ namespace Controller
 
         public void FinishTurn()
         {
-            TechTreeManager.Instance.EndTurn();
-            TechTreeManager.Instance.TechTreeWindow.SetActive(false);
-            Model.DependencyContainer.Get<Model.TurnManagerBase>().FinishTurn();
+            Controller.TechTreeManager.Instance.TechTreeWindow.SetActive(false);
+            Controller.GameManager.Get<Controller.TurnManagerBase>().FinishTurn();
         }
     }
 }

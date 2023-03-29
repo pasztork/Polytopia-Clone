@@ -49,7 +49,7 @@ namespace View
             Controller.TroopManager.Instance.SelectedTroop = this;
 
             TilesToBuild = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.AvailableTiles;
-            var playerColor = Controller.TurnManager.Instance.PlayerColors[Controller.TroopManager.Instance.ViewToModelMap[this].Player.Name];
+            var playerColor = View.TurnManager.Instance.PlayerColors[Controller.TroopManager.Instance.ViewToModelMap[this].Player.Name];
             foreach (var tile in TilesToBuild)
             {
                 if (tile.BuildingOnTop == null)

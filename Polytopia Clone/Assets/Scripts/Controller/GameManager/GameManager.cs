@@ -38,6 +38,7 @@ namespace Controller
 
         public GameManager()
         {
+            dependencyContainer.Register<TurnManagerBase, TurnManager>();
             dependencyContainer.Register<BuildingManagerBase, BuildingManager>();
         }
     }

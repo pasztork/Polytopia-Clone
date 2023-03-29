@@ -67,7 +67,7 @@ namespace View
                 return;
             }
 
-            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = Controller.TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
+            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
@@ -81,7 +81,7 @@ namespace View
             View.BuildingBase viewBuilding = Instantiate(blueprints["City"], viewTile.transform.position + new Vector3(0f, viewTile.Offset.y, 0f), Quaternion.identity);
             View.NameText buildingText = viewBuilding.GetComponentInChildren<View.NameText>();
             buildingText.Name = name + "\nCapital";
-            buildingText.BackgroundColor = Controller.TurnManager.Instance.PlayerColors[name];
+            buildingText.BackgroundColor = View.TurnManager.Instance.PlayerColors[name];
             modelBuilding.BuildingProperty = new Model.BuildingProperty(viewBuilding.buildingProperties.Health);
             modelBuilding.OnDamageTaken += viewBuilding.TakeDamage;
 

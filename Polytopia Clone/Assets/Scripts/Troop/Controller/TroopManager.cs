@@ -63,11 +63,11 @@ namespace Controller
                 Destroy(viewTroop);
                 return;
             }
-            viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
+            viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewTroop] = troop;
-            ModelToViewMap[troop] = viewTroop;
-            View.BuildingManager.Instance.SelectedBuilding = null;
+            ModelToViewMap[troop] = viewTroop; View.BuildingManager.Instance.SelectedBuilding = null;
+
             View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
 

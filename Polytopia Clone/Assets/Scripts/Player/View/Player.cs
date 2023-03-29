@@ -18,7 +18,7 @@ namespace View
         {
             Model.Player player = new Model.Player(name);
             player.Techs = Controller.TechTreeManager.Instance.GetNewTechTree();
-            Controller.TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
+            View.TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
             player.StartingCityRange = startingCityRange;
             player.StartingProduction = baseProduction.CreateDictionary();
             player.AvailableBuildings = startingBuildings.ToList();
