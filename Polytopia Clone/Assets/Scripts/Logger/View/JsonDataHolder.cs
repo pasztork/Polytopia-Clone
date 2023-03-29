@@ -1,13 +1,8 @@
-﻿using Assets.Scripts.Logger.Model;
-using Controller;
+﻿using Controller;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 
-namespace Model
+namespace View
 {
     public class JsonDataHolder
     {

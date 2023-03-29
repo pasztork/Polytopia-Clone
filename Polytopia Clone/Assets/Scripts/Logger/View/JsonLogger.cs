@@ -13,12 +13,12 @@ namespace View
 
         private JsonLogger()
         {
-            Model.DependencyContainer.Get<Model.LogManager>().LogEvent += instance.LogToFile;
+            LogManager.Instance.LogEvent += instance.LogToFile;
         }
 
         public static JsonLogger Instance { get => instance; }
 
-        public void LogToFile(Model.JsonDataHolder dataHolder)
+        public void LogToFile(JsonDataHolder dataHolder)
         {
             string jsonString = JsonSerializer.Serialize(dataHolder);
             File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + "\n");
