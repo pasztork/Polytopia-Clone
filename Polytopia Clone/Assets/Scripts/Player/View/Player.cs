@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace Controller
+namespace View
 {
+    // csak a letrehozasert felelos, nem valtoztat semmit a modellen
+    // nem kell controller hozza
     public class Player : MonoBehaviour
     {
         [SerializeField] private new string name;
@@ -15,8 +17,8 @@ namespace Controller
         private void Start()
         {
             Model.Player player = new Model.Player(name);
-            player.Techs = TechTreeManager.Instance.GetNewTechTree();
-            TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
+            player.Techs = Controller.TechTreeManager.Instance.GetNewTechTree();
+            Controller.TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
             player.StartingCityRange = startingCityRange;
             player.StartingProduction = baseProduction.CreateDictionary();
             player.AvailableBuildings = startingBuildings.ToList();
