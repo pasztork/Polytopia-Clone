@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ArcheryCost
   m_EditorClassIdentifier: 
   moneyCost: 10
-  materialCost: 5
-  foodCost: 3
+  materialCost: 10
+  foodCost: 10
