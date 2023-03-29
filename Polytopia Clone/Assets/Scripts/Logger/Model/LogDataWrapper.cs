@@ -14,10 +14,10 @@ namespace Model
         private Dictionary<int, TileBase> IdToTileDic = new Dictionary<int, TileBase>();
         private Dictionary<TileBase, int> TileToIdDic = new Dictionary<TileBase, int>();
        
-        public LogDataWrapper()
-        {
-             SubscribeToEvents();
-        }
+        //public LogDataWrapper()
+        //{
+        //     SubscribeToEvents();
+        //}
 
         private void SubscribeToEvents()
         {
