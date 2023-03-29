@@ -283,4 +283,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 0}
+  description: Description
   startColor: {r: 1, g: 0.39215687, b: 0, a: 1}

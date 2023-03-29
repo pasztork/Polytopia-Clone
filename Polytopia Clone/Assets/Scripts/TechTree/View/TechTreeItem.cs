@@ -9,7 +9,8 @@ namespace View
         [SerializeField] protected Controller.Cost cost;
         public Controller.Cost Cost { get => cost; set => cost = value; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        [SerializeField] private string description;
+        public string Description { get => description; set => description = value; }
         public bool IsUnlocked { get; set; }
 
         [SerializeField] private Color startColor;
@@ -61,14 +62,8 @@ namespace View
 
         public Model.TechTreeItemBase ToModel()
         {
-            Model.TechTreeItemBase techItem = new Model.TechTreeItemBase
-            {
-                TechTreeItemProperty = new Model.TechTreeItemProperty(Name, new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost), Description)
-            };
-            if (GetComponent<Image>().color == unlockColor)
-            {
-                techItem.TechTreeItemProperty.IsUnlocked = true;
-            }
+            Model.TechTreeItemBase techItem = 
+                new Model.TechTreeItemBase(Name, new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost), Description);
             return techItem;
         }
     }

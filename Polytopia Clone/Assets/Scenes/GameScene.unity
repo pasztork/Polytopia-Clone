@@ -262,6 +262,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: cf35afeffd561a94782014992f17b887, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
+      propertyPath: description
+      value: can build supplier on sand
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -442,8 +446,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -642,6 +646,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 08ac6efe5b1d9cb4a8739c572fd184d2, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 2d68893d57229054fb8fffffbc4b275c, type: 3}
+      propertyPath: description
+      value: increase troops dodge rate
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 2d68893d57229054fb8fffffbc4b275c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -828,6 +836,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 85f814fd91ac8714281f6c6799e5f7fa, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 2d68893d57229054fb8fffffbc4b275c, type: 3}
+      propertyPath: description
+      value: troops can heal
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 2d68893d57229054fb8fffffbc4b275c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1243,6 +1255,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 5532c88899ae6ee4998c2fa31d48d00c, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 71dc8197306b0694785fdd9a12b039f6, type: 3}
+      propertyPath: description
+      value: unlocks boat troop
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 71dc8197306b0694785fdd9a12b039f6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1790,6 +1806,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 40f8b8120af9b0240a01dcc3bf79cc4b, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
+      propertyPath: description
+      value: +1 move range to land troops
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3469,6 +3489,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 308035f112b58894fba2f9cea4111260, type: 2}
+    - target: {fileID: 8437339839156311848, guid: fe48a74b02e47b648829154253878ee8, type: 3}
+      propertyPath: description
+      value: unlocks farm building
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: fe48a74b02e47b648829154253878ee8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4174,6 +4198,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 94a0d709e8df84642a7b12ee4aa42e17, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 71dc8197306b0694785fdd9a12b039f6, type: 3}
+      propertyPath: description
+      value: increase bank produce rate
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 71dc8197306b0694785fdd9a12b039f6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4672,6 +4700,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 50a39e7d4bc18204b9f1afd23fa3ac90, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 71dc8197306b0694785fdd9a12b039f6, type: 3}
+      propertyPath: description
+      value: increase supplier produce rate
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 71dc8197306b0694785fdd9a12b039f6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5346,6 +5378,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 2f58e104bc5454a429a5d0b5a9b93a69, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
+      propertyPath: description
+      value: lower building cost
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5670,6 +5706,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: d42ce3e34662fb643a6b106dd9ed0082, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 2d68893d57229054fb8fffffbc4b275c, type: 3}
+      propertyPath: description
+      value: unlocks catapult troop
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 2d68893d57229054fb8fffffbc4b275c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5867,6 +5907,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 1bcc1fa81cac4014db0d6f9d3a66dc35, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 2d68893d57229054fb8fffffbc4b275c, type: 3}
+      propertyPath: description
+      value: +1 move range to water troops
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 2d68893d57229054fb8fffffbc4b275c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5988,6 +6032,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: ab566d210220aa449b4dd730a1c0a3e7, type: 2}
+    - target: {fileID: 8437339839156311848, guid: fe48a74b02e47b648829154253878ee8, type: 3}
+      propertyPath: description
+      value: Can build Supplier on Forest
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: fe48a74b02e47b648829154253878ee8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6760,6 +6808,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: ca32243347bae3249b34f66b76029618, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
+      propertyPath: description
+      value: increase farm produce rate
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9847,6 +9899,7 @@ MonoBehaviour:
   itemMoneyCostText: {fileID: 1190178449}
   itemMaterialCostText: {fileID: 1933612674}
   itemFoodCostText: {fileID: 974730088}
+  itemDescriptionText: {fileID: 63977336}
 --- !u!114 &1880335614 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8437339839156311848, guid: 71dc8197306b0694785fdd9a12b039f6, type: 3}
@@ -9949,6 +10002,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 71c8b23f7a4016e4ea40d419eecae17a, type: 2}
+    - target: {fileID: 8437339839156311848, guid: fe48a74b02e47b648829154253878ee8, type: 3}
+      propertyPath: description
+      value: Unlocks bank building
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: fe48a74b02e47b648829154253878ee8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10539,6 +10596,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 3a9ab37e5f4ee8740850e555ec08ec9e, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
+      propertyPath: description
+      value: unlocks harbor building
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10874,6 +10935,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: fb6068b3e3fc77c4e8880bea1ffe9833, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
+      propertyPath: description
+      value: can build supplier on mountain
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11071,6 +11136,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: 259c9810aba18144daade4506bccda26, type: 2}
+    - target: {fileID: 8437339839156311848, guid: 71dc8197306b0694785fdd9a12b039f6, type: 3}
+      propertyPath: description
+      value: increase troops attack damage
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: 71dc8197306b0694785fdd9a12b039f6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11609,6 +11678,10 @@ PrefabInstance:
       propertyPath: cost
       value: 
       objectReference: {fileID: 11400000, guid: c74138a8a8af72d48b96070961a3c4bf, type: 2}
+    - target: {fileID: 8437339839156311848, guid: fe48a74b02e47b648829154253878ee8, type: 3}
+      propertyPath: description
+      value: Unlocks Archer Troop
+      objectReference: {fileID: 0}
     - target: {fileID: 8437339839156311852, guid: fe48a74b02e47b648829154253878ee8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

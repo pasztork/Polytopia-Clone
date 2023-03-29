@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9911b7cff8dbfd64fb589c549bcbbae3, type: 3}
   m_Name: MapGenerationProperties
   m_EditorClassIdentifier: 
-  minMountainCount: 10
-  maxMountainCount: 15
+  minMountainCount: 3
+  maxMountainCount: 5
   minForestCountPerChunk: 5
   maxForestCountPerChunk: 10
   desertChunkProbability: 0.2

@@ -13,7 +13,7 @@ namespace Model
 
         public abstract bool UnlockTech(TechTreeItemBase tech);
 
-        public abstract void BuildTechTree();
+        public abstract void BuildTechTree(IList<TechTreeItemBase> items);
 
         protected void RaiseOnTechUnlocked(Player player)
         {

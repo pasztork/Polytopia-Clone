@@ -6,6 +6,12 @@ namespace Model
     {
         public TechTreeItemProperty TechTreeItemProperty { get; set; }
         private IList<TechTreeItemBase> requirements = new List<TechTreeItemBase>();
+
+        public TechTreeItemBase(string name, Cost cost, string description)
+        {
+            TechTreeItemProperty = new TechTreeItemProperty(name, cost, description);
+        }
+
         public bool IsAvailable
         {
             get
@@ -19,6 +25,10 @@ namespace Model
                 }
                 return true;
             }
+        }
+        public virtual void ActivateEffect()
+        {
+            return;
         }
     }
 }

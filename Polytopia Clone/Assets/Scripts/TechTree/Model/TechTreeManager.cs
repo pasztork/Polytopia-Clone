@@ -27,7 +27,7 @@ namespace Model
             return learnt;
         }
 
-        public override void BuildTechTree()
+        public override void BuildTechTree(IList<TechTreeItemBase> items)
         {
             TechTreeModel = new List<TechTreeItemBase>();
         }

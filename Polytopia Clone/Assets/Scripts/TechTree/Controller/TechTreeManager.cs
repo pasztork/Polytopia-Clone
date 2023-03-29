@@ -30,7 +30,7 @@ namespace Controller
                 return;
             }
             Instance = this;
-            SetItemDescriptions();
+            InitializeTreeModel();
         }
 
         public void OnTechTreeButtonClick()
@@ -74,7 +74,7 @@ namespace Controller
             itemMoneyCostText.text = $"Money Cost: {item.Cost.MoneyCost}";
             itemMaterialCostText.text = $"Material Cost: {item.Cost.MaterialCost}";
             itemFoodCostText.text = $"Food Cost: {item.Cost.FoodCost}";
-            //itemDescriptionText.text = item.Description;
+            itemDescriptionText.text = item.Description;
         }
 
         public void OnLearnTechButtonClick()
@@ -100,16 +100,14 @@ namespace Controller
             TechTreeWindow.SetActive(false);
         }
 
-        public void SetItemDescriptions()
+        public void InitializeTreeModel()
         {
-            var modelTechs = Model.DependencyContainer.Get<Model.TechTreeManagerBase>().TechTreeModel;
-            if (modelTechs == null)
-                return;
-
-            for (int i = 0; i < modelTechs.Count; i++)
+            IList<Model.TechTreeItemBase> modelItems = new List<Model.TechTreeItemBase>();
+            foreach(var item in TechTreeItems)
             {
-                TechTreeItems[i].Description = modelTechs[i].TechTreeItemProperty.Description;
+                modelItems.Add(item.ToModel());
             }
+            Model.DependencyContainer.Get<Model.TechTreeManagerBase>().BuildTechTree(modelItems);
         }
     }
 }
