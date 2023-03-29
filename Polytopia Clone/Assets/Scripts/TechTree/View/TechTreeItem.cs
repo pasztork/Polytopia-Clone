@@ -4,24 +4,19 @@ using UnityEngine.UI;
 
 namespace View
 {
-    public class TechTreeItem : MonoBehaviour
+    public abstract class TechTreeItem : MonoBehaviour
     {
         [SerializeField] protected Controller.Cost cost;
         public Controller.Cost Cost { get => cost; set => cost = value; }
-        public string Name { get; set; }
-        [SerializeField] private string description;
-        public string Description { get => description; set => description = value; }
+        public string Name { get => GetComponentInChildren<TextMeshProUGUI>().text; }
+        public string Description { get; protected set; }
         public bool IsUnlocked { get; set; }
 
-        [SerializeField] private Color startColor;
+        protected Color startColor;
         private Color selectColor = Color.magenta;
         private Color unlockColor = Color.green;
 
-        private void Start()
-        {
-            startColor = GetComponent<Image>().color;
-            Name = GetComponentInChildren<TextMeshProUGUI>().text;
-        }
+        public abstract Model.TechTreeItemBase ToModel();
 
         public void OnItemClicked()
         {
@@ -39,32 +34,25 @@ namespace View
 
         public void ItemLocked()
         {
-            GetComponent<Button>().interactable = false;
             GetComponent<Image>().color = startColor;
+            GetComponent<Button>().interactable = false;
         }
 
         public void ItemAvailable()
         {
-            GetComponent<Button>().interactable = true;
             GetComponent<Image>().color = startColor;
+            GetComponent<Button>().interactable = true;
         }
 
         public void ItemUnlocked()
         {
-            GetComponent<Button>().interactable = false;
             GetComponent<Image>().color = unlockColor;
+            GetComponent<Button>().interactable = false;
         }
 
         public void ResetColor()
         {
             GetComponent<Image>().color = startColor;
-        }
-
-        public Model.TechTreeItemBase ToModel()
-        {
-            Model.TechTreeItemBase techItem = 
-                new Model.TechTreeItemBase(Name, new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost), Description);
-            return techItem;
         }
     }
 }
