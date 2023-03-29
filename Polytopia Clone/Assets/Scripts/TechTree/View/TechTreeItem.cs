@@ -6,8 +6,8 @@ namespace View
 {
     public abstract class TechTreeItem : MonoBehaviour
     {
-        [SerializeField] protected Controller.Cost cost;
-        public Controller.Cost Cost { get => cost; set => cost = value; }
+        [SerializeField] protected View.Cost cost;
+        public View.Cost Cost { get => cost; set => cost = value; }
         public string Name { get => GetComponentInChildren<TextMeshProUGUI>().text; }
         public string Description { get; protected set; }
         public bool IsUnlocked { get; set; }
@@ -21,7 +21,7 @@ namespace View
         public void OnItemClicked()
         {
             Controller.TechTreeManager.Instance.ShowTechTreeItemInfo(this);
-            if(GetComponent<Image>().color == startColor)
+            if (GetComponent<Image>().color == startColor)
             {
                 GetComponent<Image>().color = selectColor;
 

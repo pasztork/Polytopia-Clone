@@ -10,8 +10,8 @@ namespace View
     public abstract class TroopBase : MonoBehaviour
     {
         [Header("Cost Settings")]
-        [SerializeField] protected Controller.Cost cost;
-        public Controller.Cost Cost { get => cost; }
+        [SerializeField] protected View.Cost cost;
+        public View.Cost Cost { get => cost; }
 
         [Header("Troop Properties")]
         public Controller.TroopProperty troopProperties;

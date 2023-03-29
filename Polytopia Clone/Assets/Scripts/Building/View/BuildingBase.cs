@@ -6,8 +6,8 @@ namespace View
     public abstract class BuildingBase : MonoBehaviour
     {
         [Header("Cost Settings")]
-        [SerializeField] protected Controller.Cost cost;
-        public Controller.Cost Cost { get => cost; }
+        [SerializeField] protected View.Cost cost;
+        public View.Cost Cost { get => cost; }
 
         [Header("Production Settings")]
         [SerializeField] protected int productionRate;
