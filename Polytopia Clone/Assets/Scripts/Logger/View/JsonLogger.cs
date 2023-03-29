@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Model;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -6,15 +7,23 @@ using UnityEngine;
 
 namespace View
 {
-    public class JsonLogger : LoggerBase
+    public class JsonLogger
     {
         private static JsonLogger instance;
-        public JsonLogger()
+        public static JsonLogger Instance
         {
-            Model.LogManager.Instance.LogEvent += instance.LogToFile;
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new JsonLogger();
+                    Model.DependencyContainer.Get<Model.LogManager>().LogEvent += instance.LogToFile;
+                }
+                return instance;
+            }
         }
 
-        public override void LogToFile(Model.JsonDataHolder dataHolder)
+        public void LogToFile(Model.JsonDataHolder dataHolder)
         {
             string jsonString = JsonSerializer.Serialize(dataHolder);
             File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + "\n");

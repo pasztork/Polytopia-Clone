@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Logger.Model;
+using System;
 using System.Collections.Generic;
 
 namespace Model
@@ -23,6 +24,8 @@ namespace Model
             Register<BuildManagerBase, BuildManager>();
             Register<TrainManagerBase, TrainManager>();
             Register<TechTreeManagerBase, TechTreeManager>();
+            Register<LogDataWrapperBase, LogDataWrapper>();
+            Register<LogManagerBase, LogManager>();
         }
 
         public void Register<TBaseClass, TImplementation>()

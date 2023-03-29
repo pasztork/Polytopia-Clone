@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Model
 {
     //Tile os id-k meg nem jok, elmentésnél az its ide elkene menteni
-    public class LogDataWrapper
+    public class LogDataWrapper : LogDataWrapperBase
     {
         private Dictionary<int, TroopBase> IdToTroopDic = new Dictionary<int, TroopBase>();
         private Dictionary<TroopBase, int> TroopToIdDic = new Dictionary<TroopBase, int>();
@@ -13,21 +13,10 @@ namespace Model
         private Dictionary<BuildingBase, int> BuildingToIdDic = new Dictionary<BuildingBase, int>();
         private Dictionary<int, TileBase> IdToTileDic = new Dictionary<int, TileBase>();
         private Dictionary<TileBase, int> TileToIdDic = new Dictionary<TileBase, int>();
-
-        public event Action<JsonDataHolder> NewDataCreated;
-
-        private static LogDataWrapper instance;
-        public static LogDataWrapper Instance
+       
+        public LogDataWrapper()
         {
-            get
-            {
-                if(instance == null)
-                {
-                    instance = new LogDataWrapper();
-                    LogDataWrapper.Instance.SubscribeToEvents();
-                }
-                return instance;
-            }
+             SubscribeToEvents();
         }
 
         private void SubscribeToEvents()
@@ -44,12 +33,12 @@ namespace Model
             }
         }
 
-        public void TriggerBuild(BuildingBase building)
+        public override void TriggerBuild(BuildingBase building)
         {
             Identity build = new Identity()
             {
                 Name = building.ToString(),
-                Id = LogManager.Instance.IncrementBuildId()
+                Id = DependencyContainer.Get <LogManager>().IncrementBuildId()
             };
             IdToBildingDic.Add(build.Id, building);
             BuildingToIdDic.Add(building, build.Id);
@@ -65,11 +54,10 @@ namespace Model
                 //                     Id = LogManager.Instance.IncrementTileId() }
                 //}
             };
-
-            NewDataCreated?.Invoke(datas);
+            TriggerEvent(datas);
         }
 
-        public void TriggerTroopDeath(TroopBase troop)
+        public override void TriggerTroopDeath(TroopBase troop)
         {
             JsonDataHolder datas = new JsonDataHolder()
             {
@@ -89,11 +77,10 @@ namespace Model
                     }
                 }
             };
-
-            NewDataCreated?.Invoke(datas);
+            TriggerEvent(datas);
         }
 
-        public void TriggerBuildingDestroy(BuildingBase building)
+        public override void TriggerBuildingDestroy(BuildingBase building)
         {
             JsonDataHolder datas = new JsonDataHolder()
             {
@@ -113,16 +100,15 @@ namespace Model
                     }
                 }
             };
-
-            NewDataCreated?.Invoke(datas);
+            TriggerEvent(datas);
         }
 
-        public void TriggerTrain(TroopBase troop)
+        public override void TriggerTrain(TroopBase troop)
         {
             Identity troopData = new Identity()
             {
                 Name = troop.ToString(),
-                Id = LogManager.Instance.IncrementTroopId()
+                Id = DependencyContainer.Get<LogManager>().IncrementTroopId()
             };
             IdToTroopDic.Add(troopData.Id, troop);
             TroopToIdDic.Add(troop, troopData.Id);
@@ -138,11 +124,10 @@ namespace Model
                 //},
                 Troops = new System.Collections.Generic.List<Identity> { troopData }
             };
-
-            NewDataCreated?.Invoke(datas);
+            TriggerEvent(datas);
         }
 
-        public void TriggerTroopMoved(TroopBase troop, TileBase from, TileBase target)
+        public override void TriggerTroopMoved(TroopBase troop, TileBase from, TileBase target)
         {
             Identity troopData = new Identity()
             {
@@ -162,10 +147,10 @@ namespace Model
                 Troops = new System.Collections.Generic.List<Identity>{ troopData }
             };
 
-            NewDataCreated?.Invoke(datas);
+            TriggerEvent(datas);
         }
 
-        public void TriggerAttacked(TroopBase attacker, BuildingBase targetBuilding, TroopBase targetTroop, TileBase targetedTile)
+        public override void TriggerAttacked(TroopBase attacker, BuildingBase targetBuilding, TroopBase targetTroop, TileBase targetedTile)
         {
             List<Identity> troopData = new List<Identity>() { new Identity() { Id = TroopToIdDic[attacker], Name = attacker.ToString() } };
 
@@ -188,17 +173,17 @@ namespace Model
                 Troops = troopData,
                 Buildings = buildData
             };
-            NewDataCreated?.Invoke(datas);
+            TriggerEvent(datas);
         }
 
-        public void TriggerTurnEnded()
+        public override void TriggerTurnEnded()
         {
             JsonDataHolder datas = new JsonDataHolder()
             {
                 Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Endturn.ToString(),
             };
-            NewDataCreated?.Invoke(datas);
+            TriggerEvent(datas);
         }
     }
 }
