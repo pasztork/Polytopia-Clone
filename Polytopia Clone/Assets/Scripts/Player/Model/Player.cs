@@ -6,8 +6,9 @@ namespace Model
     public class Player
     {
         public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
-        public event Action<Player> OnEliminited;
+        public event Action<Player> OnEliminated;
         public event Action<BuildingBase> BuildCreated;
+        public event Action<BuildingBase> BuildDestroyed;
         public event Action<TroopBase> TroopDeath;
         public event Action<TroopBase> TroopTrained;
         public event Action<TroopBase, TileBase, TileBase> TroopMoved;
@@ -110,6 +111,8 @@ namespace Model
             bool result = attacker.Attack(target);
             if (result)
                 TroopAttacked?.Invoke(attacker, null, target, target.Tile);
+            if (target.TroopProperty.Health <= 0)
+                TroopDeath?.Invoke(target);
 
             return result;
         }
@@ -121,6 +124,8 @@ namespace Model
             bool result = attacker.Attack(target);
             if (result)
                 TroopAttacked?.Invoke(attacker, target, null, target.Tile);
+            if (target.BuildingProperty.Health <= 0)
+                BuildDestroyed?.Invoke(target);
 
             return result;
         }
@@ -154,7 +159,7 @@ namespace Model
             building.DestroyEveryThingInRange(AvailableTiles);
 
             if (Buildings.Count == 0)
-                OnEliminited.Invoke(this);
+                OnEliminated.Invoke(this);
         }
 
         private void GetAllAvailableTiles()

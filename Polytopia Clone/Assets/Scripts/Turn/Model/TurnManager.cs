@@ -33,7 +33,7 @@ namespace Model
         public override void PlayerCreated(Player player)
         {
             players.AddFirst(player);
-            player.OnEliminited += HandlePlayerEliminated;
+            player.OnEliminated += HandlePlayerEliminated;
         }
 
         private void HandlePlayerEliminated(Player player)

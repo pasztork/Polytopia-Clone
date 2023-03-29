@@ -40,6 +40,7 @@ namespace Model
                 player.TroopMoved += TriggerTroopMoved;
                 player.TroopAttacked += TriggerAttacked;
                 player.TurnEnded += TriggerTurnEnded;
+                player.BuildDestroyed += TriggerBuildingDestroy;
             }
         }
 
@@ -92,6 +93,30 @@ namespace Model
             NewDataCreated?.Invoke(datas);
         }
 
+        public void TriggerBuildingDestroy(BuildingBase building)
+        {
+            JsonDataHolder datas = new JsonDataHolder()
+            {
+                Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
+                Action = LogActions.Destroy.ToString(),
+                //Tiles = new System.Collections.Generic.List<Identity>
+                //{
+                //     new Identity(){ Name = troop.Tile.ToString(),
+                //                     Id = LogManager.Instance.IncrementTileId()}
+                //},
+                Buildings = new System.Collections.Generic.List<Identity>
+                {
+                    new Identity()
+                    {
+                        Name = building.ToString(),
+                        Id = BuildingToIdDic[building]
+                    }
+                }
+            };
+
+            NewDataCreated?.Invoke(datas);
+        }
+
         public void TriggerTrain(TroopBase troop)
         {
             Identity troopData = new Identity()
@@ -136,6 +161,8 @@ namespace Model
                 //},
                 Troops = new System.Collections.Generic.List<Identity>{ troopData }
             };
+
+            NewDataCreated?.Invoke(datas);
         }
 
         public void TriggerAttacked(TroopBase attacker, BuildingBase targetBuilding, TroopBase targetTroop, TileBase targetedTile)
@@ -161,6 +188,7 @@ namespace Model
                 Troops = troopData,
                 Buildings = buildData
             };
+            NewDataCreated?.Invoke(datas);
         }
 
         public void TriggerTurnEnded()
@@ -170,6 +198,7 @@ namespace Model
                 Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Endturn.ToString(),
             };
+            NewDataCreated?.Invoke(datas);
         }
     }
 }
