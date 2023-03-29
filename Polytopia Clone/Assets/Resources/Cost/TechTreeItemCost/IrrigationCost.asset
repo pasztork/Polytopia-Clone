@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9dc01c6983c93f4eab61e303884207f, type: 3}
   m_Name: IrrigationCost
   m_EditorClassIdentifier: 
-  moneyCost: 0
-  materialCost: 0
-  foodCost: 0
+  moneyCost: 20
+  materialCost: 20
+  foodCost: 20
