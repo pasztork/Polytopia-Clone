@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using View;
+
+namespace Model
 {
     public class GameManager : GameManagerBase
     {

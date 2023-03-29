@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using View;
 
 namespace Model
 {
@@ -70,7 +71,7 @@ namespace Model
             AddBuilding(building);
             troop.TakeDamage(troop.TroopProperty.Health);
             TroopDeath?.Invoke(troop);
-            BuildCreated(building);
+            BuildCreated?.Invoke(building);
             return true;
         }
 

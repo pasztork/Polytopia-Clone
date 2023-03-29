@@ -31,7 +31,7 @@ namespace View
 
         private void SubscribeToEvents()
         {
-            foreach(var player in Model.DependencyContainer.Get<Model.GameManager>().Players)
+            foreach(Model.Player player in Model.DependencyContainer.Get<Model.GameManagerBase>().Players)
             {
                 player.BuildCreated += TriggerBuild;
                 player.TroopDeath += TriggerTroopDeath;

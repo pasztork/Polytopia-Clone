@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using View;
 
 namespace Model
 {
@@ -12,6 +13,7 @@ namespace Model
         {
             playerNode = players.Last;
             CurrentPlayer = playerNode.Value;
+            JsonLogger js = JsonLogger.Instance;
             CurrentPlayer.StartTurn();
             RaiseOnTurnStarted(CurrentPlayer);
         }
