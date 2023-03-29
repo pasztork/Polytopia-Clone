@@ -6,23 +6,15 @@ using UnityEngine;
 
 namespace View
 {
-    public class JsonLogger
+    public class JsonLogger : LoggerBase
     {
         private static JsonLogger instance;
-        public static JsonLogger Instance
+        public JsonLogger()
         {
-            get
-            {
-                if(instance == null)
-                {
-                    instance = new JsonLogger();
-                    Model.LogManager.Instance.LogEvent += instance.LogToFile;
-                }
-                return instance;
-            }
+            Model.LogManager.Instance.LogEvent += instance.LogToFile;
         }
 
-        public void LogToFile(Model.JsonDataHolder dataHolder)
+        public override void LogToFile(Model.JsonDataHolder dataHolder)
         {
             string jsonString = JsonSerializer.Serialize(dataHolder);
             File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + "\n");
