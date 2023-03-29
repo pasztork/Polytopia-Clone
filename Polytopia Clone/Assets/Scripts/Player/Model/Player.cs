@@ -12,6 +12,7 @@ namespace Model
         public event Action<TroopBase> TroopTrained;
         public event Action<TroopBase, TileBase, TileBase> TroopMoved;
         public event Action<TroopBase, BuildingBase, TroopBase, TileBase> TroopAttacked;
+        public event Action TurnEnded;
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
@@ -42,7 +43,7 @@ namespace Model
 
         public void EndTurn()
         {
-
+            TurnEnded?.Invoke();
         }
 
         public bool Build(TroopBase troop, BuildingBase building)

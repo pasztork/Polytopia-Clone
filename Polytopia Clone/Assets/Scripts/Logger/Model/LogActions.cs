@@ -8,6 +8,7 @@ namespace Model
 {
     public enum LogActions
     {
-        Build, Train, Move, Attack, Learn, Destroy, Non
+        Build, Train, Move, Attack, Learn, Destroy,
+        Endturn
     }
 }

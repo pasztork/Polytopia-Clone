@@ -39,6 +39,7 @@ namespace Model
                 player.TroopTrained += TriggerTrain;
                 player.TroopMoved += TriggerTroopMoved;
                 player.TroopAttacked += TriggerAttacked;
+                player.TurnEnded += TriggerTurnEnded;
             }
         }
 
@@ -142,15 +143,11 @@ namespace Model
             List<Identity> troopData = new List<Identity>() { new Identity() { Id = TroopToIdDic[attacker], Name = attacker.ToString() } };
 
             if(targetTroop != null)
-            {
                 troopData.Add(new Identity() { Id = TroopToIdDic[targetTroop], Name = targetTroop.ToString() });
-            }
 
             List<Identity> buildData = new List<Identity>();
             if(targetBuilding != null)
-            {
                 buildData.Add(new Identity() {  Name = targetBuilding.ToString(), Id = BuildingToIdDic[targetBuilding] });
-            }
 
             JsonDataHolder datas = new JsonDataHolder()
             {
@@ -163,6 +160,15 @@ namespace Model
                 //},
                 Troops = troopData,
                 Buildings = buildData
+            };
+        }
+
+        public void TriggerTurnEnded()
+        {
+            JsonDataHolder datas = new JsonDataHolder()
+            {
+                Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Name,
+                Action = LogActions.Endturn.ToString(),
             };
         }
     }
