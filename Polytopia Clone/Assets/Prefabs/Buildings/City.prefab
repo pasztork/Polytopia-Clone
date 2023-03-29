@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8045664100818579048}
   - component: {fileID: 996278019777713656}
   - component: {fileID: 5336888032748915815}
-  - component: {fileID: 4787953681856402325}
+  - component: {fileID: 4244031341224573648}
   m_Layer: 0
   m_Name: City
   m_TagString: Untagged
@@ -99,7 +99,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4787953681856402325
+--- !u!114 &4244031341224573648
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,12 +108,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1899269663787993928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebbf852ee7450ee4ebee937ab4462eae, type: 3}
+  m_Script: {fileID: 11500000, guid: 09037de2aef36f5409c0e53cf5549b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 72f08735c3a907b44a1b3f7823ff7145, type: 2}
-  productionRate: 20
-  buildingProperties: {fileID: 11400000, guid: 8af98a4c0274d004dbd0218db6063b78, type: 2}
+  productionRate: 10
+  buildingProperties: {fileID: 11400000, guid: 2674e3ea6a189ea4b9f096225ad5827c, type: 2}
   range: 1
 --- !u!1 &3866958734694324670
 GameObject:
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 153757434583522302}
   - component: {fileID: 1274737301330324531}
   - component: {fileID: 5405753349665118322}
-  - component: {fileID: 6734604653718536503}
+  - component: {fileID: 7452168508431820536}
   m_Layer: 5
   m_Name: City Text
   m_TagString: Untagged
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6734604653718536503
+--- !u!114 &7452168508431820536
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3866958734694324670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e45dee18793024bbaa1024545d6416, type: 3}
+  m_Script: {fileID: 11500000, guid: 0daa7b6e03d30234e80ba1bd123bde9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 5405753349665118322}
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 447226531175026736}
   - component: {fileID: 5086409355226253778}
   - component: {fileID: 3465898566820548225}
-  - component: {fileID: 6073456390667231658}
+  - component: {fileID: 8246592627201012959}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6073456390667231658
+--- !u!114 &8246592627201012959
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -453,10 +453,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6112468587504599470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f1e7a3289c5c1408eb138a75c23ce3, type: 3}
+  m_Script: {fileID: 11500000, guid: 110512200f48eef49988ade36a9817e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 4, z: 0}
 --- !u!1 &6785630586382324115
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1732860222163218218}
   - component: {fileID: 7415053343215967868}
-  - component: {fileID: 6510732306997242071}
+  - component: {fileID: 4862286548032613215}
   m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
@@ -548,7 +548,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6510732306997242071
+--- !u!114 &4862286548032613215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -557,13 +557,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6785630586382324115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743eaf19f57a09040bffa1ed9af263d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 186f0d1f1e7ce224a94f27530bacb433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gradient:
     serializedVersion: 2
-    key0: {r: 0.9960785, g: 0, b: 0, a: 1}
-    key1: {r: 0.07450981, g: 0.85098046, b: 0, a: 1}
+    key0: {r: 0, g: 1, b: 0, a: 1}
+    key1: {r: 1, g: 0, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
