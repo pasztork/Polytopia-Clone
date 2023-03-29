@@ -21,7 +21,8 @@ namespace View
             Model.DependencyContainer.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
             Model.DependencyContainer.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
             Model.DependencyContainer.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
-            Controller.TroopManager.Instance.OnTrainAttempted += SetSelected;
+
+            View.TroopManager.Instance.OnTrainAttempted += SetSelected;
         }
 
         private void UpdateContent(Model.Player player)
@@ -41,7 +42,7 @@ namespace View
 
         private void SetSelected()
         {
-            Controller.TroopManager.Instance.Blueprint = dropdown.options.Count > 0 ?
+            View.TroopManager.Instance.Blueprint = dropdown.options.Count > 0 ?
                 troops[dropdown.options[dropdown.value].text] : null;
         }
     }

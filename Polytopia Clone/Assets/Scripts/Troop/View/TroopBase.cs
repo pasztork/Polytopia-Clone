@@ -14,7 +14,7 @@ namespace View
         public View.Cost Cost { get => cost; }
 
         [Header("Troop Properties")]
-        public Controller.TroopProperty troopProperties;
+        public View.TroopProperty troopProperties;
 
         [Header("Highlight Settings")]
         protected Color hoverColor = Color.yellow;
@@ -48,7 +48,7 @@ namespace View
         private void OnMouseEnter()
         {
             if (EventSystem.current.IsPointerOverGameObject() || GetComponent<Renderer>().material.color == selectColor
-                || !Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+                || !Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(View.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -58,7 +58,7 @@ namespace View
 
         public virtual void OnMouseOver()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(View.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -77,18 +77,18 @@ namespace View
         {
             if (GetComponent<Renderer>().material.color == selectColor)
             {
-                Controller.TroopManager.Instance.Attack(this);
+                View.TroopManager.Instance.Attack(this);
             }
         }
 
         private void OnMouseExit()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(View.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
 
-            if (Controller.TroopManager.Instance.SelectedTroop != this && GetComponent<Renderer>().material.color != selectColor)
+            if (View.TroopManager.Instance.SelectedTroop != this && GetComponent<Renderer>().material.color != selectColor)
             {
                 GetComponent<Renderer>().material.color = startColor;
             }
@@ -160,8 +160,8 @@ namespace View
                 return;
             }
 
-            var prev = Controller.TroopManager.Instance.SelectedTroop;
-            Controller.TroopManager.Instance.SelectedTroop = this;
+            var prev = View.TroopManager.Instance.SelectedTroop;
+            View.TroopManager.Instance.SelectedTroop = this;
 
             if (prev != null)
             {
@@ -189,7 +189,7 @@ namespace View
 
         protected virtual IList<Tile> GetTilesInRange(int range)
         {
-            Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
+            Model.TroopBase modelTroop = View.TroopManager.Instance.ViewToModelMap[this];
             Tile currentTile = View.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
             ISet<Tile> reachables = new HashSet<Tile> { currentTile };
             for (int i = 0; i < range; i++)

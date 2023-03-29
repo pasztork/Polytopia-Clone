@@ -18,7 +18,7 @@ namespace View
 
         protected override IList<Tile> GetTilesInRange(int range)
         {
-            Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
+            Model.TroopBase modelTroop = View.TroopManager.Instance.ViewToModelMap[this];
             Tile currentTile = View.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
             ISet<Tile> reachables = new HashSet<Tile> { currentTile };
             for (int i = 0; i < range; i++)

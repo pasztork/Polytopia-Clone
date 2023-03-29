@@ -70,13 +70,13 @@ namespace View
                 return;
             }
 
-            if (Controller.TroopManager.Instance.SelectedTroop != null && previousColor == selectColor)
+            if (View.TroopManager.Instance.SelectedTroop != null && previousColor == selectColor)
             {
-                Controller.TroopManager.Instance.MoveSelectedTroop(this);
+                View.TroopManager.Instance.MoveSelectedTroop(this);
                 return;
             }
 
-            Controller.TroopManager.Instance.SelectedTroop = null;
+            View.TroopManager.Instance.SelectedTroop = null;
             View.BuildingManager.Instance.SelectedBuilding = null;
             View.MapManager.Instance.SelectedTile = this;
         }

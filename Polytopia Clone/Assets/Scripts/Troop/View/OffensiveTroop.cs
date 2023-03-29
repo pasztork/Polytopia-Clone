@@ -12,7 +12,7 @@ namespace View
 
         public override void OnMouseOver()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(Controller.TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(View.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -37,7 +37,7 @@ namespace View
                 return;
             }
 
-            Controller.TroopManager.Instance.SelectedTroop = this;
+            View.TroopManager.Instance.SelectedTroop = this;
 
             EnemiesToHighLight.Clear();
             EnemiesToHighLight = GetEnemiesInRange();
@@ -72,14 +72,14 @@ namespace View
 
         public IList<TroopBase> GetEnemiesInRange()
         {
-            Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
+            Model.TroopBase modelTroop = View.TroopManager.Instance.ViewToModelMap[this];
             IList<Model.TileBase> tiles = modelTroop.TilesInAttackRange;
             IList<TroopBase> enemies = new List<TroopBase>();
             foreach (Model.TileBase tile in tiles)
             {
                 if (tile.TroopOnTop != null && tile.TroopOnTop.Player != modelTroop.Player)
                 {
-                    enemies.Add(Controller.TroopManager.Instance.ModelToViewMap[tile.TroopOnTop]);
+                    enemies.Add(View.TroopManager.Instance.ModelToViewMap[tile.TroopOnTop]);
                 }
             }
             return enemies.ToList();
@@ -87,7 +87,7 @@ namespace View
 
         public IList<BuildingBase> GetEnemyBuildingsInRange()
         {
-            Model.TroopBase modelTroop = Controller.TroopManager.Instance.ViewToModelMap[this];
+            Model.TroopBase modelTroop = View.TroopManager.Instance.ViewToModelMap[this];
             IList<Model.TileBase> tiles = modelTroop.TilesInAttackRange;
             tiles.Add(modelTroop.Tile);
             IList<BuildingBase> buildings = new List<BuildingBase>();

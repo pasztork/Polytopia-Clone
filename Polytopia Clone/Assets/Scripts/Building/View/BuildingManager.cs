@@ -49,12 +49,12 @@ namespace View
             // Should throw error if there are no subscribers.
             // Whoever responds should set the value of Blueprint.
             OnBuildAttempted.Invoke();
-            if (Blueprint == null || Controller.TroopManager.Instance.SelectedTroop == null)
+            if (Blueprint == null || View.TroopManager.Instance.SelectedTroop == null)
             {
                 return;
             }
 
-            Model.TroopBase troop = Controller.TroopManager.Instance.ViewToModelMap[Controller.TroopManager.Instance.SelectedTroop];
+            Model.TroopBase troop = View.TroopManager.Instance.ViewToModelMap[View.TroopManager.Instance.SelectedTroop];
             View.Tile tile = View.MapManager.Instance.ModelToViewMap[troop.Tile];
             View.BuildingBase viewBuilding = Instantiate(Blueprint, tile.transform.position + new Vector3(0f, tile.Offset.y, 0f), Quaternion.identity);
             Model.BuildingBase building = viewBuilding.ToModel(Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer);
@@ -71,7 +71,7 @@ namespace View
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
-            Controller.TroopManager.Instance.SelectedTroop = null;
+            View.TroopManager.Instance.SelectedTroop = null;
             View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
 
@@ -91,7 +91,7 @@ namespace View
 
         public void Attack(View.BuildingBase building)
         {
-            Model.TroopBase modelAttacker = Controller.TroopManager.Instance.ViewToModelMap[Controller.TroopManager.Instance.SelectedTroop];
+            Model.TroopBase modelAttacker = View.TroopManager.Instance.ViewToModelMap[View.TroopManager.Instance.SelectedTroop];
             Model.BuildingBase modelTarget = ViewToModelMap[building];
             Controller.GameManager.Get<Controller.BuildingManager>().Attack(modelAttacker, modelTarget);
         }

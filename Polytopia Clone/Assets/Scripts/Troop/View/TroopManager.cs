@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Controller
+namespace View
 {
     public class TroopManager : MonoBehaviour
     {
@@ -55,7 +55,7 @@ namespace Controller
             View.Tile tile = View.MapManager.Instance.ModelToViewMap[modelBuilding.Tile];
             View.TroopBase viewTroop = Instantiate(Blueprint, tile.transform.position + new Vector3(1f, 1.5f, 1f), Quaternion.identity);
             Model.TroopBase troop = viewTroop.ToModel(Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer);
-            bool trained = Model.DependencyContainer.Get<Model.TrainManagerBase>().Train(modelBuilding, troop);
+            bool trained = Controller.GameManager.Get<Controller.TroopManagerBase>().Train(modelBuilding, troop);
 
             if (!trained)
             {
@@ -77,7 +77,7 @@ namespace Controller
             Model.TileBase modelTile = View.MapManager.Instance.ViewToModelMap[tile];
             View.Tile from = View.MapManager.Instance.ModelToViewMap[modelTroop.Tile];
 
-            bool moved = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.MoveTroop(modelTroop, modelTile);
+            bool moved = Controller.GameManager.Get<Controller.TroopManagerBase>().MoveTroop(modelTroop, modelTile);
             if (!moved)
                 return;
 
@@ -91,7 +91,7 @@ namespace Controller
             Model.TroopBase modelAttacker = ViewToModelMap[selectedTroop];
             Model.TroopBase modelTarget = ViewToModelMap[target];
 
-            bool success = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Attack(modelAttacker, modelTarget);
+            bool success = Controller.GameManager.Get<Controller.TroopManagerBase>().Attack(modelAttacker, modelTarget);
             if (!success)
                 return;
 

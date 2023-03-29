@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 13eb2866e6a3dca469294f8fbec54ef5, type: 2}
-  troopProperties: {fileID: 11400000, guid: a901fd4d80cdbae4585b5088c24a7dc5, type: 2}
+  troopProperties: {fileID: 11400000, guid: 8380de8af90b2274797a7793c9af8d7f, type: 2}
 --- !u!1 &4400547303452597075
 GameObject:
   m_ObjectHideFlags: 0

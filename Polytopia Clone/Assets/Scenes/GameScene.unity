@@ -2192,7 +2192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 340401484}
-  - component: {fileID: 340401483}
+  - component: {fileID: 340401485}
   m_Layer: 0
   m_Name: TroopManager
   m_TagString: Untagged
@@ -2200,35 +2200,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &340401483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 340401482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd307e521ca498f4baa40112269bca7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blueprints:
-    m_keys:
-    - Warrior
-    - Archer
-    - Builder
-    - Scout
-    - Settler
-    - Catapult
-    - Boat
-    m_values:
-    - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
-    - {fileID: 1114098095113398107, guid: 138af4d9e449dea47bd08fe8c53d0b50, type: 3}
-    - {fileID: -1699723509975437972, guid: e6528a6ae017c644d80eafdb3a0ab419, type: 3}
-    - {fileID: -8072061295275181274, guid: 39368c97665d5434ca59db23c2691816, type: 3}
-    - {fileID: 1916921291909066819, guid: a9b2ecc8e91b6204e842e551dcab6c14, type: 3}
-    - {fileID: 7170643737726286824, guid: 0aacdf6adf797434097ee976ea5bef2a, type: 3}
-    - {fileID: 6337031454758992141, guid: ca5b4f8b715e3f446b136cd16effb6cc, type: 3}
 --- !u!4 &340401484
 Transform:
   m_ObjectHideFlags: 0
@@ -2244,6 +2215,35 @@ Transform:
   m_Father: {fileID: 1199399707}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &340401485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340401482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b3476aa4532634db9790587214797d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blueprints:
+    m_keys:
+    - Archer
+    - Boat
+    - Builder
+    - Catapult
+    - Scout
+    - Settler
+    - Warrior
+    m_values:
+    - {fileID: 1114098095113398107, guid: 138af4d9e449dea47bd08fe8c53d0b50, type: 3}
+    - {fileID: 6337031454758992141, guid: ca5b4f8b715e3f446b136cd16effb6cc, type: 3}
+    - {fileID: -1699723509975437972, guid: e6528a6ae017c644d80eafdb3a0ab419, type: 3}
+    - {fileID: 7170643737726286824, guid: 0aacdf6adf797434097ee976ea5bef2a, type: 3}
+    - {fileID: -8072061295275181274, guid: 39368c97665d5434ca59db23c2691816, type: 3}
+    - {fileID: 1916921291909066819, guid: a9b2ecc8e91b6204e842e551dcab6c14, type: 3}
+    - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
 --- !u!1001 &351750549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8285,7 +8285,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1736152997}
-        m_TargetAssemblyTypeName: Controller.TurnManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: View.TurnManager, Assembly-CSharp
         m_MethodName: FinishTurn
         m_Mode: 1
         m_Arguments:
@@ -11690,8 +11690,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 340401483}
-        m_TargetAssemblyTypeName: Controller.TrainManager, Assembly-CSharp
+      - m_Target: {fileID: 340401485}
+        m_TargetAssemblyTypeName: View.TroopManager, Assembly-CSharp
         m_MethodName: Train
         m_Mode: 1
         m_Arguments:
