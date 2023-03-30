@@ -8,6 +8,7 @@ namespace View
     public class LogDataWrapper
     {
         public event Action<JsonDataHolder> NewDataCreated;
+        public event Action<JsonDataHolder> LastNewDataCreated;
 
         private Dictionary<int, Model.TroopBase> IdToTroopDic = new Dictionary<int, Model.TroopBase>();
         private Dictionary<Model.TroopBase, int> TroopToIdDic = new Dictionary<Model.TroopBase, int>();
@@ -37,6 +38,7 @@ namespace View
 
         public void SubscribeToPlayerEvents()
         {
+            DependencyContainer.Get<TurnManagerBase>().OnWinnerDecided += TriggerGameEnded;
             foreach(Model.Player player in Model.DependencyContainer.Get<Model.GameManagerBase>().Players)
             {
                 player.BuildCreated += TriggerBuild;
@@ -214,6 +216,16 @@ namespace View
                 Action = LogActions.Endturn.ToString(),
             };
             NewDataCreated?.Invoke(datas);
+        }
+
+        public void TriggerGameEnded(Model.Player player)
+        {
+            JsonDataHolder datas = new JsonDataHolder()
+            {
+                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Action = LogActions.GameEnd.ToString(),
+            };
+            LastNewDataCreated?.Invoke(datas);
         }
     }
 }

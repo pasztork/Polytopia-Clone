@@ -9,6 +9,6 @@ namespace View
     public enum LogActions
     {
         Build, Train, Move, Attack, Learn, Destroy,
-        Endturn, TileCreation
+        Endturn, TileCreation, GameEnd
     }
 }

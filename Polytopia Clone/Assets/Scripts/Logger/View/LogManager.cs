@@ -16,15 +16,22 @@ namespace View
                 {
                     instance = new LogManager();
                     LogDataWrapper.Instance.NewDataCreated += LogManager.Instance.TriggerEvent;
+                    LogDataWrapper.Instance.LastNewDataCreated += LogManager.Instance.TriggerLastEvent;
                 }
                 return instance; 
             }
         }
 
         public event Action<JsonDataHolder> LogEvent;
+        public event Action<JsonDataHolder> LogLastEvent;
         public void TriggerEvent(JsonDataHolder data)
         {
             LogEvent?.Invoke(data);
+        }
+
+        public void TriggerLastEvent(JsonDataHolder data)
+        {
+            LogLastEvent?.Invoke(data);
         }
 
         private static int buildId = 0;

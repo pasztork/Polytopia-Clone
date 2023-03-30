@@ -19,6 +19,8 @@ namespace View
                 {
                     instance = new JsonLogger();
                     LogManager.Instance.LogEvent += instance.LogToFile;
+                    LogManager.Instance.LogLastEvent += instance.LastLogToFile;
+                    File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", "[\n");
                 }
                 return instance;
             }
@@ -32,7 +34,13 @@ namespace View
         public void LogToFile(JsonDataHolder dataHolder)
         {
             string jsonString = JsonSerializer.Serialize(dataHolder);
-            File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + "\n");
+            File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + ",\n");
+        }
+
+        public void LastLogToFile(JsonDataHolder dataHolder)
+        {
+            string jsonString = JsonSerializer.Serialize(dataHolder);
+            File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + "\n]");
         }
     }
 }
