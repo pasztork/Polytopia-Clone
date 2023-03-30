@@ -48,7 +48,7 @@ Technológiák, képességek
 - harbor: elérhetővé teszi a kikötőt
 - farming: elérhetővé teszi a farmot
 - mining: elérhetővé teszi a nyersanyag termelőt a hegy típusú mezőkön
-- forestry: elérhetővé teszi a nyersanyag termelőt a mező típusú mezőkön
+- forestry: elérhetővé teszi a nyersanyag termelőt az erdő típusú mezőkön
 - gem mining: elérhetővé teszi a nyersanyag termelőt a sivatag típusú mezőkön
 - banking: elérhetővé teszi a bank épületet
 
