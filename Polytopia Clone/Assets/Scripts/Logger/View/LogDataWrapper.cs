@@ -37,7 +37,7 @@ namespace View
 
         public void SubscribeToPlayerEvents()
         {
-            //Model.TurnManager.OnWinnerDecided += TriggerGameEnded;
+            Model.GameManager.Get<Model.TurnManager>().OnWinnerDecided += TriggerGameEnded;
             foreach (Model.Player player in Model.GameManager.Players)
             {
                 player.BuildCreated += TriggerBuild;
@@ -219,12 +219,12 @@ namespace View
 
         public void TriggerGameEnded(Model.Player player)
         {
-            //JsonDataHolder datas = new JsonDataHolder()
-            //{
-            //    Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-            //    Action = LogActions.GameEnd.ToString(),
-            //};
-            //LastNewDataCreated?.Invoke(datas);
+            JsonDataHolder datas = new JsonDataHolder()
+            {
+                Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Action = LogActions.GameEnd.ToString(),
+            };
+            LastNewDataCreated?.Invoke(datas);
         }
     }
 }
