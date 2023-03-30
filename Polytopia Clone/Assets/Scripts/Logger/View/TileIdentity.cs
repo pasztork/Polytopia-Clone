@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace View
 {
-    public enum LogActions
+    public class TileIdentity
     {
-        Build, Train, Move, Attack, Learn, Destroy,
-        Endturn, TileCreation
+        public int X { get; set; }
+        public int Y { get; set; }
+        public string Name { get; set; }  
     }
 }

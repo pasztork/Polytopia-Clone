@@ -22,10 +22,20 @@ namespace Model
         private void GenerateWaterTiles()
         {
             for (int x = 0; x < size; x++)
+            {
                 for (int y = 0; y < size; y++)
-                    tiles[x, y] = noiseMap[x, y] < MGP.WaterTileProbability
-                        ? new WaterTile()
-                        : null;
+                {
+                    if(noiseMap[x, y] < MGP.WaterTileProbability)
+                    {
+                        tiles[x, y] = new WaterTile();
+                        TriggerTileCreated(tiles[x, y], x, y);
+                    }
+                    else
+                    {
+                        tiles[x, y] = null;
+                    }
+                }
+            }      
         }
 
         private void FillEmptyTiles()
@@ -61,7 +71,10 @@ namespace Model
             }
 
             foreach ((int, int) mountainCoord in mountainCoords)
+            {
                 tiles[mountainCoord.Item1, mountainCoord.Item2] = new RockTile();
+                TriggerTileCreated(tiles[mountainCoord.Item1, mountainCoord.Item2], mountainCoord.Item1, mountainCoord.Item2);
+            }
         }
 
         private void GenerateChunk((int, int) offset)
@@ -87,6 +100,7 @@ namespace Model
                         TileBase sand = new SandTile();
                         tiles[x, y] = sand;
                         startingTileContenders.Add(sand);
+                        TriggerTileCreated(sand, x, y);
                     }
                 }
             }
@@ -111,7 +125,11 @@ namespace Model
                 emptyCoords.OrderBy(x => x.Item3)
                     .TakeLast(System.Math.Min(emptyCoords.Count, actualForestCount))
                     .Select(x => (x.Item1, x.Item2)))
+            {
                 tiles[forestCoord.Item1, forestCoord.Item2] = new ForestTile();
+                TriggerTileCreated(tiles[forestCoord.Item1, forestCoord.Item2], forestCoord.Item1, forestCoord.Item2);
+            }
+                
 
             IList<TileBase> startingTileContenders = new List<TileBase>();
             foreach ((int, int) coord in emptyCoords.Select(x => (x.Item1, x.Item2)))
@@ -121,6 +139,7 @@ namespace Model
                     TileBase grass = new GrassTile();
                     tiles[coord.Item1, coord.Item2] = grass;
                     startingTileContenders.Add(grass);
+                    TriggerTileCreated(grass,coord.Item1, coord.Item2);
                 }
             }
 

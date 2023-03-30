@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 
 namespace View
@@ -12,8 +13,8 @@ namespace View
         private Dictionary<Model.TroopBase, int> TroopToIdDic = new Dictionary<Model.TroopBase, int>();
         private Dictionary<int, Model.BuildingBase> IdToBildingDic = new Dictionary<int, Model.BuildingBase>();
         private Dictionary<Model.BuildingBase, int> BuildingToIdDic = new Dictionary<Model.BuildingBase, int>();
-        private Dictionary<int, Model.TileBase> IdToTileDic = new Dictionary<int, Model.TileBase>();
-        private Dictionary<Model.TileBase, int> TileToIdDic = new Dictionary<Model.TileBase, int>();
+        private Dictionary<TileIdentity, Model.TileBase> IdToTileDic = new Dictionary<TileIdentity, Model.TileBase>();
+        private Dictionary<Model.TileBase, TileIdentity> TileToIdDic = new Dictionary<Model.TileBase, TileIdentity>();
 
         private static LogDataWrapper instance;
         public static LogDataWrapper Instance
@@ -23,13 +24,18 @@ namespace View
                 if(instance == null)
                 {
                     instance = new LogDataWrapper();
-                    LogDataWrapper.Instance.SubscribeToEvents();
+                    LogDataWrapper.Instance.SubscribeToMapEvents();
                 }
                 return instance;
             }
         }
 
-        private void SubscribeToEvents()
+        private void SubscribeToMapEvents()
+        {
+            DependencyContainer.Get<Model.MapGeneratorBase>().TileGenerated += TriggerTileCreated;
+        }
+
+        public void SubscribeToPlayerEvents()
         {
             foreach(Model.Player player in Model.DependencyContainer.Get<Model.GameManagerBase>().Players)
             {
@@ -41,6 +47,20 @@ namespace View
                 player.TurnEnded += TriggerTurnEnded;
                 player.BuildDestroyed += TriggerBuildingDestroy;
             }
+        }
+
+        public void TriggerTileCreated(Model.TileBase tile, int x, int y)
+        {
+            TileIdentity newTileId = new TileIdentity() { X = x, Y = y, Name = tile.ToString() };
+            TileToIdDic.Add(tile, newTileId);
+            IdToTileDic.Add(newTileId, tile);
+
+            JsonDataHolder datas = new JsonDataHolder()
+            {
+                Action = LogActions.TileCreation.ToString(),
+                Tiles = new System.Collections.Generic.List<TileIdentity>{ newTileId }
+            };
+            NewDataCreated?.Invoke(datas);
         }
 
         public void TriggerBuild(Model.BuildingBase building)
@@ -55,7 +75,7 @@ namespace View
 
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer == null ? building.Player.Name : Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Build.ToString(),
                 Buildings = new List<Identity> { build },
                 //Tiles = new System.Collections.Generic.List<Identity> 

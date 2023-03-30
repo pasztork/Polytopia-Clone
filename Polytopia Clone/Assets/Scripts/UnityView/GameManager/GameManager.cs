@@ -11,11 +11,13 @@ namespace View
                 Size = MapManager.Instance.Size,
                 GenerationProperties = MapManager.Instance.GenerationProperties.ToModel()
             };
+            JsonLogger.Instance.SetUpToLog();
             Controller.GameManager.NewGame(mapProperties);
         }
 
         private void Start()
         {
+            LogDataWrapper.Instance.SubscribeToPlayerEvents();
             Controller.GameManager.Start();
         }
     }

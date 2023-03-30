@@ -24,6 +24,11 @@ namespace View
             }
         }
 
+        public void SetUpToLog()
+        {
+            JsonLogger js = JsonLogger.Instance;
+        }
+
         public void LogToFile(JsonDataHolder dataHolder)
         {
             string jsonString = JsonSerializer.Serialize(dataHolder);

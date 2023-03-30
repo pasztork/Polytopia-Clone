@@ -23,7 +23,6 @@ namespace View
             player.StartingProduction = baseProduction.CreateDictionary();
             player.AvailableBuildings = startingBuildings.ToList();
             player.AvailableTroops = startingTroops.ToList();
-
             player.OnStartingCitySpawned += BuildStartingCity;
         }
 
