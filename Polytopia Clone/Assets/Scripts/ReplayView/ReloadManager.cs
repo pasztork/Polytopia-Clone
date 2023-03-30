@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-
-namespace Model
+﻿namespace View
 {
     public class ReloadManager
     {
@@ -16,7 +12,7 @@ namespace Model
             }
         }
 
-        
+
         public void AddToTroopDic(View.Identity identity)
         {
 
