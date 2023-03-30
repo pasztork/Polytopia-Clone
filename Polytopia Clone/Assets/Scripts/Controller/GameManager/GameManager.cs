@@ -41,6 +41,7 @@ namespace Controller
             dependencyContainer.Register<TurnManagerBase, TurnManager>();
             dependencyContainer.Register<BuildingManagerBase, BuildingManager>();
             dependencyContainer.Register<TroopManagerBase, TroopManager>();
+            dependencyContainer.Register<TechTreeManagerBase, TechTreeManager>();
         }
     }
 }

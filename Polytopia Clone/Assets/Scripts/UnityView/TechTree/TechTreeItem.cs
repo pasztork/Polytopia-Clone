@@ -20,7 +20,7 @@ namespace View
 
         public void OnItemClicked()
         {
-            Controller.TechTreeManager.Instance.ShowTechTreeItemInfo(this);
+            View.TechTreeManager.Instance.ShowTechTreeItemInfo(this);
             if (GetComponent<Image>().color == startColor)
             {
                 GetComponent<Image>().color = selectColor;

@@ -21,7 +21,7 @@ namespace View
 
         public void FinishTurn()
         {
-            Controller.TechTreeManager.Instance.TechTreeWindow.SetActive(false);
+            View.TechTreeManager.Instance.TechTreeWindow.SetActive(false);
             Controller.GameManager.Get<Controller.TurnManagerBase>().FinishTurn();
         }
     }

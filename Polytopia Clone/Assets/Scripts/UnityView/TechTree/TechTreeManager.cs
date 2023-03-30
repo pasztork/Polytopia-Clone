@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Controller
+namespace View
 {
     public class TechTreeManager : MonoBehaviour
     {
@@ -32,9 +32,14 @@ namespace Controller
             Instance = this;
         }
 
+        private void Start()
+        {
+            Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += EndTurn;
+        }
+
         public void OnTechTreeButtonClick()
         {
-            var modelTechs = Model.GameManager.Get<Model.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
+            var modelTechs = Controller.GameManager.Get<Controller.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
             if (modelTechs == null)
                 return;
 
@@ -81,17 +86,17 @@ namespace Controller
             if (SelectedTechTreeItem == null)
                 return;
 
-            bool learnt = Model.GameManager.Get<Model.TechTreeManagerBase>().UnlockTech(SelectedTechTreeItem.ToModel());
+            bool learnt = Controller.GameManager.Get<Controller.TechTreeManagerBase>().UnlockTech(SelectedTechTreeItem.ToModel());
             if (!learnt)
                 return;
 
             SelectedTechTreeItem.ItemUnlocked();
             SelectedTechTreeItem = null;
-            var modelTechs = Model.GameManager.Get<Model.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
+            var modelTechs = Controller.GameManager.Get<Controller.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
             UpdateTechElements(modelTechs);
         }
 
-        public void EndTurn()
+        private void EndTurn(Model.Player player)
         {
             if (SelectedTechTreeItem != null)
             {
@@ -101,6 +106,8 @@ namespace Controller
             TechTreeWindow.SetActive(false);
         }
 
+        // ez a modell feladata
+        // kiad egy esemenyt, hogy felepitette
         public IList<Model.TechTreeItemBase> GetNewTechTree()
         {
             IList<Model.TechTreeItemBase> modelItems = new List<Model.TechTreeItemBase>();

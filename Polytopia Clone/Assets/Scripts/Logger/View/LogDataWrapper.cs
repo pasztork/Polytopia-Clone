@@ -37,7 +37,7 @@ namespace View
 
         public void SubscribeToPlayerEvents()
         {
-            Model.GameManager.Get<Model.TurnManager>().OnWinnerDecided += TriggerGameEnded;
+            Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += TriggerGameEnded;
             foreach (Model.Player player in Model.GameManager.Players)
             {
                 player.BuildCreated += TriggerBuild;
