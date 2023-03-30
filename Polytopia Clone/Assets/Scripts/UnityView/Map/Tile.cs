@@ -10,10 +10,9 @@ namespace View
         public Vector3 Offset { get => offset; private set => offset = value; }
         public List<Tile> Neighbors { get; } = new List<Tile>();
 
-        [Header("Colors")]
-        [SerializeField] private Color hoverColor;
-        public Color startColor;
-        [SerializeField] private Color selectColor;
+        public Color StartColor { get; private set; }
+        private Color hoverColor = Color.yellow;
+        private Color selectColor = Color.gray;
         public Color SelectColor { get => selectColor; set => selectColor = value; }
         public Color TileColor
         {
@@ -28,14 +27,14 @@ namespace View
 
         private void Awake()
         {
-            startColor = TileColor;
+            StartColor = TileColor;
 
             HighlightManager.Instance.OnMonoBehaviourSelected += (mono) =>
             {
                 if (mono == this)
                     return;
 
-                TileColor = startColor;
+                TileColor = StartColor;
             };
         }
 
@@ -52,7 +51,7 @@ namespace View
 
         private void OnMouseExit()
         {
-            if (previousColor != hoverColor || previousColor != startColor)
+            if (previousColor != hoverColor || previousColor != StartColor)
             {
                 TileColor = previousColor;
             }
@@ -84,7 +83,7 @@ namespace View
         public void Deselect()
         {
             if (View.MapManager.Instance.SelectedTile != this)
-                TileColor = startColor;
+                TileColor = StartColor;
         }
     }
 }

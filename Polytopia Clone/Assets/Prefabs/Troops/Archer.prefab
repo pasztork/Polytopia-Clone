@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3450949622108311353}
   - component: {fileID: 8031198883875995348}
   - component: {fileID: 9221159387865078362}
-  - component: {fileID: 5273148870901263514}
+  - component: {fileID: 2709016487752402284}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5273148870901263514
+--- !u!114 &2709016487752402284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,10 +112,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 408698492187147950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f1e7a3289c5c1408eb138a75c23ce3, type: 3}
+  m_Script: {fileID: 11500000, guid: 110512200f48eef49988ade36a9817e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 4, z: 0}
 --- !u!1 &1119256383440177249
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965691928084666427}
   - component: {fileID: 7140490607308872482}
-  - component: {fileID: 2407236250355502987}
+  - component: {fileID: 4495467732436533088}
   m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2407236250355502987
+--- !u!114 &4495467732436533088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,13 +216,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1119256383440177249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743eaf19f57a09040bffa1ed9af263d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 186f0d1f1e7ce224a94f27530bacb433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gradient:
     serializedVersion: 2
-    key0: {r: 0.9960785, g: 0, b: 0, a: 1}
-    key1: {r: 0.07450981, g: 0.85098046, b: 0, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 1, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 926406404606264184}
   - component: {fileID: 1626887324388127382}
   - component: {fileID: 3872323478464670627}
-  - component: {fileID: 8094699752833268958}
+  - component: {fileID: 5513020964080107586}
   m_Layer: 5
   m_Name: Archer Text
   m_TagString: Untagged
@@ -463,7 +463,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8094699752833268958
+--- !u!114 &5513020964080107586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2740748239654999636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e45dee18793024bbaa1024545d6416, type: 3}
+  m_Script: {fileID: 11500000, guid: 0daa7b6e03d30234e80ba1bd123bde9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 3872323478464670627}
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 192332905623899280}
   - component: {fileID: 3573502393572134665}
   - component: {fileID: 4394839279379804233}
-  - component: {fileID: 1114098095113398107}
+  - component: {fileID: 6254769133969831543}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -577,7 +577,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1114098095113398107
+--- !u!114 &6254769133969831543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -586,7 +586,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3124203558222508765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37cf57a2e1122e549aaa683492e4efad, type: 3}
+  m_Script: {fileID: 11500000, guid: de770315c56886445937a10944f81cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: b59a80ec86fa9984a8b4458e2d0e86b6, type: 2}

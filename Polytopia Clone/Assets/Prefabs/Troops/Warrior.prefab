@@ -261,7 +261,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3124203558222508765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dbfd4ab8f1d18c438944b0917caacdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 23ab57d8f86ee024caa4783428466ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 2207b5efeca0de445aaa5201760bdd39, type: 2}
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4124491565012953854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e45dee18793024bbaa1024545d6416, type: 3}
+  m_Script: {fileID: 11500000, guid: 0daa7b6e03d30234e80ba1bd123bde9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 8999857070349408913}
@@ -516,13 +516,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4555484129090614704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743eaf19f57a09040bffa1ed9af263d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 186f0d1f1e7ce224a94f27530bacb433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gradient:
     serializedVersion: 2
-    key0: {r: 0.9960785, g: 0, b: 0, a: 1}
-    key1: {r: 0.07450981, g: 0.85098046, b: 0, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 1, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -739,7 +739,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8782029017808587966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f1e7a3289c5c1408eb138a75c23ce3, type: 3}
+  m_Script: {fileID: 11500000, guid: 110512200f48eef49988ade36a9817e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 4, z: 0}

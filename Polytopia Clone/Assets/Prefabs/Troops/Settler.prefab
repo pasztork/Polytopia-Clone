@@ -261,7 +261,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3124203558222508765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdfec65ecb8b0154883e978f32c7bcc0, type: 3}
+  m_Script: {fileID: 11500000, guid: bd4d1172601d1e546b7f70845066ca7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: b7a91fa418d9bb84882b31dc5410c213, type: 2}
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4124491565012953854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e45dee18793024bbaa1024545d6416, type: 3}
+  m_Script: {fileID: 11500000, guid: 0daa7b6e03d30234e80ba1bd123bde9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 8999857070349408913}
@@ -516,22 +516,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4555484129090614704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743eaf19f57a09040bffa1ed9af263d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 186f0d1f1e7ce224a94f27530bacb433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gradient:
     serializedVersion: 2
-    key0: {r: 0.9960785, g: 0, b: 0, a: 1}
-    key1: {r: 0.07450981, g: 0.85098046, b: 0, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 0, b: 0, a: 1}
+    key2: {r: 0, g: 1, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 65535
-    ctime2: 0
+    ctime1: 964
+    ctime2: 65535
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -546,7 +546,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 2
+    m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   slider: {fileID: 3612818543395025171}
   fill: {fileID: 3329010539424324406}
@@ -739,7 +739,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8782029017808587966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f1e7a3289c5c1408eb138a75c23ce3, type: 3}
+  m_Script: {fileID: 11500000, guid: 110512200f48eef49988ade36a9817e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 4, z: 0}

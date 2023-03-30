@@ -67,7 +67,7 @@ namespace View
                 if (tile.BuildingOnTop == null)
                 {
                     View.MapManager.Instance.ModelToViewMap[tile].GetComponent<Renderer>().material.color
-                        = View.MapManager.Instance.ModelToViewMap[tile].startColor;
+                        = View.MapManager.Instance.ModelToViewMap[tile].StartColor;
                 }
             }
         }

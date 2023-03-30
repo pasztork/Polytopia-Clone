@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8981954865403416776}
   - component: {fileID: 732833325518077570}
   - component: {fileID: 1294839371168371563}
-  - component: {fileID: 7040148918736250430}
+  - component: {fileID: 3885433429385789768}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7040148918736250430
+--- !u!114 &3885433429385789768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,10 +112,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1738973414426746663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f1e7a3289c5c1408eb138a75c23ce3, type: 3}
+  m_Script: {fileID: 11500000, guid: 110512200f48eef49988ade36a9817e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 4, z: 0}
 --- !u!1 &3124203558222508765
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3124203558222508765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d9eabcce7cb18d468ac7f297c0add82, type: 3}
+  m_Script: {fileID: 11500000, guid: 6262ff5108eac2741a9b88c85ef68844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: ba0f92338f920804e836f17d05b58bfd, type: 2}
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 6047780902774383192}
   - component: {fileID: 7460404531081883473}
   - component: {fileID: 4670672695893240498}
-  - component: {fileID: 4863902201837745254}
+  - component: {fileID: 8615661100189325348}
   m_Layer: 5
   m_Name: Builder Text
   m_TagString: Untagged
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4863902201837745254
+--- !u!114 &8615661100189325348
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -604,7 +604,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8866229187683362956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e45dee18793024bbaa1024545d6416, type: 3}
+  m_Script: {fileID: 11500000, guid: 0daa7b6e03d30234e80ba1bd123bde9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 4670672695893240498}
@@ -619,7 +619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4797970675408035986}
   - component: {fileID: 3730593583784461737}
-  - component: {fileID: 4480392833914601900}
+  - component: {fileID: 8472060827803357107}
   m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4480392833914601900
+--- !u!114 &8472060827803357107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -709,13 +709,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8915938143569176471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743eaf19f57a09040bffa1ed9af263d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 186f0d1f1e7ce224a94f27530bacb433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gradient:
     serializedVersion: 2
-    key0: {r: 0.9960785, g: 0, b: 0, a: 1}
-    key1: {r: 0.07450981, g: 0.85098046, b: 0, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 1, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}

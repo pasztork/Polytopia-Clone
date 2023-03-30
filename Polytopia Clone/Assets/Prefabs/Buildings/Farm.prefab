@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 8045664100818579048}
   - component: {fileID: 996278019777713656}
   - component: {fileID: 5336888032748915815}
-  - component: {fileID: 3568811158906727637}
+  - component: {fileID: 232111839846692999}
   m_Layer: 0
   m_Name: Farm
   m_TagString: Untagged
@@ -175,7 +175,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3568811158906727637
+--- !u!114 &232111839846692999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,12 +184,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1899269663787993928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f440d9b452292d4d842f069b8d550e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ed873e149800904b82d6e90b25cf132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 575ee8395ed2a3e43beca80f72450ca7, type: 2}
-  productionRate: 10
-  buildingProperties: {fileID: 11400000, guid: a07ddf4824255c44a89f8d3f9be108bd, type: 2}
+  productionRate: 5
+  buildingProperties: {fileID: 11400000, guid: 06bdf8f73ab8ec14bbe9c0c96eadbe8d, type: 2}
 --- !u!1 &4768171254953242592
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 6751254927296035503}
   - component: {fileID: 7212026377460172809}
   - component: {fileID: 6093558317862253502}
-  - component: {fileID: 2022126452723910720}
+  - component: {fileID: 2119129370571433806}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2022126452723910720
+--- !u!114 &2119129370571433806
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,10 +302,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4768171254953242592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f1e7a3289c5c1408eb138a75c23ce3, type: 3}
+  m_Script: {fileID: 11500000, guid: 110512200f48eef49988ade36a9817e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 4, z: 0}
 --- !u!1 &6349779512186943980
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9021465180953046182}
   - component: {fileID: 7486424172027634135}
-  - component: {fileID: 5419624216033930654}
+  - component: {fileID: 3768246684463576256}
   m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5419624216033930654
+--- !u!114 &3768246684463576256
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -406,13 +406,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6349779512186943980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743eaf19f57a09040bffa1ed9af263d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 186f0d1f1e7ce224a94f27530bacb433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gradient:
     serializedVersion: 2
-    key0: {r: 0.9960785, g: 0, b: 0, a: 1}
-    key1: {r: 0.07450981, g: 0.85098046, b: 0, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 1, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 2619201307336224080}
   - component: {fileID: 13419090090287015}
   - component: {fileID: 869426334971696986}
-  - component: {fileID: 7390416517272667720}
+  - component: {fileID: 4288509155048121069}
   m_Layer: 5
   m_Name: Farm Text
   m_TagString: Untagged
@@ -729,7 +729,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7390416517272667720
+--- !u!114 &4288509155048121069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7726634562643803265}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e45dee18793024bbaa1024545d6416, type: 3}
+  m_Script: {fileID: 11500000, guid: 0daa7b6e03d30234e80ba1bd123bde9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 869426334971696986}

@@ -181,7 +181,7 @@ namespace View
         {
             foreach (Tile tile in TilesToHighLight)
             {
-                tile.TileColor = tile.startColor;
+                tile.TileColor = tile.StartColor;
             }
             GetComponent<Renderer>().material.color = startColor;
             TilesToHighLight.Clear();
