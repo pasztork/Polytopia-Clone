@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace View
 {
-    [RequireComponent(typeof(Dropdown))]
+    [RequireComponent(typeof(TMP_Dropdown))]
     public class BuildingDropdownHandler : MonoBehaviour
     {
         [SerializeField] private SerializableDictionary<string, BuildingBase> buildings;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3342,6 +3342,7 @@ GameObject:
   - component: {fileID: 642621489}
   - component: {fileID: 642621488}
   - component: {fileID: 642621487}
+  - component: {fileID: 642621490}
   m_Layer: 5
   m_Name: TrainTypeDropdown
   m_TagString: Untagged
@@ -3470,6 +3471,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642621485}
   m_CullTransparentMesh: 1
+--- !u!114 &642621490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642621485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec4ec161c7b6194eb8e9931653d47ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  troops:
+    m_keys:
+    - Archer
+    - Boat
+    - Builder
+    - Catapult
+    - Scout
+    - Settler
+    - Warrior
+    m_values:
+    - {fileID: 6254769133969831543, guid: 138af4d9e449dea47bd08fe8c53d0b50, type: 3}
+    - {fileID: 4924707543651625197, guid: ca5b4f8b715e3f446b136cd16effb6cc, type: 3}
+    - {fileID: -1699723509975437972, guid: e6528a6ae017c644d80eafdb3a0ab419, type: 3}
+    - {fileID: 8714570745880232656, guid: 0aacdf6adf797434097ee976ea5bef2a, type: 3}
+    - {fileID: -8072061295275181274, guid: 39368c97665d5434ca59db23c2691816, type: 3}
+    - {fileID: 1916921291909066819, guid: a9b2ecc8e91b6204e842e551dcab6c14, type: 3}
+    - {fileID: 1595863090638722408, guid: 9b2f18161e28d3d4aa2edfbf4c26c4de, type: 3}
 --- !u!1 &648025732
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,6 +3950,7 @@ GameObject:
   - component: {fileID: 775090425}
   - component: {fileID: 775090424}
   - component: {fileID: 775090423}
+  - component: {fileID: 775090426}
   m_Layer: 5
   m_Name: BuildingTypeDropdown
   m_TagString: Untagged
@@ -4060,6 +4091,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775090421}
   m_CullTransparentMesh: 1
+--- !u!114 &775090426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775090421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6def6c467321e4082f7c3d92ed0505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildings:
+    m_keys:
+    - Bank
+    - City
+    - Farm
+    - Harbor
+    - Supplier
+    m_values:
+    - {fileID: 8630147465265288044, guid: f79534cdcfa6f954fb2d1e563b75c3d3, type: 3}
+    - {fileID: 4244031341224573648, guid: 63baf07eac0846d4783a8369d8f4f4fd, type: 3}
+    - {fileID: 232111839846692999, guid: 7028d18608f301247815865b28cf234c, type: 3}
+    - {fileID: 5574035305360368585, guid: 4ff824f1bf9ceb447a677ce673f31d79, type: 3}
+    - {fileID: 2988139802108803889, guid: 28075208b8a5552469c0c4055a509753, type: 3}
 --- !u!1 &781778728
 GameObject:
   m_ObjectHideFlags: 0
