@@ -17,10 +17,10 @@ namespace View
 
         private void Start()
         {
-            Model.DependencyContainer.Get<Model.TurnManagerBase>().OnTurnStarted += UpdateContent;
-            Model.DependencyContainer.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
-            Model.DependencyContainer.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
-            Model.DependencyContainer.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
+            Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += UpdateContent;
+            Model.GameManager.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
+            Model.GameManager.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
+            Model.GameManager.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
 
             View.BuildingManager.Instance.OnBuildAttempted += SetSelected;
         }

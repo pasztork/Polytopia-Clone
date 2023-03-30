@@ -6,7 +6,7 @@ namespace Model
     {
         public override void GenerateMap()
         {
-            DependencyContainer.Get<MapGeneratorBase>().GenerateMap();
+            GameManager.Get<MapGeneratorBase>().GenerateMap();
         }
 
         public override void LoadMap()

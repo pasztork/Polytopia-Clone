@@ -6,15 +6,15 @@ namespace Model
     {
         public override IList<TechTreeItemBase> GetTechsOfCurrentPlayer()
         {
-            return DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Techs;
+            return GameManager.Get<TurnManagerBase>().CurrentPlayer.Techs;
         }
 
         public override bool UnlockTech(TechTreeItemBase tech)
         {
-            bool learnt = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.UnlockTech(tech);
+            bool learnt = GameManager.Get<TurnManagerBase>().CurrentPlayer.UnlockTech(tech);
             if (learnt)
             {
-                RaiseOnTechUnlocked(DependencyContainer.Get<TurnManagerBase>().CurrentPlayer);
+                RaiseOnTechUnlocked(GameManager.Get<TurnManagerBase>().CurrentPlayer);
             }
             return learnt;
         }

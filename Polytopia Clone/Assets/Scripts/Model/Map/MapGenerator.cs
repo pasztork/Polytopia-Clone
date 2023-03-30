@@ -11,8 +11,8 @@ namespace Model
 
         public override void GenerateMap()
         {
-            tiles = DependencyContainer.Get<MapManagerBase>().Tiles;
-            size = DependencyContainer.Get<MapManagerBase>().Tiles.GetLength(0);
+            tiles = GameManager.Get<MapManagerBase>().Tiles;
+            size = GameManager.Get<MapManagerBase>().Tiles.GetLength(0);
             noiseMap = PerlinNoise.GenerateNoiseMap(size);
             GenerateWaterTiles();
             FillEmptyTiles();
@@ -25,7 +25,7 @@ namespace Model
             {
                 for (int y = 0; y < size; y++)
                 {
-                    if(noiseMap[x, y] < MGP.WaterTileProbability)
+                    if (noiseMap[x, y] < MGP.WaterTileProbability)
                     {
                         tiles[x, y] = new WaterTile();
                         TriggerTileCreated(tiles[x, y], x, y);
@@ -35,7 +35,7 @@ namespace Model
                         tiles[x, y] = null;
                     }
                 }
-            }      
+            }
         }
 
         private void FillEmptyTiles()
@@ -106,7 +106,7 @@ namespace Model
             }
 
             System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
-            DependencyContainer.Get<MapManagerBase>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
+            GameManager.Get<MapManagerBase>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
         }
 
         private void GenerateGrassLand((int, int) offset)
@@ -129,7 +129,7 @@ namespace Model
                 tiles[forestCoord.Item1, forestCoord.Item2] = new ForestTile();
                 TriggerTileCreated(tiles[forestCoord.Item1, forestCoord.Item2], forestCoord.Item1, forestCoord.Item2);
             }
-                
+
 
             IList<TileBase> startingTileContenders = new List<TileBase>();
             foreach ((int, int) coord in emptyCoords.Select(x => (x.Item1, x.Item2)))
@@ -139,12 +139,12 @@ namespace Model
                     TileBase grass = new GrassTile();
                     tiles[coord.Item1, coord.Item2] = grass;
                     startingTileContenders.Add(grass);
-                    TriggerTileCreated(grass,coord.Item1, coord.Item2);
+                    TriggerTileCreated(grass, coord.Item1, coord.Item2);
                 }
             }
 
             System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
-            DependencyContainer.Get<MapManagerBase>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
+            GameManager.Get<MapManagerBase>().StartingTiles.Add(startingTileContenders[rand.Next(startingTileContenders.Count)]);
         }
 
         private void SetupCoordinateSystem()

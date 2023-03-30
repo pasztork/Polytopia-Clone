@@ -12,7 +12,7 @@ namespace View
 
         public override void OnMouseOver()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(View.TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(View.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -93,7 +93,7 @@ namespace View
             IList<BuildingBase> buildings = new List<BuildingBase>();
             foreach (Model.TileBase tile in tiles)
             {
-                if (tile.BuildingOnTop != null && !Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(tile.BuildingOnTop))
+                if (tile.BuildingOnTop != null && !Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Buildings.Contains(tile.BuildingOnTop))
                 {
                     buildings.Add(View.BuildingManager.Instance.ModelToViewMap[tile.BuildingOnTop]);
                 }

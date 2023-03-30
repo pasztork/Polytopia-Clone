@@ -7,12 +7,12 @@ namespace Model
         
         public override bool Build(TroopBase troop, BuildingBase building)
         {
-            bool built = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer.Build(troop, building);
+            bool built = GameManager.Get<TurnManagerBase>().CurrentPlayer.Build(troop, building);
 
             if (built)
             {
-                building.Player = DependencyContainer.Get<TurnManagerBase>().CurrentPlayer;
-                RaiseOnBuildingBuilt(DependencyContainer.Get<TurnManagerBase>().CurrentPlayer);
+                building.Player = GameManager.Get<TurnManagerBase>().CurrentPlayer;
+                RaiseOnBuildingBuilt(GameManager.Get<TurnManagerBase>().CurrentPlayer);
             }
 
             return built;

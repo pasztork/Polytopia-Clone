@@ -21,7 +21,7 @@ namespace View
 
         public override void OnMouseOver()
         {
-            if (!Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(View.TroopManager.Instance.ViewToModelMap[this]))
+            if (!Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Troops.Contains(View.TroopManager.Instance.ViewToModelMap[this]))
             {
                 return;
             }
@@ -48,7 +48,7 @@ namespace View
 
             View.TroopManager.Instance.SelectedTroop = this;
 
-            TilesToBuild = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.AvailableTiles;
+            TilesToBuild = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.AvailableTiles;
             var playerColor = View.TurnManager.Instance.PlayerColors[View.TroopManager.Instance.ViewToModelMap[this].Player.Name];
             foreach (var tile in TilesToBuild)
             {

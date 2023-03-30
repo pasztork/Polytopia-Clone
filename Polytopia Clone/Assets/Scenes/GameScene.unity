@@ -5670,83 +5670,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
---- !u!1001 &1042801127
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4361153787314045572, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_Name
-      value: BobPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: name
-      value: Bob
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: playerColor.a
-      value: 0.5019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: playerColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: playerColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
-      propertyPath: playerColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
 --- !u!1001 &1063835107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11671,6 +11594,83 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 259c9810aba18144daade4506bccda26, type: 2}
+--- !u!1001 &2060255567
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4361153787314045572, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_Name
+      value: BobPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: name
+      value: Bob
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
 --- !u!1 &2071209609
 GameObject:
   m_ObjectHideFlags: 0
