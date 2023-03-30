@@ -5597,6 +5597,10 @@ PrefabInstance:
       value: Alice
       objectReference: {fileID: 0}
     - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: playerColor.b
       value: 0
       objectReference: {fileID: 0}
@@ -5670,12 +5674,16 @@ PrefabInstance:
       value: Bob
       objectReference: {fileID: 0}
     - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: playerColor.b
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: playerColor.g
-      value: 0.075142145
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: playerColor.r
