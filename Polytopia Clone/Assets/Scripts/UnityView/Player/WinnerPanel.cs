@@ -9,7 +9,7 @@ namespace View
 
         private void Start()
         {
-            Model.DependencyContainer.Get<Model.TurnManagerBase>().OnWinnerDecided += ShowWinner;
+            Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += ShowWinner;
             gameObject.SetActive(false);
         }
 

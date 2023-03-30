@@ -57,7 +57,7 @@ namespace View
             Model.TroopBase troop = View.TroopManager.Instance.ViewToModelMap[View.TroopManager.Instance.SelectedTroop];
             View.Tile tile = View.MapManager.Instance.ModelToViewMap[troop.Tile];
             View.BuildingBase viewBuilding = Instantiate(Blueprint, tile.transform.position + new Vector3(0f, tile.Offset.y, 0f), Quaternion.identity);
-            Model.BuildingBase building = viewBuilding.ToModel(Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer);
+            Model.BuildingBase building = viewBuilding.ToModel(Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer);
             bool built = Controller.GameManager.Get<Controller.BuildingManagerBase>().Build(troop, building);
 
             if (!built)
@@ -67,7 +67,7 @@ namespace View
                 return;
             }
 
-            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
+            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;

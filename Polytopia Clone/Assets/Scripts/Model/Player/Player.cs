@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using View;
 
 namespace Model
 {
@@ -34,8 +33,8 @@ namespace Model
         public Player(string name)
         {
             Name = name;
-            DependencyContainer.Get<TurnManagerBase>().PlayerCreated(this);
-            DependencyContainer.Get<GameManagerBase>().Players.Add(this);
+            GameManager.Get<TurnManagerBase>().PlayerCreated(this);
+            GameManager.Players.Add(this);
         }
 
         public void StartTurn()
@@ -98,7 +97,7 @@ namespace Model
 
             TileBase from = troop.Tile;
             bool moved = troop.Move(target);
-            if(moved)
+            if (moved)
                 TroopMoved?.Invoke(troop, from, target);
 
             return moved;
@@ -137,7 +136,7 @@ namespace Model
             city.Producers.Add(new MoneyProducer(ResourceContainer, StartingProduction["Money"]));
             city.Producers.Add(new MaterialProducer(ResourceContainer, StartingProduction["Material"]));
             city.Producers.Add(new FoodProducer(ResourceContainer, StartingProduction["Food"]));
-            TileBase tile = DependencyContainer.Get<MapManagerBase>().GetStartingTile();
+            TileBase tile = GameManager.Get<MapManagerBase>().GetStartingTile();
             city.Tile = tile;
             city.Player = this;
             tile.SetBuildingOnTop(city);

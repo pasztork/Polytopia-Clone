@@ -19,14 +19,14 @@ namespace Controller
 
         public static void Start()
         {
-            Model.DependencyContainer.Get<Model.GameManagerBase>().Start();
+            Model.GameManager.Start();
         }
 
         private static void SetupMap(MapProperties mapProperites)
         {
-            Model.DependencyContainer.Get<Model.MapManagerBase>().Size = mapProperites.Size;
-            Model.DependencyContainer.Get<Model.MapGeneratorBase>().MGP = mapProperites.GenerationProperties;
-            Model.DependencyContainer.Get<Model.MapManagerBase>().GenerateMap();
+            Model.GameManager.Get<Model.MapManagerBase>().Size = mapProperites.Size;
+            Model.GameManager.Get<Model.MapGeneratorBase>().MGP = mapProperites.GenerationProperties;
+            Model.GameManager.Get<Model.MapManagerBase>().GenerateMap();
         }
 
         public static T Get<T>()

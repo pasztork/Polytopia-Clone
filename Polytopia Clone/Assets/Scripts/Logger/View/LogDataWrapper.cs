@@ -1,5 +1,4 @@
-﻿using Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace View
@@ -22,7 +21,7 @@ namespace View
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                 {
                     instance = new LogDataWrapper();
                     LogDataWrapper.Instance.SubscribeToMapEvents();
@@ -33,13 +32,13 @@ namespace View
 
         private void SubscribeToMapEvents()
         {
-            DependencyContainer.Get<Model.MapGeneratorBase>().TileGenerated += TriggerTileCreated;
+            Model.GameManager.Get<Model.MapGeneratorBase>().TileGenerated += TriggerTileCreated;
         }
 
         public void SubscribeToPlayerEvents()
         {
-            DependencyContainer.Get<TurnManagerBase>().OnWinnerDecided += TriggerGameEnded;
-            foreach(Model.Player player in Model.DependencyContainer.Get<Model.GameManagerBase>().Players)
+            //Model.TurnManager.OnWinnerDecided += TriggerGameEnded;
+            foreach (Model.Player player in Model.GameManager.Players)
             {
                 player.BuildCreated += TriggerBuild;
                 player.TroopDeath += TriggerTroopDeath;
@@ -60,7 +59,7 @@ namespace View
             JsonDataHolder datas = new JsonDataHolder()
             {
                 Action = LogActions.TileCreation.ToString(),
-                Tiles = new System.Collections.Generic.List<TileIdentity>{ newTileId }
+                Tiles = new System.Collections.Generic.List<TileIdentity> { newTileId }
             };
             NewDataCreated?.Invoke(datas);
         }
@@ -77,7 +76,7 @@ namespace View
 
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer == null ? building.Player.Name : Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer == null ? building.Player.Name : Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Build.ToString(),
                 Buildings = new List<Identity> { build },
                 //Tiles = new System.Collections.Generic.List<Identity> 
@@ -93,7 +92,7 @@ namespace View
         {
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Destroy.ToString(),
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{
@@ -116,7 +115,7 @@ namespace View
         {
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Destroy.ToString(),
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{
@@ -147,7 +146,7 @@ namespace View
 
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Train.ToString(),
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{
@@ -169,14 +168,14 @@ namespace View
 
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Move.ToString(),
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{
                 //     new Identity(){ Name = troop.Tile.ToString(),
                 //                     Id = LogManager.Instance.IncrementTileId()}
                 //},
-                Troops = new List<Identity>{ troopData }
+                Troops = new List<Identity> { troopData }
             };
 
             NewDataCreated?.Invoke(datas);
@@ -186,16 +185,16 @@ namespace View
         {
             List<Identity> troopData = new List<Identity>() { new Identity() { Id = TroopToIdDic[attacker], Name = attacker.ToString() } };
 
-            if(targetTroop != null)
+            if (targetTroop != null)
                 troopData.Add(new Identity() { Id = TroopToIdDic[targetTroop], Name = targetTroop.ToString() });
 
             List<Identity> buildData = new List<Identity>();
-            if(targetBuilding != null)
-                buildData.Add(new Identity() {  Name = targetBuilding.ToString(), Id = BuildingToIdDic[targetBuilding] });
+            if (targetBuilding != null)
+                buildData.Add(new Identity() { Name = targetBuilding.ToString(), Id = BuildingToIdDic[targetBuilding] });
 
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Attack.ToString(),
                 //Tiles = new System.Collections.Generic.List<Identity>
                 //{
@@ -212,7 +211,7 @@ namespace View
         {
             JsonDataHolder datas = new JsonDataHolder()
             {
-                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Endturn.ToString(),
             };
             NewDataCreated?.Invoke(datas);
@@ -220,12 +219,12 @@ namespace View
 
         public void TriggerGameEnded(Model.Player player)
         {
-            JsonDataHolder datas = new JsonDataHolder()
-            {
-                Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.GameEnd.ToString(),
-            };
-            LastNewDataCreated?.Invoke(datas);
+            //JsonDataHolder datas = new JsonDataHolder()
+            //{
+            //    Player = Model.DependencyContainer.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+            //    Action = LogActions.GameEnd.ToString(),
+            //};
+            //LastNewDataCreated?.Invoke(datas);
         }
     }
 }

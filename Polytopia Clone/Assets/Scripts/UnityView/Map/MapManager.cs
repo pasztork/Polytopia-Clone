@@ -48,7 +48,7 @@ namespace View
 
         private void Start()
         {
-            tiles = Model.DependencyContainer.Get<Model.MapManagerBase>().Tiles;
+            tiles = Model.GameManager.Get<Model.MapManagerBase>().Tiles;
             View.MapBuilder.Instance.OnMapBuilt += MapViewToModel;
             View.MapBuilder.Instance.BuildMapGFX(tiles);
 

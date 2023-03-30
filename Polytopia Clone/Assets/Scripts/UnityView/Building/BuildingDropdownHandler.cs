@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace View
 {
-    [RequireComponent(typeof(Dropdown))]
+    [RequireComponent(typeof(TMP_Dropdown))]
     public class BuildingDropdownHandler : MonoBehaviour
     {
         [SerializeField] private SerializableDictionary<string, BuildingBase> buildings;
@@ -18,10 +17,10 @@ namespace View
 
         private void Start()
         {
-            Model.DependencyContainer.Get<Model.TurnManagerBase>().OnTurnStarted += UpdateContent;
-            Model.DependencyContainer.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
-            Model.DependencyContainer.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
-            Model.DependencyContainer.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
+            Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += UpdateContent;
+            Model.GameManager.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
+            Model.GameManager.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
+            Model.GameManager.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
 
             View.BuildingManager.Instance.OnBuildAttempted += SetSelected;
         }

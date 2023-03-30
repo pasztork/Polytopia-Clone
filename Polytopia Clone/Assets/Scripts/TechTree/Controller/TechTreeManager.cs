@@ -34,7 +34,7 @@ namespace Controller
 
         public void OnTechTreeButtonClick()
         {
-            var modelTechs = Model.DependencyContainer.Get<Model.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
+            var modelTechs = Model.GameManager.Get<Model.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
             if (modelTechs == null)
                 return;
 
@@ -81,13 +81,13 @@ namespace Controller
             if (SelectedTechTreeItem == null)
                 return;
 
-            bool learnt = Model.DependencyContainer.Get<Model.TechTreeManagerBase>().UnlockTech(SelectedTechTreeItem.ToModel());
+            bool learnt = Model.GameManager.Get<Model.TechTreeManagerBase>().UnlockTech(SelectedTechTreeItem.ToModel());
             if (!learnt)
                 return;
 
             SelectedTechTreeItem.ItemUnlocked();
             SelectedTechTreeItem = null;
-            var modelTechs = Model.DependencyContainer.Get<Model.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
+            var modelTechs = Model.GameManager.Get<Model.TechTreeManagerBase>().GetTechsOfCurrentPlayer();
             UpdateTechElements(modelTechs);
         }
 
@@ -108,7 +108,7 @@ namespace Controller
             {
                 modelItems.Add(item.ToModel());
             }
-            return Model.DependencyContainer.Get<Model.TechTreeManagerBase>().ConnectTree(modelItems);
+            return Model.GameManager.Get<Model.TechTreeManagerBase>().ConnectTree(modelItems);
         }
     }
 }
