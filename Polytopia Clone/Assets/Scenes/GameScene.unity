@@ -5668,6 +5668,46 @@ PrefabInstance:
       propertyPath: playerColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[0]
+      value: Builder
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[1]
+      value: Scout
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[2]
+      value: Settler
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[3]
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[4]
+      value: Settler
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[5]
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[0]
+      value: City
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[1]
+      value: Supplier
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
 --- !u!1001 &1063835107
@@ -11668,6 +11708,54 @@ PrefabInstance:
     - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
       propertyPath: playerColor.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[0]
+      value: Builder
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[1]
+      value: Scout
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[2]
+      value: Settler
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[3]
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[4]
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[5]
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[0]
+      value: City
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[1]
+      value: Supplier
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[2]
+      value: Harbor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[3]
+      value: Supplier
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}

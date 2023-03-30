@@ -6,7 +6,13 @@ namespace Model
     {
         public override IList<TechTreeItemBase> GetTechsOfCurrentPlayer()
         {
-            return GameManager.Get<TurnManagerBase>().CurrentPlayer.Techs;
+            var playerTechs = GameManager.Get<TurnManagerBase>().CurrentPlayer.Techs;
+            IList<TechTreeItemBase> techValues = new List<TechTreeItemBase>();
+            foreach (var tech in playerTechs.Values) 
+            {
+                techValues.Add(tech);
+            }
+            return techValues;
         }
 
         public override bool UnlockTech(TechTreeItemBase tech)
@@ -19,27 +25,27 @@ namespace Model
             return learnt;
         }
 
-        public override IList<TechTreeItemBase> ConnectTree(IList<TechTreeItemBase> items)
+        public override Dictionary<string, TechTreeItemBase> ConnectTree(Dictionary<string, TechTreeItemBase> items)
         {
-            items[2].Requirements.Add(items[9]);
-            items[2].Requirements.Add(items[10]);
-            items[5].Requirements.Add(items[4]);
-            items[6].Requirements.Add(items[1]);
-            items[7].Requirements.Add(items[3]);
-            items[7].Requirements.Add(items[5]);
-            items[7].Requirements.Add(items[11]);
-            items[8].Requirements.Add(items[3]);
-            items[9].Requirements.Add(items[1]);
-            items[10].Requirements.Add(items[3]);
-            items[10].Requirements.Add(items[13]);
-            items[11].Requirements.Add(items[4]);
-            items[12].Requirements.Add(items[14]);
-            items[13].Requirements.Add(items[0]);
-            items[14].Requirements.Add(items[4]);
-            items[14].Requirements.Add(items[6]);
-            items[15].Requirements.Add(items[10]);
-            items[16].Requirements.Add(items[9]);
-            items[17].Requirements.Add(items[10]);
+            items["Catapult"].Requirements.Add(items["Mathematics"]);
+            items["Catapult"].Requirements.Add(items["Militarism"]);
+            items["GemMining"].Requirements.Add(items["Forestry"]);
+            items["Harbor"].Requirements.Add(items["Banking"]);
+            items["IndustrialRevolution"].Requirements.Add(items["Farming"]);
+            items["IndustrialRevolution"].Requirements.Add(items["GemMining"]);
+            items["IndustrialRevolution"].Requirements.Add(items["Mining"]);
+            items["Irrigation"].Requirements.Add(items["Farming"]);
+            items["Mathematics"].Requirements.Add(items["Banking"]);
+            items["Militarism"].Requirements.Add(items["Farming"]);
+            items["Militarism"].Requirements.Add(items["Riding"]);
+            items["Mining"].Requirements.Add(items["Forestry"]);
+            items["Navigation"].Requirements.Add(items["Sailing"]);
+            items["Riding"].Requirements.Add(items["Archery"]);
+            items["Sailing"].Requirements.Add(items["Forestry"]);
+            items["Sailing"].Requirements.Add(items["Harbor"]);
+            items["Sanitation"].Requirements.Add(items["Militarism"]);
+            items["StockMarket"].Requirements.Add(items["Mathematics"]);
+            items["Strategy"].Requirements.Add(items["Militarism"]);
             return items;
         }
     }

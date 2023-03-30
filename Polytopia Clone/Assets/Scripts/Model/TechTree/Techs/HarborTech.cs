@@ -2,11 +2,14 @@
 {
     public class HarborTech : TechTreeItemBase
     {
-        public HarborTech(string name, Cost cost, string description) : base(name, cost, description) { }
-
-        public override void ActivateEffect(Player player)
+        public HarborTech(string name, Cost cost, string description) : base(name, cost, description)
         {
-            //Unlocks Harbor building
+            HashCode = "Harbor";
+        }
+
+    public override void ActivateEffect(Player player)
+        {
+            player.AvailableBuildings.Add("Harbor");
         }
     }
 }

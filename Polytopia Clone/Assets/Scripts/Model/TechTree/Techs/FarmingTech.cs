@@ -2,11 +2,14 @@
 {
     public class FarmingTech : TechTreeItemBase
     {
-        public FarmingTech(string name, Cost cost, string description) : base(name, cost, description) { }
+        public FarmingTech(string name, Cost cost, string description) : base(name, cost, description)
+        {
+            HashCode = "Farming";
+        }
 
         public override void ActivateEffect(Player player)
         {
-            //Unlocks Farm building
+            player.AvailableBuildings.Add("Farm");
         }
     }
 }

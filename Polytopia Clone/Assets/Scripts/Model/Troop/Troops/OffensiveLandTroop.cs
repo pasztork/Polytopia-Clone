@@ -33,5 +33,12 @@ namespace Model
             building.TakeDamage(TroopProperty.Damage);
             return true;
         }
+        public override void ApplyPropertyBonus(Player player)
+        {
+            if (player.Techs["Riding"].TechTreeItemProperty.IsUnlocked)
+            {
+                TroopProperty.MovementRange += Player.TroopBonus.OffensiveLandMoveBonus;
+            }
+        }
     }
 }

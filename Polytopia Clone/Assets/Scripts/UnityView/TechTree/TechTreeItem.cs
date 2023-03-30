@@ -7,7 +7,7 @@ namespace View
     public abstract class TechTreeItem : MonoBehaviour
     {
         [SerializeField] protected View.Cost cost;
-        public View.Cost Cost { get => cost; set => cost = value; }
+        public Cost Cost { get => cost; set => cost = value; }
         public string Name { get => GetComponentInChildren<TextMeshProUGUI>().text; }
         public string Description { get; protected set; }
         public bool IsUnlocked { get; set; }

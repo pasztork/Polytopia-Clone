@@ -2,11 +2,14 @@
 {
     public class SailingTech : TechTreeItemBase
     {
-        public SailingTech(string name, Cost cost, string description) : base(name, cost, description) { }
+        public SailingTech(string name, Cost cost, string description) : base(name, cost, description)
+        {
+            HashCode = "Sailing";
+        }
 
         public override void ActivateEffect(Player player)
         {
-            //Unlocks Boat troop
+            player.AvailableTroops.Add("Boat");
         }
     }
 }

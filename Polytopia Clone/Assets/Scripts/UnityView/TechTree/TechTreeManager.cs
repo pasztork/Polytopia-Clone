@@ -108,12 +108,13 @@ namespace View
 
         // ez a modell feladata
         // kiad egy esemenyt, hogy felepitette
-        public IList<Model.TechTreeItemBase> GetNewTechTree()
+        public Dictionary<string, Model.TechTreeItemBase> GetNewTechTree()
         {
-            IList<Model.TechTreeItemBase> modelItems = new List<Model.TechTreeItemBase>();
-            foreach (var item in TechTreeItems)
+            Dictionary<string, Model.TechTreeItemBase> modelItems = new Dictionary<string, Model.TechTreeItemBase>();
+            foreach (var viewItem in TechTreeItems)
             {
-                modelItems.Add(item.ToModel());
+                var modelItem = viewItem.ToModel();
+                modelItems[modelItem.HashCode] = modelItem;
             }
             return Model.GameManager.Get<Model.TechTreeManagerBase>().ConnectTree(modelItems);
         }

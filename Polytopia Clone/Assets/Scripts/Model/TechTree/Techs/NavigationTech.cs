@@ -2,11 +2,18 @@
 {
     public class NavigationTech : TechTreeItemBase
     {
-        public NavigationTech(string name, Cost cost, string description) : base(name, cost, description) { }
+        public NavigationTech(string name, Cost cost, string description) : base(name, cost, description)
+        {
+            HashCode = "Navigation";
+        }
 
         public override void ActivateEffect(Player player)
         {
-            //+1 movement range to water troops
+            player.TroopBonus.WaterMoveBonus += 1;
+            foreach(TroopBase troop in player.Troops)
+            {
+                troop.ApplyPropertyBonus(player);
+            }
         }
     }
 }

@@ -35,6 +35,11 @@ namespace Model
             return accepted;
         }
 
+        public virtual void ApplyPropertyBonus(Player player)
+        {
+            return;
+        }
+
         // These are used to remove typechecking.
         public abstract bool Relocate(TraversableTile target);
 

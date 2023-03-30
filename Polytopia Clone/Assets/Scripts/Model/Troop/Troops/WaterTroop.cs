@@ -29,5 +29,13 @@
             Tile = tile;
             return true;
         }
+
+        public override void ApplyPropertyBonus(Player player)
+        {
+            if (player.Techs["Navigation"].TechTreeItemProperty.IsUnlocked)
+            {
+                TroopProperty.MovementRange += player.TroopBonus.WaterMoveBonus;
+            }
+        }
     }
 }

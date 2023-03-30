@@ -11,7 +11,7 @@ namespace Model
 
         public abstract bool UnlockTech(TechTreeItemBase tech);
 
-        public abstract IList<TechTreeItemBase> ConnectTree(IList<TechTreeItemBase> items);
+        public abstract Dictionary<string, TechTreeItemBase> ConnectTree(Dictionary<string, TechTreeItemBase> items);
 
         protected void RaiseOnTechUnlocked(Player player)
         {

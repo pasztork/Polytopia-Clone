@@ -2,11 +2,14 @@
 {
     public class CatapultTech : TechTreeItemBase
     {
-        public CatapultTech(string name, Cost cost, string description) : base(name, cost, description) { }
+        public CatapultTech(string name, Cost cost, string description) : base(name, cost, description)
+        {
+            HashCode = "Catapult";
+        }
 
         public override void ActivateEffect(Player player)
         {
-            //unlocks Catapult troop
+            player.AvailableTroops.Add("Cataput");
         }
     }
 }
