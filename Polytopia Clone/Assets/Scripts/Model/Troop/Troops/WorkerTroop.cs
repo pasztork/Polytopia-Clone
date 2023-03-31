@@ -12,6 +12,11 @@
             return MoveTo(target);
         }
 
+        public override bool Relocate(RockTile target)
+        {
+            return MoveTo(target);
+        }
+
         protected bool MoveTo(TileBase tile)
         {
             Tile.TroopOnTop = null;

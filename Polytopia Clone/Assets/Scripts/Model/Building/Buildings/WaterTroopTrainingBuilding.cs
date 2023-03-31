@@ -7,6 +7,8 @@
         public WaterTroopTrainingBuilding()
         {
             Requirements = new WaterTrainingRequirementsList();
+            GameManager.Get<TurnManagerBase>().OnTurnStarted +=
+                (player) => troopTrained = false;
         }
 
         public override bool TrainTroop(TroopBase troop)

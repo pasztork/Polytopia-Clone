@@ -9,6 +9,7 @@
 
         public override bool Relocate(WaterTile target)
         {
+            Tile.TroopOnTop = null;
             movedInTurn = true;
             Tile = target;
             return true;

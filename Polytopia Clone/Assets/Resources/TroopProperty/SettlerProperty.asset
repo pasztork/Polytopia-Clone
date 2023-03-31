@@ -16,3 +16,4 @@ MonoBehaviour:
   damage: 0
   movementRange: 3
   attackRange: 0
+  dodgeRate: 0.2
