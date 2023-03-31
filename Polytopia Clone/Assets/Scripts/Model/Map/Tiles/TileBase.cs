@@ -8,7 +8,7 @@ namespace Model
         public BuildingBase BuildingOnTop { get; set; }
         public TroopBase TroopOnTop { get; set; }
 
-        public abstract bool SetBuildingOnTop(BuildingBase buildingOnTop);
+        public abstract bool SetBuildingOnTop(BuildingBase buildingOnTop, Player player);
         public abstract bool TrainTroop(TroopBase troop);
         public abstract bool AcceptTroop(TroopBase troop);
     }

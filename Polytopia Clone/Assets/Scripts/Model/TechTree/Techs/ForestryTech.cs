@@ -6,10 +6,5 @@
         {
             HashCode = "Forestry";
         }
-
-        public override void ActivateEffect(Player player)
-        {
-            //Can build Supplier on forest
-        }
     }
 }

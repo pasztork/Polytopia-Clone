@@ -18,5 +18,25 @@
             troopTrained = tileAccepted;
             return tileAccepted;
         }
+
+        public override bool CheckTechRequirement(GrassTile tile, Player player)
+        {
+            return false;
+        }
+
+        public override bool CheckTechRequirement(ForestTile tile, Player player)
+        {
+            return false;
+        }
+
+        public override bool CheckTechRequirement(SandTile tile, Player player)
+        {
+            return false;
+        }
+
+        public override bool CheckTechRequirement(WaterTile tile, Player player)
+        {
+            return true;
+        }
     }
 }

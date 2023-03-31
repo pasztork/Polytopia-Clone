@@ -58,6 +58,31 @@ namespace Model
             return;
         }
 
+        public virtual bool CheckTechRequirement(GrassTile tile, Player player)
+        {
+            return true;
+        }
+
+        public virtual bool CheckTechRequirement(RockTile tile, Player player)
+        {
+            return false;
+        }
+
+        public virtual bool CheckTechRequirement(ForestTile tile, Player player)
+        {
+            return true;
+        }
+
+        public virtual bool CheckTechRequirement(SandTile tile, Player player)
+        {
+            return true;
+        }
+
+        public virtual bool CheckTechRequirement(WaterTile tile, Player player)
+        {
+            return false;
+        }
+
         public bool TakeDamage(int damage)
         {
             BuildingProperty.Health -= damage;

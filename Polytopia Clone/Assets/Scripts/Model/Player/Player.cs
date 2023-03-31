@@ -59,7 +59,7 @@ namespace Model
                 return false;
             }
 
-            bool built = troop.Tile.SetBuildingOnTop(building);
+            bool built = troop.Tile.SetBuildingOnTop(building, this);
             if (!built)
             {
                 building.StopProduction();
@@ -141,7 +141,7 @@ namespace Model
             TileBase tile = GameManager.Get<MapManagerBase>().GetStartingTile();
             city.Tile = tile;
             city.Player = this;
-            tile.SetBuildingOnTop(city);
+            tile.SetBuildingOnTop(city, this);
             AvailableTiles.Add(tile);
             AddBuilding(city);
             BuildCreated?.Invoke(city);

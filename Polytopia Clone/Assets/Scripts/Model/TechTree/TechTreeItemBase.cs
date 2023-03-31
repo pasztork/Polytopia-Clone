@@ -27,6 +27,9 @@ namespace Model
                 return true;
             }
         }
-        public abstract void ActivateEffect(Player player);
+        public virtual void ActivateEffect(Player player)
+        {
+            return;
+        }
     }
 }

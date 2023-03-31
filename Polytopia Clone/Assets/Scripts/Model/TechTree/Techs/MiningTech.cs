@@ -6,10 +6,5 @@
         {
             HashCode = "Mining";
         }
-
-        public override void ActivateEffect(Player player)
-        {
-            //Can build supplier on rockTile
-        }
     }
 }
