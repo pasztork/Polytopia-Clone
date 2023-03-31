@@ -18,7 +18,7 @@ namespace Model
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
         public Dictionary<string, TechTreeItemBase> Techs { get; set; }
-        public BonusProperty TroopBonus { get; set; } = new BonusProperty();
+        public BonusProperty BonusProperty { get; set; } = new BonusProperty();
 
         public Dictionary<string, int> StartingProduction { private get; set; }
         public int StartingCityRange { private get; set; }
@@ -69,7 +69,8 @@ namespace Model
             building.Tile = troop.Tile;
             ResourceContainer -= building.Cost;
             AddBuilding(building);
-            troop.TakeDamage(troop.TroopProperty.Health);
+            building.ApplyAllPropertyBonus(this);
+            troop.Kill();
             TroopDeath?.Invoke(troop);
             BuildCreated?.Invoke(building);
             return true;

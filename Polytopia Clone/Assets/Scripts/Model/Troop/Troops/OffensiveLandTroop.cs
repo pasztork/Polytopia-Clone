@@ -37,14 +37,14 @@ namespace Model
 
         public override void OffensiveLandMovementRangeBonus(Player player)
         {
-            TroopProperty.MovementRange += player.TroopBonus.OffensiveLandMoveBonus;
+            TroopProperty.MovementRange += player.BonusProperty.OffensiveLandMoveBonus;
         }
 
         public override void ApplyAllPropertyBonus(Player player)
         {
             base.ApplyAllPropertyBonus(player);
-            TroopProperty.MovementRange += player.TroopBonus.OffensiveLandMoveBonus;
-            TroopProperty.Damage += player.TroopBonus.OffensiveDamageBonus;
+            TroopProperty.MovementRange += player.BonusProperty.OffensiveLandMoveBonus;
+            TroopProperty.Damage += player.BonusProperty.OffensiveDamageBonus;
         }
     }
 }

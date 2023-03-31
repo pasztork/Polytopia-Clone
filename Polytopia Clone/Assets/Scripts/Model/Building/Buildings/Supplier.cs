@@ -2,6 +2,13 @@
 {
     public class Supplier : NonTrainingBuilding
     {
+        public override void IncreaseMaterialProduction(int amount)
+        {
+            foreach(ProducerBase producer in Producers)
+            {
+                producer.IncreaseProduction(amount);
+            }
+        }
 
         public override bool CheckTechRequirement(RockTile tile, Player player)
         {

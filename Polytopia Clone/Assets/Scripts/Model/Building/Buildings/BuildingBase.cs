@@ -83,6 +83,28 @@ namespace Model
             return false;
         }
 
+        public virtual void IncreaseMoneyProduction(int amount)
+        {
+            return;
+        }
+
+        public virtual void IncreaseMaterialProduction(int amount)
+        {
+            return;
+        }
+
+        public virtual void IncreaseFoodProduction(int amount)
+        {
+            return;
+        }
+
+        public void ApplyAllPropertyBonus(Player player)
+        {
+            IncreaseMoneyProduction(player.BonusProperty.BankProductionBonus);
+            IncreaseMaterialProduction(player.BonusProperty.SupplierProductionBonus);
+            IncreaseFoodProduction(player.BonusProperty.FarmProductionBonus);
+        }
+
         public bool TakeDamage(int damage)
         {
             BuildingProperty.Health -= damage;

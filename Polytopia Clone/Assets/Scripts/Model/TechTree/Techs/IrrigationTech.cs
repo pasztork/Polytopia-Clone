@@ -2,6 +2,7 @@
 {
     public class IrrigationTech : TechTreeItemBase
     {
+        private int foodProductionBoost = 10;
         public IrrigationTech(string name, Cost cost, string description) : base(name, cost, description)
         {
             HashCode = "Irrigation";
@@ -9,7 +10,11 @@
 
         public override void ActivateEffect(Player player)
         {
-            //increases Farm production rate
+            player.BonusProperty.FarmProductionBonus += foodProductionBoost;
+            foreach (BuildingBase building in player.Buildings)
+            {
+                building.IncreaseFoodProduction(foodProductionBoost);
+            }
         }
     }
 }

@@ -33,13 +33,13 @@
 
         public override void WaterMovementRangeBonus(Player player)
         {
-            TroopProperty.MovementRange += player.TroopBonus.WaterMoveBonus;
+            TroopProperty.MovementRange += player.BonusProperty.WaterMoveBonus;
         }
 
         public override void ApplyAllPropertyBonus(Player player)
         {
             base.ApplyAllPropertyBonus(player);
-            TroopProperty.MovementRange += player.TroopBonus.WaterMoveBonus;
+            TroopProperty.MovementRange += player.BonusProperty.WaterMoveBonus;
         }
     }
 }

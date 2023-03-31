@@ -6,9 +6,9 @@
         {
             Model.BuildingBase harbor = new Model.Harbor();
             harbor.OnDamageTaken += TakeDamage;
-            harbor.BuildingProperty = new Model.BuildingProperty(buildingProperties.Health);
-            harbor.Producers.Add(new Model.MoneyProducer(player.ResourceContainer, productionRate));
-            harbor.Producers.Add(new Model.FoodProducer(player.ResourceContainer, productionRate));
+            harbor.BuildingProperty = new Model.BuildingProperty(BuildingProperties.Health, BuildingProperties.ProductionRate);
+            harbor.Producers.Add(new Model.MoneyProducer(player.ResourceContainer, BuildingProperties.ProductionRate));
+            harbor.Producers.Add(new Model.FoodProducer(player.ResourceContainer, BuildingProperties.ProductionRate));
             harbor.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return harbor;
         }
