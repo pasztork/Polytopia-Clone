@@ -5,7 +5,7 @@
         public override void ApplyAllPropertyBonus(Player player)
         {
             base.ApplyAllPropertyBonus(player);
-            TroopProperty.Damage += player.TroopBonus.OffensiveDamageBonus;
+            TroopProperty.Damage += player.BonusProperty.OffensiveDamageBonus;
         }
     }
 }

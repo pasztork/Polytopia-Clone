@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: FarmProperty
   m_EditorClassIdentifier: 
   health: 50
+  productionRate: 10

@@ -10,7 +10,7 @@
 
         public override void ActivateEffect(Player player)
         {
-            player.TroopBonus.OffensiveLandMoveBonus += offensiveLandMoveBonus;
+            player.BonusProperty.OffensiveLandMoveBonus += offensiveLandMoveBonus;
             foreach(TroopBase troop in player.Troops)
             {
                 troop.OffensiveLandMovementRangeBonus(player);

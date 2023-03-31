@@ -10,7 +10,7 @@
 
         public override void ActivateEffect(Player player)
         {
-            player.TroopBonus.WaterMoveBonus += offensiveWaterMoveBonus;
+            player.BonusProperty.WaterMoveBonus += offensiveWaterMoveBonus;
             foreach(TroopBase troop in player.Troops)
             {
                 troop.WaterMovementRangeBonus(player);

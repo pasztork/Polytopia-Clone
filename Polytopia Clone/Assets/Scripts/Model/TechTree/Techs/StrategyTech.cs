@@ -10,7 +10,7 @@
 
         public override void ActivateEffect(Player player)
         {
-            player.TroopBonus.DodgeBonus = dodgeBonus;
+            player.BonusProperty.DodgeBonus = dodgeBonus;
             foreach(TroopBase troop in player.Troops)
             {
                 troop.TroopProperty.DodgeRate += dodgeBonus;

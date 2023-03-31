@@ -73,7 +73,7 @@ namespace Model
 
         public virtual void ApplyAllPropertyBonus(Player player)
         {
-            TroopProperty.DodgeRate += player.TroopBonus.DodgeBonus;
+            TroopProperty.DodgeRate += player.BonusProperty.DodgeBonus;
         }
 
         // Tells whether or not troop died.
@@ -88,6 +88,16 @@ namespace Model
 
             if (TroopProperty.Health > 0)
                 return false;
+
+            Player.Troops.Remove(this);
+            Tile.TroopOnTop = null;
+            return true;
+        }
+
+        public bool Kill()
+        {
+            TroopProperty.Health = 0;
+            OnDamageTaken?.Invoke(TroopProperty.Health);
 
             Player.Troops.Remove(this);
             Tile.TroopOnTop = null;

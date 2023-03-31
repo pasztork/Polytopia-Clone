@@ -10,7 +10,7 @@
 
         public override void ActivateEffect(Player player)
         {
-            player.TroopBonus.OffensiveDamageBonus += offensiveDamageBonus;
+            player.BonusProperty.OffensiveDamageBonus += offensiveDamageBonus;
             foreach (TroopBase troop in player.Troops)
             {
                 if (troop.TroopProperty.Damage != 0)
