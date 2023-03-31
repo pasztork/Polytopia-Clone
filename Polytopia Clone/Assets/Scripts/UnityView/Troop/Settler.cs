@@ -7,8 +7,8 @@ namespace View
             Model.TroopBase settler = new Model.Settler();
             settler.OnDamageTaken += TakeDamage;
             settler.TroopProperty = new Model.TroopProperty(
-                troopProperties.Health, troopProperties.Damage,
-                troopProperties.MovementRange, troopProperties.AttackRange);
+                TroopProperties.Health, TroopProperties.Damage,
+                TroopProperties.MovementRange, TroopProperties.AttackRange);
             settler.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return settler;
         }

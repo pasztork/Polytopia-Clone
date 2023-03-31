@@ -37,7 +37,7 @@ namespace Model
         {
             if (player.Techs["Riding"].TechTreeItemProperty.IsUnlocked)
             {
-                TroopProperty.MovementRange += Player.TroopBonus.OffensiveLandMoveBonus;
+                TroopProperty.MovementRange += player.TroopBonus.OffensiveLandMoveBonus;
             }
         }
     }

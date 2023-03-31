@@ -6,9 +6,7 @@ namespace View
         {
             Model.TroopBase scout = new Model.Scout();
             scout.OnDamageTaken += TakeDamage;
-            scout.TroopProperty = new Model.TroopProperty(
-                troopProperties.Health, troopProperties.Damage,
-                troopProperties.MovementRange, troopProperties.AttackRange);
+            scout.TroopProperty = new Model.TroopProperty(TroopProperties.Health, TroopProperties.Damage, TroopProperties.MovementRange, TroopProperties.AttackRange);
             scout.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return scout;
         }

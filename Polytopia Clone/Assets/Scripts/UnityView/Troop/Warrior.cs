@@ -6,9 +6,7 @@
         {
             Model.TroopBase warrior = new Model.Warrior();
             warrior.OnDamageTaken += TakeDamage;
-            warrior.TroopProperty = new Model.TroopProperty(
-                troopProperties.Health, troopProperties.Damage,
-                troopProperties.MovementRange, troopProperties.AttackRange);
+            warrior.TroopProperty = new Model.TroopProperty(TroopProperties.Health, TroopProperties.Damage, TroopProperties.MovementRange, TroopProperties.AttackRange);
             warrior.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return warrior;
         }

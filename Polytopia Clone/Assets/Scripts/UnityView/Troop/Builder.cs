@@ -13,8 +13,8 @@ namespace View
             Model.TroopBase builder = new Model.Builder();
             builder.OnDamageTaken += TakeDamage;
             builder.TroopProperty = new Model.TroopProperty(
-                troopProperties.Health, troopProperties.Damage,
-                troopProperties.MovementRange, troopProperties.AttackRange);
+                TroopProperties.Health, TroopProperties.Damage,
+                TroopProperties.MovementRange, TroopProperties.AttackRange);
             builder.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return builder;
         }

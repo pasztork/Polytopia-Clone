@@ -14,7 +14,8 @@ namespace View
         public View.Cost Cost { get => cost; }
 
         [Header("Troop Properties")]
-        public View.TroopProperty troopProperties;
+        [SerializeField] private View.TroopProperty troopProperties;
+        public Model.TroopProperty TroopProperties { get; set; }
 
         [Header("Highlight Settings")]
         protected Color hoverColor = Color.yellow;
@@ -29,12 +30,14 @@ namespace View
         private void Awake()
         {
             startColor = GetComponent<Renderer>().material.color;
+            TroopProperties = new Model.TroopProperty(troopProperties.Health, troopProperties.Damage,
+                                                      troopProperties.MovementRange, troopProperties.AttackRange);
             HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
         }
 
         private void Start()
         {
-            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Initialize(troopProperties.Health);
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Initialize(TroopProperties.Health);
         }
 
         protected void DeselectIfNotSelected(MonoBehaviour mono)
@@ -169,7 +172,7 @@ namespace View
             }
 
             TilesToHighLight.Clear();
-            TilesToHighLight = GetTilesInRange(troopProperties.MovementRange);
+            TilesToHighLight = GetTilesInRange(TroopProperties.MovementRange);
             foreach (var tile in TilesToHighLight)
             {
                 tile.GetComponent<Renderer>().material.color = tile.SelectColor;
@@ -220,6 +223,11 @@ namespace View
             }
 
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
+        }
+
+        public void SetReferenceToProperties(Model.TroopBase troop)
+        {
+            TroopProperties = troop.TroopProperty;
         }
     }
 }
