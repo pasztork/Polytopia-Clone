@@ -4,6 +4,8 @@ namespace Model
 {
     public abstract class MapManagerBase
     {
+        public string MapFilePath { get; protected set; } = null;
+
         private int size;
         public int Size
         {

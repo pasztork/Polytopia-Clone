@@ -78,3 +78,73 @@ Egységek
 - rom: nyersagot ad, felderítés után eltűnik
 - barbár tábor: egy barbár egység védi, nyersanyagot és pénzt ad
 - oltár: képességet ad
+
+---
+
+## Log
+
+* nem érdemes azonosító alapján
+    * nincs rá garancia, hogy megint ugyanazokat osztja ki a modell
+    * minden mezőn legfeljebb egy épület és egy egység, elég a koordináta
+    * ha a view osztja ki, akkor meg felesleges
+* minden `action`-höz külön feldolgozó metódus
+    * mivel más paraméterekre van szükségük, ezért saját data class
+* érdemes cachelni a logot
+    * minden `action` után töröljük a fájl tartalmát és kiloggoljuk memóriából
+        * egyszerűbb, mint egy json tömbbe elemeket beszúrni
+        * vagy átnevezzük az régi fájlt, mentünk és töröljük a régit
+* minden logfájl neve a kezdés időpontja
+    * pl. `2023-19-31_11-19-12.json`
+* példa egy logfájl tartalmára lejebb
+```json
+{
+    "map" : "<filepath>.json",
+    "players" : [
+        {
+            "name" : "Alice",
+            "startingtile" : [14, 12]
+        },
+        {
+            "name" : "Bob",
+            "startingtile" : [0, 0]
+        }
+    ],
+    "actions" : [
+        {
+            "player" : "Alice",
+            "action" : "train",
+            "actionparams" : {
+                "coord" : [5, 5],
+                "troop" : "builder"
+            }
+        },
+        {
+            "player" : "Alice",
+            "action" : "move",
+            "actionparams" : {
+                "sourcecoord" : [5, 5],
+                "targetcoord" : [5, 6]
+            }
+        },
+        {
+            "player" : "Alice",
+            "action" : "build",
+            "actionparams" : {
+                "coord" : [5, 6]
+            }
+        },
+        {
+            "player" : "Alice",
+            "action" : "endturn"
+        },
+        {
+            "player" : "Bob",
+            "action" : "build",
+            "actionparams" : {
+                "sourcecoord" : [5, 6],
+                "targetcoord" : [5, 5]
+            }
+        }
+    ]
+}
+```

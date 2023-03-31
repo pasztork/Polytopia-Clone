@@ -30,9 +30,11 @@ namespace Model
                 Directory.CreateDirectory(saveDirectory);
             }
 
+            MapFilePath = Path.Combine(saveDirectory, $"{DateTime.Now:yyyy-mm-dd_hh-mm-ss}.json");
+
             string jsonString = JsonSerializer.Serialize(
                 new JsonTiles { Tiles = GetStringFormattedTiles() });
-            File.WriteAllText(Path.Combine(saveDirectory, $"{DateTime.Now:yyyy-mm-dd_hh-mm-ss}.json"), jsonString);
+            File.WriteAllText(MapFilePath, jsonString);
         }
 
         private List<List<string>> GetStringFormattedTiles()
@@ -58,6 +60,8 @@ namespace Model
             {
                 throw new FileNotFoundException(filePath);
             }
+
+            MapFilePath = filePath;
 
             string jsonString = File.ReadAllText(filePath);
             JsonTiles jsonTiles = JsonSerializer.Deserialize<JsonTiles>(jsonString);

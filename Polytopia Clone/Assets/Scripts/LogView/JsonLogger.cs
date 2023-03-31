@@ -1,46 +1,23 @@
-﻿using Model;
-using System.Diagnostics;
+﻿using System;
 using System.IO;
-using System.Text;
-using System.Text.Json;
-using UnityEngine;
 
 namespace View
 {
     public class JsonLogger
     {
-        private static JsonLogger instance;
+        private static readonly string saveDirectory = $"{Directory.GetCurrentDirectory()}\\GameLogs";
+        private static readonly string filePath = $"{saveDirectory}\\{DateTime.Now:yyyy-mm-dd_hh-mm-ss}.json";
 
-        public static JsonLogger Instance
+        public static JsonLogger Instance { get; } = new JsonLogger();
+
+        private JsonLogger()
         {
-            get
+            if (!Directory.Exists(saveDirectory))
             {
-                if (instance == null)
-                {
-                    instance = new JsonLogger();
-                    LogManager.Instance.LogEvent += instance.LogToFile;
-                    LogManager.Instance.LogLastEvent += instance.LastLogToFile;
-                    File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", "[\n");
-                }
-                return instance;
+                Directory.CreateDirectory(saveDirectory);
             }
-        }
 
-        public void SetUpToLog()
-        {
-            JsonLogger js = JsonLogger.Instance;
-        }
-
-        public void LogToFile(JsonDataHolder dataHolder)
-        {
-            string jsonString = JsonSerializer.Serialize(dataHolder);
-            File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + ",\n");
-        }
-
-        public void LastLogToFile(JsonDataHolder dataHolder)
-        {
-            string jsonString = JsonSerializer.Serialize(dataHolder);
-            File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + "\n]");
+            File.AppendAllText(filePath, "{}");
         }
     }
 }
