@@ -87,7 +87,7 @@ namespace Model
 
             ResourceContainer -= troop.Cost;
             Troops.Add(troop);
-            troop.ApplyPropertyBonus(this);
+            troop.ApplyAllPropertyBonus(this);
             TroopTrained?.Invoke(troop);
             return true;
         }

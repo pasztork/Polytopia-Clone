@@ -35,11 +35,6 @@ namespace Model
             return accepted;
         }
 
-        public virtual void ApplyPropertyBonus(Player player)
-        {
-            return;
-        }
-
         // These are used to remove typechecking.
         public abstract bool Relocate(TraversableTile target);
 
@@ -66,9 +61,28 @@ namespace Model
             return false;
         }
 
+        public virtual void WaterMovementRangeBonus(Player player)
+        {
+            return;
+        }
+
+        public virtual void OffensiveLandMovementRangeBonus(Player player)
+        {
+            return;
+        }
+
+        public virtual void ApplyAllPropertyBonus(Player player)
+        {
+            TroopProperty.DodgeRate += player.TroopBonus.DodgeBonus;
+        }
+
         // Tells whether or not troop died.
         public bool TakeDamage(int damage)
         {
+            bool dodged = new Random().NextDouble() <= TroopProperty.DodgeRate;
+            if (dodged)
+                return false;
+
             TroopProperty.Health -= damage;
             OnDamageTaken?.Invoke(TroopProperty.Health);
 

@@ -8,7 +8,7 @@ namespace View
             settler.OnDamageTaken += TakeDamage;
             settler.TroopProperty = new Model.TroopProperty(
                 TroopProperties.Health, TroopProperties.Damage,
-                TroopProperties.MovementRange, TroopProperties.AttackRange);
+                TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);
             settler.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return settler;
         }

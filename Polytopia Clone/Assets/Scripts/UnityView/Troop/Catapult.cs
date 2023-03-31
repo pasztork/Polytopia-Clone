@@ -6,7 +6,7 @@ namespace View
         {
             Model.TroopBase catapult = new Model.Catapult();
             catapult.OnDamageTaken += TakeDamage;
-            catapult.TroopProperty = new Model.TroopProperty(TroopProperties.Health, TroopProperties.Damage, TroopProperties.MovementRange, TroopProperties.AttackRange);
+            catapult.TroopProperty = new Model.TroopProperty(TroopProperties.Health, TroopProperties.Damage, TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);
             catapult.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return catapult;
         }

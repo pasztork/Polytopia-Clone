@@ -5,7 +5,7 @@
         public int OffensiveLandMoveBonus { get; set; } = 0;
         public int WaterMoveBonus { get; set; } = 0;
         public int OffensiveDamageBonus { get; set; } = 0;
-        public float DodgeBonus { get; set; } = 0f;
+        public double DodgeBonus { get; set; } = 0.0;
         public int FarmProductionBonus { get; set; } = 0;
         public int BankProductionBonus { get; set; } = 0;
         public int SupplierProductionBonus { get; set; } = 0;

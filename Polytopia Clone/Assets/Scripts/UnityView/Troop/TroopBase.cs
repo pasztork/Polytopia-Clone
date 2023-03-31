@@ -31,7 +31,7 @@ namespace View
         {
             startColor = GetComponent<Renderer>().material.color;
             TroopProperties = new Model.TroopProperty(troopProperties.Health, troopProperties.Damage,
-                                                      troopProperties.MovementRange, troopProperties.AttackRange);
+                                                      troopProperties.MovementRange, troopProperties.AttackRange, troopProperties.DodgeRate);
             HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
         }
 

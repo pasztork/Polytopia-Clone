@@ -14,7 +14,7 @@ namespace View
             builder.OnDamageTaken += TakeDamage;
             builder.TroopProperty = new Model.TroopProperty(
                 TroopProperties.Health, TroopProperties.Damage,
-                TroopProperties.MovementRange, TroopProperties.AttackRange);
+                TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);
             builder.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return builder;
         }

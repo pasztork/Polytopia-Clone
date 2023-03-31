@@ -30,12 +30,15 @@
             return true;
         }
 
-        public override void ApplyPropertyBonus(Player player)
+        public override void WaterMovementRangeBonus(Player player)
         {
-            if (player.Techs["Navigation"].TechTreeItemProperty.IsUnlocked)
-            {
-                TroopProperty.MovementRange += player.TroopBonus.WaterMoveBonus;
-            }
+            TroopProperty.MovementRange += player.TroopBonus.WaterMoveBonus;
+        }
+
+        public override void ApplyAllPropertyBonus(Player player)
+        {
+            base.ApplyAllPropertyBonus(player);
+            TroopProperty.MovementRange += player.TroopBonus.WaterMoveBonus;
         }
     }
 }

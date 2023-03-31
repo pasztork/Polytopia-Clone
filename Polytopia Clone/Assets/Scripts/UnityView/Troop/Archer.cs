@@ -8,7 +8,7 @@ namespace View
             archer.OnDamageTaken += TakeDamage;
             archer.TroopProperty = new Model.TroopProperty(
                 TroopProperties.Health, TroopProperties.Damage,
-                TroopProperties.MovementRange, TroopProperties.AttackRange);
+                TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);
             archer.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return archer;
         }
