@@ -87,62 +87,67 @@ Egységek
     * nincs rá garancia, hogy megint ugyanazokat osztja ki a modell
     * minden mezőn legfeljebb egy épület és egy egység, elég a koordináta
     * ha a view osztja ki, akkor meg felesleges
-* minden `action`-höz külön feldolgozó metódus
+* minden `Action`-höz külön feldolgozó metódus
     * mivel más paraméterekre van szükségük, ezért saját data class
 * érdemes cachelni a logot
-    * minden `action` után töröljük a fájl tartalmát és kiloggoljuk memóriából
+    * minden `Action` után töröljük a fájl tartalmát és kiloggoljuk memóriából
         * egyszerűbb, mint egy json tömbbe elemeket beszúrni
         * vagy átnevezzük az régi fájlt, mentünk és töröljük a régit
 * minden logfájl neve a kezdés időpontja
     * pl. `2023-19-31_11-19-12.json`
-* példa egy logfájl tartalmára lejebb
+* `ActionParameters` mezőt érdemes lehet egységesíteni
+    * értsd: `Action`-től függetlenül megmarad az összes lehetséges mező
+    * problémás, ha túl sok típusa lesz `Action`-nek
+* példa egy logfájl tartalmára:
 ```json
 {
-    "map" : "<filepath>.json",
-    "players" : [
+    "Map" : "<filepath>",
+    "Players" : [
         {
-            "name" : "Alice",
-            "startingtile" : [14, 12]
+            "Name" : "Alice",
+            "StartingTile" : [14, 12]
         },
         {
-            "name" : "Bob",
-            "startingtile" : [0, 0]
+            "Name" : "Bob",
+            "StartingTile" : [0, 0]
         }
     ],
-    "actions" : [
+    "Actions" : [
         {
-            "player" : "Alice",
-            "action" : "train",
-            "actionparams" : {
-                "coord" : [5, 5],
-                "troop" : "builder"
+            "Player" : "Alice",
+            "Action" : "train",
+            "ActionParameters" : {
+                "Coord" : [5, 5],
+                "Troop" : "builder"
             }
         },
         {
-            "player" : "Alice",
-            "action" : "move",
-            "actionparams" : {
-                "sourcecoord" : [5, 5],
-                "targetcoord" : [5, 6]
+            "Player" : "Alice",
+            "Action" : "move",
+            "ActionParameters" : {
+                "SourceCoord" : [5, 5],
+                "TargetCoord" : [5, 6]
             }
         },
         {
-            "player" : "Alice",
-            "action" : "build",
-            "actionparams" : {
-                "coord" : [5, 6]
+            "Player" : "Alice",
+            "Action" : "build",
+            "ActionParameters" : {
+                "Coord" : [5, 6],
+                "Building" : "supplier"
             }
         },
         {
-            "player" : "Alice",
-            "action" : "endturn"
+            "Player" : "Alice",
+            "Action" : "finishturn",
+            "ActionParameters" : {}
         },
         {
-            "player" : "Bob",
-            "action" : "build",
-            "actionparams" : {
-                "sourcecoord" : [5, 6],
-                "targetcoord" : [5, 5]
+            "Player" : "Bob",
+            "Action" : "build",
+            "ActionParameters" : {
+                "SourceCoord" : [5, 6],
+                "TargetCoord" : [5, 5]
             }
         }
     ]

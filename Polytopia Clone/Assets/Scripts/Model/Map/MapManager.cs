@@ -30,7 +30,7 @@ namespace Model
                 Directory.CreateDirectory(saveDirectory);
             }
 
-            MapFilePath = Path.Combine(saveDirectory, $"{DateTime.Now:yyyy-mm-dd_hh-mm-ss}.json");
+            MapFilePath = Path.Combine(saveDirectory, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.json");
 
             string jsonString = JsonSerializer.Serialize(
                 new JsonTiles { Tiles = GetStringFormattedTiles() });

@@ -1,28 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Util;
 
 namespace Model
 {
-    public class GameManager
+    public static class GameManager
     {
-        private static readonly GameManager instance = new GameManager();
+        public static event Action<IList<Player>, string> OnGameStarted;
+
         public static IList<Player> Players { get; } = new List<Player>();
+        private static readonly DependencyContainer dependencyContainer = new DependencyContainer();
 
-        public static void StartNew()
-        {
-            foreach (Player player in Players)
-                player.SetupStartingPosition();
-            instance.dependencyContainer.Get<TurnManagerBase>().Start();
-        }
-
-        public static T Get<T>()
-        {
-            return instance.dependencyContainer.Get<T>();
-        }
-
-        private readonly DependencyContainer dependencyContainer = new DependencyContainer();
-
-        public GameManager()
+        static GameManager()
         {
             dependencyContainer.Register<MapManagerBase, MapManager>();
             dependencyContainer.Register<MapGeneratorBase, MapGenerator>();
@@ -31,5 +20,21 @@ namespace Model
             dependencyContainer.Register<TrainManagerBase, TrainManager>();
             dependencyContainer.Register<TechTreeManagerBase, TechTreeManager>();
         }
+
+        public static void StartNew()
+        {
+            foreach (Player player in Players)
+                player.SetupStartingPosition();
+            dependencyContainer.Get<TurnManagerBase>().Start();
+
+            OnGameStarted?.Invoke(Players, Get<MapManagerBase>().MapFilePath);
+        }
+
+        public static T Get<T>()
+        {
+            return dependencyContainer.Get<T>();
+        }
+
+
     }
 }

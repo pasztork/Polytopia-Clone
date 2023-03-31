@@ -1,23 +1,58 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 
 namespace View
 {
-    public class JsonLogger
+    public static class JsonLogger
     {
         private static readonly string saveDirectory = $"{Directory.GetCurrentDirectory()}\\GameLogs";
-        private static readonly string filePath = $"{saveDirectory}\\{DateTime.Now:yyyy-mm-dd_hh-mm-ss}.json";
+        private static readonly string filePath = $"{saveDirectory}\\{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.json";
 
-        public static JsonLogger Instance { get; } = new JsonLogger();
+        private static readonly Dictionary<Model.TileBase, int[]> tileToCoordMap = new Dictionary<Model.TileBase, int[]>();
+        private static readonly JsonLogObject log = new JsonLogObject();
 
-        private JsonLogger()
+        public static void Init()
         {
             if (!Directory.Exists(saveDirectory))
             {
                 Directory.CreateDirectory(saveDirectory);
             }
 
-            File.AppendAllText(filePath, "{}");
+            Model.GameManager.OnGameStarted += LogStart;
+        }
+
+        private static void LogStart(IList<Model.Player> players, string mapFilePath)
+        {
+            MapTilesToCoords();
+
+            log.Map = mapFilePath;
+            log.Players = new List<JsonPlayerObject>();
+            foreach (Model.Player p in players)
+            {
+                log.Players.Add(new JsonPlayerObject
+                {
+                    Name = p.Name,
+                    StartingTile = tileToCoordMap[p.Buildings[0].Tile]
+                });
+            }
+            log.Actions = new List<object>();
+            string jsonString = JsonSerializer.Serialize(log,
+                new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, jsonString);
+        }
+
+        private static void MapTilesToCoords()
+        {
+            Model.TileBase[,] tiles = Model.GameManager.Get<Model.MapManagerBase>().Tiles;
+            for (int row = 0; row < tiles.GetLength(0); row++)
+            {
+                for (int column = 0; column < tiles.GetLength(1); column++)
+                {
+                    tileToCoordMap.Add(tiles[row, column], new int[] { row, column });
+                }
+            }
         }
     }
 }
