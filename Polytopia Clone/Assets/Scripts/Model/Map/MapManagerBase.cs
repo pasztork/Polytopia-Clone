@@ -27,7 +27,7 @@ namespace Model
 
         public abstract void GenerateMap();
 
-        public abstract void LoadMap();
+        public abstract void LoadMap(string filePath);
 
         public abstract TileBase GetStartingTile();
     }
