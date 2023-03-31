@@ -17,9 +17,9 @@ namespace Controller
             throw new NotImplementedException();
         }
 
-        public static void Start()
+        public static void StartNew()
         {
-            Model.GameManager.Start();
+            Model.GameManager.StartNew();
         }
 
         private static void SetupMap(MapProperties mapProperites)

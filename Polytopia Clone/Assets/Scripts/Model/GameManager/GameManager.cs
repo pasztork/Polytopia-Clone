@@ -8,7 +8,7 @@ namespace Model
         private static readonly GameManager instance = new GameManager();
         public static IList<Player> Players { get; } = new List<Player>();
 
-        public static void Start()
+        public static void StartNew()
         {
             foreach (Player player in Players)
                 player.SetupStartingPosition();
