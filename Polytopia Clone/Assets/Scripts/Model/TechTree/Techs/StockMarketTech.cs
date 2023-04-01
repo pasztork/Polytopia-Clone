@@ -3,7 +3,7 @@
     public class StockMarketTech : TechTreeItemBase
     {
         private readonly int moneyProductionBoost = 10;
-        public StockMarketTech(string name, Cost cost, string description) : base(name, cost, description)
+        public StockMarketTech(Cost cost) : base(cost)
         {
             HashCode = "StockMarket";
         }

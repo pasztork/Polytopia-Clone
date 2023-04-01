@@ -12,7 +12,7 @@ namespace View
         public override Model.TechTreeItemBase ToModel()
         {
             Model.TechTreeItemBase techItem =
-                new Model.GemMiningTech(Name, new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost), Description);
+                new Model.GemMiningTech(new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost));
             return techItem;
         }
     }

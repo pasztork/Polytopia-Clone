@@ -3,7 +3,7 @@
     public class RidingTech : TechTreeItemBase
     {
         private readonly int offensiveLandMoveBonus = 1;
-        public RidingTech(string name, Cost cost, string description) : base(name, cost, description)
+        public RidingTech(Cost cost) : base(cost)
         {
             HashCode = "Riding";
         }

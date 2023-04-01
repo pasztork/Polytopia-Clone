@@ -3,7 +3,7 @@
     public class StrategyTech : TechTreeItemBase
     {
         private readonly double dodgeBonus = 0.1;
-        public StrategyTech(string name, Cost cost, string description) : base(name, cost, description) 
+        public StrategyTech(Cost cost) : base(cost) 
         {
             HashCode = "Strategy";
         }

@@ -10,7 +10,6 @@ namespace View
         public Cost Cost { get => cost; set => cost = value; }
         public string Name { get => GetComponentInChildren<TextMeshProUGUI>().text; }
         public string Description { get; protected set; }
-        public bool IsUnlocked { get; set; }
 
         protected Color startColor;
         private Color selectColor = Color.magenta;

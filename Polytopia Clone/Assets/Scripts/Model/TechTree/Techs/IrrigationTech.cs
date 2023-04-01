@@ -3,7 +3,7 @@
     public class IrrigationTech : TechTreeItemBase
     {
         private readonly int foodProductionBoost = 10;
-        public IrrigationTech(string name, Cost cost, string description) : base(name, cost, description)
+        public IrrigationTech(Cost cost) : base(cost)
         {
             HashCode = "Irrigation";
         }

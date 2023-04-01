@@ -12,7 +12,7 @@ namespace View
         public override Model.TechTreeItemBase ToModel()
         {
             Model.TechTreeItemBase techItem =
-                new Model.FarmingTech(Name, new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost), Description);
+                new Model.FarmingTech(new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost));
             return techItem;
         }
     }

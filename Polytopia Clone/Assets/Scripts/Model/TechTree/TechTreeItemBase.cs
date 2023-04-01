@@ -8,9 +8,9 @@ namespace Model
         public string HashCode { get; protected set; }
         public IList<TechTreeItemBase> Requirements { get; set; } = new List<TechTreeItemBase>();
 
-        public TechTreeItemBase(string name, Cost cost, string description)
+        public TechTreeItemBase(Cost cost)
         {
-            TechTreeItemProperty = new TechTreeItemProperty(name, cost, description);
+            TechTreeItemProperty = new TechTreeItemProperty(cost);
         }
 
         public bool IsAvailable

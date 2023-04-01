@@ -3,7 +3,7 @@
     public class MathematicsTech : TechTreeItemBase
     {
         private readonly float buildingCostDiscount = 0.2f;
-        public MathematicsTech(string name, Cost cost, string description) : base(name, cost, description)
+        public MathematicsTech(Cost cost) : base(cost)
         {
             HashCode = "Mathematics";
         }

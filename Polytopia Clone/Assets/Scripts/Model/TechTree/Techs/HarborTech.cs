@@ -2,7 +2,7 @@
 {
     public class HarborTech : TechTreeItemBase
     {
-        public HarborTech(string name, Cost cost, string description) : base(name, cost, description)
+        public HarborTech(Cost cost) : base(cost)
         {
             HashCode = "Harbor";
         }

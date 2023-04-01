@@ -2,7 +2,7 @@
 {
     public class MiningTech : TechTreeItemBase
     {
-        public MiningTech(string name, Cost cost, string description) : base(name, cost, description)
+        public MiningTech(Cost cost) : base(cost)
         {
             HashCode = "Mining";
         }
