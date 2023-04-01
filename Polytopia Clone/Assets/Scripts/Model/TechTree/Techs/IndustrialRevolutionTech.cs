@@ -2,7 +2,7 @@
 {
     public class IndustrialRevolutionTech : TechTreeItemBase
     {
-        private int materialProductionBoost = 10;
+        private readonly int materialProductionBoost = 10;
         public IndustrialRevolutionTech(string name, Cost cost, string description) : base(name, cost, description)
         {
             HashCode = "IndustrialRevolution";

@@ -2,7 +2,7 @@
 {
     public class NavigationTech : TechTreeItemBase
     {
-        private int offensiveWaterMoveBonus = 1;
+        private readonly int offensiveWaterMoveBonus = 1;
         public NavigationTech(string name, Cost cost, string description) : base(name, cost, description)
         {
             HashCode = "Navigation";

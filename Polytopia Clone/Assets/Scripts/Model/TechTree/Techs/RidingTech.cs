@@ -2,7 +2,7 @@
 {
     public class RidingTech : TechTreeItemBase
     {
-        private int offensiveLandMoveBonus = 1;
+        private readonly int offensiveLandMoveBonus = 1;
         public RidingTech(string name, Cost cost, string description) : base(name, cost, description)
         {
             HashCode = "Riding";

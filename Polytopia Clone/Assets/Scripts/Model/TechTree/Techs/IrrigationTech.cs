@@ -2,7 +2,7 @@
 {
     public class IrrigationTech : TechTreeItemBase
     {
-        private int foodProductionBoost = 10;
+        private readonly int foodProductionBoost = 10;
         public IrrigationTech(string name, Cost cost, string description) : base(name, cost, description)
         {
             HashCode = "Irrigation";

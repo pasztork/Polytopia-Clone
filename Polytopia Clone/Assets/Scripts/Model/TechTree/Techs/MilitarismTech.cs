@@ -2,7 +2,7 @@
 {
     public class MilitarismTech : TechTreeItemBase
     {
-        private int offensiveDamageBonus = 1;
+        private readonly int offensiveDamageBonus = 1;
         public MilitarismTech(string name, Cost cost, string description) : base(name, cost, description)
         {
             HashCode = "Militarism";
