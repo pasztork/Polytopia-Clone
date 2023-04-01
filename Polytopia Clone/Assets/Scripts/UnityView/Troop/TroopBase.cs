@@ -212,6 +212,11 @@ namespace View
             return reachables.ToList();
         }
 
+        public void Heal(int remainingHealth)
+        {
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
+        }
+
         public virtual void TakeDamage(int remainingHealth)
         {
             if (remainingHealth <= 0)

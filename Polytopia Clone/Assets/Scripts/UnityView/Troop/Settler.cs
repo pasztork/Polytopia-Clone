@@ -6,6 +6,8 @@ namespace View
         {
             Model.TroopBase settler = new Model.Settler();
             settler.OnDamageTaken += TakeDamage;
+            settler.OnTroopHealed += Heal;
+            settler.MaxHealth = TroopProperties.Health;
             settler.TroopProperty = new Model.TroopProperty(
                 TroopProperties.Health, TroopProperties.Damage,
                 TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);

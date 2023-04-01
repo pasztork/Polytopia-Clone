@@ -9,6 +9,8 @@ namespace View
         {
             Model.TroopBase boat = new Model.Boat();
             boat.OnDamageTaken += TakeDamage;
+            boat.OnTroopHealed += Heal;
+            boat.MaxHealth = TroopProperties.Health;
             boat.TroopProperty = new Model.TroopProperty(TroopProperties.Health, TroopProperties.Damage, TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);
             boat.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return boat;

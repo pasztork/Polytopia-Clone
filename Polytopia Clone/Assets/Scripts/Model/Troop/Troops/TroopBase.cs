@@ -8,8 +8,10 @@ namespace Model
     {
         // The argument of the method is the remainging health.
         public event Action<int> OnDamageTaken;
+        public event Action<int> OnTroopHealed;
 
         public Cost Cost { get; set; }
+        public int MaxHealth { private get; set; }
         public TroopProperty TroopProperty { get; set; }
         public TileBase Tile { get; set; }
         public Player Player { get; set; }
@@ -76,6 +78,18 @@ namespace Model
             TroopProperty.DodgeRate += player.BonusProperty.DodgeBonus;
         }
 
+        public void Heal(Player player)
+        {
+            if (player != Player || !Player.AvailableTiles.Contains(Tile))
+                return;
+
+            TroopProperty.Health += Player.BonusProperty.HealAmount;
+            if (TroopProperty.Health > MaxHealth)
+                TroopProperty.Health = MaxHealth;
+
+            OnTroopHealed?.Invoke(TroopProperty.Health);
+        }
+
         // Tells whether or not troop died.
         public bool TakeDamage(int damage)
         {
@@ -89,6 +103,7 @@ namespace Model
             if (TroopProperty.Health > 0)
                 return false;
 
+            GameManager.Get<TurnManagerBase>().OnTurnStarted -= Heal;
             Player.Troops.Remove(this);
             Tile.TroopOnTop = null;
             return true;

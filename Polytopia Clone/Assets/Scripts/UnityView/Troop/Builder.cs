@@ -12,6 +12,8 @@ namespace View
         {
             Model.TroopBase builder = new Model.Builder();
             builder.OnDamageTaken += TakeDamage;
+            builder.OnTroopHealed += Heal;
+            builder.MaxHealth = TroopProperties.Health;
             builder.TroopProperty = new Model.TroopProperty(
                 TroopProperties.Health, TroopProperties.Damage,
                 TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);

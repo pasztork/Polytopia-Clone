@@ -88,6 +88,9 @@ namespace Model
 
             ResourceContainer -= troop.Cost;
             Troops.Add(troop);
+            if (BonusProperty.HealAmount > 0)
+                GameManager.Get<TurnManagerBase>().OnTurnStarted += troop.Heal;
+
             troop.ApplyAllPropertyBonus(this);
             TroopTrained?.Invoke(troop);
             return true;

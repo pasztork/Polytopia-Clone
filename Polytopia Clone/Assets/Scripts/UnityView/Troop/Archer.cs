@@ -6,6 +6,8 @@ namespace View
         {
             Model.TroopBase archer = new Model.Archer();
             archer.OnDamageTaken += TakeDamage;
+            archer.OnTroopHealed += Heal;
+            archer.MaxHealth = TroopProperties.Health;
             archer.TroopProperty = new Model.TroopProperty(
                 TroopProperties.Health, TroopProperties.Damage,
                 TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);
