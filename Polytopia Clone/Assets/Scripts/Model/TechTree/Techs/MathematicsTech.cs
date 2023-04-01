@@ -2,6 +2,7 @@
 {
     public class MathematicsTech : TechTreeItemBase
     {
+        private float buildingCostDiscount = 0.2f;
         public MathematicsTech(string name, Cost cost, string description) : base(name, cost, description)
         {
             HashCode = "Mathematics";
@@ -9,7 +10,7 @@
 
         public override void ActivateEffect(Player player)
         {
-            //lowers building cost
+            player.BonusProperty.BuildingDiscount += buildingCostDiscount;
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Model
         {
             RequirementsListBase requirements = building.Requirements;
             troop.FillRequirements(requirements);
-            bool requirementsMet = requirements.RequirementsMet(ResourceContainer, AvailableTiles, troop.Tile);
+            bool requirementsMet = requirements.RequirementsMet(ResourceContainer, BonusProperty.BuildingDiscount, AvailableTiles, troop.Tile);
             if (!requirementsMet || !Troops.Contains(troop))
             {
                 building.StopProduction();
@@ -67,7 +67,7 @@ namespace Model
             }
 
             building.Tile = troop.Tile;
-            ResourceContainer -= building.Cost;
+            ResourceContainer -= (building.Cost * (1f - BonusProperty.BuildingDiscount));
             AddBuilding(building);
             building.ApplyAllPropertyBonus(this);
             troop.Kill();

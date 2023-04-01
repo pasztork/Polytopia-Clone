@@ -9,6 +9,6 @@ namespace Model
         public bool WaterBuilderFound { protected get; set; } = false;
         public Cost Cost { protected get; set; } = null;
 
-        public abstract bool RequirementsMet(ResourceContainer resourceContainer, ISet<TileBase> tiles, TileBase tile);
+        public abstract bool RequirementsMet(ResourceContainer resourceContainer, float buildingDiscount, ISet<TileBase> tiles, TileBase tile);
     }
 }

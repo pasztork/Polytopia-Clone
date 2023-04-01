@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using Unity.VisualScripting;
+
+namespace Model
 {
     public class Cost
     {
@@ -11,6 +13,11 @@
             MoneyCost = moneyCost;
             MaterialCost = materialCost;
             FoodCost = foodCost;
+        }
+
+        public static Cost operator*(Cost c, float f)
+        {
+            return new Cost((int)(c.MoneyCost * f), (int)(c.MaterialCost * f), (int)(c.FoodCost * f));
         }
     }
 }
