@@ -1,4 +1,4 @@
-﻿namespace View
+﻿namespace LogView
 {
     public class JsonPlayerObject
     {

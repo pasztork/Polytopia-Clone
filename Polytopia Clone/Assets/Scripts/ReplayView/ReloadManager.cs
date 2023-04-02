@@ -11,11 +11,5 @@
                 return instance;
             }
         }
-
-
-        public void AddToTroopDic(View.Identity identity)
-        {
-
-        }
     }
 }

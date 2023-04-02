@@ -16,7 +16,6 @@ namespace View
 
         private void Start()
         {
-            LogDataWrapper.Instance.SubscribeToPlayerEvents();
             Controller.GameManager.StartNew();
         }
     }

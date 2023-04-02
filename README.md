@@ -87,7 +87,7 @@ Egységek
     * nincs rá garancia, hogy megint ugyanazokat osztja ki a modell
     * minden mezőn legfeljebb egy épület és egy egység, elég a koordináta
     * ha a view osztja ki, akkor meg felesleges
-* minden `Action`-höz külön feldolgozó metódus
+* minden `Action`-höz külön feldolgozó metódus //=> LogDataWrapper-ben
     * mivel más paraméterekre van szükségük, ezért saját data class
 * érdemes cachelni a logot
     * minden `Action` után töröljük a fájl tartalmát és kiloggoljuk memóriából
@@ -101,6 +101,7 @@ Egységek
 * példa egy logfájl tartalmára:
 ```json
 {
+
     "Map" : "<filepath>",
     "Players" : [
         {

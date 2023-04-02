@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace View
+namespace LogView
 {
     public static class JsonLogger
     {
@@ -11,7 +11,7 @@ namespace View
         private static readonly string filePath = $"{saveDirectory}\\{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.json";
 
         private static readonly Dictionary<Model.TileBase, int[]> tileToCoordMap = new Dictionary<Model.TileBase, int[]>();
-        private static readonly JsonLogObject log = new JsonLogObject();
+        private static readonly JsonDataHolder log = new JsonDataHolder();
 
         public static void Init()
         {
@@ -21,12 +21,11 @@ namespace View
             }
 
             Model.GameManager.OnGameStarted += LogStart;
+            LogDataWrapper.Instance.NewDataCreated += LogNewEvent;
         }
 
         private static void LogStart(IList<Model.Player> players, string mapFilePath)
         {
-            MapTilesToCoords();
-
             log.Map = mapFilePath;
             log.Players = new List<JsonPlayerObject>();
             foreach (Model.Player p in players)
@@ -37,9 +36,23 @@ namespace View
                     StartingTile = tileToCoordMap[p.Buildings[0].Tile]
                 });
             }
-            log.Actions = new List<object>();
+            log.Actions = new List<JsonActionObject>();
             string jsonString = JsonSerializer.Serialize(log,
                 new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, jsonString);
+
+            //jo lesz ez itt vagy menjen ctor-ba? ----------------------------------------------------------------------------------------
+            LogDataWrapper.Instance.SubscribeToPlayerEvents();
+        }
+
+        public static void LogNewEvent(JsonActionObject newAction)
+        {
+            string jsonObject = File.ReadAllText(filePath);
+            JsonDataHolder newLog = JsonSerializer.Deserialize<JsonDataHolder>(jsonObject);
+
+            newLog.Actions.Add(newAction);
+
+            string jsonString = JsonSerializer.Serialize(newLog, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, jsonString);
         }
 
@@ -53,6 +66,11 @@ namespace View
                     tileToCoordMap.Add(tiles[row, column], new int[] { row, column });
                 }
             }
+        }
+
+        public static int[] GetTileCoords(Model.TileBase tile)
+        {
+            return tileToCoordMap[tile];
         }
     }
 }

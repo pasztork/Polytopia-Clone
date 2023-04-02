@@ -28,7 +28,6 @@ namespace Model
                     if (noiseMap[x, y] < MGP.WaterTileProbability)
                     {
                         tiles[x, y] = new WaterTile();
-                        TriggerTileCreated(tiles[x, y], x, y);
                     }
                     else
                     {
@@ -73,7 +72,6 @@ namespace Model
             foreach ((int, int) mountainCoord in mountainCoords)
             {
                 tiles[mountainCoord.Item1, mountainCoord.Item2] = new RockTile();
-                TriggerTileCreated(tiles[mountainCoord.Item1, mountainCoord.Item2], mountainCoord.Item1, mountainCoord.Item2);
             }
         }
 
@@ -100,7 +98,6 @@ namespace Model
                         TileBase sand = new SandTile();
                         tiles[x, y] = sand;
                         startingTileContenders.Add(sand);
-                        TriggerTileCreated(sand, x, y);
                     }
                 }
             }
@@ -127,7 +124,6 @@ namespace Model
                     .Select(x => (x.Item1, x.Item2)))
             {
                 tiles[forestCoord.Item1, forestCoord.Item2] = new ForestTile();
-                TriggerTileCreated(tiles[forestCoord.Item1, forestCoord.Item2], forestCoord.Item1, forestCoord.Item2);
             }
 
 
@@ -139,7 +135,6 @@ namespace Model
                     TileBase grass = new GrassTile();
                     tiles[coord.Item1, coord.Item2] = grass;
                     startingTileContenders.Add(grass);
-                    TriggerTileCreated(grass, coord.Item1, coord.Item2);
                 }
             }
 
