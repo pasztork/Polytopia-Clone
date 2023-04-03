@@ -101,7 +101,7 @@ Egységek
 * példa egy logfájl tartalmára:
 ```json
 {
-
+    "Settings" : "<filepath>",
     "Map" : "<filepath>",
     "Players" : [
         {
@@ -156,10 +156,14 @@ Egységek
 ```
 
 ## Beállítások
-* json-ben állítjuk be az épületek és katonák tulajdonságait
-* egy hivatkozáson keresztül belekerül a log fájlokba is
+* minden beállítható tulajdonság egy fájlban
 ```json
 {
+    "BaseProduction" : {
+        "Money" : 1000,
+        "Material" : 1000,
+        "Food" : 1000
+    },
     "BuildingProperties" : {
         "Bank" : {
             "Cost" : {
@@ -168,7 +172,7 @@ Egységek
                 "Money" : 10
             },
             "Health" : 50,
-            "ProductionRate" : 50
+            "ProductionRate" : 10
         },
         "City" : {
             "Cost" : {
@@ -176,35 +180,226 @@ Egységek
                 "Material" : 20,
                 "Money" : 20
             },
-            "Health" : 100,
+            "Health" : 50,
+            "ProductionRate" : 100
+        },
+        "Farm" : {
+            "Cost" : {
+                "Food" : 10,
+                "Material" : 10,
+                "Money" : 10
+            },
+            "Health" : 50,
+            "ProductionRate" : 10
+        },
+        "Harbor" : {
+            "Cost" : {
+                "Food" : 20,
+                "Material" : 20,
+                "Money" : 20
+            },
+            "Health" : 50,
+            "ProductionRate" : 15
+        },
+        "Supplier" : {
+            "Cost" : {
+                "Food" : 40,
+                "Material" : 40,
+                "Money" : 40
+            },
+            "Health" : 50,
             "ProductionRate" : 10
         }
     },
     "TroopProperties" : {
-        "Warrior" : {
+        "Archer" : {
+            "Cost" : {
+                "Food" : 50,
+                "Material" : 10,
+                "Money" : 20
+            },
+            "Health" : 6,
+            "Damage" : 3,
+            "MovementRange" : 3,
+            "AttackRange" : 2,
+            "DodgeRate" : 0.3
+        },
+        "Boat" : {
+            "Cost" : {
+                "Food" : 120,
+                "Material" : 120,
+                "Money" : 50
+            },
+            "Health" : 12,
+            "Damage" : 4,
+            "MovementRange" : 3,
+            "AttackRange" : 3,
+            "DodgeRate" : 0.2
+        },
+        "Builder" : {
+            "Cost" : {
+                "Food" : 0,
+                "Material" : 0,
+                "Money" : 0
+            },
+            "Health" : 3,
+            "Damage" : 0,
+            "MovementRange" : 3,
+            "AttackRange" : 0,
+            "DodgeRate" : 0.3
+        },
+        "Catapult" : {
+            "Cost" : {
+                "Food" : 100,
+                "Material" : 70,
+                "Money" : 10
+            },
+            "Health" : 15,
+            "Damage" : 8,
+            "MovementRange" : 1,
+            "AttackRange" : 5,
+            "DodgeRate" : 0.0
+        },
+        "Scout" : {
             "Cost" : {
                 "Food" : 20,
-                "Material" : 10,
-                "Money" : 30
+                "Material" : 20,
+                "Money" : 20
             },
-            "Health" : 20,
-            "Damage" : 5,
-            "MovementRange" : 1,
+            "Health" : 4,
+            "Damage" : 3,
+            "MovementRange" : 3,
             "AttackRange" : 1,
-            "DodgeRate" : 0.05
+            "DodgeRate" : 0.4
         },
-        "Archer" : {
+        "Settler" : {
             "Cost" : {
                 "Food" : 10,
                 "Material" : 10,
-                "Money" : 50
+                "Money" : 10
+            },
+            "Health" : 3,
+            "Damage" : 0,
+            "MovementRange" : 3,
+            "AttackRange" : 0,
+            "DodgeRate" : 0.2
+        },
+        "Warrior" : {
+            "Cost" : {
+                "Food" : 10,
+                "Material" : 10,
+                "Money" : 30
             },
             "Health" : 10,
-            "Damage" : 2,
-            "MovementRange" : 2,
-            "AttackRange" : 5,
-            "DodgeRate" : 0.0
+            "Damage" : 5,
+            "MovementRange" : 1,
+            "AttackRange" : 1,
+            "DodgeRate" : 0.1
+        }
+    },
+    "TechTreeItemCosts" : {
+        "Archery" : {
+            "Food" : 10,
+            "Material" : 10, 
+            "Money" : 10
+        },
+        "Banking" : {
+            "Food" : 10,
+            "Material" : 10, 
+            "Money" : 10
+        },
+        "Catapult" : {
+            "Food" : 40,
+            "Material" : 40, 
+            "Money" : 40
+        },
+        "Farming" : {
+            "Food" : 10,
+            "Material" : 10, 
+            "Money" : 10
+        },
+        "Forestry" : {
+            "Food" : 10,
+            "Material" : 10, 
+            "Money" : 10
+        },
+        "GemMining" : {
+            "Food" : 20,
+            "Material" : 20, 
+            "Money" : 20
+        },
+        "Harbor" : {
+            "Food" : 20,
+            "Material" : 20, 
+            "Money" : 20
+        },
+        "IndustrialRevolution" : {
+            "Food" : 30,
+            "Material" : 30, 
+            "Money" : 30
+        },
+        "Irrigation" : {
+            "Food" : 20,
+            "Material" : 20, 
+            "Money" : 20
+        },
+        "Mathematics" : {
+            "Food" : 20,
+            "Material" : 20, 
+            "Money" : 20
+        },
+        "Militarism" : {
+            "Food" : 30,
+            "Material" : 30, 
+            "Money" : 30
+        },
+        "Mining" : {
+            "Food" : 20,
+            "Material" : 20, 
+            "Money" : 20
+        },
+        "Navigation" : {
+            "Food" : 40,
+            "Material" : 40, 
+            "Money" : 40
+        },
+        "Riding" : {
+            "Food" : 20,
+            "Material" : 20, 
+            "Money" : 20
+        },
+        "Sailing" : {
+            "Food" : 30,
+            "Material" : 30, 
+            "Money" : 30
+        },
+        "Sanitation" : {
+            "Food" : 40,
+            "Material" : 40, 
+            "Money" : 40
+        },
+        "StockMarket" : {
+            "Food" : 30,
+            "Material" : 30, 
+            "Money" : 30
+        },
+        "Strategy" : {
+            "Food" : 40,
+            "Material" : 40, 
+            "Money" : 40
         }
     }
+}
+```
+* a pályageneráláshoz szükséges értékek külön
+* ez logghoz nem kell
+```json
+{
+    "MinMountainCount" : 3,
+    "MaxMountainCount" : 5,
+    "MinForestCountPerchunk" : 3,
+    "MaxForestCountPerchunk" : 5,
+    "DesertChunkProbability" : 0.1,
+    "WaterTileProbability" : 0.3
 }
 ```
