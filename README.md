@@ -154,3 +154,57 @@ Egységek
     ]
 }
 ```
+
+## Beállítások
+* json-ben állítjuk be az épületek és katonák tulajdonságait
+* egy hivatkozáson keresztül belekerül a log fájlokba is
+```json
+{
+    "BuildingProperties" : {
+        "Bank" : {
+            "Cost" : {
+                "Food" : 10,
+                "Material" : 10,
+                "Money" : 10
+            },
+            "Health" : 50,
+            "ProductionRate" : 50
+        },
+        "City" : {
+            "Cost" : {
+                "Food" : 20,
+                "Material" : 20,
+                "Money" : 20
+            },
+            "Health" : 100,
+            "ProductionRate" : 10
+        }
+    },
+    "TroopProperties" : {
+        "Warrior" : {
+            "Cost" : {
+                "Food" : 20,
+                "Material" : 10,
+                "Money" : 30
+            },
+            "Health" : 20,
+            "Damage" : 5,
+            "MovementRange" : 1,
+            "AttackRange" : 1,
+            "DodgeRate" : 0.05
+        },
+        "Archer" : {
+            "Cost" : {
+                "Food" : 10,
+                "Material" : 10,
+                "Money" : 50
+            },
+            "Health" : 10,
+            "Damage" : 2,
+            "MovementRange" : 2,
+            "AttackRange" : 5,
+            "DodgeRate" : 0.0
+        }
+    }
+}
+```
