@@ -7,13 +7,14 @@ namespace Model
     {
         public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
         public event Action<Player> OnEliminated;
-        public event Action<BuildingBase> BuildCreated;
+        public event Action<BuildingBase> OnBuildCreated;
         public event Action<BuildingBase> BuildDestroyed;
         public event Action<TroopBase> TroopDeath;
-        public event Action<TroopBase> TroopTrained;
-        public event Action<TroopBase, TileBase, TileBase> TroopMoved;
-        public event Action<TroopBase, BuildingBase, TroopBase, TileBase> TroopAttacked;
-        public event Action TurnEnded;
+        public event Action<TroopBase> OnTroopTrained;
+        public event Action<TroopBase, TileBase, TileBase> OnTroopMoved;
+        public event Action<TroopBase, BuildingBase, TroopBase, TileBase> OnTroopAttacked;
+        public event Action OnTurnEnded;
+        public event Action<TechTreeItemBase> OnTechLearned;
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
@@ -45,7 +46,7 @@ namespace Model
 
         public void EndTurn()
         {
-            TurnEnded?.Invoke();
+            OnTurnEnded?.Invoke();
         }
 
         public bool Build(TroopBase troop, BuildingBase building)
@@ -72,7 +73,7 @@ namespace Model
             building.ApplyAllPropertyBonus(this);
             troop.Kill();
             TroopDeath?.Invoke(troop);
-            BuildCreated?.Invoke(building);
+            OnBuildCreated?.Invoke(building);
             return true;
         }
 
@@ -92,7 +93,7 @@ namespace Model
                 GameManager.Get<TurnManagerBase>().OnTurnStarted += troop.Heal;
 
             troop.ApplyAllPropertyBonus(this);
-            TroopTrained?.Invoke(troop);
+            OnTroopTrained?.Invoke(troop);
             return true;
         }
 
@@ -104,7 +105,7 @@ namespace Model
             TileBase from = troop.Tile;
             bool moved = troop.Move(target);
             if (moved)
-                TroopMoved?.Invoke(troop, from, target);
+                OnTroopMoved?.Invoke(troop, from, target);
 
             return moved;
         }
@@ -116,7 +117,7 @@ namespace Model
 
             bool result = attacker.Attack(target);
             if (result)
-                TroopAttacked?.Invoke(attacker, null, target, target.Tile);
+                OnTroopAttacked?.Invoke(attacker, null, target, target.Tile);
             if (target.TroopProperty.Health <= 0)
                 TroopDeath?.Invoke(target);
 
@@ -129,7 +130,7 @@ namespace Model
                 return false;
             bool result = attacker.Attack(target);
             if (result)
-                TroopAttacked?.Invoke(attacker, target, null, target.Tile);
+                OnTroopAttacked?.Invoke(attacker, target, null, target.Tile);
             if (target.BuildingProperty.Health <= 0)
                 BuildDestroyed?.Invoke(target);
 
@@ -148,7 +149,7 @@ namespace Model
             tile.SetBuildingOnTop(city, this);
             AvailableTiles.Add(tile);
             AddBuilding(city);
-            BuildCreated?.Invoke(city);
+            OnBuildCreated?.Invoke(city);
             OnStartingCitySpawned?.Invoke(this, tile, city);
         }
 
@@ -187,6 +188,7 @@ namespace Model
                 Techs[techToLearn.HashCode].TechTreeItemProperty.IsUnlocked = true;
                 Techs[techToLearn.HashCode].ActivateEffect(this);
                 ResourceContainer -= techToLearn.TechTreeItemProperty.Cost;
+                OnTechLearned?.Invoke(techToLearn);
                 return true;
             }
             return false;

@@ -21,7 +21,7 @@ namespace LogView
             }
 
             Model.GameManager.OnGameStarted += LogStart;
-            LogDataWrapper.Instance.NewDataCreated += LogNewEvent;
+            MapTilesToCoords();
         }
 
         private static void LogStart(IList<Model.Player> players, string mapFilePath)
@@ -41,18 +41,14 @@ namespace LogView
                 new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, jsonString);
 
-            //jo lesz ez itt vagy menjen ctor-ba? ----------------------------------------------------------------------------------------
             LogDataWrapper.Instance.SubscribeToPlayerEvents();
         }
 
         public static void LogNewEvent(JsonActionObject newAction)
         {
-            string jsonObject = File.ReadAllText(filePath);
-            JsonDataHolder newLog = JsonSerializer.Deserialize<JsonDataHolder>(jsonObject);
+            JsonLogger.log.Actions.Add(newAction);
 
-            newLog.Actions.Add(newAction);
-
-            string jsonString = JsonSerializer.Serialize(newLog, new JsonSerializerOptions { WriteIndented = true });
+            string jsonString = JsonSerializer.Serialize(log, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, jsonString);
         }
 

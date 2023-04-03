@@ -1,4 +1,4 @@
-﻿namespace View
+﻿namespace ReplayView
 {
     public class ReloadManager
     {

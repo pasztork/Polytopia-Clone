@@ -5,8 +5,6 @@ namespace LogView
 {
     public class LogDataWrapper
     {
-        public event Action<JsonActionObject> NewDataCreated;
-
         private static LogDataWrapper instance;
         public static LogDataWrapper Instance
         {
@@ -25,13 +23,14 @@ namespace LogView
             Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += TriggerGameEnded;
             foreach (Model.Player player in Model.GameManager.Players)
             {
-                player.BuildCreated += TriggerBuild;
-                player.TroopDeath += TriggerTroopDeath;
-                player.TroopTrained += TriggerTrain;
-                player.TroopMoved += TriggerTroopMoved;
-                player.TroopAttacked += TriggerAttack;
-                player.TurnEnded += TriggerTurnEnded;
+                player.OnBuildCreated += TriggerBuild;
+                player.OnTroopTrained += TriggerTrain;
+                player.OnTroopMoved += TriggerTroopMoved;
+                player.OnTroopAttacked += TriggerAttack;
+                player.OnTurnEnded += TriggerTurnEnded;
+                player.OnTechLearned += TriggerTechLearned;
                 player.BuildDestroyed += TriggerBuildingDestroy;
+                player.TroopDeath += TriggerTroopDeath;
             }
         }
 
@@ -43,7 +42,7 @@ namespace LogView
                 ActionDatas = new JsonActionDatas() { Building = building.ToString(),
                                                       Start = JsonLogger.GetTileCoords(building.Tile) }
             };
-            NewDataCreated?.Invoke(action);
+            JsonLogger.LogNewEvent(action);
         }
 
         //kell ez az event actualy?? Catapultnal nem tom a szomszedos mezokon tortent dolgokat lekerni
@@ -105,7 +104,7 @@ namespace LogView
                     Start = JsonLogger.GetTileCoords(troop.Tile)
                 }
             };
-            NewDataCreated?.Invoke(action);
+            JsonLogger.LogNewEvent(action);
         }
 
         public void TriggerTroopMoved(Model.TroopBase troop, Model.TileBase from, Model.TileBase target)
@@ -120,7 +119,7 @@ namespace LogView
                     End = JsonLogger.GetTileCoords(target)
                 }
             };
-            NewDataCreated?.Invoke(action);
+            JsonLogger.LogNewEvent(action);
         }
 
         public void TriggerAttack(Model.TroopBase attacker, Model.BuildingBase targetBuilding, Model.TroopBase targetTroop, Model.TileBase targetedTile)
@@ -150,7 +149,7 @@ namespace LogView
                 Action = LogActions.Attack.ToString(),
                 ActionDatas = datas
             };
-            NewDataCreated?.Invoke(action);
+            JsonLogger.LogNewEvent(action);
         }
 
         public void TriggerTurnEnded()
@@ -160,7 +159,7 @@ namespace LogView
                 Action = LogActions.Endturn.ToString(),
                 ActionDatas = new JsonActionDatas()
             };
-            NewDataCreated?.Invoke(action);
+            JsonLogger.LogNewEvent(action);
         }
 
         public void TriggerGameEnded(Model.Player player)
@@ -170,7 +169,20 @@ namespace LogView
                 Action = LogActions.GameEnd.ToString(),
                 ActionDatas = new JsonActionDatas()
             };
-            NewDataCreated?.Invoke(action);
+            JsonLogger.LogNewEvent(action);
+        }
+
+        public void TriggerTechLearned(Model.TechTreeItemBase tech)
+        {
+            JsonActionObject action = new JsonActionObject()
+            {
+                Action = LogActions.Learn.ToString(),
+                ActionDatas = new JsonActionDatas()
+                {
+                    Tech = tech.HashCode
+                }
+            };
+            JsonLogger.LogNewEvent(action);
         }
     }
 }
