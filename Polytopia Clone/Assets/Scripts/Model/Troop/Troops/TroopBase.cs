@@ -95,13 +95,17 @@ namespace Model
         {
             bool dodged = new Random().NextDouble() <= TroopProperty.DodgeRate;
             if (dodged)
+            {
+                Player.RaiseOnAttackMissed(this);
                 return false;
+            }
+                
 
             TroopProperty.Health -= damage;
             OnDamageTaken?.Invoke(TroopProperty.Health);
 
             if (TroopProperty.Health > 0)
-                return false;
+                return true;
 
             GameManager.Get<TurnManagerBase>().OnTurnStarted -= Heal;
             Player.Troops.Remove(this);
@@ -112,6 +116,7 @@ namespace Model
         public bool Kill()
         {
             TroopProperty.Health = 0;
+            GameManager.Get<TurnManagerBase>().OnTurnStarted -= Heal;
             OnDamageTaken?.Invoke(TroopProperty.Health);
 
             Player.Troops.Remove(this);

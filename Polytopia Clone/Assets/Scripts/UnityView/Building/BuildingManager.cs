@@ -93,7 +93,7 @@ namespace View
         {
             Model.TroopBase modelAttacker = View.TroopManager.Instance.ViewToModelMap[View.TroopManager.Instance.SelectedTroop];
             Model.BuildingBase modelTarget = ViewToModelMap[building];
-            Controller.GameManager.Get<Controller.BuildingManager>().Attack(modelAttacker, modelTarget);
+            Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(modelAttacker, modelTarget);
         }
     }
 }

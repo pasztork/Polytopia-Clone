@@ -15,6 +15,7 @@ namespace Model
         public event Action<TroopBase, BuildingBase, TroopBase, TileBase> OnTroopAttacked;
         public event Action OnTurnEnded;
         public event Action<TechTreeItemBase> OnTechLearned;
+        public event Action<TroopBase> OnAttackMissed;
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
@@ -192,6 +193,11 @@ namespace Model
                 return true;
             }
             return false;
+        }
+
+        public void RaiseOnAttackMissed(TroopBase troop)
+        {
+            OnAttackMissed?.Invoke(troop);
         }
     }
 }

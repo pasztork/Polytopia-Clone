@@ -9,7 +9,7 @@
 
         public override void ActivateEffect(Player player)
         {
-            player.AvailableTroops.Add("Cataput");
+            player.AvailableTroops.Add("Catapult");
         }
     }
 }

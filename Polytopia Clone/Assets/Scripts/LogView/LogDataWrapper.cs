@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 
 namespace LogView
 {
@@ -31,6 +33,7 @@ namespace LogView
                 player.OnTechLearned += TriggerTechLearned;
                 player.BuildDestroyed += TriggerBuildingDestroy;
                 player.TroopDeath += TriggerTroopDeath;
+                player.OnAttackMissed += TriggerAttackMissed;
             }
         }
 
@@ -180,6 +183,22 @@ namespace LogView
                 ActionDatas = new JsonActionDatas()
                 {
                     Tech = tech.HashCode
+                }
+            };
+            JsonLogger.LogNewEvent(action);
+        }
+
+        //visszatoltesnel kell okosan, mert a katapult egy mezot támad,
+        //de ha tobb egség van a kornyeken akkor lehet hogy tobben is miss-elik a támadást
+        public void TriggerAttackMissed(TroopBase troop)
+        {
+            JsonActionObject action = new JsonActionObject()
+            {
+                Action = LogActions.MissAttack.ToString(),
+                ActionDatas = new JsonActionDatas()
+                {
+                    Start = JsonLogger.GetTileCoords(troop.Tile),
+                    Troop = troop.ToString() //lehet folosleges
                 }
             };
             JsonLogger.LogNewEvent(action);
