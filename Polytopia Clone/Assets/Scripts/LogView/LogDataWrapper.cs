@@ -169,7 +169,7 @@ namespace LogView
         {
             JsonActionObject action = new JsonActionObject()
             {
-                Action = LogActions.GameEnd.ToString(),
+                Action = LogActions.Gameend.ToString(),
                 ActionDatas = new JsonActionDatas()
             };
             JsonLogger.LogNewEvent(action);
@@ -194,7 +194,7 @@ namespace LogView
         {
             JsonActionObject action = new JsonActionObject()
             {
-                Action = LogActions.MissAttack.ToString(),
+                Action = LogActions.Missattack.ToString(),
                 ActionDatas = new JsonActionDatas()
                 {
                     Start = JsonLogger.GetTileCoords(troop.Tile),

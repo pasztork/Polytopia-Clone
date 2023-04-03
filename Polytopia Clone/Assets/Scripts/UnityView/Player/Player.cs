@@ -28,6 +28,11 @@ namespace View
         {
             View.BuildingManager.Instance.BuildStartingCity(modelTile, modelBuilding, player.Name);
         }
+
+        public void SetDefaultParams(string paramsFilePath)
+        {
+
+        }
     }
 }
 
