@@ -6,6 +6,8 @@ namespace Model
 {
     public abstract class TroopBase
     {
+        public static TroopProperties TroopProperties { get; set; } = null;
+
         // The argument of the method is the remainging health.
         public event Action<int> OnDamageTaken;
         public event Action<int> OnTroopHealed;
@@ -21,6 +23,8 @@ namespace Model
         // Doesn't contain Tile.
         public IList<TileBase> TilesInMovementRange { get => GetTilesInRange(TroopProperty.MovementRange); }
         public IList<TileBase> TilesInAttackRange { get => GetTilesInRange(TroopProperty.AttackRange); }
+
+        protected JsonTroop initialValues = null;
 
         public TroopBase()
         {
@@ -99,7 +103,7 @@ namespace Model
                 Player.RaiseOnAttackMissed(this);
                 return false;
             }
-                
+
 
             TroopProperty.Health -= damage;
             OnDamageTaken?.Invoke(TroopProperty.Health);
@@ -144,6 +148,26 @@ namespace Model
         public virtual void FillRequirements(RequirementsListBase requirements)
         {
             // Do nothing.
+        }
+
+        protected void Init(Player player)
+        {
+            if (initialValues == null)
+            {
+                throw new ArgumentException("You must set initialValues field before initialising!");
+            }
+
+            Player = player;
+            TroopProperty = new TroopProperty
+            {
+                Health = initialValues.Health,
+                Damage = initialValues.Damage,
+                MovementRange = initialValues.MovementRange,
+                AttackRange = initialValues.AttackRange,
+                DodgeRate = initialValues.DodgeRate
+            };
+            MaxHealth = TroopProperty.Health;
+            Cost = new Cost(initialValues.Cost.Money, initialValues.Cost.Material, initialValues.Cost.Food);
         }
     }
 }

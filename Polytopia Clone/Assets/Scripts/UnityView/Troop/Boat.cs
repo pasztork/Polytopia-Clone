@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace View
 {
     public class Boat : OffensiveTroop
     {
+        private void Start()
+        {
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
+                Initialize(Model.TroopBase.TroopProperties.Boat.Health);
+            movementRange = Model.TroopBase.TroopProperties.Boat.MovementRange;
+        }
+
         public override Model.TroopBase ToModel(Model.Player player)
         {
-            Model.TroopBase boat = new Model.Boat();
+            Model.TroopBase boat = new Model.Boat(player);
             boat.OnDamageTaken += TakeDamage;
             boat.OnTroopHealed += Heal;
-            boat.MaxHealth = TroopProperties.Health;
-            boat.TroopProperty = new Model.TroopProperty(TroopProperties.Health, TroopProperties.Damage, TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);
-            boat.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return boat;
         }
 

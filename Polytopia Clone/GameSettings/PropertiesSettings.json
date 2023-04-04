@@ -103,9 +103,9 @@
         },
         "Builder": {
             "Cost": {
-                "Food": 0,
-                "Material": 0,
-                "Money": 0
+                "Food": 500,
+                "Material": 500,
+                "Money": 500
             },
             "Health": 3,
             "Damage": 0,

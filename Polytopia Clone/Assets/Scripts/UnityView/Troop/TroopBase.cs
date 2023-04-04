@@ -9,35 +9,22 @@ namespace View
 {
     public abstract class TroopBase : MonoBehaviour
     {
-        [Header("Cost Settings")]
-        [SerializeField] protected View.Cost cost;
-        public View.Cost Cost { get => cost; }
-
-        [Header("Troop Properties")]
-        [SerializeField] private View.TroopProperty troopProperties;
-        public Model.TroopProperty TroopProperties { get; set; }
 
         [Header("Highlight Settings")]
         protected Color hoverColor = Color.yellow;
         protected Color selectColor = Color.magenta;
         protected Color startColor;
 
-
         private IList<Tile> TilesToHighLight = new List<Tile>();
+
+        protected int movementRange = 0;
 
         public abstract Model.TroopBase ToModel(Model.Player player);
 
         private void Awake()
         {
             startColor = GetComponent<Renderer>().material.color;
-            TroopProperties = new Model.TroopProperty(troopProperties.Health, troopProperties.Damage,
-                                                      troopProperties.MovementRange, troopProperties.AttackRange, troopProperties.DodgeRate);
             HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
-        }
-
-        private void Start()
-        {
-            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Initialize(TroopProperties.Health);
         }
 
         protected void DeselectIfNotSelected(MonoBehaviour mono)
@@ -172,7 +159,7 @@ namespace View
             }
 
             TilesToHighLight.Clear();
-            TilesToHighLight = GetTilesInRange(TroopProperties.MovementRange);
+            TilesToHighLight = GetTilesInRange(movementRange);
             foreach (var tile in TilesToHighLight)
             {
                 tile.GetComponent<Renderer>().material.color = tile.SelectColor;
@@ -228,11 +215,6 @@ namespace View
             }
 
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
-        }
-
-        public void SetReferenceToProperties(Model.TroopBase troop)
-        {
-            TroopProperties = troop.TroopProperty;
         }
     }
 }

@@ -69,30 +69,23 @@
 
     public class TechTreeItemCosts
     {
-        public JsonTechTreeItem Archery { get; set; }
-        public JsonTechTreeItem Banking { get; set; }
-        public JsonTechTreeItem Catapult { get; set; }
-        public JsonTechTreeItem Farming { get; set; }
-        public JsonTechTreeItem Forestry { get; set; }
-        public JsonTechTreeItem GemMining { get; set; }
-        public JsonTechTreeItem Harbor { get; set; }
-        public JsonTechTreeItem IndustrialRevolution { get; set; }
-        public JsonTechTreeItem Irrigation { get; set; }
-        public JsonTechTreeItem Mathematics { get; set; }
-        public JsonTechTreeItem Militarism { get; set; }
-        public JsonTechTreeItem Mining { get; set; }
-        public JsonTechTreeItem Navigation { get; set; }
-        public JsonTechTreeItem Riding { get; set; }
-        public JsonTechTreeItem Sailing { get; set; }
-        public JsonTechTreeItem Sanitation { get; set; }
-        public JsonTechTreeItem StockMarket { get; set; }
-        public JsonTechTreeItem Strategy { get; set; }
-    }
-
-    public class JsonTechTreeItem
-    {
-        public int Food { get; set; }
-        public int Material { get; set; }
-        public int Money { get; set; }
+        public JsonCost Archery { get; set; }
+        public JsonCost Banking { get; set; }
+        public JsonCost Catapult { get; set; }
+        public JsonCost Farming { get; set; }
+        public JsonCost Forestry { get; set; }
+        public JsonCost GemMining { get; set; }
+        public JsonCost Harbor { get; set; }
+        public JsonCost IndustrialRevolution { get; set; }
+        public JsonCost Irrigation { get; set; }
+        public JsonCost Mathematics { get; set; }
+        public JsonCost Militarism { get; set; }
+        public JsonCost Mining { get; set; }
+        public JsonCost Navigation { get; set; }
+        public JsonCost Riding { get; set; }
+        public JsonCost Sailing { get; set; }
+        public JsonCost Sanitation { get; set; }
+        public JsonCost StockMarket { get; set; }
+        public JsonCost Strategy { get; set; }
     }
 }

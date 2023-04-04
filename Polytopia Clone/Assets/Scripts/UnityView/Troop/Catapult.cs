@@ -1,15 +1,21 @@
+using UnityEngine;
+
 namespace View
 {
     public class Catapult : OffensiveTroop
     {
+        private void Start()
+        {
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
+                Initialize(Model.TroopBase.TroopProperties.Catapult.Health);
+            movementRange = Model.TroopBase.TroopProperties.Catapult.MovementRange;
+        }
+
         public override Model.TroopBase ToModel(Model.Player player)
         {
-            Model.TroopBase catapult = new Model.Catapult();
+            Model.TroopBase catapult = new Model.Catapult(player);
             catapult.OnDamageTaken += TakeDamage;
             catapult.OnTroopHealed += Heal;
-            catapult.MaxHealth = TroopProperties.Health;
-            catapult.TroopProperty = new Model.TroopProperty(TroopProperties.Health, TroopProperties.Damage, TroopProperties.MovementRange, TroopProperties.AttackRange, TroopProperties.DodgeRate);
-            catapult.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
             return catapult;
         }
     }
