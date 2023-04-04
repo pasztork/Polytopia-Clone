@@ -14,6 +14,7 @@ namespace Model
 
         private static readonly string directory = $"{Directory.GetCurrentDirectory()}\\GameSettings";
         private static readonly string mapGenerationSettingsFilename = "MapGenerationSettings.json";
+        private static readonly string propertiesSettingsFilename = "PropertiesSettings.json";
 
         static GameManager()
         {
@@ -25,6 +26,7 @@ namespace Model
             dependencyContainer.Register<TechTreeManagerBase, TechTreeManager>();
 
             MapSettingsLoader.Load(Path.Combine(directory, mapGenerationSettingsFilename));
+            PropertiesLoader.Load(Path.Combine(directory, propertiesSettingsFilename));
         }
 
         public static void StartNew()
