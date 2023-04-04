@@ -30,34 +30,12 @@ namespace LogView
             log.Map = mapFilePath;
             log.Players = new List<JsonPlayerObject>();
             foreach (Model.Player p in players)
-            {
-                string[] buildings = new string[p.AvailableBuildings.Count];
-                p.AvailableBuildings.CopyTo(buildings, 0);
-                string[] troops = new string[p.AvailableTroops.Count];
-                p.AvailableTroops.CopyTo(troops, 0);
-                List<JsonStartingProductionObject> baseProductionList = new List<JsonStartingProductionObject>();
-                foreach(var prod in p.StartingProduction)
-                    baseProductionList.Add(new JsonStartingProductionObject() { Key = prod.Key, Value = prod.Value});
-                double[] color = new double[]
-                {
-                    View.TurnManager.Instance.PlayerColors[p.Name].r,
-                    View.TurnManager.Instance.PlayerColors[p.Name].g,
-                    View.TurnManager.Instance.PlayerColors[p.Name].b,
-                    View.TurnManager.Instance.PlayerColors[p.Name].a
-                };
-
+            {   
                 log.Players.Add(new JsonPlayerObject
                 {
                     Name = p.Name,
                     StartingTile = tileToCoordMap[p.Buildings[0].Tile],
-                    StartingParams = new JsonPlayerParams()
-                    {
-                        StartingCityRange = p.StartingCityRange,
-                        StartingBuildings = buildings,
-                        StartingTroops = troops,
-                        PlayerColor = color,
-                        BaseProduction = baseProductionList
-                    }
+                    StartingCityRange = p.StartingCityRange
                 }); ;
             }
             log.Actions = new List<JsonActionObject>();

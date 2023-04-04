@@ -25,14 +25,14 @@ namespace ReplayView
             string fileContent = File.ReadAllText(jsonLogFilePath);
             JsonDataHolder jsonDataHolder = JsonSerializer.Deserialize<JsonDataHolder>(fileContent);
 
+            Model.GameManager.StartReplay(jsonDataHolder.Map);
             Model.GameManager.Get<MapManagerBase>().LoadMap(jsonDataHolder.Map);
             foreach (var player in jsonDataHolder.Players)
             {
                 View.Player gamer = new View.Player();
-                gamer.SetDefaultParams(player);
+                gamer.SetPlayerFromLog(player);
                 Instantiate(gamer);
             }
-            ReplayModel.ReplayManager.InitializeGame(jsonDataHolder.Actions);
         }
     }
 }

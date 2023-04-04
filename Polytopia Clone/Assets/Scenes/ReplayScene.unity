@@ -521,8 +521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ea35ac65e43d748864bb174aa0c99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 16
-  generationProperties: {fileID: 11400000, guid: eb6aad47dc6291a45862497600d698ba, type: 2}
 --- !u!114 &277816175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,7 +1250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1707fb3db12143945a00ad4ba217320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonLogFilePath: C:\Users\nemes\Documents\6_felev\Polytopia-Clone\Polytopia Clone\GameLogs\2023-04-04_11-07-25.json
+  jsonLogFilePath: C:\Users\nemes\Documents\6_felev\Polytopia-Clone\Polytopia Clone\GameLogs\2023-04-04_14-03-51.json
 --- !u!1 &1530248597
 GameObject:
   m_ObjectHideFlags: 0

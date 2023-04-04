@@ -1,4 +1,5 @@
 ﻿using LogView;
+using Model;
 using System.Linq;
 using UnityEngine;
 
@@ -30,22 +31,17 @@ namespace View
             View.BuildingManager.Instance.BuildStartingCity(modelTile, modelBuilding, player.Name);
         }
 
-        public void SetDefaultParams(JsonPlayerObject param)
+        public void SetPlayerFromLog(JsonPlayerObject player)
         {
-            name = param.Name;
-            startingCityRange = param.StartingParams.StartingCityRange;
-            startingBuildings = param.StartingParams.StartingBuildings;
-            startingTroops = param.StartingParams.StartingTroops;
-            DictionaryWrapper wrapper = new DictionaryWrapper();
-            foreach (var p in param.StartingParams.BaseProduction)
-                wrapper.AddKeyValue(p.Key, p.Value);
-            baseProduction = wrapper;
-            Color szin = new Color();
-            szin.r = (float)param.StartingParams.PlayerColor[0];
-            szin.g = (float)param.StartingParams.PlayerColor[1];
-            szin.b = (float)param.StartingParams.PlayerColor[2];
-            szin.a = (float)param.StartingParams.PlayerColor[3];
-            playerColor = szin;
+            name = player.Name;
+            startingCityRange = player.StartingCityRange;
+            startingBuildings = null;
+            startingTroops = null;
+            playerColor = Color.white;
+            baseProduction = Model.PropertiesLoader.SetPlayerProperties();
+            Model.City city = new Model.City(player.StartingCityRange);
+            TileBase tile = Model.GameManager.Get<Model.MapManagerBase>().Tiles[player.StartingTile[0], player.StartingTile[1]];
+            View.BuildingManager.Instance.BuildStartingCity( tile, city, player.Name);
         }
     }
 }

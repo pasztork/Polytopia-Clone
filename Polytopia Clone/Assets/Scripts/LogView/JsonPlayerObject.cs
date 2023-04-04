@@ -4,6 +4,6 @@
     {
         public string Name { get; set; }
         public int[] StartingTile { get; set; }
-        public JsonPlayerParams StartingParams { get; set; }
+        public int StartingCityRange { get; set; }
     }
 }

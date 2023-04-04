@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text.Json;
+using View;
 
 namespace Model
 {
@@ -14,6 +15,11 @@ namespace Model
             string json = File.ReadAllText(path);
             Settings settings = JsonSerializer.Deserialize<Settings>(json);
             // TODO: Load all values into static fields in each class
+        }
+
+        public static DictionaryWrapper SetPlayerProperties()
+        {
+            return null;
         }
     }
 }

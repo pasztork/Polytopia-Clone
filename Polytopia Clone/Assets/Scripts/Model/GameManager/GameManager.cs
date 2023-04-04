@@ -24,9 +24,6 @@ namespace Model
             dependencyContainer.Register<BuildManagerBase, BuildManager>();
             dependencyContainer.Register<TrainManagerBase, TrainManager>();
             dependencyContainer.Register<TechTreeManagerBase, TechTreeManager>();
-
-            MapSettingsLoader.Load(Path.Combine(directory, mapGenerationSettingsFilename));
-            PropertiesLoader.Load(Path.Combine(directory, propertiesSettingsFilename));
         }
 
         public static void StartNew()
@@ -36,6 +33,12 @@ namespace Model
             dependencyContainer.Get<TurnManagerBase>().Start();
 
             OnGameStarted?.Invoke(Players, Get<MapManagerBase>().MapFilePath);
+        }
+
+        public static void StartReplay(string mapPath)
+        {
+            //MapSettingsLoader.Load(Path.Combine(directory, mapGenerationSettingsFilename));
+            //PropertiesLoader.Load(Path.Combine(directory, propertiesSettingsFilename));
         }
 
         public static T Get<T>()

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
-namespace ReplayModel
+namespace ReplayView
 {
     public class ReplayManager
     {
@@ -25,12 +25,6 @@ namespace ReplayModel
                 instance ??= new ReloadManager();
                 return instance;
             }
-        }
-
-        public static void InitializeGame(List<JsonActionObject> datas)
-        {
-            actionList = datas;
-            //get the game parameters and set them expect the player params
         }
 
         public void ReplayOneStepForward()
