@@ -67,7 +67,6 @@ namespace View
                 Destroy(viewBuilding);
                 return;
             }
-            viewBuilding.SetReferenceToProperties(building);
             viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
@@ -83,7 +82,6 @@ namespace View
             View.NameText buildingText = viewBuilding.GetComponentInChildren<View.NameText>();
             buildingText.Name = name + "\nCapital";
             buildingText.BackgroundColor = View.TurnManager.Instance.PlayerColors[name];
-            modelBuilding.BuildingProperty = new Model.BuildingProperty(viewBuilding.BuildingProperties.Health, viewBuilding.BuildingProperties.ProductionRate);
             modelBuilding.OnDamageTaken += viewBuilding.TakeDamage;
 
             ViewToModelMap[viewBuilding] = modelBuilding;

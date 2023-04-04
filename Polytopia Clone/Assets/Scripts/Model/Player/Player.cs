@@ -5,6 +5,8 @@ namespace Model
 {
     public class Player
     {
+        public static BaseProduction BaseProduction { private get; set; } = null;
+
         public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
         public event Action<Player> OnEliminated;
         public event Action<BuildingBase> OnBuildCreated;
@@ -22,7 +24,6 @@ namespace Model
         public Dictionary<string, TechTreeItemBase> Techs { get; set; }
         public BonusProperty BonusProperty { get; set; } = new BonusProperty();
 
-        public Dictionary<string, int> StartingProduction { get; set; }
         public int StartingCityRange { get; set; }
         public IList<BuildingBase> Buildings { get; } = new List<BuildingBase>();
         public IList<TroopBase> Troops { get; } = new List<TroopBase>();
@@ -140,10 +141,10 @@ namespace Model
 
         public void SetupStartingPosition()
         {
-            BuildingBase city = new City(StartingCityRange);
-            city.Producers.Add(new MoneyProducer(ResourceContainer, StartingProduction["Money"]));
-            city.Producers.Add(new MaterialProducer(ResourceContainer, StartingProduction["Material"]));
-            city.Producers.Add(new FoodProducer(ResourceContainer, StartingProduction["Food"]));
+            BuildingBase city = new City(this);
+            city.Producers.Add(new FoodProducer(ResourceContainer, BaseProduction.Food));
+            city.Producers.Add(new MaterialProducer(ResourceContainer, BaseProduction.Material));
+            city.Producers.Add(new MoneyProducer(ResourceContainer, BaseProduction.Money));
             TileBase tile = GameManager.Get<MapManagerBase>().GetStartingTile();
             city.Tile = tile;
             city.Player = this;

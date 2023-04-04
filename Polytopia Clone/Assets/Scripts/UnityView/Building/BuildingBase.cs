@@ -5,14 +5,6 @@ namespace View
 {
     public abstract class BuildingBase : MonoBehaviour
     {
-        [Header("Cost Settings")]
-        [SerializeField] protected View.Cost cost;
-        public View.Cost Cost { get => cost; }
-
-        [Header("Building Properties")]
-        [SerializeField] private View.BuildingProperty buildingProperties;
-        public Model.BuildingProperty BuildingProperties { get; set; }
-
         [Header("Highlight Settings")]
         private Color hoverColor = Color.yellow;
         private Color selectColor = Color.magenta;
@@ -23,9 +15,7 @@ namespace View
         private void Awake()
         {
             startColor = GetComponent<Renderer>().material.color;
-            BuildingProperties = new Model.BuildingProperty(buildingProperties.Health, buildingProperties.ProductionRate);
             HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
-            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Initialize(BuildingProperties.Health);
         }
 
         protected void DeselectIfNotSelected(MonoBehaviour mono)
@@ -98,11 +88,6 @@ namespace View
             }
 
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
-        }
-
-        public void SetReferenceToProperties(Model.BuildingBase building)
-        {
-            BuildingProperties = building.BuildingProperty;
         }
     }
 }

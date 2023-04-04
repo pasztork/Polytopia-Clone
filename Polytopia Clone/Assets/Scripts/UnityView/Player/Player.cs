@@ -11,7 +11,6 @@ namespace View
         [SerializeField] private int startingCityRange;
         [SerializeField] private string[] startingBuildings;
         [SerializeField] private string[] startingTroops;
-        [SerializeField] private DictionaryWrapper baseProduction;
         [SerializeField] private Color playerColor;
 
         private void Start()
@@ -20,7 +19,6 @@ namespace View
             player.Techs = View.TechTreeManager.Instance.GetNewTechTree();
             View.TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
             player.StartingCityRange = startingCityRange;
-            player.StartingProduction = baseProduction.CreateDictionary();
             player.AvailableBuildings = startingBuildings.ToList();
             player.AvailableTroops = startingTroops.ToList();
             player.OnStartingCitySpawned += BuildStartingCity;
@@ -38,10 +36,12 @@ namespace View
             startingBuildings = null;
             startingTroops = null;
             playerColor = Color.white;
-            baseProduction = Model.PropertiesLoader.SetPlayerProperties();
-            Model.City city = new Model.City(player.StartingCityRange);
+
+            // Ennek itt semmi keresnivalója
+            // Csinálj külön View elemet a visszajátszáshoz
+            // Model.City city = new Model.City(player.StartingCityRange);
             TileBase tile = Model.GameManager.Get<Model.MapManagerBase>().Tiles[player.StartingTile[0], player.StartingTile[1]];
-            View.BuildingManager.Instance.BuildStartingCity(tile, city, player.Name);
+            // View.BuildingManager.Instance.BuildStartingCity(tile, city, player.Name);
         }
     }
 }

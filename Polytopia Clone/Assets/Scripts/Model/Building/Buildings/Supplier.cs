@@ -2,9 +2,15 @@
 {
     public class Supplier : NonTrainingBuilding
     {
+        public Supplier(Player player) : base()
+        {
+            initialValues = BuildingProperties.Supplier;
+            Init(player);
+        }
+
         public override void IncreaseMaterialProduction(int amount)
         {
-            foreach(ProducerBase producer in Producers)
+            foreach (ProducerBase producer in Producers)
             {
                 producer.IncreaseProduction(amount);
             }

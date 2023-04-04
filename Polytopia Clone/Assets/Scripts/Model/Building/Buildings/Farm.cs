@@ -2,6 +2,12 @@
 {
     public class Farm : NonTrainingBuilding
     {
+        public Farm(Player player) : base()
+        {
+            initialValues = BuildingProperties.Farm;
+            Init(player);
+        }
+
         public override void IncreaseFoodProduction(int amount)
         {
             foreach (ProducerBase producer in Producers)

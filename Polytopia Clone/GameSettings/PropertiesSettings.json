@@ -12,7 +12,12 @@
                 "Money": 10
             },
             "Health": 50,
-            "ProductionRate": 10
+            "Range" : 0,
+            "ProductionRate": {
+                "Food" : 0,
+                "Material" : 0,
+                "Money" : 100
+            }
         },
         "City": {
             "Cost": {
@@ -21,7 +26,12 @@
                 "Money": 20
             },
             "Health": 50,
-            "ProductionRate": 100
+            "Range": 1,
+            "ProductionRate": {
+                "Food": 100,
+                "Material": 100,
+                "Money": 100
+            }
         },
         "Farm": {
             "Cost": {
@@ -30,7 +40,12 @@
                 "Money": 10
             },
             "Health": 50,
-            "ProductionRate": 10
+            "Range": 0,
+            "ProductionRate": {
+                "Food": 10,
+                "Material": 0,
+                "Money": 0
+            }
         },
         "Harbor": {
             "Cost": {
@@ -39,7 +54,12 @@
                 "Money": 20
             },
             "Health": 50,
-            "ProductionRate": 15
+            "Range": 0,
+            "ProductionRate": {
+                "Food": 15,
+                "Material": 0,
+                "Money": 15
+            }
         },
         "Supplier": {
             "Cost": {
@@ -48,7 +68,12 @@
                 "Money": 40
             },
             "Health": 50,
-            "ProductionRate": 10
+            "Range": 0,
+            "ProductionRate": {
+                "Food": 0,
+                "Material": 10,
+                "Money": 0
+            }
         }
     },
     "TroopProperties": {

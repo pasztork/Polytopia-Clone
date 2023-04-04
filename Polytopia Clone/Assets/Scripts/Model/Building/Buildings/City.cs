@@ -5,17 +5,16 @@ namespace Model
 {
     public class City : TroopTrainingBuilding
     {
-        private readonly int range;
-
-        public City(int range) : base()
+        public City(Player player) : base()
         {
-            this.range = range;
+            initialValues = BuildingProperties.City;
+            Init(player);
         }
 
         public override IList<TileBase> GetTilesInRange()
         {
             ISet<TileBase> reachables = new HashSet<TileBase>() { Tile };
-            for (int i = 0; i < range; i++)
+            for (int i = 0; i < BuildingProperty.Range; i++)
             {
                 ISet<TileBase> toAdd = new HashSet<TileBase>();
                 foreach (TileBase reachable in reachables)

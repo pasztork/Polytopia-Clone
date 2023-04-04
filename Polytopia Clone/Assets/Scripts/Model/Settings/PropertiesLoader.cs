@@ -14,7 +14,10 @@ namespace Model
             }
             string json = File.ReadAllText(path);
             Settings settings = JsonSerializer.Deserialize<Settings>(json);
+
             // TODO: Load all values into static fields in each class
+            Player.BaseProduction = settings.BaseProduction;
+            BuildingBase.BuildingProperties = settings.BuildingProperties;
         }
 
         public static DictionaryWrapper SetPlayerProperties()
