@@ -4,7 +4,7 @@ namespace Model
     {
         public Builder(Player player) : base()
         {
-            initialValues = TroopBase.TroopProperties.Builder;
+            initialValues = TroopBase.TroopProperties["Builder"];
             Init(player);
         }
 

@@ -4,15 +4,17 @@ namespace View
 {
     public class BankingTechView : TechTreeItem
     {
-        private BankingTechView()
+        private void Awake()
         {
             startColor = new Color(1, 1, 0, 1);
             Description = "Unlocks Bank building";
+            Cost = Model.TechTreeItemBase.ItemCosts["Banking"];
         }
+
         public override Model.TechTreeItemBase ToModel()
         {
             Model.TechTreeItemBase techItem =
-                new Model.BankingTech(new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost));
+                new Model.BankingTech();
             return techItem;
         }
     }

@@ -4,15 +4,17 @@ namespace View
 {
     public class MilitarismTechView : TechTreeItem
     {
-        private MilitarismTechView()
+        private void Awake()
         {
             startColor = new Color(1, 0.4f, 0, 1);
             Description = "Increase troop damage";
+            Cost = Model.TechTreeItemBase.ItemCosts["Militarism"];
         }
+
         public override Model.TechTreeItemBase ToModel()
         {
             Model.TechTreeItemBase techItem =
-                new Model.MilitarismTech(new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost));
+                new Model.MilitarismTech();
             return techItem;
         }
     }

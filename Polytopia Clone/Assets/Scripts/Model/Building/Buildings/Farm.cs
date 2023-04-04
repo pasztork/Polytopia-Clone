@@ -4,7 +4,7 @@
     {
         public Farm(Player player) : base()
         {
-            initialValues = BuildingProperties.Farm;
+            initialValues = BuildingProperties["Farm"];
             Init(player);
         }
 

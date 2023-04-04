@@ -7,7 +7,7 @@ namespace Model
     {
         public City(Player player) : base()
         {
-            initialValues = BuildingProperties.City;
+            initialValues = BuildingProperties["City"];
             Init(player);
         }
 

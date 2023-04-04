@@ -4,7 +4,7 @@ namespace Model
     {
         public Scout(Player player) : base()
         {
-            initialValues = TroopBase.TroopProperties.Scout;
+            initialValues = TroopBase.TroopProperties["Scout"];
             Init(player);
         }
 

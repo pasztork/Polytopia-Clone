@@ -4,7 +4,7 @@
     {
         public Supplier(Player player) : base()
         {
-            initialValues = BuildingProperties.Supplier;
+            initialValues = BuildingProperties["Supplier"];
             Init(player);
         }
 

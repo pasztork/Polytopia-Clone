@@ -4,7 +4,7 @@
     {
         public Boat(Player player) : base()
         {
-            initialValues = TroopBase.TroopProperties.Boat;
+            initialValues = TroopBase.TroopProperties["Boat"];
             Init(player);
         }
 

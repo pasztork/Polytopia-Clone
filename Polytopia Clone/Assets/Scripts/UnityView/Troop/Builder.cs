@@ -11,8 +11,8 @@ namespace View
         private void Start()
         {
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
-                Initialize(Model.TroopBase.TroopProperties.Builder.Health);
-            movementRange = Model.TroopBase.TroopProperties.Builder.MovementRange;
+                Initialize(Model.TroopBase.TroopProperties["Builder"].Health);
+            movementRange = Model.TroopBase.TroopProperties["Builder"].MovementRange;
         }
 
         public override Model.TroopBase ToModel(Model.Player player)

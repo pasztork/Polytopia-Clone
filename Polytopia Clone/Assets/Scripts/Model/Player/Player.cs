@@ -5,7 +5,7 @@ namespace Model
 {
     public class Player
     {
-        public static BaseProduction BaseProduction { private get; set; } = null;
+        public static JsonProductionRate BaseProduction { private get; set; } = null;
 
         public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
         public event Action<Player> OnEliminated;

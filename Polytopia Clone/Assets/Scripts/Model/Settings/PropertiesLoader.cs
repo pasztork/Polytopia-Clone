@@ -18,6 +18,7 @@ namespace Model
             Player.BaseProduction = settings.BaseProduction;
             BuildingBase.BuildingProperties = settings.BuildingProperties;
             TroopBase.TroopProperties = settings.TroopProperties;
+            TechTreeItemBase.ItemCosts = settings.TechTreeItemCosts;
         }
 
         public static DictionaryWrapper SetPlayerProperties()

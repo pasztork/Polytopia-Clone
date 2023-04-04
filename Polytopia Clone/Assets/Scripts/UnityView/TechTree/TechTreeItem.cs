@@ -6,8 +6,7 @@ namespace View
 {
     public abstract class TechTreeItem : MonoBehaviour
     {
-        [SerializeField] protected View.Cost cost;
-        public Cost Cost { get => cost; set => cost = value; }
+        public Model.JsonCost Cost { get; protected set; } = null;
         public string Name { get => GetComponentInChildren<TextMeshProUGUI>().text; }
         public string Description { get; protected set; }
 
@@ -16,6 +15,11 @@ namespace View
         private Color unlockColor = Color.green;
 
         public abstract Model.TechTreeItemBase ToModel();
+
+        private void Start()
+        {
+            ResetColor();
+        }
 
         public void OnItemClicked()
         {

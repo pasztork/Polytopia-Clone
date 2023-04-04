@@ -2,8 +2,9 @@
 {
     public class CatapultTech : TechTreeItemBase
     {
-        public CatapultTech(Cost cost) : base(cost)
+        public CatapultTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Catapult"]));
             HashCode = "Catapult";
         }
 

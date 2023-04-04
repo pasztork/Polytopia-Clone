@@ -7,7 +7,7 @@ namespace Model
     {
         public Catapult(Player player) : base()
         {
-            initialValues = TroopBase.TroopProperties.Catapult;
+            initialValues = TroopBase.TroopProperties["Catapult"];
             Init(player);
         }
 

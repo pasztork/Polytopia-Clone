@@ -5,7 +5,7 @@
 
         public Bank(Player player) : base()
         {
-            initialValues = BuildingProperties.Bank;
+            initialValues = BuildingProperties["Bank"];
             Init(player);
         }
 

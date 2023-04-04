@@ -2,8 +2,9 @@
 {
     public class BankingTech : TechTreeItemBase
     {
-        public BankingTech(Cost cost) : base(cost)
+        public BankingTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Banking"]));
             HashCode = "Banking";
         }
 

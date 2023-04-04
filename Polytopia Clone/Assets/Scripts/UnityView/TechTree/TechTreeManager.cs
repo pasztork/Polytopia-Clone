@@ -76,9 +76,9 @@ namespace View
 
             SelectedTechTreeItem = item;
             itemNameText.text = item.Name;
-            itemMoneyCostText.text = $"Money Cost: {item.Cost.MoneyCost}";
-            itemMaterialCostText.text = $"Material Cost: {item.Cost.MaterialCost}";
-            itemFoodCostText.text = $"Food Cost: {item.Cost.FoodCost}";
+            itemMoneyCostText.text = $"Money Cost: {item.Cost.Money}";
+            itemMaterialCostText.text = $"Material Cost: {item.Cost.Material}";
+            itemFoodCostText.text = $"Food Cost: {item.Cost.Food}";
             itemDescriptionText.text = item.Description;
         }
 

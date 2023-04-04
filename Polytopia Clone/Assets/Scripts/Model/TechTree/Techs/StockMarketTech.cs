@@ -3,8 +3,10 @@
     public class StockMarketTech : TechTreeItemBase
     {
         private readonly int moneyProductionBoost = 10;
-        public StockMarketTech(Cost cost) : base(cost)
+
+        public StockMarketTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["StockMarket"]));
             HashCode = "StockMarket";
         }
 

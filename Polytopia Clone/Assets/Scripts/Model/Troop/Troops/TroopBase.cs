@@ -6,7 +6,7 @@ namespace Model
 {
     public abstract class TroopBase
     {
-        public static TroopProperties TroopProperties { get; set; } = null;
+        public static Dictionary<string, JsonTroop> TroopProperties { get; set; } = null;
 
         // The argument of the method is the remainging health.
         public event Action<int> OnDamageTaken;

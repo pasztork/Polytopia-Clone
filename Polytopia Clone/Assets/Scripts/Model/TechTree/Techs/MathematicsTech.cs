@@ -3,8 +3,10 @@
     public class MathematicsTech : TechTreeItemBase
     {
         private readonly float buildingCostDiscount = 0.2f;
-        public MathematicsTech(Cost cost) : base(cost)
+
+        public MathematicsTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Mathematics"]));
             HashCode = "Mathematics";
         }
 

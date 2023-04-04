@@ -3,8 +3,10 @@
     public class IrrigationTech : TechTreeItemBase
     {
         private readonly int foodProductionBoost = 10;
-        public IrrigationTech(Cost cost) : base(cost)
+
+        public IrrigationTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Irrigation"]));
             HashCode = "Irrigation";
         }
 

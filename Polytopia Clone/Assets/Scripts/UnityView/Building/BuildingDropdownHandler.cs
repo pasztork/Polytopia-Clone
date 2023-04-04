@@ -10,8 +10,6 @@ namespace View
         [SerializeField] private SerializableDictionary<string, BuildingBase> buildings;
         private TMP_Dropdown dropdown = null;
 
-        private Dictionary<string, Model.JsonCost> buildingCosts = null;
-
         private void Awake()
         {
             dropdown = GetComponent<TMP_Dropdown>();
@@ -25,15 +23,6 @@ namespace View
             Model.GameManager.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
 
             View.BuildingManager.Instance.OnBuildAttempted += SetSelected;
-
-            buildingCosts = new Dictionary<string, Model.JsonCost>()
-            {
-                { "Bank", Model.BuildingBase.BuildingProperties.Bank.Cost },
-                { "City", Model.BuildingBase.BuildingProperties.City.Cost },
-                { "Farm", Model.BuildingBase.BuildingProperties.Farm.Cost },
-                { "Harbor", Model.BuildingBase.BuildingProperties.Harbor.Cost },
-                { "Supplier", Model.BuildingBase.BuildingProperties.Supplier.Cost }
-            };
         }
 
         private void UpdateContent(Model.Player player)
@@ -42,7 +31,7 @@ namespace View
             IList<string> availableBuildings = player.AvailableBuildings;
             foreach (string buildingName in availableBuildings)
             {
-                if (player.ResourceContainer.HasEnoughFor(JsonToModelCost(buildingCosts[buildingName])))
+                if (player.ResourceContainer.HasEnoughFor(Model.Cost.CreateNewFromJsonCost(Model.BuildingBase.BuildingProperties[buildingName].Cost)))
                     dropdown.options.Add(new TMP_Dropdown.OptionData() { text = buildingName });
             }
             dropdown.value = 0;
@@ -53,11 +42,6 @@ namespace View
         {
             View.BuildingManager.Instance.Blueprint = dropdown.options.Count > 0 ?
                 buildings[dropdown.options[dropdown.value].text] : null;
-        }
-
-        private Model.Cost JsonToModelCost(Model.JsonCost jsonCost)
-        {
-            return new Model.Cost(jsonCost.Money, jsonCost.Material, jsonCost.Food);
         }
     }
 }

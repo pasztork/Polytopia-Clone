@@ -4,7 +4,7 @@
     {
         public Harbor(Player player) : base()
         {
-            initialValues = BuildingProperties.Harbor;
+            initialValues = BuildingProperties["Harbor"];
             Init(player);
         }
 

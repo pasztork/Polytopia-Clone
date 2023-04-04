@@ -5,7 +5,7 @@ namespace Model
 {
     public abstract class BuildingBase
     {
-        public static BuildingProperties BuildingProperties { get; set; } = null;
+        public static Dictionary<string, JsonBuilding> BuildingProperties { get; set; } = null;
 
         // Owner player subscribes to event.
         public event Action<int> OnDamageTaken;

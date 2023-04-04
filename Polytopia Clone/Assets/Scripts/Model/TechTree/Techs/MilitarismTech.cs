@@ -3,8 +3,10 @@
     public class MilitarismTech : TechTreeItemBase
     {
         private readonly int offensiveDamageBonus = 1;
-        public MilitarismTech(Cost cost) : base(cost)
+
+        public MilitarismTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Militarism"]));
             HashCode = "Militarism";
         }
 
