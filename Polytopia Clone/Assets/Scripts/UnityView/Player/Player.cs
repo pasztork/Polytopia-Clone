@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using LogView;
+using System.Linq;
 using UnityEngine;
 
 namespace View
@@ -29,9 +30,22 @@ namespace View
             View.BuildingManager.Instance.BuildStartingCity(modelTile, modelBuilding, player.Name);
         }
 
-        public void SetDefaultParams(string paramsFilePath)
+        public void SetDefaultParams(JsonPlayerObject param)
         {
-
+            name = param.Name;
+            startingCityRange = param.StartingParams.StartingCityRange;
+            startingBuildings = param.StartingParams.StartingBuildings;
+            startingTroops = param.StartingParams.StartingTroops;
+            DictionaryWrapper wrapper = new DictionaryWrapper();
+            foreach (var p in param.StartingParams.BaseProduction)
+                wrapper.AddKeyValue(p.Key, p.Value);
+            baseProduction = wrapper;
+            Color szin = new Color();
+            szin.r = (float)param.StartingParams.PlayerColor[0];
+            szin.g = (float)param.StartingParams.PlayerColor[1];
+            szin.b = (float)param.StartingParams.PlayerColor[2];
+            szin.a = (float)param.StartingParams.PlayerColor[3];
+            playerColor = szin;
         }
     }
 }

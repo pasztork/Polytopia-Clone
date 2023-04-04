@@ -7,6 +7,7 @@ namespace View
     public class DictionaryWrapper : ScriptableObject
     {
         [SerializeField] private SerializableDictionary<string, int> serializableDictionary;
+        public SerializableDictionary<string, int> SerializableDictionary { get => serializableDictionary; }
 
         public Dictionary<string, int> CreateDictionary()
         {
@@ -18,6 +19,11 @@ namespace View
                 dictionary[keyCopy] = valueCopy;
             }
             return dictionary;
+        }
+
+        public void AddKeyValue(string key, int value)
+        {
+            serializableDictionary.Add(key, value);
         }
     }
 }

@@ -22,8 +22,8 @@ namespace Model
         public Dictionary<string, TechTreeItemBase> Techs { get; set; }
         public BonusProperty BonusProperty { get; set; } = new BonusProperty();
 
-        public Dictionary<string, int> StartingProduction { private get; set; }
-        public int StartingCityRange { private get; set; }
+        public Dictionary<string, int> StartingProduction { get; set; }
+        public int StartingCityRange { get; set; }
         public IList<BuildingBase> Buildings { get; } = new List<BuildingBase>();
         public IList<TroopBase> Troops { get; } = new List<TroopBase>();
         public ISet<TileBase> AvailableTiles { get; } = new HashSet<TileBase>();

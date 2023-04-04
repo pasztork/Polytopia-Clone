@@ -81,9 +81,6 @@ namespace ReplayModel
                     break;
                 case "Gameend":
                     break;
-                default:
-                    throw new Exception();
-                    break;
             }
         }
     }

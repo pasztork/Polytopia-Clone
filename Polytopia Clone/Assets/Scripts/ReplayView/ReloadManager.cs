@@ -29,7 +29,7 @@ namespace ReplayView
             foreach (var player in jsonDataHolder.Players)
             {
                 View.Player gamer = new View.Player();
-                gamer.SetDefaultParams(player.StartingParamsFile);
+                gamer.SetDefaultParams(player);
                 Instantiate(gamer);
             }
             ReplayModel.ReplayManager.InitializeGame(jsonDataHolder.Actions);
