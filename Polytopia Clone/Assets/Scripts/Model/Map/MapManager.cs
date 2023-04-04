@@ -81,9 +81,9 @@ namespace Model
                 { "Water", factory.Create<WaterTile> }
             };
 
-            for (int row = 0; row < Tiles.GetLength(0); row++)
+            for (int row = 0; row < jsonTiles.Tiles.Count; row++)
             {
-                for (int column = 0; column < Tiles.GetLength(1); column++)
+                for (int column = 0; column < jsonTiles.Tiles[0].Count; column++)
                 {
                     Tiles[row, column] = dict[jsonTiles.Tiles[row][column]].Invoke();
                 }

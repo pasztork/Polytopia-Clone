@@ -20,7 +20,7 @@ namespace Model
         public TileBase[,] Tiles
         {
             get => tiles;
-            private set => tiles ??= value;
+            protected set => tiles ??= value;
         }
 
         public IList<TileBase> StartingTiles { get; } = new List<TileBase>();
