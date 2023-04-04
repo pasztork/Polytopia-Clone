@@ -2,6 +2,7 @@
 {
     public class MapGenerationProperties
     {
+        public int Size { get; set; }
         public int MinMountainCount { get; set; }
         public int MaxMountainCount { get; set; }
         public int MinForestCountPerChunk { get; set; }

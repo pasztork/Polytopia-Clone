@@ -10,12 +10,6 @@ namespace View
 
         public event Action OnViewMappedToModel;
 
-        [SerializeField] private int size;
-        public int Size { get => size; }
-
-        [SerializeField] private MapGenerationProperties generationProperties;
-        public MapGenerationProperties GenerationProperties { get => generationProperties; }
-
         private Model.TileBase[,] tiles;
 
         public Dictionary<View.Tile, Model.TileBase> ViewToModelMap { get; }

@@ -395,10 +395,11 @@ Egységek
 * ez logghoz nem kell
 ```json
 {
+    "Size": 16,
     "MinMountainCount" : 3,
     "MaxMountainCount" : 5,
-    "MinForestCountPerchunk" : 3,
-    "MaxForestCountPerchunk" : 5,
+    "MinForestCountPerChunk" : 3,
+    "MaxForestCountPerChunk" : 5,
     "DesertChunkProbability" : 0.1,
     "WaterTileProbability" : 0.3
 }

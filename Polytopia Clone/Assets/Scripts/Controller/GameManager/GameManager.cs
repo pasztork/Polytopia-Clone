@@ -7,9 +7,9 @@ namespace Controller
     {
         private static readonly GameManager instance = new GameManager();
 
-        public static void NewGame(MapProperties mapProperites)
+        public static void NewGame()
         {
-            SetupMap(mapProperites);
+            Model.GameManager.Get<Model.MapManagerBase>().GenerateMap();
         }
 
         public static void LoadGame()
@@ -20,13 +20,6 @@ namespace Controller
         public static void StartNew()
         {
             Model.GameManager.StartNew();
-        }
-
-        private static void SetupMap(MapProperties mapProperites)
-        {
-            Model.GameManager.Get<Model.MapManagerBase>().Size = mapProperites.Size;
-            Model.GameManager.Get<Model.MapGeneratorBase>().MGP = mapProperites.GenerationProperties;
-            Model.GameManager.Get<Model.MapManagerBase>().GenerateMap();
         }
 
         public static T Get<T>()

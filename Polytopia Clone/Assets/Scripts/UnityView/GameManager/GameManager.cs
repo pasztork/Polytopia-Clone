@@ -6,12 +6,7 @@ namespace View
     {
         private void Awake()
         {
-            Controller.MapProperties mapProperties = new Controller.MapProperties()
-            {
-                Size = MapManager.Instance.Size,
-                GenerationProperties = MapManager.Instance.GenerationProperties.ToModel()
-            };
-            Controller.GameManager.NewGame(mapProperties);
+            Controller.GameManager.NewGame();
         }
 
         private void Start()

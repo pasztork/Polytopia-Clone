@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Util;
 
 namespace Model
@@ -11,6 +12,9 @@ namespace Model
         public static IList<Player> Players { get; } = new List<Player>();
         private static readonly DependencyContainer dependencyContainer = new DependencyContainer();
 
+        private static readonly string directory = $"{Directory.GetCurrentDirectory()}\\GameSettings";
+        private static readonly string mapGenerationSettingsFilename = "MapGenerationSettings.json";
+
         static GameManager()
         {
             dependencyContainer.Register<MapManagerBase, MapManager>();
@@ -19,6 +23,8 @@ namespace Model
             dependencyContainer.Register<BuildManagerBase, BuildManager>();
             dependencyContainer.Register<TrainManagerBase, TrainManager>();
             dependencyContainer.Register<TechTreeManagerBase, TechTreeManager>();
+
+            MapSettingsLoader.Load(Path.Combine(directory, mapGenerationSettingsFilename));
         }
 
         public static void StartNew()
@@ -34,7 +40,5 @@ namespace Model
         {
             return dependencyContainer.Get<T>();
         }
-
-
     }
 }
