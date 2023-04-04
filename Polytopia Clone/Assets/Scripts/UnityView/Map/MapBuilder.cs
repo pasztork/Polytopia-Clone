@@ -6,7 +6,18 @@ namespace View
 {
     public class MapBuilder : MonoBehaviour
     {
-        public static MapBuilder Instance { get; private set; }
+        private static MapBuilder instance;
+        public static MapBuilder Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<MapBuilder>();
+                }
+                return instance;
+            }
+        }
 
         public event Action<Tile[,]> OnMapBuilt;
 
@@ -15,16 +26,6 @@ namespace View
         private Tile[,] viewTiles;
         private Model.TileBase[,] modelTiles;
         private int size;
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one MapBuilder in scene!");
-                return;
-            }
-            Instance = this;
-        }
 
         public void BuildMapGFX(Model.TileBase[,] modelTiles)
         {

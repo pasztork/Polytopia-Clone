@@ -80,7 +80,7 @@ namespace Model
                 { "Sand", factory.Create<SandTile> },
                 { "Water", factory.Create<WaterTile> }
             };
-
+            Tiles = new TileBase[jsonTiles.Tiles.Count, jsonTiles.Tiles[0].Count];
             for (int row = 0; row < jsonTiles.Tiles.Count; row++)
             {
                 for (int column = 0; column < jsonTiles.Tiles[0].Count; column++)

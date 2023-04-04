@@ -6,7 +6,18 @@ namespace View
 {
     public class TroopManager : MonoBehaviour
     {
-        public static TroopManager Instance { get; private set; }
+        private static TroopManager instance;
+        public static TroopManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<TroopManager>();
+                }
+                return instance;
+            }
+        }
 
         public event Action OnTrainAttempted;
 
@@ -32,16 +43,6 @@ namespace View
         }
 
         public View.TroopBase Blueprint { private get; set; }
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one TrainManager in scene!");
-                return;
-            }
-            Instance = this;
-        }
 
         public void Train()
         {

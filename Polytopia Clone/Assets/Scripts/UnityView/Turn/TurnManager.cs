@@ -5,19 +5,20 @@ namespace View
 {
     public class TurnManager : MonoBehaviour
     {
-        public static TurnManager Instance { get; private set; }
+        private static TurnManager instance;
+        public static TurnManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<TurnManager>();
+                }
+                return instance;
+            }
+        }
 
         public Dictionary<string, Color> PlayerColors { get; private set; } = new Dictionary<string, Color>();
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one TurnManager in scene!");
-                return;
-            }
-            Instance = this;
-        }
 
         public void FinishTurn()
         {

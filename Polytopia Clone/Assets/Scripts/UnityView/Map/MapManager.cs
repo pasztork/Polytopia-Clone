@@ -6,7 +6,18 @@ namespace View
 {
     public class MapManager : MonoBehaviour
     {
-        public static MapManager Instance { get; private set; }
+        private static MapManager instance;
+        public static MapManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<MapManager>();
+                }
+                return instance;
+            }
+        }
 
         public event Action OnViewMappedToModel;
 
@@ -28,16 +39,6 @@ namespace View
                 if (selectedTile != null)
                     View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTile);
             }
-        }
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one MapManager in scene!");
-                return;
-            }
-            Instance = this;
         }
 
         private void Start()

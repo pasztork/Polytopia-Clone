@@ -6,7 +6,18 @@ namespace View
 {
     public class BuildingManager : MonoBehaviour
     {
-        public static BuildingManager Instance { get; private set; }
+        private static BuildingManager instance;
+        public static BuildingManager Instance
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = FindObjectOfType<BuildingManager>();
+                }
+                return instance;
+            }
+        }
 
         // Used by UI elements
         public event Action OnBuildAttempted;
@@ -33,16 +44,6 @@ namespace View
         }
 
         public View.BuildingBase Blueprint { private get; set; }
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one BuildManager in scene!");
-                return;
-            }
-            Instance = this;
-        }
 
         public void Build()
         {

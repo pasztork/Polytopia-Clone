@@ -41,7 +41,7 @@ namespace View
             baseProduction = Model.PropertiesLoader.SetPlayerProperties();
             Model.City city = new Model.City(player.StartingCityRange);
             TileBase tile = Model.GameManager.Get<Model.MapManagerBase>().Tiles[player.StartingTile[0], player.StartingTile[1]];
-            View.BuildingManager.Instance.BuildStartingCity( tile, city, player.Name);
+            View.BuildingManager.Instance.BuildStartingCity(tile, city, player.Name);
         }
     }
 }

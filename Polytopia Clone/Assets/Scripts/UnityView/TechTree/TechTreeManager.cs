@@ -6,7 +6,18 @@ namespace View
 {
     public class TechTreeManager : MonoBehaviour
     {
-        public static TechTreeManager Instance { get; private set; }
+        private static TechTreeManager instance;
+        public static TechTreeManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<TechTreeManager>();
+                }
+                return instance;
+            }
+        }
 
         [SerializeField] private List<View.TechTreeItem> techTreeItems = new List<View.TechTreeItem>();
         public List<View.TechTreeItem> TechTreeItems { get => techTreeItems; private set => techTreeItems = value; }
@@ -21,16 +32,6 @@ namespace View
         [SerializeField] private TextMeshProUGUI itemMaterialCostText;
         [SerializeField] private TextMeshProUGUI itemFoodCostText;
         [SerializeField] private TextMeshProUGUI itemDescriptionText;
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one TechTreeManager in scene!");
-                return;
-            }
-            Instance = this;
-        }
 
         private void Start()
         {
