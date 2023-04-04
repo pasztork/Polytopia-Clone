@@ -9,7 +9,7 @@ namespace Model
         {
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException("No file found for map properties!");
+                throw new FileNotFoundException("No file found for property settings!");
             }
             string json = File.ReadAllText(path);
             Settings settings = JsonSerializer.Deserialize<Settings>(json);
