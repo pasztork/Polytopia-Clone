@@ -101,7 +101,6 @@ Egységek
 * példa egy logfájl tartalmára:
 ```json
 {
-    "Settings" : "<filepath>",
     "Map" : "<filepath>",
     "Players" : [
         {
@@ -158,3 +157,20 @@ Egységek
 ## Beállítások
 * minden beállítható tulajdonság külön &rarr; [`PropertiesSettings.json`](/Polytopia%20Clone/GameSettings/PropertiesSettings.json)
 * a pályageneráláshoz szükséges értékek külön &rarr; [`MapGenerationSettings.json`](/Polytopia%20Clone/GameSettings/MapGenerationSettings.json)
+
+## Hálózat
+* koordináták összerendelése modell elemekkel
+* RESTful API a kommunikációhoz
+* minden parancshoz saját controller
+    * `train` &rarr; `TrainingController`
+    * `move` &rarr; `MovementController`
+* `POST` üzenetek esetén a lognál használt alakban body-ban várjuk a json-t
+    * `/api/register` &rarr; szól a szervernek, hogy megérkezett
+        * body-ban elküld egy felhasználónevet, ennek csak visszajátszásnál lesz jelentősége
+    * `/api/train` &rarr; megpróbálkozik egy építkezéssel
+    * `/api/move` &rarr; megpróbálkozik egy katona mozgatásával
+* `GET` lekéri a játék aktuális állapotát
+    * így a kliensnek nem kell számon tartania
+* az eseményeket nem küldjük ki a klienseknek
+    * máskülönben végpontokat kell definiáljanak
+* amint csatlakozik 2 kliens, a játék elindul
