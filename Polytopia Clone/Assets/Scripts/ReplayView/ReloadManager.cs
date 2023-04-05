@@ -37,8 +37,8 @@ namespace ReplayView
             foreach (var player in jsonDataHolder.Players)
             {
                 var viewPlayer = new GameObject(player.Name);
-                viewPlayer.AddComponent<View.Player>();
-                viewPlayer.GetComponent<View.Player>().SetPlayerFromLog(player);
+                viewPlayer.AddComponent<Player>();
+                viewPlayer.GetComponent<Player>().SetPlayerFromLog(player);
             }
         }
     }
