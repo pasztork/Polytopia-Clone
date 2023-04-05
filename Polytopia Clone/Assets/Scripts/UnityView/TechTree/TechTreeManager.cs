@@ -6,7 +6,18 @@ namespace View
 {
     public class TechTreeManager : MonoBehaviour
     {
-        public static TechTreeManager Instance { get; private set; }
+        private static TechTreeManager instance;
+        public static TechTreeManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<TechTreeManager>();
+                }
+                return instance;
+            }
+        }
 
         [SerializeField] private List<View.TechTreeItem> techTreeItems = new List<View.TechTreeItem>();
         public List<View.TechTreeItem> TechTreeItems { get => techTreeItems; private set => techTreeItems = value; }
@@ -21,16 +32,6 @@ namespace View
         [SerializeField] private TextMeshProUGUI itemMaterialCostText;
         [SerializeField] private TextMeshProUGUI itemFoodCostText;
         [SerializeField] private TextMeshProUGUI itemDescriptionText;
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one TechTreeManager in scene!");
-                return;
-            }
-            Instance = this;
-        }
 
         private void Start()
         {
@@ -75,9 +76,9 @@ namespace View
 
             SelectedTechTreeItem = item;
             itemNameText.text = item.Name;
-            itemMoneyCostText.text = $"Money Cost: {item.Cost.MoneyCost}";
-            itemMaterialCostText.text = $"Material Cost: {item.Cost.MaterialCost}";
-            itemFoodCostText.text = $"Food Cost: {item.Cost.FoodCost}";
+            itemMoneyCostText.text = $"Money Cost: {item.Cost.Money}";
+            itemMaterialCostText.text = $"Material Cost: {item.Cost.Material}";
+            itemFoodCostText.text = $"Food Cost: {item.Cost.Food}";
             itemDescriptionText.text = item.Description;
         }
 
@@ -108,6 +109,7 @@ namespace View
 
         // ez a modell feladata
         // kiad egy esemenyt, hogy felepitette
+        // ok szia
         public Dictionary<string, Model.TechTreeItemBase> GetNewTechTree()
         {
             Dictionary<string, Model.TechTreeItemBase> modelItems = new Dictionary<string, Model.TechTreeItemBase>();

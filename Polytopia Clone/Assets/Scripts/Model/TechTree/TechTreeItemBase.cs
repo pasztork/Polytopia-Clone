@@ -4,14 +4,11 @@ namespace Model
 {
     public abstract class TechTreeItemBase
     {
+        public static Dictionary<string, JsonCost> ItemCosts { get; set; } = null;
+
         public TechTreeItemProperty TechTreeItemProperty { get; set; }
         public string HashCode { get; protected set; }
         public IList<TechTreeItemBase> Requirements { get; set; } = new List<TechTreeItemBase>();
-
-        public TechTreeItemBase(string name, Cost cost, string description)
-        {
-            TechTreeItemProperty = new TechTreeItemProperty(name, cost, description);
-        }
 
         public bool IsAvailable
         {
@@ -27,6 +24,15 @@ namespace Model
                 return true;
             }
         }
-        public abstract void ActivateEffect(Player player);
+
+        public virtual void ActivateEffect(Player player)
+        {
+            return;
+        }
+
+        protected void Init(Cost cost)
+        {
+            TechTreeItemProperty = new TechTreeItemProperty(cost);
+        }
     }
 }

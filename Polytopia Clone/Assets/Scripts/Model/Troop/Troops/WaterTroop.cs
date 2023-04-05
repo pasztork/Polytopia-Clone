@@ -9,6 +9,7 @@
 
         public override bool Relocate(WaterTile target)
         {
+            Tile.TroopOnTop = null;
             movedInTurn = true;
             Tile = target;
             return true;
@@ -30,12 +31,15 @@
             return true;
         }
 
-        public override void ApplyPropertyBonus(Player player)
+        public override void WaterMovementRangeBonus(Player player)
         {
-            if (player.Techs["Navigation"].TechTreeItemProperty.IsUnlocked)
-            {
-                TroopProperty.MovementRange += player.TroopBonus.WaterMoveBonus;
-            }
+            TroopProperty.MovementRange += player.BonusProperty.WaterMoveBonus;
+        }
+
+        public override void ApplyAllPropertyBonus(Player player)
+        {
+            base.ApplyAllPropertyBonus(player);
+            TroopProperty.MovementRange += player.BonusProperty.WaterMoveBonus;
         }
     }
 }

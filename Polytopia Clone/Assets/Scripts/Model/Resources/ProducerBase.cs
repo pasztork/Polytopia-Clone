@@ -18,5 +18,10 @@
         }
 
         public abstract void Produce();
+
+        public void IncreaseProduction(int amount)
+        {
+            productionRate += amount;
+        }
     }
 }

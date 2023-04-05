@@ -7,9 +7,9 @@ namespace Controller
     {
         private static readonly GameManager instance = new GameManager();
 
-        public static void NewGame(MapProperties mapProperites)
+        public static void NewGame()
         {
-            SetupMap(mapProperites);
+            Model.GameManager.Get<Model.MapManagerBase>().GenerateMap();
         }
 
         public static void LoadGame()
@@ -17,16 +17,9 @@ namespace Controller
             throw new NotImplementedException();
         }
 
-        public static void Start()
+        public static void StartNew()
         {
-            Model.GameManager.Start();
-        }
-
-        private static void SetupMap(MapProperties mapProperites)
-        {
-            Model.GameManager.Get<Model.MapManagerBase>().Size = mapProperites.Size;
-            Model.GameManager.Get<Model.MapGeneratorBase>().MGP = mapProperites.GenerationProperties;
-            Model.GameManager.Get<Model.MapManagerBase>().GenerateMap();
+            Model.GameManager.StartNew();
         }
 
         public static T Get<T>()

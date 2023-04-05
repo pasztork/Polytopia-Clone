@@ -4,15 +4,17 @@ namespace View
 {
     public class StrategyTechView : TechTreeItem
     {
-        private StrategyTechView()
+        private void Awake()
         {
             startColor = new Color(1, 0.2f, 0, 1);
             Description = "Increase troop dodge rate";
+            Cost = Model.TechTreeItemBase.ItemCosts["Strategy"];
         }
+
         public override Model.TechTreeItemBase ToModel()
         {
             Model.TechTreeItemBase techItem =
-                new Model.StrategyTech(Name, new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost), Description);
+                new Model.StrategyTech();
             return techItem;
         }
     }

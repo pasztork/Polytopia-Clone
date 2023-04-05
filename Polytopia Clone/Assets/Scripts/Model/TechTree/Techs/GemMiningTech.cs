@@ -2,14 +2,10 @@
 {
     public class GemMiningTech : TechTreeItemBase
     {
-        public GemMiningTech(string name, Cost cost, string description) : base(name, cost, description)
+        public GemMiningTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["GemMining"]));
             HashCode = "GemMining";
-        }
-
-        public override void ActivateEffect(Player player)
-        {
-            //Can build supplier on sandTile
         }
     }
 }

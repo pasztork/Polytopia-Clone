@@ -1,16 +1,14 @@
 ﻿using Controller;
+using LogView;
 using System;
 using System.Collections.Generic;
 
-namespace View
+namespace LogView
 {
     public class JsonDataHolder
     {
-        public string Player { get; set; } = "";
-        public string Action { get; set; } = "";
-        public List<TileIdentity> Tiles { get; set; } = new List<TileIdentity>();
-        public List<Identity> Troops { get; set; } = new List<Identity>();
-        public List<Identity> Buildings { get; set; } = new List<Identity>();
-        public string Tech { get; set; } = "";
+        public string Map { get; set; } = "";
+        public List<JsonPlayerObject> Players { get; set; } = new List<JsonPlayerObject>();
+        public List<JsonActionObject> Actions { get; set; } = new List<JsonActionObject>();
     }
 }

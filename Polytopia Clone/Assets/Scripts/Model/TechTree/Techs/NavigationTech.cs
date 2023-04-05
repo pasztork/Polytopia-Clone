@@ -2,17 +2,20 @@
 {
     public class NavigationTech : TechTreeItemBase
     {
-        public NavigationTech(string name, Cost cost, string description) : base(name, cost, description)
+        private readonly int offensiveWaterMoveBonus = 1;
+
+        public NavigationTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Navigation"]));
             HashCode = "Navigation";
         }
 
         public override void ActivateEffect(Player player)
         {
-            player.TroopBonus.WaterMoveBonus += 1;
-            foreach(TroopBase troop in player.Troops)
+            player.BonusProperty.WaterMoveBonus += offensiveWaterMoveBonus;
+            foreach (TroopBase troop in player.Troops)
             {
-                troop.ApplyPropertyBonus(player);
+                troop.WaterMovementRangeBonus(player);
             }
         }
     }

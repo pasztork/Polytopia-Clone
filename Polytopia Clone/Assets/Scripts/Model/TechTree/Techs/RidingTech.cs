@@ -2,17 +2,20 @@
 {
     public class RidingTech : TechTreeItemBase
     {
-        public RidingTech(string name, Cost cost, string description) : base(name, cost, description)
+        private readonly int offensiveLandMoveBonus = 1;
+
+        public RidingTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Riding"]));
             HashCode = "Riding";
         }
 
         public override void ActivateEffect(Player player)
         {
-            player.TroopBonus.OffensiveLandMoveBonus += 1;
-            foreach(TroopBase troop in player.Troops)
+            player.BonusProperty.OffensiveLandMoveBonus += offensiveLandMoveBonus;
+            foreach (TroopBase troop in player.Troops)
             {
-                troop.ApplyPropertyBonus(player);
+                troop.OffensiveLandMovementRangeBonus(player);
             }
         }
     }

@@ -6,7 +6,18 @@ namespace View
 {
     public class BuildingManager : MonoBehaviour
     {
-        public static BuildingManager Instance { get; private set; }
+        private static BuildingManager instance;
+        public static BuildingManager Instance
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = FindObjectOfType<BuildingManager>();
+                }
+                return instance;
+            }
+        }
 
         // Used by UI elements
         public event Action OnBuildAttempted;
@@ -34,16 +45,6 @@ namespace View
 
         public View.BuildingBase Blueprint { private get; set; }
 
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one BuildManager in scene!");
-                return;
-            }
-            Instance = this;
-        }
-
         public void Build()
         {
             // Should throw error if there are no subscribers.
@@ -66,7 +67,6 @@ namespace View
                 Destroy(viewBuilding);
                 return;
             }
-
             viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
@@ -82,7 +82,6 @@ namespace View
             View.NameText buildingText = viewBuilding.GetComponentInChildren<View.NameText>();
             buildingText.Name = name + "\nCapital";
             buildingText.BackgroundColor = View.TurnManager.Instance.PlayerColors[name];
-            modelBuilding.BuildingProperty = new Model.BuildingProperty(viewBuilding.buildingProperties.Health);
             modelBuilding.OnDamageTaken += viewBuilding.TakeDamage;
 
             ViewToModelMap[viewBuilding] = modelBuilding;
@@ -93,7 +92,7 @@ namespace View
         {
             Model.TroopBase modelAttacker = View.TroopManager.Instance.ViewToModelMap[View.TroopManager.Instance.SelectedTroop];
             Model.BuildingBase modelTarget = ViewToModelMap[building];
-            Controller.GameManager.Get<Controller.BuildingManager>().Attack(modelAttacker, modelTarget);
+            Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(modelAttacker, modelTarget);
         }
     }
 }

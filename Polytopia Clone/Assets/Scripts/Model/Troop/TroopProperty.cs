@@ -6,13 +6,6 @@
         public int Damage { get; set; }
         public int MovementRange { get; set; }
         public int AttackRange { get; set; }
-
-        public TroopProperty(int health, int damage, int movementRange, int attackRange)
-        {
-            Health = health;
-            Damage = damage;
-            MovementRange = movementRange;
-            AttackRange = attackRange;
-        }
+        public double DodgeRate { get; set; }
     }
 }

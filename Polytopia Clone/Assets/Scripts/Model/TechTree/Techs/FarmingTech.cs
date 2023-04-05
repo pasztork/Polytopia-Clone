@@ -2,8 +2,9 @@
 {
     public class FarmingTech : TechTreeItemBase
     {
-        public FarmingTech(string name, Cost cost, string description) : base(name, cost, description)
+        public FarmingTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Farming"]));
             HashCode = "Farming";
         }
 

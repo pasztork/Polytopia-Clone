@@ -8,14 +8,18 @@ namespace View
     {
         public ISet<Model.TileBase> TilesToBuild = new HashSet<Model.TileBase>();
 
+        private void Start()
+        {
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
+                Initialize(Model.TroopBase.TroopProperties["Builder"].Health);
+            movementRange = Model.TroopBase.TroopProperties["Builder"].MovementRange;
+        }
+
         public override Model.TroopBase ToModel(Model.Player player)
         {
-            Model.TroopBase builder = new Model.Builder();
+            Model.TroopBase builder = new Model.Builder(player);
             builder.OnDamageTaken += TakeDamage;
-            builder.TroopProperty = new Model.TroopProperty(
-                troopProperties.Health, troopProperties.Damage,
-                troopProperties.MovementRange, troopProperties.AttackRange);
-            builder.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
+            builder.OnTroopHealed += Heal;
             return builder;
         }
 

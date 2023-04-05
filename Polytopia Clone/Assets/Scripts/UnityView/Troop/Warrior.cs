@@ -1,15 +1,21 @@
-﻿namespace View
+﻿using UnityEngine;
+
+namespace View
 {
     public class Warrior : OffensiveTroop
     {
+        private void Start()
+        {
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
+                Initialize(Model.TroopBase.TroopProperties["Warrior"].Health);
+            movementRange = Model.TroopBase.TroopProperties["Warrior"].MovementRange;
+        }
+
         public override Model.TroopBase ToModel(Model.Player player)
         {
-            Model.TroopBase warrior = new Model.Warrior();
+            Model.TroopBase warrior = new Model.Warrior(player);
             warrior.OnDamageTaken += TakeDamage;
-            warrior.TroopProperty = new Model.TroopProperty(
-                troopProperties.Health, troopProperties.Damage,
-                troopProperties.MovementRange, troopProperties.AttackRange);
-            warrior.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
+            warrior.OnTroopHealed += Heal;
             return warrior;
         }
     }

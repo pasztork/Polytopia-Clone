@@ -2,14 +2,10 @@
 {
     public class ForestryTech : TechTreeItemBase
     {
-        public ForestryTech(string name, Cost cost, string description) : base(name, cost, description)
+        public ForestryTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Forestry"]));
             HashCode = "Forestry";
-        }
-
-        public override void ActivateEffect(Player player)
-        {
-            //Can build Supplier on forest
         }
     }
 }

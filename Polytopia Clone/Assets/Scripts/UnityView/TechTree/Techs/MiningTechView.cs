@@ -4,15 +4,17 @@ namespace View
 {
     public class MiningTechView : TechTreeItem
     {
-        private MiningTechView()
+        private void Awake()
         {
             startColor = new Color(1, 0.8f, 0, 1);
             Description = "Can build Supplier on Mountain";
+            Cost = Model.TechTreeItemBase.ItemCosts["Mining"];
         }
+
         public override Model.TechTreeItemBase ToModel()
         {
             Model.TechTreeItemBase techItem =
-                new Model.MiningTech(Name, new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost), Description);
+                new Model.MiningTech();
             return techItem;
         }
     }

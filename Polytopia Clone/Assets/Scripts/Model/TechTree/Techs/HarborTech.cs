@@ -2,12 +2,13 @@
 {
     public class HarborTech : TechTreeItemBase
     {
-        public HarborTech(string name, Cost cost, string description) : base(name, cost, description)
+        public HarborTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Harbor"]));
             HashCode = "Harbor";
         }
 
-    public override void ActivateEffect(Player player)
+        public override void ActivateEffect(Player player)
         {
             player.AvailableBuildings.Add("Harbor");
         }

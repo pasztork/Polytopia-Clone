@@ -7,17 +7,17 @@
             return "Water";
         }
 
-        public override bool SetBuildingOnTop(BuildingBase buildingOnTop)
+        public override bool SetBuildingOnTop(BuildingBase buildingOnTop, Player player)
         {
             if (BuildingOnTop != null)
                 return false;
 
-            if (buildingOnTop is WaterTroopTrainingBuilding || buildingOnTop is Supplier)
-            {
-                BuildingOnTop = buildingOnTop;
-                return true;
-            }
-            return false;
+            bool techRequirementMet = buildingOnTop.CheckTechRequirement(this, player);
+            if (!techRequirementMet)
+                return false;
+
+            BuildingOnTop = buildingOnTop;
+            return true;
         }
 
         public override bool TrainTroop(TroopBase troop)

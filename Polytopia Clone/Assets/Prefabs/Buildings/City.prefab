@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 11400000, guid: 72f08735c3a907b44a1b3f7823ff7145, type: 2}
-  productionRate: 10
+  productionRate: 100
   buildingProperties: {fileID: 11400000, guid: 2674e3ea6a189ea4b9f096225ad5827c, type: 2}
   range: 1
 --- !u!1 &3866958734694324670

@@ -2,14 +2,21 @@
 {
     public class SanitationTech : TechTreeItemBase
     {
-        public SanitationTech(string name, Cost cost, string description) : base(name, cost, description)
+        private readonly int healAmount = 1;
+
+        public SanitationTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Sanitation"]));
             HashCode = "Sanitation";
         }
 
         public override void ActivateEffect(Player player)
         {
-            //troops can heal
+            player.BonusProperty.HealAmount = healAmount;
+            foreach (TroopBase troop in player.Troops)
+            {
+                GameManager.Get<TurnManagerBase>().OnTurnStarted += troop.Heal;
+            }
         }
     }
 }

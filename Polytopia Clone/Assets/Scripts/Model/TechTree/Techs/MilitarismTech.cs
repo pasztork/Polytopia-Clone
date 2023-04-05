@@ -2,14 +2,22 @@
 {
     public class MilitarismTech : TechTreeItemBase
     {
-        public MilitarismTech(string name, Cost cost, string description) : base(name, cost, description)
+        private readonly int offensiveDamageBonus = 1;
+
+        public MilitarismTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Militarism"]));
             HashCode = "Militarism";
         }
 
         public override void ActivateEffect(Player player)
         {
-            //increases troops attack damage
+            player.BonusProperty.OffensiveDamageBonus += offensiveDamageBonus;
+            foreach (TroopBase troop in player.Troops)
+            {
+                if (troop.TroopProperty.Damage != 0)
+                    troop.TroopProperty.Damage += offensiveDamageBonus;
+            }
         }
     }
 }

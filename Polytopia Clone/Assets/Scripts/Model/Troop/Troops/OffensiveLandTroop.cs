@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Model
 {
@@ -33,12 +34,17 @@ namespace Model
             building.TakeDamage(TroopProperty.Damage);
             return true;
         }
-        public override void ApplyPropertyBonus(Player player)
+
+        public override void OffensiveLandMovementRangeBonus(Player player)
         {
-            if (player.Techs["Riding"].TechTreeItemProperty.IsUnlocked)
-            {
-                TroopProperty.MovementRange += Player.TroopBonus.OffensiveLandMoveBonus;
-            }
+            TroopProperty.MovementRange += player.BonusProperty.OffensiveLandMoveBonus;
+        }
+
+        public override void ApplyAllPropertyBonus(Player player)
+        {
+            base.ApplyAllPropertyBonus(player);
+            TroopProperty.MovementRange += player.BonusProperty.OffensiveLandMoveBonus;
+            TroopProperty.Damage += player.BonusProperty.OffensiveDamageBonus;
         }
     }
 }

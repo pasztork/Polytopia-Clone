@@ -2,14 +2,21 @@
 {
     public class IndustrialRevolutionTech : TechTreeItemBase
     {
-        public IndustrialRevolutionTech(string name, Cost cost, string description) : base(name, cost, description)
+        private readonly int materialProductionBoost = 10;
+
+        public IndustrialRevolutionTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["IndustrialRevolution"]));
             HashCode = "IndustrialRevolution";
         }
 
         public override void ActivateEffect(Player player)
         {
-            //increases suppliers production rate
+            player.BonusProperty.SupplierProductionBonus += materialProductionBoost;
+            foreach (BuildingBase building in player.Buildings)
+            {
+                building.IncreaseMaterialProduction(materialProductionBoost);
+            }
         }
     }
 }

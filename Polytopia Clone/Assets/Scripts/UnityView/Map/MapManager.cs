@@ -6,15 +6,20 @@ namespace View
 {
     public class MapManager : MonoBehaviour
     {
-        public static MapManager Instance { get; private set; }
+        private static MapManager instance;
+        public static MapManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<MapManager>();
+                }
+                return instance;
+            }
+        }
 
         public event Action OnViewMappedToModel;
-
-        [SerializeField] private int size;
-        public int Size { get => size; }
-
-        [SerializeField] private MapGenerationProperties generationProperties;
-        public MapGenerationProperties GenerationProperties { get => generationProperties; }
 
         private Model.TileBase[,] tiles;
 
@@ -34,16 +39,6 @@ namespace View
                 if (selectedTile != null)
                     View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedTile);
             }
-        }
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one MapManager in scene!");
-                return;
-            }
-            Instance = this;
         }
 
         private void Start()

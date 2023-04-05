@@ -2,14 +2,10 @@
 {
     public class MiningTech : TechTreeItemBase
     {
-        public MiningTech(string name, Cost cost, string description) : base(name, cost, description)
+        public MiningTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Mining"]));
             HashCode = "Mining";
-        }
-
-        public override void ActivateEffect(Player player)
-        {
-            //Can build supplier on rockTile
         }
     }
 }

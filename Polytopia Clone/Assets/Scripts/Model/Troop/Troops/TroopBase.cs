@@ -6,10 +6,14 @@ namespace Model
 {
     public abstract class TroopBase
     {
+        public static Dictionary<string, JsonTroop> TroopProperties { get; set; } = null;
+
         // The argument of the method is the remainging health.
         public event Action<int> OnDamageTaken;
+        public event Action<int> OnTroopHealed;
 
         public Cost Cost { get; set; }
+        public int MaxHealth { private get; set; }
         public TroopProperty TroopProperty { get; set; }
         public TileBase Tile { get; set; }
         public Player Player { get; set; }
@@ -19,6 +23,8 @@ namespace Model
         // Doesn't contain Tile.
         public IList<TileBase> TilesInMovementRange { get => GetTilesInRange(TroopProperty.MovementRange); }
         public IList<TileBase> TilesInAttackRange { get => GetTilesInRange(TroopProperty.AttackRange); }
+
+        protected JsonTroop initialValues = null;
 
         public TroopBase()
         {
@@ -33,11 +39,6 @@ namespace Model
 
             bool accepted = target.AcceptTroop(this);
             return accepted;
-        }
-
-        public virtual void ApplyPropertyBonus(Player player)
-        {
-            return;
         }
 
         // These are used to remove typechecking.
@@ -66,14 +67,61 @@ namespace Model
             return false;
         }
 
+        public virtual void WaterMovementRangeBonus(Player player)
+        {
+            return;
+        }
+
+        public virtual void OffensiveLandMovementRangeBonus(Player player)
+        {
+            return;
+        }
+
+        public virtual void ApplyAllPropertyBonus(Player player)
+        {
+            TroopProperty.DodgeRate += player.BonusProperty.DodgeBonus;
+        }
+
+        public void Heal(Player player)
+        {
+            if (player != Player || !Player.AvailableTiles.Contains(Tile))
+                return;
+
+            TroopProperty.Health += Player.BonusProperty.HealAmount;
+            if (TroopProperty.Health > MaxHealth)
+                TroopProperty.Health = MaxHealth;
+
+            OnTroopHealed?.Invoke(TroopProperty.Health);
+        }
+
         // Tells whether or not troop died.
         public bool TakeDamage(int damage)
         {
+            bool dodged = new Random().NextDouble() <= TroopProperty.DodgeRate;
+            if (dodged)
+            {
+                Player.RaiseOnAttackMissed(this);
+                return false;
+            }
+
+
             TroopProperty.Health -= damage;
             OnDamageTaken?.Invoke(TroopProperty.Health);
 
             if (TroopProperty.Health > 0)
-                return false;
+                return true;
+
+            GameManager.Get<TurnManagerBase>().OnTurnStarted -= Heal;
+            Player.Troops.Remove(this);
+            Tile.TroopOnTop = null;
+            return true;
+        }
+
+        public bool Kill()
+        {
+            TroopProperty.Health = 0;
+            GameManager.Get<TurnManagerBase>().OnTurnStarted -= Heal;
+            OnDamageTaken?.Invoke(TroopProperty.Health);
 
             Player.Troops.Remove(this);
             Tile.TroopOnTop = null;
@@ -100,6 +148,26 @@ namespace Model
         public virtual void FillRequirements(RequirementsListBase requirements)
         {
             // Do nothing.
+        }
+
+        protected void Init(Player player)
+        {
+            if (initialValues == null)
+            {
+                throw new ArgumentException("You must set initialValues field before initialising!");
+            }
+
+            Player = player;
+            TroopProperty = new TroopProperty
+            {
+                Health = initialValues.Health,
+                Damage = initialValues.Damage,
+                MovementRange = initialValues.MovementRange,
+                AttackRange = initialValues.AttackRange,
+                DodgeRate = initialValues.DodgeRate
+            };
+            MaxHealth = TroopProperty.Health;
+            Cost = new Cost(initialValues.Cost.Money, initialValues.Cost.Material, initialValues.Cost.Food);
         }
     }
 }

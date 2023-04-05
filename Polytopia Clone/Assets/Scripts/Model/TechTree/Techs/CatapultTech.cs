@@ -2,14 +2,15 @@
 {
     public class CatapultTech : TechTreeItemBase
     {
-        public CatapultTech(string name, Cost cost, string description) : base(name, cost, description)
+        public CatapultTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Catapult"]));
             HashCode = "Catapult";
         }
 
         public override void ActivateEffect(Player player)
         {
-            player.AvailableTroops.Add("Cataput");
+            player.AvailableTroops.Add("Catapult");
         }
     }
 }

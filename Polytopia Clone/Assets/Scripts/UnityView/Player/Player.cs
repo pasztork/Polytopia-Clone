@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using LogView;
+using Model;
+using System.Linq;
 using UnityEngine;
 
 namespace View
@@ -9,7 +11,6 @@ namespace View
         [SerializeField] private int startingCityRange;
         [SerializeField] private string[] startingBuildings;
         [SerializeField] private string[] startingTroops;
-        [SerializeField] private DictionaryWrapper baseProduction;
         [SerializeField] private Color playerColor;
 
         private void Start()
@@ -18,7 +19,6 @@ namespace View
             player.Techs = View.TechTreeManager.Instance.GetNewTechTree();
             View.TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
             player.StartingCityRange = startingCityRange;
-            player.StartingProduction = baseProduction.CreateDictionary();
             player.AvailableBuildings = startingBuildings.ToList();
             player.AvailableTroops = startingTroops.ToList();
             player.OnStartingCitySpawned += BuildStartingCity;

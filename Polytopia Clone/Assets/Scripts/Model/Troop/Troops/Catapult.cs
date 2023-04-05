@@ -5,6 +5,12 @@ namespace Model
 {
     public class Catapult : OffensiveLandTroop
     {
+        public Catapult(Player player) : base()
+        {
+            initialValues = TroopBase.TroopProperties["Catapult"];
+            Init(player);
+        }
+
         public override bool Attack(TroopBase troop)
         {
             if (!TilesInAttackRange.Contains(troop.Tile) || attackedInTurn)

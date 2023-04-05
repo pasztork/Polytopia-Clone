@@ -2,14 +2,21 @@
 {
     public class StockMarketTech : TechTreeItemBase
     {
-        public StockMarketTech(string name, Cost cost, string description) : base(name, cost, description)
+        private readonly int moneyProductionBoost = 10;
+
+        public StockMarketTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["StockMarket"]));
             HashCode = "StockMarket";
         }
 
         public override void ActivateEffect(Player player)
         {
-            //increases bank production rate
+            player.BonusProperty.BankProductionBonus += moneyProductionBoost;
+            foreach (BuildingBase building in player.Buildings)
+            {
+                building.IncreaseMoneyProduction(moneyProductionBoost);
+            }
         }
     }
 }

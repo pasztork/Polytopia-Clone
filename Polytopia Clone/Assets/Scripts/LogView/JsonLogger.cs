@@ -1,46 +1,74 @@
-﻿using Model;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Text.Json;
-using UnityEngine;
 
-namespace View
+namespace LogView
 {
-    public class JsonLogger
+    public static class JsonLogger
     {
-        private static JsonLogger instance;
+        private static readonly string saveDirectory = $"{Directory.GetCurrentDirectory()}\\GameLogs";
+        private static readonly string filePath = $"{saveDirectory}\\{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.json";
 
-        public static JsonLogger Instance
+        private static readonly Dictionary<Model.TileBase, int[]> tileToCoordMap = new Dictionary<Model.TileBase, int[]>();
+        private static readonly JsonDataHolder log = new JsonDataHolder();
+
+        public static void Init()
         {
-            get
+            if (!Directory.Exists(saveDirectory))
             {
-                if (instance == null)
+                Directory.CreateDirectory(saveDirectory);
+            }
+
+            Model.GameManager.OnGameStarted += LogStart;
+            MapTilesToCoords();
+        }
+
+        private static void LogStart(IList<Model.Player> players, string mapFilePath)
+        {
+            log.Map = mapFilePath;
+            log.Players = new List<JsonPlayerObject>();
+            foreach (Model.Player p in players)
+            {   
+                log.Players.Add(new JsonPlayerObject
                 {
-                    instance = new JsonLogger();
-                    LogManager.Instance.LogEvent += instance.LogToFile;
-                    LogManager.Instance.LogLastEvent += instance.LastLogToFile;
-                    File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", "[\n");
+                    Name = p.Name,
+                    StartingTile = tileToCoordMap[p.Buildings[0].Tile],
+                    StartingCityRange = p.StartingCityRange
+                }); ;
+            }
+            log.Actions = new List<JsonActionObject>();
+            string jsonString = JsonSerializer.Serialize(log,
+                new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, jsonString);
+
+            LogDataWrapper.Instance.SubscribeToPlayerEvents();
+        }
+
+        public static void LogNewEvent(JsonActionObject newAction)
+        {
+            JsonLogger.log.Actions.Add(newAction);
+
+            string jsonString = JsonSerializer.Serialize(log, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, jsonString);
+        }
+
+        private static void MapTilesToCoords()
+        {
+            Model.TileBase[,] tiles = Model.GameManager.Get<Model.MapManagerBase>().Tiles;
+            for (int row = 0; row < tiles.GetLength(0); row++)
+            {
+                for (int column = 0; column < tiles.GetLength(1); column++)
+                {
+                    tileToCoordMap.Add(tiles[row, column], new int[] { row, column });
                 }
-                return instance;
             }
         }
 
-        public void SetUpToLog()
+        public static int[] GetTileCoords(Model.TileBase tile)
         {
-            JsonLogger js = JsonLogger.Instance;
-        }
-
-        public void LogToFile(JsonDataHolder dataHolder)
-        {
-            string jsonString = JsonSerializer.Serialize(dataHolder);
-            File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + ",\n");
-        }
-
-        public void LastLogToFile(JsonDataHolder dataHolder)
-        {
-            string jsonString = JsonSerializer.Serialize(dataHolder);
-            File.AppendAllText(Directory.GetCurrentDirectory() + @"\Assets\Log\playLog.txt", jsonString + "\n]");
+            return tileToCoordMap[tile];
         }
     }
 }

@@ -6,7 +6,18 @@ namespace View
 {
     public class TroopManager : MonoBehaviour
     {
-        public static TroopManager Instance { get; private set; }
+        private static TroopManager instance;
+        public static TroopManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<TroopManager>();
+                }
+                return instance;
+            }
+        }
 
         public event Action OnTrainAttempted;
 
@@ -33,16 +44,6 @@ namespace View
 
         public View.TroopBase Blueprint { private get; set; }
 
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Debug.LogError("More than one TrainManager in scene!");
-                return;
-            }
-            Instance = this;
-        }
-
         public void Train()
         {
             // Should throw error if there are no subscribers.
@@ -53,7 +54,7 @@ namespace View
 
             Model.BuildingBase modelBuilding = View.BuildingManager.Instance.ViewToModelMap[View.BuildingManager.Instance.SelectedBuilding];
             View.Tile tile = View.MapManager.Instance.ModelToViewMap[modelBuilding.Tile];
-            View.TroopBase viewTroop = Instantiate(Blueprint, tile.transform.position + new Vector3(1f, 1.5f, 1f), Quaternion.identity);
+            View.TroopBase viewTroop = Instantiate(Blueprint, tile.transform.position + tile.Offset, Quaternion.identity);
             Model.TroopBase troop = viewTroop.ToModel(Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer);
             bool trained = Controller.GameManager.Get<Controller.TroopManagerBase>().Train(modelBuilding, troop);
 
@@ -66,8 +67,8 @@ namespace View
             viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewTroop] = troop;
-            ModelToViewMap[troop] = viewTroop; View.BuildingManager.Instance.SelectedBuilding = null;
-
+            ModelToViewMap[troop] = viewTroop;
+            View.BuildingManager.Instance.SelectedBuilding = null;
             View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
         }
 

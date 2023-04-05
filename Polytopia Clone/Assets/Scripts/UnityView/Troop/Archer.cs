@@ -1,15 +1,21 @@
+using UnityEngine;
+
 namespace View
 {
     public class Archer : OffensiveTroop
     {
+        private void Start()
+        {
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
+                Initialize(Model.TroopBase.TroopProperties["Archer"].Health);
+            movementRange = Model.TroopBase.TroopProperties["Archer"].MovementRange;
+        }
+
         public override Model.TroopBase ToModel(Model.Player player)
         {
-            Model.TroopBase archer = new Model.Archer();
+            Model.TroopBase archer = new Model.Archer(player);
             archer.OnDamageTaken += TakeDamage;
-            archer.TroopProperty = new Model.TroopProperty(
-                troopProperties.Health, troopProperties.Damage,
-                troopProperties.MovementRange, troopProperties.AttackRange);
-            archer.Cost = new Model.Cost(cost.MoneyCost, cost.MaterialCost, cost.FoodCost);
+            archer.OnTroopHealed += Heal;
             return archer;
         }
     }

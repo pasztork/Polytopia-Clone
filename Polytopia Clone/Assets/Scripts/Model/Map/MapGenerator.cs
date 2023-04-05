@@ -7,13 +7,12 @@ namespace Model
     {
         private TileBase[,] tiles;
         private float[,] noiseMap;
-        private int size;
 
         public override void GenerateMap()
         {
+            GameManager.Get<MapManagerBase>().Tiles = new TileBase[MGP.Size, MGP.Size];
             tiles = GameManager.Get<MapManagerBase>().Tiles;
-            size = GameManager.Get<MapManagerBase>().Tiles.GetLength(0);
-            noiseMap = PerlinNoise.GenerateNoiseMap(size);
+            noiseMap = PerlinNoise.GenerateNoiseMap(MGP.Size);
             GenerateWaterTiles();
             FillEmptyTiles();
             SetupCoordinateSystem();
@@ -21,14 +20,13 @@ namespace Model
 
         private void GenerateWaterTiles()
         {
-            for (int x = 0; x < size; x++)
+            for (int x = 0; x < MGP.Size; x++)
             {
-                for (int y = 0; y < size; y++)
+                for (int y = 0; y < MGP.Size; y++)
                 {
                     if (noiseMap[x, y] < MGP.WaterTileProbability)
                     {
                         tiles[x, y] = new WaterTile();
-                        TriggerTileCreated(tiles[x, y], x, y);
                     }
                     else
                     {
@@ -56,8 +54,8 @@ namespace Model
                 return;
 
             IList<(int, int)> emptyCoords = new List<(int, int)>();
-            for (int x = 0; x < size; x++)
-                for (int y = 0; y < size; y++)
+            for (int x = 0; x < MGP.Size; x++)
+                for (int y = 0; y < MGP.Size; y++)
                     if (tiles[x, y] == null)
                         emptyCoords.Add((x, y));
 
@@ -73,7 +71,6 @@ namespace Model
             foreach ((int, int) mountainCoord in mountainCoords)
             {
                 tiles[mountainCoord.Item1, mountainCoord.Item2] = new RockTile();
-                TriggerTileCreated(tiles[mountainCoord.Item1, mountainCoord.Item2], mountainCoord.Item1, mountainCoord.Item2);
             }
         }
 
@@ -91,16 +88,15 @@ namespace Model
         private void GenerateDesert((int, int) offset)
         {
             IList<TileBase> startingTileContenders = new List<TileBase>();
-            for (int x = offset.Item1 * size / 2; x < (offset.Item1 + 1) * size / 2; x++)
+            for (int x = offset.Item1 * MGP.Size / 2; x < (offset.Item1 + 1) * MGP.Size / 2; x++)
             {
-                for (int y = offset.Item2 * size / 2; y < (offset.Item2 + 1) * size / 2; y++)
+                for (int y = offset.Item2 * MGP.Size / 2; y < (offset.Item2 + 1) * MGP.Size / 2; y++)
                 {
                     if (tiles[x, y] == null)
                     {
                         TileBase sand = new SandTile();
                         tiles[x, y] = sand;
                         startingTileContenders.Add(sand);
-                        TriggerTileCreated(sand, x, y);
                     }
                 }
             }
@@ -112,8 +108,8 @@ namespace Model
         private void GenerateGrassLand((int, int) offset)
         {
             IList<(int, int, float)> emptyCoords = new List<(int, int, float)>();
-            for (int x = offset.Item1 * size / 2; x < (offset.Item1 + 1) * size / 2; x++)
-                for (int y = offset.Item2 * size / 2; y < (offset.Item2 + 1) * size / 2; y++)
+            for (int x = offset.Item1 * MGP.Size / 2; x < (offset.Item1 + 1) * MGP.Size / 2; x++)
+                for (int y = offset.Item2 * MGP.Size / 2; y < (offset.Item2 + 1) * MGP.Size / 2; y++)
                     if (tiles[x, y] == null)
                         emptyCoords.Add((x, y, noiseMap[x, y]));
 
@@ -127,7 +123,6 @@ namespace Model
                     .Select(x => (x.Item1, x.Item2)))
             {
                 tiles[forestCoord.Item1, forestCoord.Item2] = new ForestTile();
-                TriggerTileCreated(tiles[forestCoord.Item1, forestCoord.Item2], forestCoord.Item1, forestCoord.Item2);
             }
 
 
@@ -139,7 +134,6 @@ namespace Model
                     TileBase grass = new GrassTile();
                     tiles[coord.Item1, coord.Item2] = grass;
                     startingTileContenders.Add(grass);
-                    TriggerTileCreated(grass, coord.Item1, coord.Item2);
                 }
             }
 
@@ -149,8 +143,8 @@ namespace Model
 
         private void SetupCoordinateSystem()
         {
-            for (int x = 0; x < size; x++)
-                for (int y = 0; y < size; y++)
+            for (int x = 0; x < MGP.Size; x++)
+                for (int y = 0; y < MGP.Size; y++)
                     AddNeighborsToList(x, y);
         }
 
@@ -172,8 +166,8 @@ namespace Model
             return
                 coordinate.Item1 >= 0 &&
                 coordinate.Item2 >= 0 &&
-                coordinate.Item1 < size &&
-                coordinate.Item2 < size;
+                coordinate.Item1 < MGP.Size &&
+                coordinate.Item2 < MGP.Size;
         }
     }
 }

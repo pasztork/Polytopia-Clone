@@ -31,9 +31,7 @@ namespace View
             IList<string> availableBuildings = player.AvailableBuildings;
             foreach (string buildingName in availableBuildings)
             {
-                BuildingBase building = buildings[buildingName];
-                Model.Cost cost = new Model.Cost(building.Cost.MoneyCost, building.Cost.MaterialCost, building.Cost.FoodCost);
-                if (player.ResourceContainer.HasEnoughFor(cost))
+                if (player.ResourceContainer.HasEnoughFor(Model.Cost.CreateNewFromJsonCost(Model.BuildingBase.BuildingProperties[buildingName].Cost)))
                     dropdown.options.Add(new TMP_Dropdown.OptionData() { text = buildingName });
             }
             dropdown.value = 0;

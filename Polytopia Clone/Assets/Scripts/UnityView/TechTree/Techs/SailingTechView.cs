@@ -4,15 +4,17 @@ namespace View
 {
     public class SailingTechView : TechTreeItem
     {
-        private SailingTechView()
+        private void Awake()
         {
             startColor = new Color(1, 0.4f, 0, 1);
             Description = "Unlock Boat troop";
+            Cost = Model.TechTreeItemBase.ItemCosts["Riding"];
         }
+
         public override Model.TechTreeItemBase ToModel()
         {
             Model.TechTreeItemBase techItem =
-                new Model.SailingTech(Name, new Model.Cost(Cost.MoneyCost, Cost.MaterialCost, Cost.FoodCost), Description);
+                new Model.SailingTech();
             return techItem;
         }
     }

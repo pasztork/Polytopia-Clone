@@ -30,5 +30,10 @@
         {
             return false;
         }
+
+        //public override void ApplyAllPropertyBonus(Player player)
+        //{
+        //    base.ApplyAllPropertyBonus(player);
+        //}
     }
 }

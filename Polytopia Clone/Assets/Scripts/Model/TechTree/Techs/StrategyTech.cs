@@ -2,14 +2,21 @@
 {
     public class StrategyTech : TechTreeItemBase
     {
-        public StrategyTech(string name, Cost cost, string description) : base(name, cost, description) 
+        private readonly double dodgeBonus = 0.1;
+
+        public StrategyTech() : base()
         {
+            Init(Cost.CreateNewFromJsonCost(TechTreeItemBase.ItemCosts["Strategy"]));
             HashCode = "Strategy";
         }
 
         public override void ActivateEffect(Player player)
         {
-            //increases dodge rate
+            player.BonusProperty.DodgeBonus = dodgeBonus;
+            foreach (TroopBase troop in player.Troops)
+            {
+                troop.TroopProperty.DodgeRate += dodgeBonus;
+            }
         }
     }
 }

@@ -31,9 +31,7 @@ namespace View
             IList<string> availableTroops = player.AvailableTroops;
             foreach (string troopName in availableTroops)
             {
-                TroopBase troop = troops[troopName];
-                Model.Cost cost = new Model.Cost(troop.Cost.MoneyCost, troop.Cost.MaterialCost, troop.Cost.FoodCost);
-                if (player.ResourceContainer.HasEnoughFor(cost))
+                if (player.ResourceContainer.HasEnoughFor(Model.Cost.CreateNewFromJsonCost(Model.TroopBase.TroopProperties[troopName].Cost)))
                     dropdown.options.Add(new TMP_Dropdown.OptionData() { text = troopName });
             }
             dropdown.value = 0;

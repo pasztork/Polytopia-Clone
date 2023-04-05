@@ -9,20 +9,15 @@ namespace View
 {
     public abstract class TroopBase : MonoBehaviour
     {
-        [Header("Cost Settings")]
-        [SerializeField] protected View.Cost cost;
-        public View.Cost Cost { get => cost; }
-
-        [Header("Troop Properties")]
-        public View.TroopProperty troopProperties;
 
         [Header("Highlight Settings")]
         protected Color hoverColor = Color.yellow;
         protected Color selectColor = Color.magenta;
         protected Color startColor;
 
-
         private IList<Tile> TilesToHighLight = new List<Tile>();
+
+        protected int movementRange = 0;
 
         public abstract Model.TroopBase ToModel(Model.Player player);
 
@@ -30,11 +25,6 @@ namespace View
         {
             startColor = GetComponent<Renderer>().material.color;
             HighlightManager.Instance.OnMonoBehaviourSelected += DeselectIfNotSelected;
-        }
-
-        private void Start()
-        {
-            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Initialize(troopProperties.Health);
         }
 
         protected void DeselectIfNotSelected(MonoBehaviour mono)
@@ -169,7 +159,7 @@ namespace View
             }
 
             TilesToHighLight.Clear();
-            TilesToHighLight = GetTilesInRange(troopProperties.MovementRange);
+            TilesToHighLight = GetTilesInRange(movementRange);
             foreach (var tile in TilesToHighLight)
             {
                 tile.GetComponent<Renderer>().material.color = tile.SelectColor;
@@ -207,6 +197,11 @@ namespace View
             }
             reachables.Remove(currentTile);
             return reachables.ToList();
+        }
+
+        public void Heal(int remainingHealth)
+        {
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
         }
 
         public virtual void TakeDamage(int remainingHealth)
