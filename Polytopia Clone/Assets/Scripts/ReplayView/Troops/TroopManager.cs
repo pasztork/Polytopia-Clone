@@ -35,7 +35,7 @@ namespace ReplayView
             Model.TileBase tileBase = MapManager.Instance.ViewToModelMap[where];
             Controller.GameManager.Get<Controller.TroopManagerBase>().Train(tileBase.BuildingOnTop, modelTroop);
 
-            viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
+            viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewTroop] = modelTroop;
             ModelToViewMap[modelTroop] = viewTroop;

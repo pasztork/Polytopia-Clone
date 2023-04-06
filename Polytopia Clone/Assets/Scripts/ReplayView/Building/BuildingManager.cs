@@ -48,6 +48,7 @@ namespace ReplayView
             buildingText.Name = playerName + "\nCapital";
             buildingText.BackgroundColor = TurnManager.Instance.PlayerColors[playerName];
             city.OnDamageTaken += viewCity.TakeDamage;
+            tile.BuildingOnTop = city;
 
             ViewToModelMap[viewCity] = city;
             ModelToViewMap[city] = viewCity;

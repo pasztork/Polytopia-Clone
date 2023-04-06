@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.Json;
 using UnityEngine;
+using View;
 
 namespace ReplayView
 {
@@ -29,6 +30,11 @@ namespace ReplayView
             jsonDataHolder = JsonSerializer.Deserialize<JsonDataHolder>(fileContent);
 
             Model.GameManager.Get<Model.MapManagerBase>().LoadMap(jsonDataHolder.Map);
+
+            //nem adja hozzá a szomszédokat
+            MapBuilder.Instance.BuildMapGFX(Model.GameManager.Get<Model.MapManagerBase>().Tiles);
+
+
             MapManager.Instance.OnViewMappedToModel += AddPlayers;
             SetupReplayManager();
         }

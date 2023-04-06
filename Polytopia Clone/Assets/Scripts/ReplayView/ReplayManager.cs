@@ -30,6 +30,9 @@ namespace ReplayView
             Debug.Log("Step forward");
             if (actionList.Count > cursor)
             {
+                if(cursor == 0)
+                    Model.GameManager.Get<Model.TurnManagerBase>().Start();
+
                 PlayAction(actionList[cursor]);
                 cursor++;
             }
@@ -47,6 +50,9 @@ namespace ReplayView
             {
                 for (int i = 0; i < cursor - 1; i++)
                 {
+                    if (i == 0)
+                        Model.GameManager.Get<Model.TurnManagerBase>().Start();
+
                     PlayAction(actionList[i]);
                 }
                 cursor--;
@@ -136,7 +142,8 @@ namespace ReplayView
 
         private void MissAttack()
         {
-
+            //ekkor beallitom neki a dodgot 1-re, hogy biztos dodgoljon
+            //attack esetén mindenki dodg-ját vissza veszem 0-ra
         }
 
         private void Learn()
