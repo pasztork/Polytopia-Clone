@@ -48,5 +48,10 @@ namespace Model
             RaiseOnWinnerDecided(players.ElementAt(0));
             players.Clear();
         }
+
+        public override void ReplayStopGame()
+        {
+            StopGame();
+        }
     }
 }

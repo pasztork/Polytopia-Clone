@@ -12,6 +12,7 @@ namespace Controller
             Model.GameManager.Get<Model.MapManagerBase>().GenerateMap();
         }
 
+        //erre nincsen szukség jelenleg, mi legyen vele Kristof?
         public static void LoadGame()
         {
             throw new NotImplementedException();

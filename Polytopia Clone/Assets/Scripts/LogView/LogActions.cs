@@ -8,7 +8,8 @@ namespace LogView
 {
     public enum LogActions
     {
-        Build, Train, Move, Attacktroop, Attackbuilding, Learn,
-        Endturn, Gameend, Missattack
+        Build, Train, Move, Learn,
+        Attacktroop, Attackbuilding, Missattack,
+        Endturn, Gameend
     }
 }

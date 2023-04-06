@@ -28,7 +28,7 @@ namespace ReplayView
         public void ReplayOneStepForward()
         {
             Debug.Log("Step forward");
-            if(actionList.Count > cursor)
+            if (actionList.Count > cursor)
             {
                 PlayAction(actionList[cursor]);
                 cursor++;
@@ -43,7 +43,7 @@ namespace ReplayView
         public void ReplayOneStepBackward()
         {
             Debug.Log("Step back");
-            if (cursor-1 > 0)
+            if (cursor - 1 > 0)
             {
                 for (int i = 0; i < cursor - 1; i++)
                 {
@@ -55,7 +55,7 @@ namespace ReplayView
 
         private void PlayAction(LogView.JsonActionObject action)
         {
-            switch(action.Action)
+            switch (action.Action)
             {
                 case "Move":
                     Debug.Log("Move");
@@ -71,6 +71,7 @@ namespace ReplayView
                     break;
                 case "Learn":
                     Debug.Log("Leanr");
+                    Learn();
                     break;
                 case "Attacktroop":
                     Debug.Log("Attacktroop");
@@ -86,10 +87,11 @@ namespace ReplayView
                     break;
                 case "Missattack":
                     Debug.Log("Missattack");
-                    //kovetkezo sorokban lévő action-el kell okoskodni majd ------------------------------------------------------------------------
+                    MissAttack();
                     break;
                 case "Gameend":
                     Debug.Log("Gameend");
+                    Model.GameManager.Get<Model.TurnManagerBase>().ReplayStopGame();
                     break;
             }
         }
@@ -130,6 +132,16 @@ namespace ReplayView
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
             TroopManager.Instance.Attack(start, end);
+        }
+
+        private void MissAttack()
+        {
+
+        }
+
+        private void Learn()
+        {
+            
         }
     }
 }
