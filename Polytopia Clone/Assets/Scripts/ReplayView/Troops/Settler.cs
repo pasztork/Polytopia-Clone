@@ -14,6 +14,7 @@ namespace ReplayView
         public override Model.TroopBase ToModel(Model.Player player)
         {
             Model.TroopBase settler = new Model.Settler(player);
+            settler.TroopProperty.DodgeRate = 0;
             settler.OnDamageTaken += TakeDamage;
             settler.OnTroopHealed += Heal;
             return settler;

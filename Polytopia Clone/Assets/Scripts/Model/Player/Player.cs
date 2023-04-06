@@ -10,11 +10,10 @@ namespace Model
         public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
         public event Action<Player> OnEliminated;
         public event Action<BuildingBase> OnBuildCreated;
-        public event Action<BuildingBase> BuildDestroyed;
-        public event Action<TroopBase> TroopDeath;
         public event Action<TroopBase> OnTroopTrained;
-        public event Action<TroopBase, TileBase, TileBase> OnTroopMoved;
-        public event Action<TroopBase, BuildingBase, TroopBase, TileBase> OnTroopAttacked;
+        public event Action<TileBase, TileBase> OnTroopMoved;
+        public event Action<TileBase, TileBase> OnTroopAttacked;
+        public event Action<TileBase, TileBase> OnBuildingAttacked;
         public event Action OnTurnEnded;
         public event Action<TechTreeItemBase> OnTechLearned;
         public event Action<TroopBase> OnAttackMissed;
@@ -74,7 +73,6 @@ namespace Model
             AddBuilding(building);
             building.ApplyAllPropertyBonus(this);
             troop.Kill();
-            TroopDeath?.Invoke(troop);
             OnBuildCreated?.Invoke(building);
             return true;
         }
@@ -107,7 +105,7 @@ namespace Model
             TileBase from = troop.Tile;
             bool moved = troop.Move(target);
             if (moved)
-                OnTroopMoved?.Invoke(troop, from, target);
+                OnTroopMoved?.Invoke(from, target);
 
             return moved;
         }
@@ -119,9 +117,7 @@ namespace Model
 
             bool result = attacker.Attack(target);
             if (result)
-                OnTroopAttacked?.Invoke(attacker, null, target, target.Tile);
-            if (target.TroopProperty.Health <= 0)
-                TroopDeath?.Invoke(target);
+                OnTroopAttacked?.Invoke(attacker.Tile, target.Tile);
 
             return result;
         }
@@ -132,9 +128,7 @@ namespace Model
                 return false;
             bool result = attacker.Attack(target);
             if (result)
-                OnTroopAttacked?.Invoke(attacker, target, null, target.Tile);
-            if (target.BuildingProperty.Health <= 0)
-                BuildDestroyed?.Invoke(target);
+                OnBuildingAttacked?.Invoke(attacker.Tile, target.Tile);
 
             return result;
         }

@@ -30,6 +30,7 @@ namespace ReplayView
 
             Model.GameManager.Get<Model.MapManagerBase>().LoadMap(jsonDataHolder.Map);
             MapManager.Instance.OnViewMappedToModel += AddPlayers;
+            SetupReplayManager();
         }
 
         private void AddPlayers()
@@ -40,6 +41,11 @@ namespace ReplayView
                 viewPlayer.AddComponent<Player>();
                 viewPlayer.GetComponent<Player>().SetPlayerFromLog(player);
             }
+        }
+
+        private static void SetupReplayManager()
+        {
+            ReplayManager.SetActionList(ReloadManager.Instance.jsonDataHolder.Actions);
         }
     }
 }

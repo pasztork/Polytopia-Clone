@@ -28,11 +28,10 @@ namespace LogView
                 player.OnBuildCreated += TriggerBuild;
                 player.OnTroopTrained += TriggerTrain;
                 player.OnTroopMoved += TriggerTroopMoved;
-                player.OnTroopAttacked += TriggerAttack;
+                player.OnTroopAttacked += TriggerAttackTroop;
+                player.OnBuildingAttacked += TriggerAttackBuilding;
                 player.OnTurnEnded += TriggerTurnEnded;
                 player.OnTechLearned += TriggerTechLearned;
-                player.BuildDestroyed += TriggerBuildingDestroy;
-                player.TroopDeath += TriggerTroopDeath;
                 player.OnAttackMissed += TriggerAttackMissed;
             }
         }
@@ -46,54 +45,6 @@ namespace LogView
                                                       Start = JsonLogger.GetTileCoords(building.Tile) }
             };
             JsonLogger.LogNewEvent(action);
-        }
-
-        //kell ez az event actualy?? Catapultnal nem tom a szomszedos mezokon tortent dolgokat lekerni
-        public void TriggerTroopDeath(Model.TroopBase troop)
-        {
-            //JsonDataHolder datas = new JsonDataHolder()
-            //{
-            //    Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-            //    Action = LogActions.Destroy.ToString(),
-            //    //Tiles = new System.Collections.Generic.List<Identity>
-            //    //{
-            //    //     new Identity(){ Name = troop.Tile.ToString(),
-            //    //                     Id = LogManager.Instance.IncrementTileId()}
-            //    //},
-            //    Troops = new List<Identity>
-            //    {
-            //        new Identity()
-            //        {
-            //            Name = troop.ToString(),
-            //            Id = TroopToIdDic[troop]
-            //        }
-            //    }
-            //};
-            //NewDataCreated?.Invoke(datas);
-        }
-
-        //ugyanaz mint az elobb
-        public void TriggerBuildingDestroy(Model.BuildingBase building)
-        {
-            //JsonDataHolder datas = new JsonDataHolder()
-            //{
-            //    Player = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-            //    Action = LogActions.Destroy.ToString(),
-            //    //Tiles = new System.Collections.Generic.List<Identity>
-            //    //{
-            //    //     new Identity(){ Name = troop.Tile.ToString(),
-            //    //                     Id = LogManager.Instance.IncrementTileId()}
-            //    //},
-            //    Buildings = new List<Identity>
-            //    {
-            //        new Identity()
-            //        {
-            //            Name = building.ToString(),
-            //            Id = BuildingToIdDic[building]
-            //        }
-            //    }
-            //};
-            //NewDataCreated?.Invoke(datas);
         }
 
         public void TriggerTrain(Model.TroopBase troop)
@@ -110,14 +61,13 @@ namespace LogView
             JsonLogger.LogNewEvent(action);
         }
 
-        public void TriggerTroopMoved(Model.TroopBase troop, Model.TileBase from, Model.TileBase target)
+        public void TriggerTroopMoved(Model.TileBase from, Model.TileBase target)
         {
             JsonActionObject action = new JsonActionObject()
             {
                 Action = LogActions.Move.ToString(),
                 ActionDatas = new JsonActionDatas()
                 {
-                    Troop = troop.ToString(),
                     Start = JsonLogger.GetTileCoords(from),
                     End = JsonLogger.GetTileCoords(target)
                 }
@@ -125,37 +75,36 @@ namespace LogView
             JsonLogger.LogNewEvent(action);
         }
 
-        public void TriggerAttack(Model.TroopBase attacker, Model.BuildingBase targetBuilding, Model.TroopBase targetTroop, Model.TileBase targetedTile)
+        public void TriggerAttackTroop(Model.TileBase attackerTile, Model.TileBase targetedTile)
         {
-            JsonActionDatas datas;
-            if (targetBuilding != null)
-            {
-                datas = new JsonActionDatas()
-                {
-                    Building = targetBuilding.ToString(),
-                    Start = JsonLogger.GetTileCoords(attacker.Tile),
-                    End = JsonLogger.GetTileCoords(targetBuilding.Tile)
-                };
-            }
-            else
-            {
-                datas = new JsonActionDatas()
-                {
-                    Troop = targetTroop.ToString(),
-                    Start = JsonLogger.GetTileCoords(attacker.Tile),
-                    End = JsonLogger.GetTileCoords(targetTroop.Tile)
-                };
-            }
-
             JsonActionObject action = new JsonActionObject()
             {
-                Action = LogActions.Attack.ToString(),
-                ActionDatas = datas
+                Action = LogActions.Attacktroop.ToString(),
+                ActionDatas = new JsonActionDatas()
+                {
+                    Start = JsonLogger.GetTileCoords(attackerTile),
+                    End = JsonLogger.GetTileCoords(targetedTile)
+                }
             };
             JsonLogger.LogNewEvent(action);
         }
 
-        public void TriggerTurnEnded()
+        public void TriggerAttackBuilding(Model.TileBase attackerTile, Model.TileBase targetedTile)
+        {
+            JsonActionObject action = new JsonActionObject()
+            {
+                Action = LogActions.Attackbuilding.ToString(),
+                ActionDatas = new JsonActionDatas()
+                {
+                    Start = JsonLogger.GetTileCoords(attackerTile),
+                    End = JsonLogger.GetTileCoords(targetedTile)
+                }
+            };
+            JsonLogger.LogNewEvent(action);
+        }
+
+
+            public void TriggerTurnEnded()
         {
             JsonActionObject action = new JsonActionObject()
             {
