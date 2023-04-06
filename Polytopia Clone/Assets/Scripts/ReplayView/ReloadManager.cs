@@ -29,7 +29,7 @@ namespace ReplayView
             jsonDataHolder = JsonSerializer.Deserialize<JsonDataHolder>(fileContent);
 
             Model.GameManager.Get<Model.MapManagerBase>().LoadMap(jsonDataHolder.Map);
-            AddPlayers();
+            MapManager.Instance.OnViewMappedToModel += AddPlayers;
         }
 
         private void AddPlayers()

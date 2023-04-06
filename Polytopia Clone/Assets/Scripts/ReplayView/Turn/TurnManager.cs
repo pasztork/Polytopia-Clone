@@ -24,5 +24,10 @@ namespace ReplayView
         {
             Controller.GameManager.Get<Controller.TurnManagerBase>().FinishTurn();
         }
+
+        public void SetPlayerColor( string player, Color color)
+        {
+            PlayerColors.Add(player, color);
+        }
     }
 }

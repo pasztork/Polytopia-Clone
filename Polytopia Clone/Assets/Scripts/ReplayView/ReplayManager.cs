@@ -1,21 +1,14 @@
-﻿using LogView;
-using Model;
-using ReplayView;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.Json;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
 namespace ReplayView
 {
-    public class ReplayManager
+    public class ReplayManager : MonoBehaviour
     {
         private ReloadManager instance;
-        private static List<LogView.JsonActionObject> actionList;
+        private static List<LogView.JsonActionObject> actionList = new List<LogView.JsonActionObject>();
         private int cursor = 0;
 
         public ReloadManager Instance
@@ -29,6 +22,7 @@ namespace ReplayView
 
         public void ReplayOneStepForward()
         {
+            Debug.Log("Step forward");
             if(actionList.Count < cursor)
             {
                 PlayAction(actionList[cursor]);
@@ -42,7 +36,8 @@ namespace ReplayView
 
         public void ReplayOneStepBackward()
         {
-            if(cursor-1 > 0)
+            Debug.Log("Step back");
+            if (cursor-1 > 0)
             {
                 for (int i = 0; i < cursor - 1; i++)
                 {
@@ -52,12 +47,12 @@ namespace ReplayView
             }
             else
             {
-                //a legelején vagyunk a logfile-nak
+                //at the begining of the file
             }
             
         }
 
-        private void PlayAction(JsonActionObject action)
+        private void PlayAction(LogView.JsonActionObject action)
         {
             switch(action.Action)
             {

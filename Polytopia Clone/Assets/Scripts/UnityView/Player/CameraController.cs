@@ -49,5 +49,10 @@ namespace View
             position.y = Mathf.Clamp(transform.position.y, minY, maxY);
             transform.position = position;
         }
+
+        public void SetToDefaultPos()
+        {
+            transform.position = new Vector3(30, 70, 28);
+        }
     }
 }

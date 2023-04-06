@@ -46,7 +46,7 @@ namespace ReplayView
             BuildingBase viewCity = Instantiate(Blueprints["City"], viewTile.transform.position + new Vector3(0f, viewTile.Offset.y, 0f), Quaternion.identity);
             View.NameText buildingText = viewCity.GetComponentInChildren<View.NameText>();
             buildingText.Name = playerName + "\nCapital";
-            buildingText.BackgroundColor = View.TurnManager.Instance.PlayerColors[playerName];
+            buildingText.BackgroundColor = TurnManager.Instance.PlayerColors[playerName];
             city.OnDamageTaken += viewCity.TakeDamage;
 
             ViewToModelMap[viewCity] = city;
