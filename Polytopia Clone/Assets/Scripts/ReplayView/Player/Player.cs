@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace ReplayView
 {
@@ -22,6 +23,9 @@ namespace ReplayView
             tile.SetBuildingOnTop(city, modelPlayer);
             modelPlayer.AvailableTiles.Add(tile);
             modelPlayer.AddBuilding(city);
+            modelPlayer.Techs = TechTreeManager.Instance.GetNewTechTree();
+            modelPlayer.AvailableBuildings = new List<string>();
+            modelPlayer.AvailableTroops = new List<string>();
             BuildingManager.Instance.BuildStartingCity(tile, city, player.Name);
         }
     }

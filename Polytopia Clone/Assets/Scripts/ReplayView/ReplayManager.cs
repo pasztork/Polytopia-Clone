@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 namespace ReplayView
@@ -155,7 +152,7 @@ namespace ReplayView
         private void Learn()
         {
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
-            Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Techs.Add(datas.Tech, null);
+            TechTreeManager.Instance.LearnTech(datas.Tech);
         }
 
         public void OnTechListButtonClicked()
@@ -176,7 +173,8 @@ namespace ReplayView
             
             foreach (var tech in techs)
             {
-                techListText.text += $"{tech.Key}\n";
+                if(tech.Value.TechTreeItemProperty.IsUnlocked)
+                    techListText.text += $"{tech.Value.HashCode}\n";
             }
             techListPanel.SetActive(true);
         }
@@ -187,13 +185,12 @@ namespace ReplayView
                 return;
 
             techListText.text = "";
-            var techs = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer?.Techs;
-            if (techs == null)
-                return;
+            var techs = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Techs;
 
             foreach (var tech in techs)
             {
-                techListText.text += $"{tech.Key}\n";
+                if (tech.Value.TechTreeItemProperty.IsUnlocked)
+                    techListText.text += $"{tech.Value.HashCode}\n";
             }
         }
     }

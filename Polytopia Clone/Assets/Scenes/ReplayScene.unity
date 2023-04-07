@@ -4038,7 +4038,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975d5c20348ccaf4182ceca35439c40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  techTreeItems: []
+  techTreeItems:
+    m_keys:
+    - Archery
+    - Banking
+    - Catapult
+    - Farming
+    - Forestry
+    - GemMining
+    - Harbor
+    - IndustrialRevolution
+    - Irrigation
+    - Mathematics
+    - Militarism
+    - Mining
+    - Navigation
+    - Riding
+    - Sailing
+    - Sanitation
+    - StockMarket
+    - Strategy
+    m_values:
+    - {fileID: 1345273566}
+    - {fileID: 1887587627}
+    - {fileID: 2035156466}
+    - {fileID: 984354181}
+    - {fileID: 1271752726}
+    - {fileID: 1054270063}
+    - {fileID: 1263603209}
+    - {fileID: 1936743447}
+    - {fileID: 1945158617}
+    - {fileID: 68038554}
+    - {fileID: 1014009148}
+    - {fileID: 1800239536}
+    - {fileID: 1977638200}
+    - {fileID: 2065198038}
+    - {fileID: 2096456689}
+    - {fileID: 1295671600}
+    - {fileID: 1854672733}
+    - {fileID: 662969809}
 --- !u!1 &1522863900
 GameObject:
   m_ObjectHideFlags: 0

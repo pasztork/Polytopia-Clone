@@ -18,18 +18,23 @@ namespace ReplayView
             }
         }
 
-        [SerializeField] private List<View.TechTreeItem> techTreeItems = new List<View.TechTreeItem>();
-        public List<View.TechTreeItem> TechTreeItems { get => techTreeItems; private set => techTreeItems = value; }
+        [SerializeField] private SerializableDictionary<string, View.TechTreeItem> techTreeItems = new();
+        public SerializableDictionary<string, View.TechTreeItem> TechTreeItems { get => techTreeItems; private set => techTreeItems = value; }
 
         public Dictionary<string, Model.TechTreeItemBase> GetNewTechTree()
         {
             Dictionary<string, Model.TechTreeItemBase> modelItems = new Dictionary<string, Model.TechTreeItemBase>();
             foreach (var viewItem in TechTreeItems)
             {
-                var modelItem = viewItem.ToModel();
+                var modelItem = viewItem.Value.ToModel();
                 modelItems[modelItem.HashCode] = modelItem;
             }
             return Model.GameManager.Get<Model.TechTreeManagerBase>().ConnectTree(modelItems);
+        }
+
+        public void LearnTech(string techName)
+        {
+            Controller.GameManager.Get<Controller.TechTreeManagerBase>().UnlockTech(TechTreeItems[techName].ToModel());
         }
     }
 }
