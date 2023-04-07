@@ -76,7 +76,7 @@ namespace ReplayView
                     Train();
                     break;
                 case "Learn":
-                    Debug.Log("Leanr");
+                    Debug.Log("Learn");
                     Learn();
                     break;
                 case "Attacktroop":
@@ -84,7 +84,7 @@ namespace ReplayView
                     AttackTroop();
                     break;
                 case "Attackbuilding":
-                    Debug.Log("Attackbuiding");
+                    Debug.Log("Attackbuilding");
                     AttackBuilding();
                     break;
                 case "Endturn":
@@ -129,7 +129,7 @@ namespace ReplayView
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
-            BuildingManager.Instance.Attack(start, end);
+            TroopManager.Instance.Attack(start, end);
         }
 
         private void AttackBuilding()
@@ -137,7 +137,7 @@ namespace ReplayView
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
-            TroopManager.Instance.Attack(start, end);
+            BuildingManager.Instance.Attack(start, end);
         }
 
         private void MissAttack()
