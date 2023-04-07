@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.172768, g: 0.21589169, b: 0.29782546, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -823,7 +823,7 @@ GameObject:
   - component: {fileID: 353011422}
   - component: {fileID: 353011421}
   m_Layer: 5
-  m_Name: SetCameraPosPanel
+  m_Name: ResetCameraPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1005,7 +1005,7 @@ GameObject:
   - component: {fileID: 412759484}
   - component: {fileID: 412759483}
   m_Layer: 5
-  m_Name: SetCameraPosText
+  m_Name: ResetCameraText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "camera to \ndefault pos"
+  m_text: Reset camera
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
   m_sharedMaterial: {fileID: 7072222655331372664, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
@@ -3318,7 +3318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1707fb3db12143945a00ad4ba217320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonLogFilePath: C:\Users\nemes\Documents\6_felev\Polytopia-Clone\Polytopia Clone\GameLogs\2023-04-06_09-18-44.json
+  jsonLogFilePath: C:\Users\user\Documents\GitHub\Polytopia-Clone\Polytopia Clone\GameLogs\2023-04-07_11-35-16.json
 --- !u!1 &1486645811
 GameObject:
   m_ObjectHideFlags: 0
@@ -3530,7 +3530,7 @@ GameObject:
   - component: {fileID: 1636819999}
   - component: {fileID: 1636819998}
   m_Layer: 5
-  m_Name: SetCameraPosButton
+  m_Name: ResetCameraButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3603,7 +3603,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1478770457}
         m_TargetAssemblyTypeName: View.CameraController, Assembly-CSharp
-        m_MethodName: SetToDefaultPos
+        m_MethodName: ResetCamera
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
