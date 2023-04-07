@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.172768, g: 0.21589169, b: 0.29782546, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1806,8 +1806,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ea35ac65e43d748864bb174aa0c99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 16
-  generationProperties: {fileID: 11400000, guid: eb6aad47dc6291a45862497600d698ba, type: 2}
 --- !u!114 &277816175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2375,7 +2373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77321263b58e0974081cca5ed5eaff0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 71c8b23f7a4016e4ea40d419eecae17a, type: 2}
 --- !u!1 &357471595
 GameObject:
   m_ObjectHideFlags: 0
@@ -4821,7 +4818,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde7ffe093aad4a46ac641e775700fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 308035f112b58894fba2f9cea4111260, type: 2}
 --- !u!1 &864189767
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,7 +5212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b48a7e2a7def4cb0d7e8e4b0a2f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 50a39e7d4bc18204b9f1afd23fa3ac90, type: 2}
 --- !u!1 &918150213
 GameObject:
   m_ObjectHideFlags: 0
@@ -5305,7 +5300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111e68002a895864da63a3273778b2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 85f814fd91ac8714281f6c6799e5f7fa, type: 2}
 --- !u!1 &973944462
 GameObject:
   m_ObjectHideFlags: 0
@@ -5963,7 +5957,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1564bb32cc8f9224183b4a02fa7cc5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: c74138a8a8af72d48b96070961a3c4bf, type: 2}
 --- !u!1 &1094563733
 GameObject:
   m_ObjectHideFlags: 0
@@ -7338,7 +7331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4198e673a1cf1cc40b1cca0665a9e7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: ca32243347bae3249b34f66b76029618, type: 2}
 --- !u!1 &1319221845 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8437339839156311853, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
@@ -7361,7 +7353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66e6a585ab916e4e9984038a9dc40f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 2f58e104bc5454a429a5d0b5a9b93a69, type: 2}
 --- !u!1 &1359472246
 GameObject:
   m_ObjectHideFlags: 0
@@ -9640,7 +9631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761b67621798c58459b91723dde04f92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 1bcc1fa81cac4014db0d6f9d3a66dc35, type: 2}
 --- !u!1 &1772570423
 GameObject:
   m_ObjectHideFlags: 0
@@ -9985,7 +9975,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9047091d2f5e5b84abdf9280fcb351c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 40f8b8120af9b0240a01dcc3bf79cc4b, type: 2}
 --- !u!1001 &1820858655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10117,7 +10106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a158211727c5741afe63d96ea060d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: ab566d210220aa449b4dd730a1c0a3e7, type: 2}
 --- !u!1 &1821650438
 GameObject:
   m_ObjectHideFlags: 0
@@ -10412,7 +10400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4c514acdece4e4fb5fc5a0df9cb316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 94a0d709e8df84642a7b12ee4aa42e17, type: 2}
 --- !u!1 &1890424247
 GameObject:
   m_ObjectHideFlags: 0
@@ -11092,7 +11079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c487788618967d4fa08ea10aa0398c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 3a9ab37e5f4ee8740850e555ec08ec9e, type: 2}
 --- !u!1 &1954401895
 GameObject:
   m_ObjectHideFlags: 0
@@ -11297,7 +11283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f05527cf4c6b78540bd8a14b8ed6f72c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 5532c88899ae6ee4998c2fa31d48d00c, type: 2}
 --- !u!1 &2011673354 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8437339839156311853, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
@@ -11315,7 +11300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0295ec09359f3c6438df90916e4cf2b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: cf35afeffd561a94782014992f17b887, type: 2}
 --- !u!1001 &2013571520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11450,7 +11434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063c6d432f65fa14c932d5fe38fdcca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: fb6068b3e3fc77c4e8880bea1ffe9833, type: 2}
 --- !u!1 &2022550182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8437339839156311853, guid: 2d68893d57229054fb8fffffbc4b275c, type: 3}
@@ -11468,7 +11451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47096e5165bbfe3418df709f9bc7b857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: d42ce3e34662fb643a6b106dd9ed0082, type: 2}
 --- !u!1 &2024339807
 GameObject:
   m_ObjectHideFlags: 0
@@ -11679,7 +11661,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5eaef605404064399ad25d555c7a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 259c9810aba18144daade4506bccda26, type: 2}
 --- !u!1001 &2060255567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12107,4 +12088,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b186513d144b4264488be1a4c749a886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 11400000, guid: 08ac6efe5b1d9cb4a8739c572fd184d2, type: 2}

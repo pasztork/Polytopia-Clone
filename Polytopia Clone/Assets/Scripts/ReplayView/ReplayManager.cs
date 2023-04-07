@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,6 +12,9 @@ namespace ReplayView
         private ReplayManager instance;
         private static List<LogView.JsonActionObject> actionList = new List<LogView.JsonActionObject>();
         private int cursor = 0;
+
+        [SerializeField] private GameObject techListPanel;
+        [SerializeField] private TextMeshProUGUI techListText;
 
         public ReplayManager Instance
         {
@@ -34,6 +39,7 @@ namespace ReplayView
                     Model.GameManager.Get<Model.TurnManagerBase>().Start();
 
                 PlayAction(actionList[cursor]);
+                UpdateTechList();
                 cursor++;
             }
             else
@@ -148,7 +154,47 @@ namespace ReplayView
 
         private void Learn()
         {
+            LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Techs.Add(datas.Tech, null);
+        }
+
+        public void OnTechListButtonClicked()
+        {
+            if (techListPanel.activeSelf)
+            {
+                techListPanel.SetActive(false);
+                return;
+            }
+
+            techListText.text = "";
+            var techs = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer?.Techs;
+            if (techs == null)
+            {
+                techListPanel.SetActive(true);
+                return;
+            }
             
+            foreach (var tech in techs)
+            {
+                techListText.text += $"{tech.Key}\n";
+            }
+            techListPanel.SetActive(true);
+        }
+
+        private void UpdateTechList()
+        {
+            if (!techListPanel.activeSelf)
+                return;
+
+            techListText.text = "";
+            var techs = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer?.Techs;
+            if (techs == null)
+                return;
+
+            foreach (var tech in techs)
+            {
+                techListText.text += $"{tech.Key}\n";
+            }
         }
     }
 }

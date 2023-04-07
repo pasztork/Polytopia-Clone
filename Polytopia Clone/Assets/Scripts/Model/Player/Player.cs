@@ -20,7 +20,7 @@ namespace Model
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
-        public Dictionary<string, TechTreeItemBase> Techs { get; set; }
+        public Dictionary<string, TechTreeItemBase> Techs { get; set; } = new Dictionary<string, TechTreeItemBase>();
         public BonusProperty BonusProperty { get; set; } = new BonusProperty();
 
         public int StartingCityRange { get; set; }
