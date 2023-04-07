@@ -18,6 +18,13 @@ namespace Model
             SetupCoordinateSystem();
         }
 
+        public override void ConnectLoadedMap()
+        {
+            tiles = GameManager.Get<MapManagerBase>().Tiles;
+            MGP.Size = tiles.GetLength(0);
+            SetupCoordinateSystem();
+        }
+
         private void GenerateWaterTiles()
         {
             for (int x = 0; x < MGP.Size; x++)

@@ -45,7 +45,7 @@ namespace ReplayView
         {
             Model.TileBase modelFrom = MapManager.Instance.ViewToModelMap[from];
             Model.TroopBase modelTroop = modelFrom.TroopOnTop;
-            Model.TileBase modelTo = MapManager.Instance.ViewToModelMap[from];
+            Model.TileBase modelTo = MapManager.Instance.ViewToModelMap[to];
 
             Controller.GameManager.Get<Controller.TroopManagerBase>().MoveTroop(modelTroop, modelTo);
             ModelToViewMap[modelTroop].Move(to);

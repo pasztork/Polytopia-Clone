@@ -30,12 +30,11 @@ namespace ReplayView
             jsonDataHolder = JsonSerializer.Deserialize<JsonDataHolder>(fileContent);
 
             Model.GameManager.Get<Model.MapManagerBase>().LoadMap(jsonDataHolder.Map);
-
-            //nem adja hozzá a szomszédokat
-            MapBuilder.Instance.BuildMapGFX(Model.GameManager.Get<Model.MapManagerBase>().Tiles);
-
+            Model.GameManager.Get<Model.MapGeneratorBase>().ConnectLoadedMap();
 
             MapManager.Instance.OnViewMappedToModel += AddPlayers;
+            MapBuilder.Instance.BuildMapGFX(Model.GameManager.Get<Model.MapManagerBase>().Tiles);
+
             SetupReplayManager();
         }
 
