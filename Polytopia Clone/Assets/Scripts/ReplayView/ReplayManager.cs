@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ReplayView
 {
@@ -10,8 +11,16 @@ namespace ReplayView
         private static List<LogView.JsonActionObject> actionList = new List<LogView.JsonActionObject>();
         private int cursor = 0;
 
+        [SerializeField] private Button stepForwardButton;
+        [SerializeField] private Button stepBackwardButton;
         [SerializeField] private GameObject techListPanel;
         [SerializeField] private TextMeshProUGUI techListText;
+        [SerializeField] private TextMeshProUGUI actionText;
+
+        public void Awake()
+        {
+            stepBackwardButton.interactable = false;
+        }
 
         public ReplayManager Instance
         {
@@ -29,28 +38,29 @@ namespace ReplayView
 
         public void ReplayOneStepForward()
         {
-            Debug.Log("Step forward");
             if (actionList.Count > cursor)
             {
+                Debug.Log("Step forward");
                 if(cursor == 0)
                     Model.GameManager.Get<Model.TurnManagerBase>().Start();
 
                 PlayAction(actionList[cursor]);
                 UpdateTechList();
                 cursor++;
+                stepBackwardButton.interactable = true;
             }
             else
             {
-                //no more log
-                //do something
+                actionText.text = "Log file ended";
+                stepForwardButton.interactable = false;
             }
         }
 
         public void ReplayOneStepBackward()
         {
-            Debug.Log("Step back");
             if (cursor - 1 > 0)
             {
+                Debug.Log("Step back");
                 for (int i = 0; i < cursor - 1; i++)
                 {
                     if (i == 0)
@@ -59,6 +69,11 @@ namespace ReplayView
                     PlayAction(actionList[i]);
                 }
                 cursor--;
+                stepForwardButton.interactable = true;
+            }
+            else
+            {
+                stepBackwardButton.interactable = false;
             }
         }
 

@@ -2724,8 +2724,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055d5d22dffa77245895c73d28360b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepForwardButton: {fileID: 82460329}
+  stepBackwardButton: {fileID: 903643929}
   techListPanel: {fileID: 1393149098}
   techListText: {fileID: 1222898501}
+  actionText: {fileID: 410250139}
 --- !u!1 &1199399704
 GameObject:
   m_ObjectHideFlags: 0
