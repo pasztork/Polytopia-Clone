@@ -5,7 +5,7 @@ namespace Model
 {
     public class Player
     {
-        public static JsonProductionRate BaseProduction { private get; set; } = null;
+        public static JsonProductionRate BaseProduction { get; set; } = null;
 
         public event Action<Player, TileBase, BuildingBase> OnStartingCitySpawned;
         public event Action<Player> OnEliminated;
@@ -149,7 +149,7 @@ namespace Model
             OnStartingCitySpawned?.Invoke(this, tile, city);
         }
 
-        private void AddBuilding(BuildingBase building)
+        public void AddBuilding(BuildingBase building)
         {
             Buildings.Add(building);
             AvailableTiles.UnionWith(building.GetTilesInRange());
