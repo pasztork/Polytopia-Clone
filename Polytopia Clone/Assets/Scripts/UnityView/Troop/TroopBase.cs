@@ -19,8 +19,6 @@ namespace View
 
         protected Model.TroopProperty TroopProperties;
 
-        //protected int movementRange = 0;
-
         public abstract Model.TroopBase ToModel(Model.Player player);
 
         private void Awake()
