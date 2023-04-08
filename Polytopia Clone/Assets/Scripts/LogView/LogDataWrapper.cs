@@ -1,7 +1,4 @@
-﻿using Model;
-using System;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+﻿using System.Collections.Generic;
 
 namespace LogView
 {
@@ -22,7 +19,6 @@ namespace LogView
 
         public void SubscribeToPlayerEvents()
         {
-            Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += TriggerGameEnded;
             foreach (Model.Player player in Model.GameManager.Players)
             {
                 player.OnBuildCreated += TriggerBuild;
@@ -34,6 +30,7 @@ namespace LogView
                 player.OnTechLearned += TriggerTechLearned;
                 player.OnAttackMissed += TriggerAttackMissed;
             }
+            Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += TriggerGameEnded;
         }
 
         public void TriggerBuild(Model.BuildingBase building)
@@ -157,7 +154,7 @@ namespace LogView
 
         //visszatoltesnel kell okosan, mert a katapult egy mezot támad,
         //de ha tobb egség van a kornyeken akkor lehet hogy tobben is miss-elik a támadást
-        public void TriggerAttackMissed(TroopBase attacker, TroopBase target)
+        public void TriggerAttackMissed(Model.TroopBase attacker, Model.TroopBase target)
         {
             JsonActionObject action = new JsonActionObject()
             {

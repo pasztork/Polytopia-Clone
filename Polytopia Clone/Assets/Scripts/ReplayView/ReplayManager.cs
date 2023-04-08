@@ -20,6 +20,7 @@ namespace ReplayView
         public void Awake()
         {
             stepBackwardButton.interactable = false;
+            Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += DisplayWinner;
         }
 
         public ReplayManager Instance
@@ -51,7 +52,7 @@ namespace ReplayView
             }
             else
             {
-                actionText.text = "Log file ended";
+                actionText.text = "Action: Log file ended";
                 stepForwardButton.interactable = false;
             }
         }
@@ -114,7 +115,6 @@ namespace ReplayView
                     MissAttack();
                     break;
                 case "Gameend":
-                    Debug.Log("Gameend");
                     Model.GameManager.Get<Model.TurnManagerBase>().ReplayStopGame();
                     break;
             }
@@ -259,6 +259,12 @@ namespace ReplayView
                 if (tech.Value.TechTreeItemProperty.IsUnlocked)
                     techListText.text += $"{tech.Value.HashCode}\n";
             }
+        }
+
+        private void DisplayWinner(Model.Player player)
+        {
+            actionText.text = $"Action: {player.Name} won the game";
+            stepForwardButton.interactable = false;
         }
     }
 }
