@@ -48,12 +48,9 @@ namespace ReplayView
             ModelToViewMap[troop].Move(viewTo);
         }
 
-        public void Attack(Tile attackerTile, Tile targetTile)
+        public void Attack(Model.TroopBase attacker, Model.TroopBase target)
         {
-            Model.TileBase modelAttackerTile = MapManager.Instance.ViewToModelMap[attackerTile];
-            Model.TileBase modelTargetTile = MapManager.Instance.ViewToModelMap[targetTile];
-
-            Controller.GameManager.Get<Controller.TroopManagerBase>().Attack(modelAttackerTile.TroopOnTop, modelTargetTile.TroopOnTop);
+            Controller.GameManager.Get<Controller.TroopManagerBase>().Attack(attacker, target);
         }
     }
 }

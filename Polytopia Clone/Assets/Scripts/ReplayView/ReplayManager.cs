@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +11,7 @@ namespace ReplayView
     {
         private ReplayManager instance;
         private static List<LogView.JsonActionObject> actionList = new List<LogView.JsonActionObject>();
+        private static Dictionary<string, Action> actionFunctions = new Dictionary<string, Action>();
         private int cursor = 0;
 
         [SerializeField] private Button stepForwardButton;
@@ -21,6 +24,15 @@ namespace ReplayView
         {
             stepBackwardButton.interactable = false;
             Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += DisplayWinner;
+            actionFunctions.Add("Move", Move);
+            actionFunctions.Add("Train", Train);
+            actionFunctions.Add("Build", Build);
+            actionFunctions.Add("Learn", Learn);
+            actionFunctions.Add("Attacktroop", AttackTroop);
+            actionFunctions.Add("Attackbuilding", AttackBuilding);
+            actionFunctions.Add("Missattack", MissAttack);
+            actionFunctions.Add("Endturn", EndTurn);
+            actionFunctions.Add("Gameend", GameEnd);
         }
 
         public ReplayManager Instance
@@ -78,38 +90,7 @@ namespace ReplayView
 
         private void PlayAction(LogView.JsonActionObject action)
         {
-            switch (action.Action)
-            {
-                case "Move":
-                    Move();
-                    break;
-                case "Build":
-                    Build();
-                    break;
-                case "Train":
-                    Train();
-                    break;
-                case "Learn":
-                    Learn();
-                    break;
-                case "Attacktroop":
-                    AttackTroop();
-                    break;
-                case "Attackbuilding":
-                    AttackBuilding();
-                    break;
-                case "Endturn":
-                    actionText.text = 
-                        $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} ended their turn";
-                    TurnManager.Instance.FinishTurn();
-                    break;
-                case "Missattack":
-                    MissAttack();
-                    break;
-                case "Gameend":
-                    Model.GameManager.Get<Model.TurnManagerBase>().ReplayStopGame();
-                    break;
-            }
+            actionFunctions[action.Action]();
         }
 
         private void Move()
@@ -156,6 +137,10 @@ namespace ReplayView
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
+
+            Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
+
             List<Tile> attackedTroopTiles = new();
 
             for(int i = 0; i < datas.Neighbors.Length; i += 2)
@@ -163,31 +148,30 @@ namespace ReplayView
                 attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i+1]));
             }
 
-            if(MapManager.Instance.ViewToModelMap[end].TroopOnTop != null)
+            if(targetTile.TroopOnTop != null)
             {
                 if(attackedTroopTiles.Contains(end))
-                    MapManager.Instance.ViewToModelMap[end].TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                    targetTile.TroopOnTop.TroopProperty.DodgeRate = 0.0;
                 else
-                    MapManager.Instance.ViewToModelMap[end].TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                    targetTile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
             }
 
             foreach (var neighbor in end.Neighbors)
             {
-                if(MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop != null)
+                Model.TileBase modelNeighbor = MapManager.Instance.ViewToModelMap[neighbor];
+                if (modelNeighbor.TroopOnTop != null)
                 {
                     if (attackedTroopTiles.Contains(neighbor))
-                        MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                        modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 0.0;
                     else
-                        MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                        modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 1.0;
                 }
             }
 
-            Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
-            Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
             actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.End[1]}) " +
                 $"attacked {targetTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
 
-            TroopManager.Instance.Attack(start, end);
+            TroopManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.TroopOnTop);
         }
 
         private void AttackBuilding()
@@ -196,6 +180,9 @@ namespace ReplayView
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
+            Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
+
             if(datas.Neighbors.Length > 0)
             {
                 List<Tile> attackedTroopTiles = new();
@@ -203,32 +190,31 @@ namespace ReplayView
                 {
                     attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i + 1]));
                 }
-                if (MapManager.Instance.ViewToModelMap[end].TroopOnTop != null)
+                if (targetTile.TroopOnTop != null)
                 {
                     if (attackedTroopTiles.Contains(end))
-                        MapManager.Instance.ViewToModelMap[end].TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                        targetTile.TroopOnTop.TroopProperty.DodgeRate = 0.0;
                     else
-                        MapManager.Instance.ViewToModelMap[end].TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                        targetTile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
                 }
 
                 foreach (var neighbor in end.Neighbors)
                 {
-                    if (MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop != null)
+                    Model.TileBase modelNeighbor = MapManager.Instance.ViewToModelMap[neighbor];
+                    if (modelNeighbor.TroopOnTop != null)
                     {
                         if (attackedTroopTiles.Contains(neighbor))
-                            MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                            modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 0.0;
                         else
-                            MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                            modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 1.0;
                     }
                 }
             }
 
-            Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
-            Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
             actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.End[1]}) " +
                 $"attacked {targetTile.BuildingOnTop} ({datas.End[0]}, {datas.End[1]})";
 
-            BuildingManager.Instance.Attack(start, end);
+            BuildingManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.BuildingOnTop);
         }
 
         private void MissAttack()
@@ -251,6 +237,18 @@ namespace ReplayView
 
             actionText.text = $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +
                 $"learnt {datas.Tech}";
+        }
+
+        private void EndTurn()
+        {
+            actionText.text = 
+                $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} ended their turn";
+            TurnManager.Instance.FinishTurn();
+        }
+
+        private void GameEnd()
+        {
+            Model.GameManager.Get<Model.TurnManagerBase>().ReplayStopGame();
         }
 
         public void OnTechListButtonClicked()
