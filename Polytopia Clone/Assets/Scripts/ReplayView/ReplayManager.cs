@@ -147,6 +147,31 @@ namespace ReplayView
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
+            List<Tile> attackedTroopTiles = new();
+
+            for(int i = 0; i < datas.Neighbors.Length; i += 2)
+            {
+                attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i+1]));
+            }
+
+            if(MapManager.Instance.ViewToModelMap[end].TroopOnTop != null)
+            {
+                if(attackedTroopTiles.Contains(end))
+                    MapManager.Instance.ViewToModelMap[end].TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                else
+                    MapManager.Instance.ViewToModelMap[end].TroopOnTop.TroopProperty.DodgeRate = 1.0;
+            }
+
+            foreach (var neighbor in end.Neighbors)
+            {
+                if(MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop != null)
+                {
+                    if (attackedTroopTiles.Contains(neighbor))
+                        MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                    else
+                        MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                }
+            }
             TroopManager.Instance.Attack(start, end);
         }
 
@@ -155,6 +180,33 @@ namespace ReplayView
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
+
+            if(datas.Neighbors.Length > 0)
+            {
+                List<Tile> attackedTroopTiles = new();
+                for (int i = 0; i < datas.Neighbors.Length; i += 2)
+                {
+                    attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i + 1]));
+                }
+                if (MapManager.Instance.ViewToModelMap[end].TroopOnTop != null)
+                {
+                    if (attackedTroopTiles.Contains(end))
+                        MapManager.Instance.ViewToModelMap[end].TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                    else
+                        MapManager.Instance.ViewToModelMap[end].TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                }
+
+                foreach (var neighbor in end.Neighbors)
+                {
+                    if (MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop != null)
+                    {
+                        if (attackedTroopTiles.Contains(neighbor))
+                            MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                        else
+                            MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                    }
+                }
+            }
             BuildingManager.Instance.Attack(start, end);
         }
 

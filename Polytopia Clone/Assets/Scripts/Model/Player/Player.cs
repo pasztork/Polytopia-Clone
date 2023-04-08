@@ -12,11 +12,11 @@ namespace Model
         public event Action<BuildingBase> OnBuildCreated;
         public event Action<TroopBase> OnTroopTrained;
         public event Action<TileBase, TileBase> OnTroopMoved;
-        public event Action<TileBase, TileBase> OnTroopAttacked;
-        public event Action<TileBase, TileBase> OnBuildingAttacked;
+        public event Action<TileBase, TileBase, List<TileBase>> OnTroopAttacked;
+        public event Action<TileBase, TileBase, List<TileBase>> OnBuildingAttacked;
         public event Action OnTurnEnded;
         public event Action<TechTreeItemBase> OnTechLearned;
-        public event Action<TroopBase> OnAttackMissed;
+        public event Action<TroopBase, TroopBase> OnAttackMissed;
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
@@ -115,22 +115,30 @@ namespace Model
             if (Troops.Contains(attacker) && Troops.Contains(target) || !Troops.Contains(attacker))
                 return false;
 
-            bool result = attacker.Attack(target);
-            if (result)
-                OnTroopAttacked?.Invoke(attacker.Tile, target.Tile);
+            List<TileBase> result = attacker.Attack(target);
+            if (result != null)
+            {
+                var targetTile = result[0];
+                result.RemoveAt(0);
+                OnTroopAttacked?.Invoke(attacker.Tile, targetTile, result);
+            }
 
-            return result;
+            return result != null;
         }
 
         public bool Attack(TroopBase attacker, BuildingBase target)
         {
             if (Troops.Contains(attacker) && Buildings.Contains(target) || !Troops.Contains(attacker))
                 return false;
-            bool result = attacker.Attack(target);
-            if (result)
-                OnBuildingAttacked?.Invoke(attacker.Tile, target.Tile);
+            List<TileBase> result = attacker.Attack(target);
+            if (result != null)
+            {
+                var targetTile = result[0];
+                result.RemoveAt(0);
+                OnBuildingAttacked?.Invoke(attacker.Tile, targetTile, result);
+            }
 
-            return result;
+            return result != null;
         }
 
         public void SetupStartingPosition()
@@ -190,9 +198,9 @@ namespace Model
             return false;
         }
 
-        public void RaiseOnAttackMissed(TroopBase troop)
+        public void RaiseOnAttackMissed(TroopBase attacker, TroopBase target)
         {
-            OnAttackMissed?.Invoke(troop);
+            OnAttackMissed?.Invoke(attacker, target);
         }
     }
 }

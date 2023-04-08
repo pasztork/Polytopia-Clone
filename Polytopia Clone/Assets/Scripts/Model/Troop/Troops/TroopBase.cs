@@ -57,14 +57,14 @@ namespace Model
 
         public abstract bool Train(WaterTile tile);
 
-        public virtual bool Attack(TroopBase troop)
+        public virtual List<TileBase> Attack(TroopBase troop)
         {
-            return false;
+            return null;
         }
 
-        public virtual bool Attack(BuildingBase building)
+        public virtual List<TileBase> Attack(BuildingBase building)
         {
-            return false;
+            return null;
         }
 
         public virtual void WaterMovementRangeBonus(Player player)
@@ -94,16 +94,11 @@ namespace Model
             OnTroopHealed?.Invoke(TroopProperty.Health);
         }
 
-        // Tells whether or not troop died.
         public bool TakeDamage(int damage)
         {
             bool dodged = new Random().NextDouble() <= TroopProperty.DodgeRate;
             if (dodged)
-            {
-                Player.RaiseOnAttackMissed(this);
                 return false;
-            }
-
 
             TroopProperty.Health -= damage;
             OnDamageTaken?.Invoke(TroopProperty.Health);

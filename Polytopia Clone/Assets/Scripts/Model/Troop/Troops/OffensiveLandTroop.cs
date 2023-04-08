@@ -13,26 +13,32 @@ namespace Model
                 (player) => attackedInTurn = false;
         }
 
-        public override bool Attack(TroopBase troop)
+        public override List<TileBase> Attack(TroopBase troop)
         {
             if (!TilesInAttackRange.Contains(troop.Tile) || attackedInTurn)
-                return false;
+                return null;
 
             attackedInTurn = true;
-            troop.TakeDamage(TroopProperty.Damage);
-            return true;
+            bool damageTaken = troop.TakeDamage(TroopProperty.Damage);
+            if (!damageTaken)
+            {
+                troop.Player.RaiseOnAttackMissed(this, troop);
+                return null;
+            }
+
+            return new List<TileBase>() { troop.Tile, troop.Tile };
         }
 
-        public override bool Attack(BuildingBase building)
+        public override List<TileBase> Attack(BuildingBase building)
         {
             IList<TileBase> tilesInRange = TilesInAttackRange;
             tilesInRange.Add(Tile);
             if (!tilesInRange.Contains(building.Tile) || attackedInTurn)
-                return false;
+                return null;
 
             attackedInTurn = true;
             building.TakeDamage(TroopProperty.Damage);
-            return true;
+            return new List<TileBase>() { building.Tile };
         }
 
         public override void OffensiveLandMovementRangeBonus(Player player)

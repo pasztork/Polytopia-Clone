@@ -75,7 +75,7 @@ namespace LogView
             JsonLogger.LogNewEvent(action);
         }
 
-        public void TriggerAttackTroop(Model.TileBase attackerTile, Model.TileBase targetedTile)
+        public void TriggerAttackTroop(Model.TileBase attackerTile, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
         {
             JsonActionObject action = new JsonActionObject()
             {
@@ -83,13 +83,21 @@ namespace LogView
                 ActionDatas = new JsonActionDatas()
                 {
                     Start = JsonLogger.GetTileCoords(attackerTile),
-                    End = JsonLogger.GetTileCoords(targetedTile)
+                    End = JsonLogger.GetTileCoords(targetTile),
+                    Neighbors = new int[targetedTiles.Count * 2]
                 }
             };
+            int idx = 0;
+            foreach (var tile in targetedTiles)
+            {
+                action.ActionDatas.Neighbors[idx] = JsonLogger.GetTileCoords(tile)[0];
+                action.ActionDatas.Neighbors[idx + 1] = JsonLogger.GetTileCoords(tile)[1];
+                idx += 2;
+            }
             JsonLogger.LogNewEvent(action);
         }
 
-        public void TriggerAttackBuilding(Model.TileBase attackerTile, Model.TileBase targetedTile)
+        public void TriggerAttackBuilding(Model.TileBase attackerTile, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
         {
             JsonActionObject action = new JsonActionObject()
             {
@@ -97,14 +105,24 @@ namespace LogView
                 ActionDatas = new JsonActionDatas()
                 {
                     Start = JsonLogger.GetTileCoords(attackerTile),
-                    End = JsonLogger.GetTileCoords(targetedTile)
+                    End = JsonLogger.GetTileCoords(targetTile)
                 }
             };
+            if(targetedTiles.Count > 0)
+            {
+                action.ActionDatas.Neighbors = new int[targetedTiles.Count * 2];
+                int idx = 0;
+                foreach (var tile in targetedTiles)
+                {
+                    action.ActionDatas.Neighbors[idx] = JsonLogger.GetTileCoords(tile)[0];
+                    action.ActionDatas.Neighbors[idx + 1] = JsonLogger.GetTileCoords(tile)[1];
+                    idx += 2;
+                }
+            }
             JsonLogger.LogNewEvent(action);
         }
 
-
-            public void TriggerTurnEnded()
+        public void TriggerTurnEnded()
         {
             JsonActionObject action = new JsonActionObject()
             {
@@ -139,15 +157,15 @@ namespace LogView
 
         //visszatoltesnel kell okosan, mert a katapult egy mezot támad,
         //de ha tobb egség van a kornyeken akkor lehet hogy tobben is miss-elik a támadást
-        public void TriggerAttackMissed(TroopBase troop)
+        public void TriggerAttackMissed(TroopBase attacker, TroopBase target)
         {
             JsonActionObject action = new JsonActionObject()
             {
                 Action = LogActions.Missattack.ToString(),
                 ActionDatas = new JsonActionDatas()
                 {
-                    Start = JsonLogger.GetTileCoords(troop.Tile),
-                    Troop = troop.ToString() //lehet folosleges
+                    Start = JsonLogger.GetTileCoords(attacker.Tile),
+                    End = JsonLogger.GetTileCoords(target.Tile)
                 }
             };
             JsonLogger.LogNewEvent(action);
