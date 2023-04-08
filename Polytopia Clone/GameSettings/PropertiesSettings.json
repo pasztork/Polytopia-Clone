@@ -121,7 +121,7 @@
             },
             "Health": 15,
             "Damage": 8,
-            "MovementRange": 1,
+            "MovementRange": 0,
             "AttackRange": 5,
             "DodgeRate": 0.0
         },

@@ -13,7 +13,9 @@ namespace Model
 
         public override bool Attack(TroopBase troop)
         {
-            if (!TilesInAttackRange.Contains(troop.Tile) || attackedInTurn)
+            IList<TileBase> tilesInRange = GetTilesInAttackRange(TroopProperty.AttackRange);
+
+            if (!tilesInRange.Contains(troop.Tile) || attackedInTurn)
                 return false;
 
             attackedInTurn = true;
@@ -28,8 +30,7 @@ namespace Model
 
         public override bool Attack(BuildingBase building)
         {
-            IList<TileBase> tilesInRange = TilesInAttackRange;
-            tilesInRange.Add(Tile);
+            IList<TileBase> tilesInRange = GetTilesInAttackRange(TroopProperty.AttackRange);
 
             if (!tilesInRange.Contains(building.Tile) || attackedInTurn)
                 return false;
@@ -60,7 +61,7 @@ namespace Model
             }
         }
 
-        protected override IList<TileBase> GetTilesInRange(int range)
+        private IList<TileBase> GetTilesInAttackRange(int range)
         {
             IList<TileBase> allTiles = base.GetTilesInRange(range);
             IList<TileBase> notReachables = base.GetTilesInRange(range - 1);

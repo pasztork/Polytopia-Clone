@@ -160,8 +160,8 @@ namespace ReplayView
 
         private void MissAttack()
         {
-            //ekkor beallitom neki a dodgot 1-re, hogy biztos dodgoljon
-            //attack esetén mindenki dodg-ját vissza veszem 0-ra
+            LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+
         }
 
         private void Learn()
