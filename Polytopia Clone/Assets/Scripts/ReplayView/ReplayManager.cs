@@ -41,7 +41,6 @@ namespace ReplayView
         {
             if (actionList.Count > cursor)
             {
-                Debug.Log("Step forward");
                 if(cursor == 0)
                     Model.GameManager.Get<Model.TurnManagerBase>().Start();
 
@@ -61,7 +60,6 @@ namespace ReplayView
         {
             if (cursor - 1 > 0)
             {
-                Debug.Log("Step back");
                 for (int i = 0; i < cursor - 1; i++)
                 {
                     if (i == 0)
@@ -83,35 +81,29 @@ namespace ReplayView
             switch (action.Action)
             {
                 case "Move":
-                    Debug.Log("Move");
                     Move();
                     break;
                 case "Build":
-                    Debug.Log("Build");
                     Build();
                     break;
                 case "Train":
-                    Debug.Log("Train");
                     Train();
                     break;
                 case "Learn":
-                    Debug.Log("Learn");
                     Learn();
                     break;
                 case "Attacktroop":
-                    Debug.Log("Attacktroop");
                     AttackTroop();
                     break;
                 case "Attackbuilding":
-                    Debug.Log("Attackbuilding");
                     AttackBuilding();
                     break;
                 case "Endturn":
-                    Debug.Log("Endturn");
+                    actionText.text = 
+                        $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} ended their turn";
                     TurnManager.Instance.FinishTurn();
                     break;
                 case "Missattack":
-                    Debug.Log("Missattack");
                     MissAttack();
                     break;
                 case "Gameend":
@@ -125,7 +117,16 @@ namespace ReplayView
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
-            TroopManager.Instance.MoveSelectedTroop(start, end);
+
+            Model.TileBase startTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TroopBase troop = startTile.TroopOnTop;
+            Model.TileBase endTile = MapManager.Instance.ViewToModelMap[end];
+
+            TroopManager.Instance.MoveSelectedTroop(troop, endTile);
+
+            actionText.text = $"Action: {troop} moved " +
+                $"from {startTile} ({datas.Start[0]}, {datas.Start[1]}) " +
+                $"to {endTile} ({datas.End[0]}, {datas.End[1]})";
         }
 
         private void Train()
@@ -133,6 +134,10 @@ namespace ReplayView
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             TroopManager.Instance.Train(start, datas.Troop);
+
+            Model.TileBase trainTile = MapManager.Instance.ViewToModelMap[start];
+            actionText.text = $"Action: {trainTile.TroopOnTop} trained " +
+                $"at {trainTile.BuildingOnTop} ({datas.Start[0]}, {datas.Start[1]})";
         }
 
         private void Build()
@@ -140,6 +145,10 @@ namespace ReplayView
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             BuildingManager.Instance.Build(start, datas.Building);
+
+            Model.TileBase buildingTile = MapManager.Instance.ViewToModelMap[start];
+            actionText.text = $"Action: {buildingTile.BuildingOnTop} built " +
+                $"on {buildingTile} ({datas.Start[0]}, {datas.Start[1]})";
         }
 
         private void AttackTroop()
@@ -172,6 +181,12 @@ namespace ReplayView
                         MapManager.Instance.ViewToModelMap[neighbor].TroopOnTop.TroopProperty.DodgeRate = 1.0;
                 }
             }
+
+            Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
+            actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.End[1]}) " +
+                $"attacked {targetTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
+
             TroopManager.Instance.Attack(start, end);
         }
 
@@ -207,19 +222,35 @@ namespace ReplayView
                     }
                 }
             }
+
+            Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
+            actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.End[1]}) " +
+                $"attacked {targetTile.BuildingOnTop} ({datas.End[0]}, {datas.End[1]})";
+
             BuildingManager.Instance.Attack(start, end);
         }
 
         private void MissAttack()
         {
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
+            Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
+            Model.TileBase startTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TileBase endTile = MapManager.Instance.ViewToModelMap[end];
+
+            actionText.text = $"Action: {startTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
+                $"missed attack on {endTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
         }
 
         private void Learn()
         {
             LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
             TechTreeManager.Instance.LearnTech(datas.Tech);
+
+            actionText.text = $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +
+                $"learnt {datas.Tech}";
         }
 
         public void OnTechListButtonClicked()

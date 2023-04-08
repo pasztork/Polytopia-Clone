@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace ReplayView
@@ -41,14 +40,12 @@ namespace ReplayView
             ModelToViewMap[modelTroop] = viewTroop;
         }
 
-        public void MoveSelectedTroop(Tile from, Tile to)
+        public void MoveSelectedTroop(Model.TroopBase troop, Model.TileBase to)
         {
-            Model.TileBase modelFrom = MapManager.Instance.ViewToModelMap[from];
-            Model.TroopBase modelTroop = modelFrom.TroopOnTop;
-            Model.TileBase modelTo = MapManager.Instance.ViewToModelMap[to];
+            Tile viewTo = MapManager.Instance.ModelToViewMap[to];
 
-            Controller.GameManager.Get<Controller.TroopManagerBase>().MoveTroop(modelTroop, modelTo);
-            ModelToViewMap[modelTroop].Move(to);
+            Controller.GameManager.Get<Controller.TroopManagerBase>().MoveTroop(troop, to);
+            ModelToViewMap[troop].Move(viewTo);
         }
 
         public void Attack(Tile attackerTile, Tile targetTile)
