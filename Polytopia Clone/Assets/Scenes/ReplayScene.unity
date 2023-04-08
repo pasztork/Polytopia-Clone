@@ -2062,7 +2062,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2072,10 +2072,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: aa6cdc346cef5c64c97dabc33779e831, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 9f29693db7426f74ebe4dd40e720f9c6, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 11e3cb0da5fefe049b26bad63789c019, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 11e3cb0da5fefe049b26bad63789c019, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -3978,7 +3978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1707fb3db12143945a00ad4ba217320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonLogFilePath: C:\Users\user\Documents\GitHub\Polytopia-Clone\Polytopia Clone\GameLogs\2023-04-08_10-35-31.json
+  jsonLogFilePath: C:\Users\user\Documents\GitHub\Polytopia-Clone\Polytopia Clone\GameLogs\2023-04-08_12-11-15.json
 --- !u!1 &1486645811
 GameObject:
   m_ObjectHideFlags: 0
