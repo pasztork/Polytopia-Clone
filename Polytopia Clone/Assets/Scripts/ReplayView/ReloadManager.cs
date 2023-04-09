@@ -22,7 +22,7 @@ namespace ReplayView
             }
         }
 
-        public void Awake()
+        private void Awake()
         {
             string fileContent = File.ReadAllText(jsonLogFilePath);
             jsonDataHolder = JsonSerializer.Deserialize<LogView.JsonDataHolder>(fileContent);
