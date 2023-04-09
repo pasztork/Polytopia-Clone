@@ -152,8 +152,6 @@ namespace LogView
             JsonLogger.LogNewEvent(action);
         }
 
-        //visszatoltesnel kell okosan, mert a katapult egy mezot támad,
-        //de ha tobb egség van a kornyeken akkor lehet hogy tobben is miss-elik a támadást
         public void TriggerAttackMissed(Model.TroopBase attacker, Model.TroopBase target)
         {
             JsonActionObject action = new JsonActionObject()

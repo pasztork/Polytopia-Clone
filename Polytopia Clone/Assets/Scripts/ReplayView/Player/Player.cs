@@ -11,7 +11,7 @@ namespace ReplayView
         {
             Model.Player modelPlayer = new Model.Player(player.Name);
             modelPlayer.StartingCityRange = player.StartingCityRange;
-            playerColor = Color.white;
+            playerColor = new Color(player.Color[0], player.Color[1], player.Color[2], player.Color[3]);
             TurnManager.Instance.SetPlayerColor(player.Name, playerColor);
             Model.City city = new Model.City(modelPlayer);
             city.Producers.Add(new Model.FoodProducer(modelPlayer.ResourceContainer, Model.Player.BaseProduction.Food));

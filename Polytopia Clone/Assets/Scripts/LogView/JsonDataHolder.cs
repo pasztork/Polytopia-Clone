@@ -1,7 +1,4 @@
-﻿using Controller;
-using LogView;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LogView
 {

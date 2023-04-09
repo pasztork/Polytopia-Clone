@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 
 namespace LogView
@@ -30,13 +29,20 @@ namespace LogView
             log.Map = mapFilePath;
             log.Players = new List<JsonPlayerObject>();
             foreach (Model.Player p in players)
-            {   
+            {
                 log.Players.Add(new JsonPlayerObject
                 {
                     Name = p.Name,
                     StartingTile = tileToCoordMap[p.Buildings[0].Tile],
-                    StartingCityRange = p.StartingCityRange
-                }); ;
+                    StartingCityRange = p.StartingCityRange,
+                    Color = new float[4] 
+                    { 
+                        View.TurnManager.Instance.PlayerColors[p.Name].r,
+                        View.TurnManager.Instance.PlayerColors[p.Name].g,
+                        View.TurnManager.Instance.PlayerColors[p.Name].b,
+                        View.TurnManager.Instance.PlayerColors[p.Name].a
+                    },
+                });
             }
             log.Actions = new List<JsonActionObject>();
             string jsonString = JsonSerializer.Serialize(log,
