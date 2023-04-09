@@ -8,9 +8,9 @@ namespace ReplayView
 {
     public class ReplayManager : MonoBehaviour
     {
-        private ReplayManager instance;
-        private static List<LogView.JsonActionObject> actionList = new List<LogView.JsonActionObject>();
-        private static Dictionary<string, Action> actionFunctions = new Dictionary<string, Action>();
+        private static ReplayManager instance;
+        private List<LogView.JsonActionObject> actionList = new List<LogView.JsonActionObject>();
+        private Dictionary<string, Action> actionFunctions = new Dictionary<string, Action>();
         private int cursor = 0;
 
         [SerializeField] private Button stepForwardButton;
@@ -34,16 +34,19 @@ namespace ReplayView
             actionFunctions.Add("Gameend", GameEnd);
         }
 
-        public ReplayManager Instance
+        public static ReplayManager Instance
         {
             get
             {
-                instance ??= new ReplayManager();
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<ReplayManager>();
+                }
                 return instance;
             }
         }
 
-        public static void SetActionList(List<LogView.JsonActionObject> jsonActionObjects)
+        public void SetActionList(List<LogView.JsonActionObject> jsonActionObjects)
         {
             actionList = jsonActionObjects;
         }
@@ -81,7 +84,7 @@ namespace ReplayView
                 cursor--;
                 stepForwardButton.interactable = true;
             }
-            else
+            if(cursor - 1 <= 0)
             {
                 stepBackwardButton.interactable = false;
             }

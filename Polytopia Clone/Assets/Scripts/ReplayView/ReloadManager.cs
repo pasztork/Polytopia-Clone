@@ -1,8 +1,6 @@
-﻿using LogView;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
 using UnityEngine;
-using View;
 
 namespace ReplayView
 {
@@ -10,7 +8,7 @@ namespace ReplayView
     {
         [SerializeField]
         private string jsonLogFilePath;
-        private JsonDataHolder jsonDataHolder;
+        private LogView.JsonDataHolder jsonDataHolder;
         private static ReloadManager instance;
         public static ReloadManager Instance
         {
@@ -27,7 +25,7 @@ namespace ReplayView
         public void Awake()
         {
             string fileContent = File.ReadAllText(jsonLogFilePath);
-            jsonDataHolder = JsonSerializer.Deserialize<JsonDataHolder>(fileContent);
+            jsonDataHolder = JsonSerializer.Deserialize<LogView.JsonDataHolder>(fileContent);
 
             Model.GameManager.Get<Model.MapManagerBase>().LoadMap(jsonDataHolder.Map);
             Model.GameManager.Get<Model.MapGeneratorBase>().ConnectLoadedMap();
@@ -50,7 +48,7 @@ namespace ReplayView
 
         private static void SetupReplayManager()
         {
-            ReplayManager.SetActionList(ReloadManager.Instance.jsonDataHolder.Actions);
+            ReplayManager.Instance.SetActionList(Instance.jsonDataHolder.Actions);
         }
     }
 }
