@@ -153,6 +153,25 @@ Egységek
     ]
 }
 ```
+* Undo log:
+    * Memento-val lenne érdemes csinálni
+    * Ötletek:
+        * Mozgás: Meghívni a Move() függvényt fordított paraméterekkel
+        * Train-elés: Hívni a létrehozott troop-on egy Kill()-t
+        * Építés: 
+            * Hívni a létrehozott épületen egy Kill()-t
+            * Létrehozni a troop-ot, ami meghalt építéskor
+            * Probléma: Troop-ot nem lehet bárhova Train-elni
+        * Troop megtámadása:
+            * A megtámadott troop-ot heal-elni a másik Damage-ének megfelelő értékkel
+            * Probléma: Ha belehalt a támadásba, akkor újra létre kell hozni (Építésnél felmerülő probléma), 
+              valamint le kell damolni, hogy annyi hp-ja legyen, mint amennyi a támadás előtt volt
+        * Épület megtámadása:
+            * Hasonlóan, mint ahogy a troop támadásnál
+            * Probléma: épületet sem lehet bárhova létrehozni
+        * Learn: Be kell állítani a megfelelő tech-nél az IsUnlocked-et false-ra
+        * Miss: Nincs teendő
+        * Ezek mellett figyelni kell a Player ResourceContainer-ének megfelelő kezelésére, visszaadni a Cost-ot, vagy kiszedni a Producer-eket, stb.
 
 ## Beállítások
 * minden beállítható tulajdonság külön &rarr; [`PropertiesSettings.json`](/Polytopia%20Clone/GameSettings/PropertiesSettings.json)
