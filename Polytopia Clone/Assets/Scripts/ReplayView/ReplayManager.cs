@@ -89,6 +89,7 @@ namespace ReplayView
 
         private void PlayAction(LogView.JsonActionObject action)
         {
+            HighlightManager.Instance.Clear();
             actionFunctions[action.Action]();
         }
 
@@ -107,6 +108,8 @@ namespace ReplayView
             actionText.text = $"Action: {troop} moved " +
                 $"from {startTile} ({datas.Start[0]}, {datas.Start[1]}) " +
                 $"to {endTile} ({datas.End[0]}, {datas.End[1]})";
+            HighlightManager.Instance.Add(start, Color.red);
+            HighlightManager.Instance.Add(end, Color.green);
         }
 
         private void Train()
@@ -118,6 +121,7 @@ namespace ReplayView
             Model.TileBase trainTile = MapManager.Instance.ViewToModelMap[start];
             actionText.text = $"Action: {trainTile.TroopOnTop} trained " +
                 $"at {trainTile.BuildingOnTop} ({datas.Start[0]}, {datas.Start[1]})";
+            HighlightManager.Instance.Add(start, Color.magenta);
         }
 
         private void Build()
@@ -129,6 +133,7 @@ namespace ReplayView
             Model.TileBase buildingTile = MapManager.Instance.ViewToModelMap[start];
             actionText.text = $"Action: {buildingTile.BuildingOnTop} built " +
                 $"on {buildingTile} ({datas.Start[0]}, {datas.Start[1]})";
+            HighlightManager.Instance.Add(start, Color.yellow);
         }
 
         private void AttackTroop()
@@ -169,6 +174,8 @@ namespace ReplayView
 
             actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.End[1]}) " +
                 $"attacked {targetTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
+            HighlightManager.Instance.Add(start, Color.green);
+            HighlightManager.Instance.Add(end, Color.red);
 
             TroopManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.TroopOnTop);
         }
@@ -212,6 +219,8 @@ namespace ReplayView
 
             actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.End[1]}) " +
                 $"attacked {targetTile.BuildingOnTop} ({datas.End[0]}, {datas.End[1]})";
+            HighlightManager.Instance.Add(start, Color.green);
+            HighlightManager.Instance.Add(end, Color.red);
 
             BuildingManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.BuildingOnTop);
         }
@@ -227,6 +236,8 @@ namespace ReplayView
 
             actionText.text = $"Action: {startTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
                 $"missed attack on {endTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
+            HighlightManager.Instance.Add(start, Color.green);
+            HighlightManager.Instance.Add(end, Color.red);
         }
 
         private void Learn()
