@@ -92,33 +92,36 @@ namespace ReplayView
             SkipForward();
         }
 
-        public void ReplayOneStepBackward()
-        {
-            if (cursor - 1 > 0)
-            {
-                for (int i = 0; i < cursor - 1; i++)
-                {
-                    if (i == 0)
-                        Model.GameManager.Get<Model.TurnManagerBase>().Start();
-
-                    PlayAction(actionList[i]);
-                }
-                cursor--;
-                stepForwardButton.interactable = true;
-                skipButton.interactable = true;
-                skipFastButton.interactable = true;
-            }
-            if(cursor - 1 <= 0)
-            {
-                stepBackwardButton.interactable = false;
-            }
-        }
 
         private void PlayAction(LogView.JsonActionObject action)
         {
             HighlightManager.Instance.Clear();
             actionFunctions[action.Action]();
         }
+
+        //public void ReplayOneStepBackward()
+        //{
+        //    if (cursor - 1 > 0)
+        //    {
+        //        cursor--;
+        //        UndoAction(actionList[cursor]);
+        //        UpdateTechList();
+
+        //        stepForwardButton.interactable = true;
+        //        skipButton.interactable = true;
+        //        skipFastButton.interactable = true;
+        //    }
+        //    if(cursor - 1 <= 0)
+        //    {
+        //        stepBackwardButton.interactable = false;
+        //    }
+        //}
+
+        //private void UndoAction(LogView.JsonActionObject action)
+        //{
+        //    HighlightManager.Instance.Clear();
+        //    undoActionFunctions[action.Action]();
+        //}
 
         private void Move()
         {
