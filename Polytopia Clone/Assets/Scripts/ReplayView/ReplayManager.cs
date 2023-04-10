@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace ReplayView
@@ -13,8 +12,11 @@ namespace ReplayView
         private List<LogView.JsonActionObject> actionList = new List<LogView.JsonActionObject>();
         private Dictionary<string, Action> actionFunctions = new Dictionary<string, Action>();
         private int cursor = 0;
+        private readonly int skipSize = 5;
 
         [SerializeField] private Button stepForwardButton;
+        [SerializeField] private Button skipButton;
+        [SerializeField] private Button skipFastButton;
         [SerializeField] private Button stepBackwardButton;
         [SerializeField] private GameObject techListPanel;
         [SerializeField] private TextMeshProUGUI techListText;
@@ -68,7 +70,21 @@ namespace ReplayView
             {
                 actionText.text = "Action: Log file ended";
                 stepForwardButton.interactable = false;
+                skipButton.interactable = false;
+                skipFastButton.interactable = false;
             }
+        }
+
+        public void SkipForward()
+        {
+            for(int i = 0; i < skipSize; i++)
+                ReplayOneStepForward();
+        }
+
+        public void SkipFastForward()
+        {
+            SkipForward();
+            SkipForward();
         }
 
         public void ReplayOneStepBackward()
@@ -84,6 +100,8 @@ namespace ReplayView
                 }
                 cursor--;
                 stepForwardButton.interactable = true;
+                skipButton.interactable = true;
+                skipFastButton.interactable = true;
             }
             if(cursor - 1 <= 0)
             {
