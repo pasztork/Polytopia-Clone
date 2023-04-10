@@ -1,15 +1,19 @@
-namespace Network
+namespace Network;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddControllers();
+
+        WebApplication app = builder.Build();
+        WebSocketOptions webSocketOptions = new WebSocketOptions
         {
-            var builder = WebApplication.CreateBuilder(args);
-            var app = builder.Build();
-
-            app.MapGet("/", () => "Hello World!");
-
-            app.Run();
-        }
+            KeepAliveInterval = TimeSpan.FromMinutes(2)
+        };
+        app.UseWebSockets(webSocketOptions);
+        app.MapControllers();
+        app.Run();
     }
 }
