@@ -12,8 +12,11 @@ namespace ReplayView
         private List<LogView.JsonActionObject> actionList = new List<LogView.JsonActionObject>();
         private Dictionary<string, Action> actionFunctions = new Dictionary<string, Action>();
         private int cursor = 0;
-        private readonly int skipSize = 5;
 
+        [Header("Skip")]
+        [SerializeField] private int skipSize = 5;
+
+        [Header("UI Elements")]
         [SerializeField] private Button stepForwardButton;
         [SerializeField] private Button skipButton;
         [SerializeField] private Button skipFastButton;
@@ -35,6 +38,8 @@ namespace ReplayView
             actionFunctions.Add("Missattack", MissAttack);
             actionFunctions.Add("Endturn", EndTurn);
             actionFunctions.Add("Gameend", GameEnd);
+            skipButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize} Steps";
+            skipFastButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize * 2} Steps";
         }
 
         public static ReplayManager Instance

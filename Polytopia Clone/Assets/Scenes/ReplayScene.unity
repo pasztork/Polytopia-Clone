@@ -2435,9 +2435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Skip 5
-
-    Steps'
+  m_text: Skip
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
   m_sharedMaterial: {fileID: 7072222655331372664, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
@@ -3089,6 +3087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055d5d22dffa77245895c73d28360b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skipSize: 5
   stepForwardButton: {fileID: 82460329}
   skipButton: {fileID: 377690704}
   skipFastButton: {fileID: 1929291132}
@@ -3946,9 +3945,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Skip 10
-
-    Steps'
+  m_text: "Fast \nskip"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
   m_sharedMaterial: {fileID: 7072222655331372664, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
