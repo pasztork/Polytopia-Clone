@@ -75,3 +75,6 @@ Polytopia Clone/SavedMaps/
 
 # Log files
 Polytopia Clone/GameLogs/
+
+# Bin files
+Network/bin/
