@@ -4,18 +4,18 @@ using System.Text.Json;
 
 namespace ViewUtil
 {
-    public class JsonCommandProcessor
+    public abstract class JsonCommandProcessorBase
     {
         private LogView.JsonActionObject _command = null;
 
-        public IDictionary<string, Func<bool>> Actions { get; } = new Dictionary<string, Func<bool>>();
+        protected readonly IDictionary<string, Func<bool>> actions = new Dictionary<string, Func<bool>>();
 
         public bool Process(string commandString)
         {
             _command = JsonSerializer.Deserialize<LogView.JsonActionObject>(commandString);
-            return VerifyCommandExists() && Actions[_command.Action]();
+            return VerifyCommandExists() && actions[_command.Action]();
         }
 
-        private bool VerifyCommandExists() => Actions.ContainsKey(_command.Action);
+        private bool VerifyCommandExists() => actions.ContainsKey(_command.Action);
     }
 }
