@@ -8,14 +8,23 @@ namespace ViewUtil
     {
         private LogView.JsonActionObject _command = null;
 
-        protected readonly IDictionary<string, Func<bool>> actions = new Dictionary<string, Func<bool>>();
+        protected LogView.JsonActionObject Command => _command;
 
-        public bool Process(string commandString)
+        protected readonly IDictionary<string, Action> actions = new Dictionary<string, Action>();
+
+        public void Process(string commandString)
         {
             _command = JsonSerializer.Deserialize<LogView.JsonActionObject>(commandString);
-            return VerifyCommandExists() && actions[_command.Action]();
+            VerifyCommandExists();
+            actions[_command.Action]();
         }
 
-        private bool VerifyCommandExists() => actions.ContainsKey(_command.Action);
+        private void VerifyCommandExists()
+        {
+            if (!actions.ContainsKey(_command.Action))
+            {
+                throw new ArgumentOutOfRangeException("No such command exists!");
+            }
+        }
     }
 }
