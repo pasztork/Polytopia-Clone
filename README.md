@@ -185,3 +185,15 @@ Egységek
 * minden esemény után az összes kliens megkapja a pálya állapotát
 * minden kör végén értesíti a soron következő klienst
 * a kliensek előre megadott útvonalakra küldi az eseményeket
+
+## Parancsok
+* a websocketeknek json formátumú parancsokat lehet küldeni
+* ezekkel a parancsokkal lehet vezérelni a játékot
+* az elérhető parancsok a következők
+    * `AttackBuilding`
+    * `AttackTroop`
+    * `Build`
+    * `EndTurn`
+    * `Learn`
+    * `Move`
+    * `Train`
