@@ -21,22 +21,23 @@ public class WebSocketController : ControllerBase
         }
     }
 
-    private static async Task Echo(WebSocket webSocket)
+    private async Task Echo(WebSocket webSocket)
     {
         // create buffer for messages arriving from client
         byte[] buffer = new byte[4096];
         WebSocketReceiveResult receiveResult = await webSocket.ReceiveAsync(
             new ArraySegment<byte>(buffer), CancellationToken.None);
 
-        // it is possible to call other methods while in this loop
-        // thanks to await <3
+        // process messages from client
         while (webSocket.State == WebSocketState.Open)
         {
-            ArraySegment<byte> receivedData = new ArraySegment<byte>(buffer, 0, receiveResult.Count);
-            WebSocketServer.Broadcast(Encoding.UTF8.GetString(receivedData.ToArray()));
+            string receivedString = Encoding.UTF8.GetString(buffer);
+            WebSocketServer.Broadcast(receivedString);
 
-            // recieve next message
-            receiveResult = await webSocket.ReceiveAsync(
+            Console.WriteLine(receivedString);
+
+            // wait for next message
+            await webSocket.ReceiveAsync(
                 new ArraySegment<byte>(buffer), CancellationToken.None);
         }
 
