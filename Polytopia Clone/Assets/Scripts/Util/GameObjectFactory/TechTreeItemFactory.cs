@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Util
 {
-    public class TechTreeItemFactory
+    public class TechTreeItemFactory : IGameObjectFactory<TechTreeItemBase>
     {
         private readonly IDictionary<string, Type> _stringToTypeDictionary = new Dictionary<string, Type>
         {
@@ -28,14 +28,14 @@ namespace Util
             { "Strategy", typeof(StrategyTech) },
         };
 
-        public TechTreeItemBase Instanciate(string type)
+        public TechTreeItemBase Instantiate(string typeName)
         {
-            if (!_stringToTypeDictionary.ContainsKey(type))
+            if (!_stringToTypeDictionary.ContainsKey(typeName))
             {
-                throw new ArgumentOutOfRangeException($"No such tech exists: {type}");
+                throw new ArgumentOutOfRangeException($"No such tech exists: {typeName}");
             }
 
-            Type troopType = _stringToTypeDictionary[type];
+            Type troopType = _stringToTypeDictionary[typeName];
             return Activator.CreateInstance(troopType) as TechTreeItemBase;
         }
     }

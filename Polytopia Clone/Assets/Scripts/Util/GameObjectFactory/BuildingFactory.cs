@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Util
 {
-    public class BuildingFactory
+    public class BuildingFactory : IGameObjectFactory<BuildingBase>
     {
         private readonly IDictionary<string, Type> _stringToTypeDictionary = new Dictionary<string, Type>
         {
@@ -15,14 +15,14 @@ namespace Util
             { "Supplier", typeof(Supplier) }
         };
 
-        public BuildingBase Instanciate(string type)
+        public BuildingBase Instantiate(string typeName)
         {
-            if (!_stringToTypeDictionary.ContainsKey(type))
+            if (!_stringToTypeDictionary.ContainsKey(typeName))
             {
-                throw new ArgumentOutOfRangeException($"No such building exists: {type}");
+                throw new ArgumentOutOfRangeException($"No such building exists: {typeName}");
             }
 
-            Type troopType = _stringToTypeDictionary[type];
+            Type troopType = _stringToTypeDictionary[typeName];
             return Activator.CreateInstance(troopType) as BuildingBase;
         }
     }

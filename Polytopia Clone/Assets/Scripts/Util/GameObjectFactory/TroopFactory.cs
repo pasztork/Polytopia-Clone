@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Util
 {
-    public class TroopFactory
+    public class TroopFactory : IGameObjectFactory<TroopBase>
     {
         private readonly IDictionary<string, Type> _stringToTypeDictionary = new Dictionary<string, Type>
         {
@@ -17,14 +17,14 @@ namespace Util
             { "Warrior", typeof(Warrior) }
         };
 
-        public TroopBase Instanciate(string type)
+        public TroopBase Instantiate(string typeName)
         {
-            if (!_stringToTypeDictionary.ContainsKey(type))
+            if (!_stringToTypeDictionary.ContainsKey(typeName))
             {
-                throw new ArgumentOutOfRangeException($"No such troop exists: {type}");
+                throw new ArgumentOutOfRangeException($"No such troop exists: {typeName}");
             }
 
-            Type troopType = _stringToTypeDictionary[type];
+            Type troopType = _stringToTypeDictionary[typeName];
             return Activator.CreateInstance(troopType) as TroopBase;
         }
     }
