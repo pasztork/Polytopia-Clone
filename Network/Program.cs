@@ -2,18 +2,9 @@ namespace Network;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static void Main()
     {
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddControllers();
-
-        WebApplication app = builder.Build();
-        WebSocketOptions webSocketOptions = new WebSocketOptions
-        {
-            KeepAliveInterval = TimeSpan.FromMinutes(2)
-        };
-        app.UseWebSockets(webSocketOptions);
-        app.MapControllers();
-        app.Run();
+        NetworkInterfaceBuilder builder = new();
+        builder.Start();
     }
 }
