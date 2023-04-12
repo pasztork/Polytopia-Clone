@@ -1,42 +1,29 @@
 ﻿using Model;
-using System;
-using System.Collections.Generic;
 
 namespace Util
 {
-    public class TechTreeItemFactory : IGameObjectFactory<TechTreeItemBase>
+    public class TechTreeItemFactory : GameObjectFactory<TechTreeItemBase>
     {
-        private readonly IDictionary<string, Type> _stringToTypeDictionary = new Dictionary<string, Type>
+        public TechTreeItemFactory() : base()
         {
-            { "Archery", typeof(ArcheryTech) },
-            { "Banking", typeof(BankingTech) },
-            { "Catapult", typeof(CatapultTech) },
-            { "Farming", typeof(FarmingTech) },
-            { "Forestry", typeof(ForestryTech) },
-            { "GemMining", typeof(GemMiningTech) },
-            { "Harbor", typeof(HarborTech) },
-            { "IndustrialRevolution", typeof(IndustrialRevolutionTech) },
-            { "Irrigation", typeof(IrrigationTech) },
-            { "Mathematics", typeof(MathematicsTech) },
-            { "Militarism", typeof(MilitarismTech) },
-            { "Mining", typeof(MiningTech) },
-            { "Navigation", typeof(NavigationTech) },
-            { "Riding", typeof(RidingTech) },
-            { "Sailing", typeof(SailingTech) },
-            { "Sanitation", typeof(SanitationTech) },
-            { "StockMarket", typeof(StockMarketTech) },
-            { "Strategy", typeof(StrategyTech) },
-        };
-
-        public TechTreeItemBase Instantiate(string typeName)
-        {
-            if (!_stringToTypeDictionary.ContainsKey(typeName))
-            {
-                throw new ArgumentOutOfRangeException($"No such tech exists: {typeName}");
-            }
-
-            Type troopType = _stringToTypeDictionary[typeName];
-            return Activator.CreateInstance(troopType) as TechTreeItemBase;
+            StringToFuncDictionary.Add("Archery", Factory.Create<ArcheryTech>);
+            StringToFuncDictionary.Add("Banking", Factory.Create<BankingTech>);
+            StringToFuncDictionary.Add("Catapult", Factory.Create<CatapultTech>);
+            StringToFuncDictionary.Add("Farming", Factory.Create<FarmingTech>);
+            StringToFuncDictionary.Add("Forestry", Factory.Create<ForestryTech>);
+            StringToFuncDictionary.Add("GemMining", Factory.Create<GemMiningTech>);
+            StringToFuncDictionary.Add("Harbor", Factory.Create<HarborTech>);
+            StringToFuncDictionary.Add("IndustrialRevolution", Factory.Create<IndustrialRevolutionTech>);
+            StringToFuncDictionary.Add("Irrigation", Factory.Create<IrrigationTech>);
+            StringToFuncDictionary.Add("Mathematics", Factory.Create<MathematicsTech>);
+            StringToFuncDictionary.Add("Militarism", Factory.Create<MilitarismTech>);
+            StringToFuncDictionary.Add("Mining", Factory.Create<MiningTech>);
+            StringToFuncDictionary.Add("Navigation", Factory.Create<NavigationTech>);
+            StringToFuncDictionary.Add("Riding", Factory.Create<RidingTech>);
+            StringToFuncDictionary.Add("Sailing", Factory.Create<SailingTech>);
+            StringToFuncDictionary.Add("Sanitation", Factory.Create<SanitationTech>);
+            StringToFuncDictionary.Add("StockMarket", Factory.Create<StockMarketTech>);
+            StringToFuncDictionary.Add("Strategy", Factory.Create<StrategyTech>);
         }
     }
 }
