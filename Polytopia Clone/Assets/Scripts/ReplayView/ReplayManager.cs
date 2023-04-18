@@ -9,7 +9,7 @@ namespace ReplayView
     public class ReplayManager : MonoBehaviour
     {
         private static ReplayManager instance;
-        private List<LogView.JsonActionObject> actionList = new List<LogView.JsonActionObject>();
+        private List<JsonLog.JsonActionObject> actionList = new List<JsonLog.JsonActionObject>();
         private Dictionary<string, Action> actionFunctions = new Dictionary<string, Action>();
         private int cursor = 0;
 
@@ -54,7 +54,7 @@ namespace ReplayView
             }
         }
 
-        public void SetActionList(List<LogView.JsonActionObject> jsonActionObjects)
+        public void SetActionList(List<JsonLog.JsonActionObject> jsonActionObjects)
         {
             actionList = jsonActionObjects;
         }
@@ -63,7 +63,7 @@ namespace ReplayView
         {
             if (actionList.Count > cursor)
             {
-                if(cursor == 0)
+                if (cursor == 0)
                     Model.GameManager.Get<Model.TurnManagerBase>().Start();
 
                 PlayAction(actionList[cursor]);
@@ -82,7 +82,7 @@ namespace ReplayView
 
         public void SkipForward()
         {
-            for(int i = 0; i < skipSize; i++)
+            for (int i = 0; i < skipSize; i++)
                 ReplayOneStepForward();
         }
 
@@ -93,7 +93,7 @@ namespace ReplayView
         }
 
 
-        private void PlayAction(LogView.JsonActionObject action)
+        private void PlayAction(JsonLog.JsonActionObject action)
         {
             HighlightManager.Instance.Clear();
             actionFunctions[action.Action]();
@@ -125,7 +125,7 @@ namespace ReplayView
 
         private void Move()
         {
-            LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
@@ -144,7 +144,7 @@ namespace ReplayView
 
         private void Train()
         {
-            LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             TroopManager.Instance.Train(start, datas.Troop);
 
@@ -156,7 +156,7 @@ namespace ReplayView
 
         private void Build()
         {
-            LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             BuildingManager.Instance.Build(start, datas.Building);
 
@@ -168,7 +168,7 @@ namespace ReplayView
 
         private void AttackTroop()
         {
-            LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
@@ -177,14 +177,14 @@ namespace ReplayView
 
             List<Tile> attackedTroopTiles = new();
 
-            for(int i = 0; i < datas.Neighbors.Length; i += 2)
+            for (int i = 0; i < datas.Neighbors.Length; i += 2)
             {
-                attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i+1]));
+                attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i + 1]));
             }
 
-            if(targetTile.TroopOnTop != null)
+            if (targetTile.TroopOnTop != null)
             {
-                if(attackedTroopTiles.Contains(end))
+                if (attackedTroopTiles.Contains(end))
                     targetTile.TroopOnTop.TroopProperty.DodgeRate = 0.0;
                 else
                     targetTile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
@@ -212,14 +212,14 @@ namespace ReplayView
 
         private void AttackBuilding()
         {
-            LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
             Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
             Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
 
-            if(datas.Neighbors.Length > 0)
+            if (datas.Neighbors.Length > 0)
             {
                 List<Tile> attackedTroopTiles = new();
                 for (int i = 0; i < datas.Neighbors.Length; i += 2)
@@ -257,7 +257,7 @@ namespace ReplayView
 
         private void MissAttack()
         {
-            LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
@@ -272,7 +272,7 @@ namespace ReplayView
 
         private void Learn()
         {
-            LogView.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
             TechTreeManager.Instance.LearnTech(datas.Tech);
 
             actionText.text = $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +
@@ -281,7 +281,7 @@ namespace ReplayView
 
         private void EndTurn()
         {
-            actionText.text = 
+            actionText.text =
                 $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} ended their turn";
             TurnManager.Instance.FinishTurn();
         }
@@ -306,10 +306,10 @@ namespace ReplayView
                 techListPanel.SetActive(true);
                 return;
             }
-            
+
             foreach (var tech in techs)
             {
-                if(tech.Value.TechTreeItemProperty.IsUnlocked)
+                if (tech.Value.TechTreeItemProperty.IsUnlocked)
                     techListText.text += $"{tech.Value.HashCode}\n";
             }
             techListPanel.SetActive(true);

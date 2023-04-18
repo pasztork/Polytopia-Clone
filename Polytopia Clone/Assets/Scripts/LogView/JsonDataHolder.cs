@@ -6,6 +6,6 @@ namespace LogView
     {
         public string Map { get; set; } = "";
         public List<JsonPlayerObject> Players { get; set; } = new List<JsonPlayerObject>();
-        public List<JsonActionObject> Actions { get; set; } = new List<JsonActionObject>();
+        public List<JsonLog.JsonActionObject> Actions { get; set; } = new List<JsonLog.JsonActionObject>();
     }
 }

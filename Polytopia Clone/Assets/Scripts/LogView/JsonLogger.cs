@@ -35,8 +35,8 @@ namespace LogView
                     Name = p.Name,
                     StartingTile = tileToCoordMap[p.Buildings[0].Tile],
                     StartingCityRange = p.StartingCityRange,
-                    Color = new float[4] 
-                    { 
+                    Color = new float[4]
+                    {
                         View.TurnManager.Instance.PlayerColors[p.Name].r,
                         View.TurnManager.Instance.PlayerColors[p.Name].g,
                         View.TurnManager.Instance.PlayerColors[p.Name].b,
@@ -44,7 +44,7 @@ namespace LogView
                     },
                 });
             }
-            log.Actions = new List<JsonActionObject>();
+            log.Actions = new List<JsonLog.JsonActionObject>();
             string jsonString = JsonSerializer.Serialize(log,
                 new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, jsonString);
@@ -52,7 +52,7 @@ namespace LogView
             LogDataWrapper.Instance.SubscribeToPlayerEvents();
         }
 
-        public static void LogNewEvent(JsonActionObject newAction)
+        public static void LogNewEvent(JsonLog.JsonActionObject newAction)
         {
             JsonLogger.log.Actions.Add(newAction);
 

@@ -35,21 +35,24 @@ namespace LogView
 
         public void TriggerBuild(Model.BuildingBase building)
         {
-            JsonActionObject action = new JsonActionObject()
+            JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Action = LogActions.Build.ToString(),
-                ActionDatas = new JsonActionDatas() { Building = building.ToString(),
-                                                      Start = JsonLogger.GetTileCoords(building.Tile) }
+                ActionDatas = new JsonLog.JsonActionDatas()
+                {
+                    Building = building.ToString(),
+                    Start = JsonLogger.GetTileCoords(building.Tile)
+                }
             };
             JsonLogger.LogNewEvent(action);
         }
 
         public void TriggerTrain(Model.TroopBase troop)
         {
-            JsonActionObject action = new JsonActionObject()
+            JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Action = LogActions.Train.ToString(),
-                ActionDatas = new JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionDatas()
                 {
                     Troop = troop.ToString(),
                     Start = JsonLogger.GetTileCoords(troop.Tile)
@@ -60,10 +63,10 @@ namespace LogView
 
         public void TriggerTroopMoved(Model.TileBase from, Model.TileBase target)
         {
-            JsonActionObject action = new JsonActionObject()
+            JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Action = LogActions.Move.ToString(),
-                ActionDatas = new JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionDatas()
                 {
                     Start = JsonLogger.GetTileCoords(from),
                     End = JsonLogger.GetTileCoords(target)
@@ -74,10 +77,10 @@ namespace LogView
 
         public void TriggerAttackTroop(Model.TileBase attackerTile, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
         {
-            JsonActionObject action = new JsonActionObject()
+            JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Action = LogActions.Attacktroop.ToString(),
-                ActionDatas = new JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionDatas()
                 {
                     Start = JsonLogger.GetTileCoords(attackerTile),
                     End = JsonLogger.GetTileCoords(targetTile),
@@ -96,16 +99,16 @@ namespace LogView
 
         public void TriggerAttackBuilding(Model.TileBase attackerTile, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
         {
-            JsonActionObject action = new JsonActionObject()
+            JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Action = LogActions.Attackbuilding.ToString(),
-                ActionDatas = new JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionDatas()
                 {
                     Start = JsonLogger.GetTileCoords(attackerTile),
                     End = JsonLogger.GetTileCoords(targetTile)
                 }
             };
-            if(targetedTiles.Count > 0)
+            if (targetedTiles.Count > 0)
             {
                 action.ActionDatas.Neighbors = new int[targetedTiles.Count * 2];
                 int idx = 0;
@@ -121,30 +124,30 @@ namespace LogView
 
         public void TriggerTurnEnded()
         {
-            JsonActionObject action = new JsonActionObject()
+            JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Action = LogActions.Endturn.ToString(),
-                ActionDatas = new JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionDatas()
             };
             JsonLogger.LogNewEvent(action);
         }
 
         public void TriggerGameEnded(Model.Player player)
         {
-            JsonActionObject action = new JsonActionObject()
+            JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Action = LogActions.Gameend.ToString(),
-                ActionDatas = new JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionDatas()
             };
             JsonLogger.LogNewEvent(action);
         }
 
         public void TriggerTechLearned(Model.TechTreeItemBase tech)
         {
-            JsonActionObject action = new JsonActionObject()
+            JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Action = LogActions.Learn.ToString(),
-                ActionDatas = new JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionDatas()
                 {
                     Tech = tech.HashCode
                 }
@@ -154,10 +157,10 @@ namespace LogView
 
         public void TriggerAttackMissed(Model.TroopBase attacker, Model.TroopBase target)
         {
-            JsonActionObject action = new JsonActionObject()
+            JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Action = LogActions.Missattack.ToString(),
-                ActionDatas = new JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionDatas()
                 {
                     Start = JsonLogger.GetTileCoords(attacker.Tile),
                     End = JsonLogger.GetTileCoords(target.Tile)
