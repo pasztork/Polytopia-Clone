@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace LogView
 {
@@ -34,14 +31,7 @@ namespace LogView
                 {
                     Name = p.Name,
                     StartingTile = tileToCoordMap[p.Buildings[0].Tile],
-                    StartingCityRange = p.StartingCityRange,
-                    Color = new float[4]
-                    {
-                        View.TurnManager.Instance.PlayerColors[p.Name].r,
-                        View.TurnManager.Instance.PlayerColors[p.Name].g,
-                        View.TurnManager.Instance.PlayerColors[p.Name].b,
-                        View.TurnManager.Instance.PlayerColors[p.Name].a
-                    },
+                    StartingCityRange = p.StartingCityRange
                 });
             }
             log.Actions = new List<JsonLog.JsonActionObject>();
@@ -54,7 +44,7 @@ namespace LogView
 
         public static void LogNewEvent(JsonLog.JsonActionObject newAction)
         {
-            JsonLogger.log.Actions.Add(newAction);
+            log.Actions.Add(newAction);
 
             string jsonString = JsonSerializer.Serialize(log, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, jsonString);
