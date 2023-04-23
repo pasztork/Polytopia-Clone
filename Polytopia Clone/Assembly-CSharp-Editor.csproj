@@ -317,6 +317,12 @@
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="LogView">
+      <HintPath>Assets\DLLs\LogView.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCore">
+      <HintPath>Assets\DLLs\GameCore.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.0\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -352,12 +358,6 @@
     </Reference>
     <Reference Include="System.Text.Encodings.Web">
       <HintPath>Assets\ThirdParty\Json\System.Text.Encodings.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="GameCore">
-      <HintPath>Assets\DLLs\GameCore.dll</HintPath>
-    </Reference>
-    <Reference Include="LogView">
-      <HintPath>Assets\DLLs\LogView.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>

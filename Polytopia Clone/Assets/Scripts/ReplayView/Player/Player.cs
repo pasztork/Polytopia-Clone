@@ -5,14 +5,18 @@ namespace ReplayView
 {
     public class Player : MonoBehaviour
     {
+        private static readonly IList<Color> availableColors = new List<Color>
+        {
+            Color.red, Color.green, Color.blue, Color.yellow
+        };
+
         private Color playerColor;
 
         public void SetPlayerFromLog(LogView.JsonPlayerObject player)
         {
             Model.Player modelPlayer = new Model.Player(player.Name);
             modelPlayer.StartingCityRange = player.StartingCityRange;
-            playerColor = new Color(player.Color[0], player.Color[1], player.Color[2], player.Color[3]);
-            TurnManager.Instance.SetPlayerColor(player.Name, playerColor);
+            SetPlayerColor(player.Name);
             Model.City city = new Model.City(modelPlayer);
             city.Producers.Add(new Model.FoodProducer(modelPlayer.ResourceContainer, Model.Player.BaseProduction.Food));
             city.Producers.Add(new Model.MaterialProducer(modelPlayer.ResourceContainer, Model.Player.BaseProduction.Material));
@@ -27,6 +31,13 @@ namespace ReplayView
             modelPlayer.AvailableBuildings = new List<string>();
             modelPlayer.AvailableTroops = new List<string>();
             BuildingManager.Instance.BuildStartingCity(tile, city, player.Name);
+        }
+
+        private void SetPlayerColor(string playerName)
+        {
+            var randomColor = availableColors[Random.Range(0, availableColors.Count)];
+            availableColors.Remove(randomColor);
+            TurnManager.Instance.SetPlayerColor(playerName, randomColor);
         }
     }
 }
