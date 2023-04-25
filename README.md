@@ -200,7 +200,7 @@ Egységek
 - a ,,[Parancsok](#parancsok)'' c. fejezetben leírt parancsokat tudja feldolgozni a szerver
 - minden validált parancsot az összes kliensnek továbbítja a szerver
     - a küldő is visszakapja, így meggyőződhet arról, hogy helyes volt a kiadott parancsa
-    - a kliensek maguknak kell felépítsék a játék állapotát
+- a szervertől bármikor le lehet kérdezni a játék aktuális állapotát
 - amikor a kliens végzett a körével, `EndTurn` parancsot küld, ekkor a szerver értesíti a következő klienst
 - amikor az egyik kliens győz, a szerver felbontja a kapcsolatot az összes klienssel
 
