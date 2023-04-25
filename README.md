@@ -187,7 +187,7 @@ Egységek
     - illetve az adott kliens kezdő mezőjét is elküldi
     ```json
     {
-        "action": "start",
+        "action": "startGame",
         "tiles": [["Grass", "Grass"],["Grass", "Grass"]],
         "startingTile": ["x koordináta (int)", "y koordináta (int)"]
     }
@@ -195,6 +195,7 @@ Egységek
 - értesíti a soron következő klienst az alábbi formátumú üzenettel:
     ```json
     {
+        "action": "startTurn",
         "name": "ide jön a soron következő kliens neve (string)"
     }
     ```
