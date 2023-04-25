@@ -201,6 +201,9 @@ Egységek
     ```
     - leginkább debug célból küldi vissza a nevet
 - a ,,[Parancsok](#parancsok)'' c. fejezetben leírt parancsokat tudja feldolgozni a szerver
+    - a kliens egy tömben küldi el az összes parancsot, amit az adott körben ki akar adni
+    - a szervert ezeket sorban feldolgozza
+    - lehet, hogy nem jut minden parancs érvényre, erről nem értesítjük a klienst
 - minden validált parancsot az összes kliensnek továbbítja a szerver
     - a küldő is visszakapja, így meggyőződhet arról, hogy helyes volt a kiadott parancsa
 - a szervertől bármikor le lehet kérdezni a játék aktuális állapotát
