@@ -76,3 +76,6 @@ Polytopia Clone/GameLogs/
 
 # Bin files
 Network/bin/
+
+# Ignore __pycache__ folders
+__pycache__/
