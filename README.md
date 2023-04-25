@@ -184,9 +184,11 @@ Egységek
 - a kliensek számát előre beállítjuk
     - amikor a kliensek száma eléri ezt a számot, a játék elindul
     - ilyenkor a szerver minden kliensnek elküldi a pályát, a mentéshez használt formátumban
-    - illetve az adott kliens kezdő mezőjét is elküldi az alábbi formátumban:
+    - illetve az adott kliens kezdő mezőjét is elküldi
     ```json
     {
+        "action": "start",
+        "tiles": [["Grass", "Grass"],["Grass", "Grass"]],
         "startingTile": ["x koordináta (int)", "y koordináta (int)"]
     }
     ```
