@@ -207,6 +207,7 @@ Egységek
 - minden validált parancsot az összes kliensnek továbbítja a szerver
     - a küldő is visszakapja, így meggyőződhet arról, hogy helyes volt a kiadott parancsa
 - a szervertől bármikor le lehet kérdezni a játék aktuális állapotát
+    - ehhez a `LogTransformer` komponenst használja a hálózat
 - amikor a kliens végzett a körével, `EndTurn` parancsot küld, ekkor a szerver értesíti a következő klienst
 - amikor az egyik kliens győz, a szerver felbontja a kapcsolatot az összes klienssel
 

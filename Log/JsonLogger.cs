@@ -6,6 +6,7 @@ namespace LogView
     {
         private static readonly string saveDirectory = $"{Directory.GetCurrentDirectory()}\\GameLogs";
         private static readonly string filePath = $"{saveDirectory}\\{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.json";
+        public static string FilePath { get { return filePath; } }
 
         private static readonly Dictionary<Model.TileBase, int[]> tileToCoordMap = new Dictionary<Model.TileBase, int[]>();
         private static readonly JsonDataHolder log = new JsonDataHolder();
