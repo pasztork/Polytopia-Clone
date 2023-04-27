@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using JsonLog;
+using System.Text.Json;
 
 namespace LogView.LogTransformer
 {
@@ -8,7 +9,7 @@ namespace LogView.LogTransformer
         private string _json = string.Empty;
 
         /// <summary>
-        /// Transform the log file belonging to the current game into
+        /// Transforms the log file belonging to the current game into
         /// one JSON object that represents the current inner state.
         /// </summary>
         /// <returns>
@@ -34,14 +35,19 @@ namespace LogView.LogTransformer
 
         private PlayerState AssemblePlayerState(JsonDataHolder log, JsonPlayerObject player)
         {
-            var result = new PlayerState();
-            result.Name = player.Name;
+            var result = new PlayerState { Name = player.Name };
             result.Cities.Add(player.StartingTile);
             foreach (var action in log.Actions)
             {
-                // TODO: extract data related to player
+                if (!action.Name.Equals(player.Name)) { continue; }
+                AddActionToPlayerState(action, result);
             }
             return result;
+        }
+
+        private void AddActionToPlayerState(JsonActionObject action, PlayerState playerState)
+        {
+            throw new NotImplementedException();
         }
     }
 }

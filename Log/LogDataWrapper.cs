@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LogView
+﻿namespace LogView
 {
     public class LogDataWrapper
     {
@@ -37,6 +35,7 @@ namespace LogView
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
+                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Build.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
                 {
@@ -51,6 +50,7 @@ namespace LogView
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
+                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Train.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
                 {
@@ -65,6 +65,7 @@ namespace LogView
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
+                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Move.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
                 {
@@ -79,6 +80,7 @@ namespace LogView
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
+                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Attacktroop.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
                 {
@@ -101,6 +103,7 @@ namespace LogView
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
+                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Attackbuilding.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
                 {
@@ -126,6 +129,7 @@ namespace LogView
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
+                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Endturn.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
             };
@@ -136,6 +140,7 @@ namespace LogView
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
+                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Gameend.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
             };
@@ -146,6 +151,7 @@ namespace LogView
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
+                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Learn.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
                 {
@@ -159,6 +165,7 @@ namespace LogView
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
+                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogActions.Missattack.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
                 {
