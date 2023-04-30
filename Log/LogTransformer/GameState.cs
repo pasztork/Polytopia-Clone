@@ -13,7 +13,7 @@
         public List<int[]> Cities { get; set; } = new();
         public List<int[]> Farms { get; set; } = new();
         public List<int[]> Harbors { get; set; } = new();
-        public List<int[]> Supplier { get; set; } = new();
+        public List<int[]> Suppliers { get; set; } = new();
         public List<int[]> Archers { get; set; } = new();
         public List<int[]> Boats { get; set; } = new();
         public List<int[]> Builders { get; set; } = new();
