@@ -1,81 +1,339 @@
-﻿using LogView;
-using Model;
-using ReplayView;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using UnityEditor;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ReplayView
 {
-    public class ReplayManager
+    public class ReplayManager : MonoBehaviour
     {
-        private ReloadManager instance;
-        private static List<LogView.JsonActionObject> actionList;
+        private static ReplayManager instance;
+        private List<JsonLog.JsonActionObject> actionList = new List<JsonLog.JsonActionObject>();
+        private Dictionary<string, Action> actionFunctions = new Dictionary<string, Action>();
         private int cursor = 0;
 
-        public ReloadManager Instance
+        [Header("Skip")]
+        [SerializeField] private int skipSize = 5;
+
+        [Header("UI Elements")]
+        [SerializeField] private Button stepForwardButton;
+        [SerializeField] private Button skipButton;
+        [SerializeField] private Button skipFastButton;
+        [SerializeField] private Button stepBackwardButton;
+        [SerializeField] private GameObject techListPanel;
+        [SerializeField] private TextMeshProUGUI techListText;
+        [SerializeField] private TextMeshProUGUI actionText;
+
+        public void Awake()
+        {
+            stepBackwardButton.interactable = false;
+            Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += DisplayWinner;
+            actionFunctions.Add("Move", Move);
+            actionFunctions.Add("Train", Train);
+            actionFunctions.Add("Build", Build);
+            actionFunctions.Add("Learn", Learn);
+            actionFunctions.Add("Attacktroop", AttackTroop);
+            actionFunctions.Add("Attackbuilding", AttackBuilding);
+            actionFunctions.Add("Missattack", MissAttack);
+            actionFunctions.Add("Endturn", EndTurn);
+            actionFunctions.Add("Gameend", GameEnd);
+            skipButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize} Steps";
+            skipFastButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize * 2} Steps";
+        }
+
+        public static ReplayManager Instance
         {
             get
             {
-                instance ??= new ReloadManager();
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<ReplayManager>();
+                }
                 return instance;
             }
         }
 
+        public void SetActionList(List<JsonLog.JsonActionObject> jsonActionObjects)
+        {
+            actionList = jsonActionObjects;
+        }
+
         public void ReplayOneStepForward()
         {
-            if(actionList.Count < cursor)
+            if (actionList.Count > cursor)
             {
+                if (cursor == 0)
+                    Model.GameManager.Get<Model.TurnManagerBase>().Start();
+
                 PlayAction(actionList[cursor]);
+                UpdateTechList();
                 cursor++;
+                stepBackwardButton.interactable = true;
             }
             else
             {
-                //stop the game, no more log
+                actionText.text = "Action: Log file ended";
+                stepForwardButton.interactable = false;
+                skipButton.interactable = false;
+                skipFastButton.interactable = false;
             }
         }
 
-        public void ReplayOneStepBackward()
+        public void SkipForward()
         {
-            if(cursor-1 > 0)
+            for (int i = 0; i < skipSize; i++)
+                ReplayOneStepForward();
+        }
+
+        public void SkipFastForward()
+        {
+            SkipForward();
+            SkipForward();
+        }
+
+
+        private void PlayAction(JsonLog.JsonActionObject action)
+        {
+            HighlightManager.Instance.Clear();
+            actionFunctions[action.Action]();
+        }
+
+        //public void ReplayOneStepBackward()
+        //{
+        //    if (cursor - 1 > 0)
+        //    {
+        //        cursor--;
+        //        UndoAction(actionList[cursor]);
+        //        UpdateTechList();
+
+        //        stepForwardButton.interactable = true;
+        //        skipButton.interactable = true;
+        //        skipFastButton.interactable = true;
+        //    }
+        //    if(cursor - 1 <= 0)
+        //    {
+        //        stepBackwardButton.interactable = false;
+        //    }
+        //}
+
+        //private void UndoAction(LogView.JsonActionObject action)
+        //{
+        //    HighlightManager.Instance.Clear();
+        //    undoActionFunctions[action.Action]();
+        //}
+
+        private void Move()
+        {
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
+            Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
+
+            Model.TileBase startTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TroopBase troop = startTile.TroopOnTop;
+            Model.TileBase endTile = MapManager.Instance.ViewToModelMap[end];
+
+            TroopManager.Instance.MoveSelectedTroop(troop, endTile);
+
+            actionText.text = $"Action: {troop} moved " +
+                $"from {startTile} ({datas.Start[0]}, {datas.Start[1]}) " +
+                $"to {endTile} ({datas.End[0]}, {datas.End[1]})";
+            HighlightManager.Instance.Add(start, Color.red);
+            HighlightManager.Instance.Add(end, Color.green);
+        }
+
+        private void Train()
+        {
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
+            TroopManager.Instance.Train(start, datas.Troop);
+
+            Model.TileBase trainTile = MapManager.Instance.ViewToModelMap[start];
+            actionText.text = $"Action: {trainTile.TroopOnTop} trained " +
+                $"at {trainTile.BuildingOnTop} ({datas.Start[0]}, {datas.Start[1]})";
+            HighlightManager.Instance.Add(start, Color.magenta);
+        }
+
+        private void Build()
+        {
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
+            BuildingManager.Instance.Build(start, datas.Building);
+
+            Model.TileBase buildingTile = MapManager.Instance.ViewToModelMap[start];
+            actionText.text = $"Action: {buildingTile.BuildingOnTop} built " +
+                $"on {buildingTile} ({datas.Start[0]}, {datas.Start[1]})";
+            HighlightManager.Instance.Add(start, Color.yellow);
+        }
+
+        private void AttackTroop()
+        {
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
+            Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
+
+            Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
+
+            List<Tile> attackedTroopTiles = new();
+
+            for (int i = 0; i < datas.Neighbors.Length; i += 2)
             {
-                for (int i = 0; i < cursor - 1; i++)
+                attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i + 1]));
+            }
+
+            if (targetTile.TroopOnTop != null)
+            {
+                if (attackedTroopTiles.Contains(end))
+                    targetTile.TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                else
+                    targetTile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
+            }
+
+            foreach (var neighbor in end.Neighbors)
+            {
+                Model.TileBase modelNeighbor = MapManager.Instance.ViewToModelMap[neighbor];
+                if (modelNeighbor.TroopOnTop != null)
                 {
-                    PlayAction(actionList[i]);
+                    if (attackedTroopTiles.Contains(neighbor))
+                        modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                    else
+                        modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 1.0;
                 }
-                cursor--;
             }
-            else
-            {
-                //a legelején vagyunk a logfile-nak
-            }
-            
+
+            actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.End[1]}) " +
+                $"attacked {targetTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
+            HighlightManager.Instance.Add(start, Color.green);
+            HighlightManager.Instance.Add(end, Color.red);
+
+            TroopManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.TroopOnTop);
         }
 
-        private void PlayAction(JsonActionObject action)
+        private void AttackBuilding()
         {
-            switch(action.Action)
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
+            Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
+
+            Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
+
+            if (datas.Neighbors.Length > 0)
             {
-                case "Move":
-                    break;
-                case "Build":
-                    break;
-                case "Train":
-                    break;
-                case "Learn":
-                    break;
-                case "Endturn":
-                    break;
-                case "Missattack":
-                    break;
-                case "Gameend":
-                    break;
+                List<Tile> attackedTroopTiles = new();
+                for (int i = 0; i < datas.Neighbors.Length; i += 2)
+                {
+                    attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i + 1]));
+                }
+                if (targetTile.TroopOnTop != null)
+                {
+                    if (attackedTroopTiles.Contains(end))
+                        targetTile.TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                    else
+                        targetTile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                }
+
+                foreach (var neighbor in end.Neighbors)
+                {
+                    Model.TileBase modelNeighbor = MapManager.Instance.ViewToModelMap[neighbor];
+                    if (modelNeighbor.TroopOnTop != null)
+                    {
+                        if (attackedTroopTiles.Contains(neighbor))
+                            modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                        else
+                            modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                    }
+                }
             }
+
+            actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.End[1]}) " +
+                $"attacked {targetTile.BuildingOnTop} ({datas.End[0]}, {datas.End[1]})";
+            HighlightManager.Instance.Add(start, Color.green);
+            HighlightManager.Instance.Add(end, Color.red);
+
+            BuildingManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.BuildingOnTop);
+        }
+
+        private void MissAttack()
+        {
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
+            Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
+
+            Model.TileBase startTile = MapManager.Instance.ViewToModelMap[start];
+            Model.TileBase endTile = MapManager.Instance.ViewToModelMap[end];
+
+            actionText.text = $"Action: {startTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
+                $"missed attack on {endTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
+            HighlightManager.Instance.Add(start, Color.green);
+            HighlightManager.Instance.Add(end, Color.red);
+        }
+
+        private void Learn()
+        {
+            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            TechTreeManager.Instance.LearnTech(datas.Tech);
+
+            actionText.text = $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +
+                $"learnt {datas.Tech}";
+        }
+
+        private void EndTurn()
+        {
+            actionText.text =
+                $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} ended their turn";
+            TurnManager.Instance.FinishTurn();
+        }
+
+        private void GameEnd()
+        {
+            Model.GameManager.Get<Model.TurnManagerBase>().ReplayStopGame();
+        }
+
+        public void OnTechListButtonClicked()
+        {
+            if (techListPanel.activeSelf)
+            {
+                techListPanel.SetActive(false);
+                return;
+            }
+
+            techListText.text = "";
+            var techs = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer?.Techs;
+            if (techs == null)
+            {
+                techListPanel.SetActive(true);
+                return;
+            }
+
+            foreach (var tech in techs)
+            {
+                if (tech.Value.TechTreeItemProperty.IsUnlocked)
+                    techListText.text += $"{tech.Value.HashCode}\n";
+            }
+            techListPanel.SetActive(true);
+        }
+
+        private void UpdateTechList()
+        {
+            if (!techListPanel.activeSelf)
+                return;
+
+            techListText.text = "";
+            var techs = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Techs;
+
+            foreach (var tech in techs)
+            {
+                if (tech.Value.TechTreeItemProperty.IsUnlocked)
+                    techListText.text += $"{tech.Value.HashCode}\n";
+            }
+        }
+
+        private void DisplayWinner(Model.Player player)
+        {
+            actionText.text = $"Action: {player.Name} won the game";
+            stepForwardButton.interactable = false;
         }
     }
 }

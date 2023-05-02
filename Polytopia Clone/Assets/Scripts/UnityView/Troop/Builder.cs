@@ -12,12 +12,12 @@ namespace View
         {
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
                 Initialize(Model.TroopBase.TroopProperties["Builder"].Health);
-            movementRange = Model.TroopBase.TroopProperties["Builder"].MovementRange;
         }
 
         public override Model.TroopBase ToModel(Model.Player player)
         {
             Model.TroopBase builder = new Model.Builder(player);
+            TroopProperties = builder.TroopProperty;
             builder.OnDamageTaken += TakeDamage;
             builder.OnTroopHealed += Heal;
             return builder;

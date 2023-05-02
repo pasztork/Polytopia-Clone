@@ -16,6 +16,7 @@ namespace ReplayView
         public override Model.TroopBase ToModel(Model.Player player)
         {
             Model.TroopBase builder = new Model.Builder(player);
+            builder.TroopProperty.DodgeRate = 0;
             builder.OnDamageTaken += TakeDamage;
             builder.OnTroopHealed += Heal;
             return builder;

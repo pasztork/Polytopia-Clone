@@ -17,7 +17,7 @@ namespace View
 
         private IList<Tile> TilesToHighLight = new List<Tile>();
 
-        protected int movementRange = 0;
+        protected Model.TroopProperty TroopProperties;
 
         public abstract Model.TroopBase ToModel(Model.Player player);
 
@@ -159,7 +159,7 @@ namespace View
             }
 
             TilesToHighLight.Clear();
-            TilesToHighLight = GetTilesInRange(movementRange);
+            TilesToHighLight = GetTilesInRange(TroopProperties.MovementRange);
             foreach (var tile in TilesToHighLight)
             {
                 tile.GetComponent<Renderer>().material.color = tile.SelectColor;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace ReplayView
@@ -35,28 +34,23 @@ namespace ReplayView
             Model.TileBase tileBase = MapManager.Instance.ViewToModelMap[where];
             Controller.GameManager.Get<Controller.TroopManagerBase>().Train(tileBase.BuildingOnTop, modelTroop);
 
-            viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
+            viewTroop.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewTroop] = modelTroop;
             ModelToViewMap[modelTroop] = viewTroop;
         }
 
-        public void MoveSelectedTroop(Tile from, Tile to)
+        public void MoveSelectedTroop(Model.TroopBase troop, Model.TileBase to)
         {
-            Model.TileBase modelFrom = MapManager.Instance.ViewToModelMap[from];
-            Model.TroopBase modelTroop = modelFrom.TroopOnTop;
-            Model.TileBase modelTo = MapManager.Instance.ViewToModelMap[from];
+            Tile viewTo = MapManager.Instance.ModelToViewMap[to];
 
-            Controller.GameManager.Get<Controller.TroopManagerBase>().MoveTroop(modelTroop, modelTo);
-            ModelToViewMap[modelTroop].Move(to);
+            Controller.GameManager.Get<Controller.TroopManagerBase>().MoveTroop(troop, to);
+            ModelToViewMap[troop].Move(viewTo);
         }
 
-        public void Attack(Tile attackerTile, Tile targetTile)
+        public void Attack(Model.TroopBase attacker, Model.TroopBase target)
         {
-            Model.TileBase modelAttackerTile = MapManager.Instance.ViewToModelMap[attackerTile];
-            Model.TileBase modelTargetTile = MapManager.Instance.ViewToModelMap[targetTile];
-
-            Controller.GameManager.Get<Controller.TroopManagerBase>().Attack(modelAttackerTile.TroopOnTop, modelTargetTile.TroopOnTop);
+            Controller.GameManager.Get<Controller.TroopManagerBase>().Attack(attacker, target);
         }
     }
 }

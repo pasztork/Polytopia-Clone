@@ -1,0 +1,29 @@
+import json
+import websocket
+
+from message_handler import message_handler
+
+SERVER_URL = 'ws://localhost:53658/ws'
+NAME = 'Alice'
+
+
+def on_open(ws):
+    message = {'name': NAME}
+    ws.send(json.dumps(message))
+
+
+def on_message(ws, message):
+    response = message_handler.get_response_for(message)
+    ws.send(json.dumps(response))
+
+
+def connect_and_listen():
+    websocket.enableTrace(True)
+    ws = websocket.WebSocketApp(
+        SERVER_URL, on_open=on_open, on_message=on_message)
+    ws.run_forever()
+
+
+if __name__ == '__main__':
+    message_handler.NAME = NAME
+    connect_and_listen()

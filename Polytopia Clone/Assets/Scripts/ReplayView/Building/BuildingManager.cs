@@ -34,7 +34,7 @@ namespace ReplayView
             Model.BuildingBase building = viewBuilding.ToModel(Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer);
             Controller.GameManager.Get<Controller.BuildingManagerBase>().Build(modelTile.TroopOnTop, building);
 
-            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
+            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
@@ -46,18 +46,16 @@ namespace ReplayView
             BuildingBase viewCity = Instantiate(Blueprints["City"], viewTile.transform.position + new Vector3(0f, viewTile.Offset.y, 0f), Quaternion.identity);
             View.NameText buildingText = viewCity.GetComponentInChildren<View.NameText>();
             buildingText.Name = playerName + "\nCapital";
-            buildingText.BackgroundColor = View.TurnManager.Instance.PlayerColors[playerName];
+            buildingText.BackgroundColor = TurnManager.Instance.PlayerColors[playerName];
             city.OnDamageTaken += viewCity.TakeDamage;
 
             ViewToModelMap[viewCity] = city;
             ModelToViewMap[city] = viewCity;
         }
 
-        public void Attack(Tile attackerTile, Tile targetTile)
+        public void Attack(Model.TroopBase attacker, Model.BuildingBase target)
         {
-            Model.TileBase modelAttackerTile = MapManager.Instance.ViewToModelMap[attackerTile];
-            Model.TileBase modelTargetTile = MapManager.Instance.ViewToModelMap[targetTile];
-            Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(modelAttackerTile.TroopOnTop, modelTargetTile.BuildingOnTop);
+            Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(attacker, target);
         }
     }
 }

@@ -18,7 +18,10 @@ namespace View
                         toAdd.Add(tile);
 
                 foreach (Tile tile in toAdd)
-                    reachables.Add(tile);
+                {
+                    if(View.MapManager.Instance.ViewToModelMap[tile].TroopOnTop == null)
+                        reachables.Add(tile);
+                }
             }
             reachables.Remove(currentTile);
             return reachables.ToList();

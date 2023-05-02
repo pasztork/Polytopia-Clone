@@ -9,14 +9,22 @@ namespace View
         [SerializeField] private float minY;
         [SerializeField] private float maxY;
         [SerializeField] private float rotationSpeed;
+        private Vector3 defaultPosition;
+        private Quaternion defaultRotation;
 
         private readonly Dictionary<string, Vector3> keyVectorPairs = new()
-    {
-        { "w", Vector3.forward },
-        { "s", Vector3.back },
-        { "d", Vector3.right },
-        { "a", Vector3.left },
-    };
+        {
+            { "w", Vector3.forward },
+            { "s", Vector3.back },
+            { "d", Vector3.right },
+            { "a", Vector3.left },
+        };
+
+        private void Start()
+        {
+            defaultPosition = transform.position;
+            defaultRotation = transform.rotation;
+        }
 
         private void Update()
         {
@@ -48,6 +56,12 @@ namespace View
             Vector3 position = transform.position;
             position.y = Mathf.Clamp(transform.position.y, minY, maxY);
             transform.position = position;
+        }
+
+        public void ResetCamera()
+        {
+            transform.position = defaultPosition;
+            transform.rotation = defaultRotation;
         }
     }
 }

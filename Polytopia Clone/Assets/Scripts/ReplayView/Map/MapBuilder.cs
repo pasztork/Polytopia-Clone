@@ -84,5 +84,10 @@ namespace ReplayView
                 coordinate.Item1 < size &&
                 coordinate.Item2 < size;
         }
+
+        public Tile GetTileByCoord(int x, int y)
+        {
+            return viewTiles[x, y];
+        }
     }
 }

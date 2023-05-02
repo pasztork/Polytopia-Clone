@@ -6,6 +6,7 @@ namespace View
     {
         private void Awake()
         {
+            Model.GameManager.Get<Model.MapGeneratorBase>().NoiseFunction = PerlinNoise.GenerateNoiseMap;
             Controller.GameManager.NewGame();
         }
 

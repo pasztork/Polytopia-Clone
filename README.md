@@ -1,15 +1,14 @@
 # Polytopia-Clone
-
 Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" c. játék egy másolata.
 
-## Alapszabályok
 
+## Alapszabályok
 Területek
- - víz
- - mező: sík mezőnek számít
- - erdő: sík mező
- - hegy: magaslati mezőnek számít
- - sivatag: sík mezőnek számít
+- víz
+- mező: sík mezőnek számít
+- erdő: sík mező
+- hegy: magaslati mezőnek számít
+- sivatag: sík mezőnek számít
  Egy mezőn csak egy egység tartózkodhat egy időben.
 
 Fizetőeszközök
@@ -38,27 +37,24 @@ Technológiák, képességek
 - archery: elérhetővé teszi az íjászt
 - catapulting: elérhetővé teszi a katapult egységet, ami extra sebzést ad a városfalak ellen
 - sailing: elérhetővé teszi a hajót
-
 - riding: eggyel megnöveli a harcos egységek mozgását
 - navigation: eggyel megnöveli a hajók mozgását
 - strategy: növeli a támadás elhárításának valószínűségét
 - militarism: növeli az egységek támadó értékét
 - sanitation: az egységek harc után visszagyógyulnak a városok területén
-
 - harbor: elérhetővé teszi a kikötőt
 - farming: elérhetővé teszi a farmot
 - mining: elérhetővé teszi a nyersanyag termelőt a hegy típusú mezőkön
 - forestry: elérhetővé teszi a nyersanyag termelőt az erdő típusú mezőkön
 - gem mining: elérhetővé teszi a nyersanyag termelőt a sivatag típusú mezőkön
 - banking: elérhetővé teszi a bank épületet
-
 - irrigation: növeli a farm élelem termelését
 - stock market: növeli a bank termelését
 - industrial revolution: növeli a nyersanyag termelők termelését
 - mathematics: csökkenti az épületek építésének a költségét
 
-## Bonyolultabb szabályok
 
+## Bonyolultabb szabályok
 Technológiák
 - scouting: eggyel növeli az egység látótávolságát
 - street: utat lehet építeni, amin az egységek gyorsabban tudnak közlekedni
@@ -79,29 +75,26 @@ Egységek
 - barbár tábor: egy barbár egység védi, nyersanyagot és pénzt ad
 - oltár: képességet ad
 
----
 
 ## Log
-
-* nem érdemes azonosító alapján
-    * nincs rá garancia, hogy megint ugyanazokat osztja ki a modell
-    * minden mezőn legfeljebb egy épület és egy egység, elég a koordináta
-    * ha a view osztja ki, akkor meg felesleges
-* minden `Action`-höz külön feldolgozó metódus //=> LogDataWrapper-ben
-    * mivel más paraméterekre van szükségük, ezért saját data class
-* érdemes cachelni a logot
-    * minden `Action` után töröljük a fájl tartalmát és kiloggoljuk memóriából
-        * egyszerűbb, mint egy json tömbbe elemeket beszúrni
-        * vagy átnevezzük az régi fájlt, mentünk és töröljük a régit
-* minden logfájl neve a kezdés időpontja
-    * pl. `2023-19-31_11-19-12.json`
-* `ActionParameters` mezőt érdemes lehet egységesíteni
-    * értsd: `Action`-től függetlenül megmarad az összes lehetséges mező
-    * problémás, ha túl sok típusa lesz `Action`-nek
-* példa egy logfájl tartalmára:
+- nem érdemes azonosító alapján
+    - nincs rá garancia, hogy megint ugyanazokat osztja ki a modell
+    - minden mezőn legfeljebb egy épület és egy egység, elég a koordináta
+    - ha a view osztja ki, akkor meg felesleges
+- minden `Action`-höz külön feldolgozó metódus //=> LogDataWrapper-ben
+    - mivel más paraméterekre van szükségük, ezért saját data class
+- érdemes cachelni a logot
+    - minden `Action` után töröljük a fájl tartalmát és kiloggoljuk memóriából
+        - egyszerűbb, mint egy json tömbbe elemeket beszúrni
+        - vagy átnevezzük az régi fájlt, mentünk és töröljük a régit
+- minden logfájl neve a kezdés időpontja
+    - pl. `2023-19-31_11-19-12.json`
+- `ActionParameters` mezőt érdemes lehet egységesíteni
+    - értsd: `Action`-től függetlenül megmarad az összes lehetséges mező
+    - problémás, ha túl sok típusa lesz `Action`-nek
+- példa egy logfájl tartalmára:
 ```json
 {
-    "Settings" : "<filepath>",
     "Map" : "<filepath>",
     "Players" : [
         {
@@ -154,7 +147,80 @@ Egységek
     ]
 }
 ```
+- Undo log:
+    - Memento-val lenne érdemes csinálni
+    - Ötletek:
+        - Mozgás: Meghívni a Move() függvényt fordított paraméterekkel
+        - Train-elés: Hívni a létrehozott troop-on egy Kill()-t
+        - Építés: 
+            - Hívni a létrehozott épületen egy Kill()-t
+            - Létrehozni a troop-ot, ami meghalt építéskor
+            - Probléma: Troop-ot nem lehet bárhova Train-elni
+        - Troop megtámadása:
+            - A megtámadott troop-ot heal-elni a másik Damage-ének megfelelő értékkel
+            - Probléma: Ha belehalt a támadásba, akkor újra létre kell hozni (Építésnél felmerülő probléma), 
+              valamint le kell damolni, hogy annyi hp-ja legyen, mint amennyi a támadás előtt volt
+        - Épület megtámadása:
+            - Hasonlóan, mint ahogy a troop támadásnál
+            - Probléma: épületet sem lehet bárhova létrehozni
+        - Learn: Be kell állítani a megfelelő tech-nél az IsUnlocked-et false-ra
+        - Miss: Nincs teendő
+        - Ezek mellett figyelni kell a Player ResourceContainer-ének megfelelő kezelésére, visszaadni a Cost-ot, vagy kiszedni a Producer-eket, stb.
+
 
 ## Beállítások
-* minden beállítható tulajdonság külön &rarr; [`PropertiesSettings.json`](/Polytopia%20Clone/GameSettings/PropertiesSettings.json)
-* a pályageneráláshoz szükséges értékek külön &rarr; [`MapGenerationSettings.json`](/Polytopia%20Clone/GameSettings/MapGenerationSettings.json)
+- minden beállítható tulajdonság külön &rarr; [`PropertiesSettings.json`](/Polytopia%20Clone/GameSettings/PropertiesSettings.json)
+- a pályageneráláshoz szükséges értékek külön &rarr; [`MapGenerationSettings.json`](/Polytopia%20Clone/GameSettings/MapGenerationSettings.json)
+
+
+## Hálózat
+- websocket alapú kommunikáció
+- a klienst azután regisztrálja a szerver, hogy az az alábbi formátumú üzenetet elküldi:
+    ```json
+    {
+        "name": "ide jön a kliens neve (string)"
+    }
+    ```
+- a kliensek számát előre beállítjuk
+    - amikor a kliensek száma eléri ezt a számot, a játék elindul
+    - ilyenkor a szerver minden kliensnek elküldi a pályát, a mentéshez használt formátumban
+    - illetve az adott kliens kezdő mezőjét is elküldi
+    ```json
+    {
+        "action": "startGame",
+        "tiles": [["Grass", "Grass"],["Grass", "Grass"]],
+        "startingTile": ["x koordináta (int)", "y koordináta (int)"]
+    }
+    ```
+- értesíti a soron következő klienst az alábbi formátumú üzenettel:
+    ```json
+    {
+        "action": "startTurn",
+        "name": "ide jön a soron következő kliens neve (string)"
+    }
+    ```
+    - leginkább debug célból küldi vissza a nevet
+- a ,,[Parancsok](#parancsok)'' c. fejezetben leírt parancsokat tudja feldolgozni a szerver
+    - a kliens egy tömben küldi el az összes parancsot, amit az adott körben ki akar adni
+    - a szervert ezeket sorban feldolgozza
+    - lehet, hogy nem jut minden parancs érvényre, erről nem értesítjük a klienst
+- minden validált parancsot az összes kliensnek továbbítja a szerver
+    - a küldő is visszakapja, így meggyőződhet arról, hogy helyes volt a kiadott parancsa
+- a szervertől bármikor le lehet kérdezni a játék aktuális állapotát
+    - ehhez a `LogTransformer` komponenst használja a hálózat
+- amikor a kliens végzett a körével, `EndTurn` parancsot küld, ekkor a szerver értesíti a következő klienst
+- amikor az egyik kliens győz, a szerver felbontja a kapcsolatot az összes klienssel
+
+
+## Parancsok
+- a websocketeknek json formátumú parancsokat lehet küldeni
+- ezekkel a parancsokkal lehet vezérelni a játékot
+- az elérhető parancsok a következők
+    - `AttackBuilding`
+    - `AttackTroop`
+    - `Build`
+    - `EndTurn`
+    - `Learn`
+    - `Move`
+    - `Train`
+- ezeknek a parncsoknak ugyanazok a paraméterei, mint a ,,[Log](#log)'' c. fejezetben használtaknak

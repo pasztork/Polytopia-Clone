@@ -8,12 +8,12 @@ namespace View
         {
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
                 Initialize(Model.TroopBase.TroopProperties["Archer"].Health);
-            movementRange = Model.TroopBase.TroopProperties["Archer"].MovementRange;
         }
 
         public override Model.TroopBase ToModel(Model.Player player)
         {
             Model.TroopBase archer = new Model.Archer(player);
+            TroopProperties = archer.TroopProperty;
             archer.OnDamageTaken += TakeDamage;
             archer.OnTroopHealed += Heal;
             return archer;
