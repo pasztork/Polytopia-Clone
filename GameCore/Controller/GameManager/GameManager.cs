@@ -16,6 +16,18 @@ namespace Controller
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Should be used when no NoiseFunction is available.
+        /// E.g. you don't have access to Unity's PerlinNoise.
+        /// </summary>
+        /// <param name="filePath">
+        /// Path to the map one wants to use.
+        /// </param>
+        public static void NewGameWithSavedMap(string filePath)
+        {
+            Model.GameManager.Get<Model.MapManagerBase>().LoadMap(filePath);
+        }
+
         public static void StartNew()
         {
             Model.GameManager.StartNew();
