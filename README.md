@@ -178,32 +178,33 @@ Egységek
 - a klienst azután regisztrálja a szerver, hogy az az alábbi formátumú üzenetet elküldi:
     ```json
     {
-        "name": "ide jön a kliens neve (string)"
+        "Name": "ide jön a kliens neve (string)"
     }
     ```
 - a kliensek számát előre beállítjuk
     - amikor a kliensek száma eléri ezt a számot, a játék elindul
     - ilyenkor a szerver minden kliensnek elküldi a pályát, a mentéshez használt formátumban
     - illetve az adott kliens kezdő mezőjét is elküldi
+    - továbbá a játék beállításait is elküldi
     ```json
     {
-        "action": "startGame",
-        "tiles": [["Grass", "Grass"],["Grass", "Grass"]],
-        "startingTile": ["x koordináta (int)", "y koordináta (int)"]
+        "Action": "StartGame",
+        "Tiles": [["Grass", "Grass"],["Grass", "Grass"]],
+        "StartingTile": ["x koordináta (int)", "y koordináta (int)"],
+        "Settings": { ...ide jön az éppen használt settings fájl tartalma... }
     }
     ```
 - értesíti a soron következő klienst az alábbi formátumú üzenettel:
     ```json
     {
-        "action": "startTurn",
-        "name": "ide jön a soron következő kliens neve (string)"
+        "Action": "StartTurn",
+        "Name": "ide jön a soron következő kliens neve (string)"
     }
     ```
     - leginkább debug célból küldi vissza a nevet
 - a ,,[Parancsok](#parancsok)'' c. fejezetben leírt parancsokat tudja feldolgozni a szerver
     - a kliens egy tömben küldi el az összes parancsot, amit az adott körben ki akar adni
     - a szervert ezeket sorban feldolgozza
-    - lehet, hogy nem jut minden parancs érvényre, erről nem értesítjük a klienst
 - minden validált parancsot az összes kliensnek továbbítja a szerver
     - a küldő is visszakapja, így meggyőződhet arról, hogy helyes volt a kiadott parancsa
 - a szervertől bármikor le lehet kérdezni a játék aktuális állapotát
