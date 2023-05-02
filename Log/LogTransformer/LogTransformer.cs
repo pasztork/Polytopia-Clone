@@ -13,6 +13,8 @@ namespace LogView.LogTransformer
         {
             _processorFunctions = new Dictionary<string, Action<PlayerState, JsonActionDatas>>
             {
+                { "AttackBuilding", HandleAttackBuilding },
+                { "AttackTroop", HandleAttackTroop },
                 { "Build", HandleBuild },
                 { "Learn", HandleLearn },
                 { "Move", HandleMove },
@@ -25,13 +27,14 @@ namespace LogView.LogTransformer
         /// one JSON object that represents the current inner state.
         /// </summary>
         /// <returns>
-        /// A string in JSON format containing the state of the game.
+        /// A string in JSON format containing the current state of the game.
         /// </returns>
         public string Transform()
         {
             var filePath = JsonLogger.FilePath;
             var json = File.ReadAllText(filePath);
-            var log = JsonSerializer.Deserialize<JsonDataHolder>(json);
+            var log = JsonSerializer.Deserialize<JsonDataHolder>(json) ??
+                throw new JsonException("Unable to deserialize log file.");
             AssembleGameState(log);
             return JsonSerializer.Serialize(_gameState);
         }
@@ -58,6 +61,32 @@ namespace LogView.LogTransformer
                 }
             }
             return result;
+        }
+
+        private void HandleAttackBuilding(PlayerState playerState, JsonActionDatas actionDatas)
+        {
+            // TODO:
+            // Keep track of each players buildings.
+            // One dictionary is mapped to each player.
+            // Inside each dictionary coordinates are
+            // mapped to their health values (int).
+            // Decrease health of attacked building, 
+            // based on the settings used.
+            // Remove building from playerState if destroyed.
+            throw new NotImplementedException();
+        }
+
+        private void HandleAttackTroop(PlayerState playerState, JsonActionDatas actionDatas)
+        {
+            // TODO:
+            // Keep track of each players troops.
+            // One dictionary is mapped to each player.
+            // Inside each dictionary coordinates are
+            // mapped to their health values (int).
+            // Decrease health of attacked troop, 
+            // based on the settings used.
+            // Remove troop from playerState if destroyed.
+            throw new NotImplementedException();
         }
 
         private void HandleBuild(PlayerState playerState, JsonActionDatas actionDatas)
@@ -92,6 +121,11 @@ namespace LogView.LogTransformer
 
         private void HandleLearn(PlayerState playerState, JsonActionDatas actionDatas)
         {
+            // TODO:
+            // Tech items might affect future actions.
+            // Settings should be mapped to each player.
+            // This way we can produce a precise copy of the game state.
+            // Some players' troops might have more health etc.
             playerState.Techs.Add(actionDatas.Tech);
         }
 
