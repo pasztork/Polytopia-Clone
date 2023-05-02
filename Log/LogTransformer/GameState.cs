@@ -8,7 +8,7 @@
 
     public class PlayerState
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public List<int[]> Banks { get; set; } = new();
         public List<int[]> Cities { get; set; } = new();
         public List<int[]> Farms { get; set; } = new();
@@ -21,7 +21,7 @@
         public List<int[]> Scouts { get; set; } = new();
         public List<int[]> Settlers { get; set; } = new();
         public List<int[]> Warriors { get; set; } = new();
-        public List<string[]> Techs { get; set; } = new();
+        public List<string> Techs { get; set; } = new();
     }
 
 }

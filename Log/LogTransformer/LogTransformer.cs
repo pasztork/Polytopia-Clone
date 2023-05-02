@@ -13,8 +13,6 @@ namespace LogView.LogTransformer
         {
             _processorFunctions = new Dictionary<string, Action<PlayerState, JsonActionDatas>>
             {
-                { "Attackbuilding", HandleAttackBuilding },
-                { "Attacktroop", HandleAttackTroop },
                 { "Build", HandleBuild },
                 { "Learn", HandleLearn },
                 { "Move", HandleMove },
@@ -62,16 +60,6 @@ namespace LogView.LogTransformer
             return result;
         }
 
-        private void HandleAttackBuilding(PlayerState playerState, JsonActionDatas actionDatas)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void HandleAttackTroop(PlayerState playerState, JsonActionDatas actionDatas)
-        {
-            throw new NotImplementedException();
-        }
-
         private void HandleBuild(PlayerState playerState, JsonActionDatas actionDatas)
         {
             var stringFieldMap = new Dictionary<string, List<int[]>>
@@ -104,17 +92,46 @@ namespace LogView.LogTransformer
 
         private void HandleLearn(PlayerState playerState, JsonActionDatas actionDatas)
         {
-            throw new NotImplementedException();
+            playerState.Techs.Add(actionDatas.Tech);
         }
 
         private void HandleMove(PlayerState playerState, JsonActionDatas actionDatas)
         {
-            throw new NotImplementedException();
+            List<int[]> moveableList = new();
+            moveableList.AddRange(playerState.Archers);
+            moveableList.AddRange(playerState.Boats);
+            moveableList.AddRange(playerState.Builders);
+            moveableList.AddRange(playerState.Catapults);
+            moveableList.AddRange(playerState.Scouts);
+            moveableList.AddRange(playerState.Settlers);
+            moveableList.AddRange(playerState.Warriors);
+
+            moveableList.ForEach(moveable => MoveIfNecessary(moveable, actionDatas));
+        }
+
+        private void MoveIfNecessary(int[] moveable, JsonActionDatas actionDatas)
+        {
+            if (moveable[0] == actionDatas.Start[0] &&
+                moveable[1] == actionDatas.Start[1])
+            {
+                moveable[0] = actionDatas.End[0];
+                moveable[1] = actionDatas.End[1];
+            }
         }
 
         private void HandleTrain(PlayerState playerState, JsonActionDatas actionDatas)
         {
-            throw new NotImplementedException();
+            var stringTroopMap = new Dictionary<string, List<int[]>>
+            {
+                { "Archer", playerState.Archers },
+                { "Boat", playerState.Boats },
+                { "Builder", playerState.Builders },
+                { "Catapult", playerState.Catapults },
+                { "Scout", playerState.Scouts },
+                { "Settler", playerState.Settlers },
+                { "Warrior", playerState.Warriors },
+            };
+            stringTroopMap[actionDatas.Building].Add(actionDatas.Start);
         }
     }
 }
