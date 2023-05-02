@@ -8,21 +8,21 @@ this.tiles = None
 
 
 def start_game(message):
-    this.tiles = message['tiles']
+    this.tiles = message['Tiles']
     return {}
 
 
 def start_turn(message):
-    if (message['name'] != this.NAME):
+    if (message['Name'] != this.NAME):
         return {}
-    return {'action': 'finishTurn'}
+    return {'Action': 'FinishTurn'}
 
 
 MESSAGE_FUNCTION_DICT = {
-    'startGame': start_game,
-    'startTurn': start_turn
+    'StartGame': start_game,
+    'StartTurn': start_turn,
 }
 
 
 def get_response_for(message):
-    return MESSAGE_FUNCTION_DICT[message['action']](message)
+    return MESSAGE_FUNCTION_DICT[message['Action']](message)
