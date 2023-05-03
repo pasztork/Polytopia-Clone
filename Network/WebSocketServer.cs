@@ -58,7 +58,7 @@ public class WebSocketServer
 
     }
 
-    private async void EndTurnMessage(Model.Player player)
+    private static async void EndTurnMessage(Model.Player player)
     {
         string message = "{\"Action\": \"StartTurn\", \"Name\": \"" + player.Name + "\"}";
         await s_playerToWebSockets[player].SendAsync(
