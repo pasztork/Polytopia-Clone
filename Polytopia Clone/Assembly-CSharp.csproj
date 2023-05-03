@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\MathematicsTechView.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Map\MapBuilder.cs" />
     <Compile Include="Assets\Scripts\UnityView\Map\Tile.cs" />
+    <Compile Include="Assets\Scripts\UnityView\PanelControl\BuildPanelController.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\ForestryTechView.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Building\BuildingBase.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Troops\Builder.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\ReplayView\Troops\WorkerTroop.cs" />
     <Compile Include="Assets\Scripts\UnityView\Building\BuildingProperty.cs" />
     <Compile Include="Assets\Scripts\UnityView\Building\Supplier.cs" />
+    <Compile Include="Assets\Scripts\UnityView\PanelControl\TrainPanelController.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\TechTreeItem.cs" />
     <Compile Include="Assets\Scripts\UnityView\Building\BuildingDropdownHandler.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\SanitationTechView.cs" />
@@ -147,8 +149,6 @@
     <Compile Include="Assets\Scripts\ReplayView\Troops\Scout.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\BankingTechView.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Troops\Catapult.cs" />
-    <Compile Include="Assets\Scripts\UnityView\PanelControl\TrainPanelController.cs" />
-    <Compile Include="Assets\Scripts\UnityView\PanelControl\BuildPanelController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DLLs\LogView.dll" />

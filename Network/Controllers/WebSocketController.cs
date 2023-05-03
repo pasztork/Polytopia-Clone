@@ -63,7 +63,7 @@ public class WebSocketController : ControllerBase
 
             if (WebSocketServer.IsCurrentPlyer(webSocket))
             {
-                var succes = _commandProcessor.Process(receivedString);
+                bool succes = _commandProcessor.Process(receivedString);
                 if (succes)
                 {
                     WebSocketServer.Broadcast(receivedString);
