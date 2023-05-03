@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Controller;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -21,17 +22,23 @@ namespace View
             Model.GameManager.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
             Model.GameManager.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
             Model.GameManager.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
+            View.BuildPanelController.Instance.OnBuildPanelRevealed += UpdateContent;
 
             View.BuildingManager.Instance.OnBuildAttempted += SetSelected;
         }
 
         private void UpdateContent(Model.Player player)
         {
+            if (View.TroopManager.Instance.SelectedTroop == null)
+                return;
+
             dropdown.ClearOptions();
             IList<string> availableBuildings = player.AvailableBuildings;
+
             foreach (string buildingName in availableBuildings)
             {
-                if (player.ResourceContainer.HasEnoughFor(Model.Cost.CreateNewFromJsonCost(Model.BuildingBase.BuildingProperties[buildingName].Cost)))
+                if (player.ResourceContainer.HasEnoughFor(Model.Cost.CreateNewFromJsonCost(Model.BuildingBase.BuildingProperties[buildingName].Cost))
+                    && View.TroopManager.Instance.SelectedTroop.Buildings.Contains(buildingName))
                     dropdown.options.Add(new TMP_Dropdown.OptionData() { text = buildingName });
             }
             dropdown.value = 0;

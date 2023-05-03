@@ -39,7 +39,12 @@ namespace View
             {
                 selectedBuilding = value;
                 if (selectedBuilding != null)
+                {
                     View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedBuilding);
+                    View.TroopManager.Instance.SelectedTroop = null;
+                    View.MapManager.Instance.SelectedTile = null;
+                }
+                View.TrainPanelController.Instance.BuildingSelected(selectedBuilding);
             }
         }
 

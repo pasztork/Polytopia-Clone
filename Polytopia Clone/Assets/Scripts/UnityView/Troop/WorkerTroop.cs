@@ -26,5 +26,10 @@ namespace View
             reachables.Remove(currentTile);
             return reachables.ToList();
         }
+
+        public override bool CanBuild()
+        {
+            return true;
+        }
     }
 }
