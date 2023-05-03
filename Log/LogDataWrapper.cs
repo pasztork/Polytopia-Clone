@@ -140,7 +140,7 @@
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
-                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
+                Name = player.Name,
                 Action = LogActions.Gameend.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
             };

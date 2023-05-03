@@ -10,19 +10,26 @@ namespace ViewUtil
 
         protected readonly IDictionary<string, Action> actions = new Dictionary<string, Action>();
 
-        public void Process(string commandString)
+        public bool Process(string commandString)
         {
             _command = JsonSerializer.Deserialize<JsonLog.JsonActionObject>(commandString);
-            VerifyCommandExists();
-            actions[_command.Action]();
+            
+            if (VerifyCommandExists())
+            {
+                actions[_command.Action]();
+                return true;
+            }
+            return false;
         }
 
-        private void VerifyCommandExists()
+        private bool VerifyCommandExists()
         {
             if (!actions.ContainsKey(_command.Action))
             {
                 throw new ArgumentOutOfRangeException("No such command exists!");
+                //return false;
             }
+            return true;
         }
     }
 }
