@@ -76,7 +76,7 @@
             JsonLogger.LogNewEvent(action);
         }
 
-        public void TriggerAttackTroop(Model.TileBase attackerTile, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
+        public void TriggerAttackTroop(Model.TroopBase attacker, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
@@ -84,8 +84,9 @@
                 Action = LogActions.Attacktroop.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
                 {
-                    Start = JsonLogger.GetTileCoords(attackerTile),
+                    Start = JsonLogger.GetTileCoords(attacker.Tile),
                     End = JsonLogger.GetTileCoords(targetTile),
+                    Troop = attacker.ToString(),
                     Neighbors = new int[targetedTiles.Count * 2]
                 }
             };
@@ -99,7 +100,7 @@
             JsonLogger.LogNewEvent(action);
         }
 
-        public void TriggerAttackBuilding(Model.TileBase attackerTile, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
+        public void TriggerAttackBuilding(Model.TroopBase attacker, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
@@ -107,8 +108,9 @@
                 Action = LogActions.Attackbuilding.ToString(),
                 ActionDatas = new JsonLog.JsonActionDatas()
                 {
-                    Start = JsonLogger.GetTileCoords(attackerTile),
-                    End = JsonLogger.GetTileCoords(targetTile)
+                    Start = JsonLogger.GetTileCoords(attacker.Tile),
+                    End = JsonLogger.GetTileCoords(targetTile),
+                    Troop = attacker.ToString()
                 }
             };
             if (targetedTiles.Count > 0)

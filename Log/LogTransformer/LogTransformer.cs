@@ -1,4 +1,5 @@
 ﻿using JsonLog;
+using Model;
 using System.Text.Json;
 
 namespace LogView.LogTransformer
@@ -8,6 +9,19 @@ namespace LogView.LogTransformer
         private readonly GameState _gameState = new();
 
         private readonly Dictionary<string, Action<PlayerState, JsonActionDatas>> _processorFunctions;
+
+        private readonly Dictionary<string, PlayerState> _playerStates = new();
+
+        private static readonly string directory = $"{Directory.GetCurrentDirectory()}\\GameSettings";
+        private static readonly string propertiesSettingsFilename = "PropertiesSettings.json";
+
+        private readonly Settings _settings;
+
+        private readonly Dictionary<string, Dictionary<int[], int>> _playerBuildingHealths = new();
+        private readonly Dictionary<string, Dictionary<int[], int>> _playerTroopHealths = new();
+        private readonly Dictionary<string, Settings> _playerSettings = new();
+
+        private string previousPlayer = "";
 
         public LogTransformer()
         {
@@ -20,6 +34,8 @@ namespace LogView.LogTransformer
                 { "Move", HandleMove },
                 { "Train", HandleTrain },
             };
+            string config = File.ReadAllText(Path.Combine(directory, propertiesSettingsFilename));
+            _settings = JsonSerializer.Deserialize<Settings>(config)!;
         }
 
         /// <summary>
@@ -44,22 +60,38 @@ namespace LogView.LogTransformer
             foreach (var player in log.Players)
             {
                 var p = AssemblePlayerState(log, player);
-                _gameState.PlayerState.Add(p);
+                _playerStates.Add(p.Name, p);
+            }
+            foreach(var action in log.Actions)
+            {
+                if (!previousPlayer.Equals(action.Name) && _playerStates[action.Name].Techs.Contains("Sanitation"))
+                {
+                    TechTransformer.Sanitation(_playerStates[action.Name], _playerTroopHealths[action.Name]);
+                    previousPlayer = action.Name;
+                }
+                var function = _processorFunctions[action.Action];
+                function.Invoke(_playerStates[action.Name], action.ActionDatas);
+            }
+            foreach(var playerState in _playerStates.Values)
+            {
+                _gameState.PlayerState.Add(playerState);
             }
         }
 
         private PlayerState AssemblePlayerState(JsonDataHolder log, JsonPlayerObject player)
         {
             var result = new PlayerState { Name = player.Name };
-            result.Cities.Add(player.StartingTile);
-            foreach (var action in log.Actions)
-            {
-                if (action.Name.Equals(player.Name) && _processorFunctions.ContainsKey(action.Action))
+            _playerBuildingHealths.Add(result.Name, new Dictionary<int[], int>());
+            _playerTroopHealths.Add(result.Name, new Dictionary<int[], int>());
+            _playerSettings.Add(result.Name, new Settings()
                 {
-                    var function = _processorFunctions[action.Action];
-                    function.Invoke(result, action.ActionDatas);
+                    BaseProduction = _settings.BaseProduction,
+                    BuildingProperties = _settings.BuildingProperties,
+                    TechTreeItemCosts = _settings.TechTreeItemCosts,
+                    TroopProperties = _settings.TroopProperties,
                 }
-            }
+            );
+            result.Cities.Add(player.StartingTile);
             return result;
         }
 
@@ -73,7 +105,23 @@ namespace LogView.LogTransformer
             // Decrease health of attacked building, 
             // based on the settings used.
             // Remove building from playerState if destroyed.
-            throw new NotImplementedException();
+
+            _playerBuildingHealths[playerState.Name][actionDatas.End]
+                -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
+
+            if(_playerBuildingHealths[playerState.Name][actionDatas.End] <= 0)
+            {
+                List<int[]> buildingsList = 
+                    playerState.Banks
+                    .Concat(playerState.Cities)
+                    .Concat(playerState.Farms)
+                    .Concat(playerState.Harbors)
+                    .Concat(playerState.Suppliers)
+                    .ToList();
+
+                buildingsList.Remove(actionDatas.End);
+                _playerBuildingHealths[playerState.Name].Remove(actionDatas.End);
+            }
         }
 
         private void HandleAttackTroop(PlayerState playerState, JsonActionDatas actionDatas)
@@ -86,7 +134,25 @@ namespace LogView.LogTransformer
             // Decrease health of attacked troop, 
             // based on the settings used.
             // Remove troop from playerState if destroyed.
-            throw new NotImplementedException();
+
+            _playerTroopHealths[playerState.Name][actionDatas.End]
+                -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
+
+            if (_playerTroopHealths[playerState.Name][actionDatas.End] <= 0)
+            {
+                List<int[]> troopsList =
+                    playerState.Archers
+                    .Concat(playerState.Boats)
+                    .Concat(playerState.Builders)
+                    .Concat(playerState.Catapults)
+                    .Concat(playerState.Scouts)
+                    .Concat(playerState.Settlers)
+                    .Concat(playerState.Warriors)
+                    .ToList();
+
+                troopsList.Remove(actionDatas.End);
+                _playerTroopHealths[playerState.Name].Remove(actionDatas.End);
+            }
         }
 
         private void HandleBuild(PlayerState playerState, JsonActionDatas actionDatas)
@@ -100,6 +166,7 @@ namespace LogView.LogTransformer
                 { "Supplier", playerState.Suppliers },
             };
             stringFieldMap[actionDatas.Building].Add(actionDatas.Start);
+            _playerBuildingHealths[playerState.Name].Add(actionDatas.Start, _settings.BuildingProperties[actionDatas.Building].Health);
 
             FindAndRemoveIfPresent(actionDatas.Start, playerState.Builders);
             FindAndRemoveIfPresent(actionDatas.Start, playerState.Settlers);
@@ -125,8 +192,13 @@ namespace LogView.LogTransformer
             // Tech items might affect future actions.
             // Settings should be mapped to each player.
             // This way we can produce a precise copy of the game state.
-            // Some players' troops might have more health etc.
+            // Some players' troops might have more health etc
             playerState.Techs.Add(actionDatas.Tech);
+
+            if (actionDatas.Tech.Equals("Militarism"))
+            {
+                TechTransformer.Militarism(_playerSettings[playerState.Name]);
+            }
         }
 
         private void HandleMove(PlayerState playerState, JsonActionDatas actionDatas)
@@ -140,16 +212,19 @@ namespace LogView.LogTransformer
             moveableList.AddRange(playerState.Settlers);
             moveableList.AddRange(playerState.Warriors);
 
-            moveableList.ForEach(moveable => MoveIfNecessary(moveable, actionDatas));
+            moveableList.ForEach(moveable => MoveIfNecessary(playerState, moveable, actionDatas));
         }
 
-        private void MoveIfNecessary(int[] moveable, JsonActionDatas actionDatas)
+        private void MoveIfNecessary(PlayerState playerState, int[] moveable, JsonActionDatas actionDatas)
         {
             if (moveable[0] == actionDatas.Start[0] &&
                 moveable[1] == actionDatas.Start[1])
             {
                 moveable[0] = actionDatas.End[0];
                 moveable[1] = actionDatas.End[1];
+                int health = _playerTroopHealths[playerState.Name][actionDatas.Start];
+                _playerTroopHealths[playerState.Name].Remove(actionDatas.Start);
+                _playerTroopHealths[playerState.Name].Add(actionDatas.End, health);
             }
         }
 
@@ -165,7 +240,56 @@ namespace LogView.LogTransformer
                 { "Settler", playerState.Settlers },
                 { "Warrior", playerState.Warriors },
             };
-            stringTroopMap[actionDatas.Building].Add(actionDatas.Start);
+            stringTroopMap[actionDatas.Troop].Add(actionDatas.Start);
+            _playerTroopHealths[playerState.Name].Add(actionDatas.Start, _settings.TroopProperties[actionDatas.Troop].Health);
+        }
+    }
+
+
+    public static class TechTransformer
+    {
+
+        public static void Militarism(Settings settings)
+        {
+            settings.TroopProperties["Archer"].Damage += 1;
+            settings.TroopProperties["Boat"].Damage += 1;
+            settings.TroopProperties["Catapult"].MovementRange += 1;
+            settings.TroopProperties["Scout"].MovementRange += 1;
+            settings.TroopProperties["Warrior"].MovementRange += 1;
+        }
+
+        public static void Sanitation(PlayerState playerState, Dictionary<int[], int> troopHealths)
+        {
+            HashSet<int[]> tilesInCityRange = new HashSet<int[]>();
+            foreach (int[] coords in playerState.Cities)
+            {
+                tilesInCityRange.Add(coords);
+                tilesInCityRange.Add(new int[] { coords[0] - 1, coords[1] - 1 });
+                tilesInCityRange.Add(new int[] { coords[0] - 1, coords[1] });
+                tilesInCityRange.Add(new int[] { coords[0] - 1, coords[1] + 1 });
+                tilesInCityRange.Add(new int[] { coords[0], coords[1] - 1 });
+                tilesInCityRange.Add(new int[] { coords[0], coords[1] + 1 });
+                tilesInCityRange.Add(new int[] { coords[0] + 1, coords[1] - 1 });
+                tilesInCityRange.Add(new int[] { coords[0] + 1, coords[1] });
+                tilesInCityRange.Add(new int[] { coords[0] + 1, coords[1] + 1 });
+            }
+            List<int[]> troopsList =
+                    playerState.Archers
+                    .Concat(playerState.Boats)
+                    .Concat(playerState.Builders)
+                    .Concat(playerState.Catapults)
+                    .Concat(playerState.Scouts)
+                    .Concat(playerState.Settlers)
+                    .Concat(playerState.Warriors)
+                    .ToList();
+
+            foreach (int[] troopCoords in troopsList)
+            {
+                if (tilesInCityRange.Contains(troopCoords))
+                {
+                    troopHealths[troopCoords] += 1;
+                }
+            }
         }
     }
 }

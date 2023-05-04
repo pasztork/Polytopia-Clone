@@ -12,8 +12,8 @@ namespace Model
         public event Action<BuildingBase> OnBuildCreated;
         public event Action<TroopBase> OnTroopTrained;
         public event Action<TileBase, TileBase> OnTroopMoved;
-        public event Action<TileBase, TileBase, List<TileBase>> OnTroopAttacked;
-        public event Action<TileBase, TileBase, List<TileBase>> OnBuildingAttacked;
+        public event Action<TroopBase, TileBase, List<TileBase>> OnTroopAttacked;
+        public event Action<TroopBase, TileBase, List<TileBase>> OnBuildingAttacked;
         public event Action OnTurnEnded;
         public event Action<TechTreeItemBase> OnTechLearned;
         public event Action<TroopBase, TroopBase> OnAttackMissed;
@@ -120,7 +120,7 @@ namespace Model
             {
                 var targetTile = result[0];
                 result.RemoveAt(0);
-                OnTroopAttacked?.Invoke(attacker.Tile, targetTile, result);
+                OnTroopAttacked?.Invoke(attacker, targetTile, result);
             }
 
             return result != null;
@@ -135,7 +135,7 @@ namespace Model
             {
                 var targetTile = result[0];
                 result.RemoveAt(0);
-                OnBuildingAttacked?.Invoke(attacker.Tile, targetTile, result);
+                OnBuildingAttacked?.Invoke(attacker, targetTile, result);
             }
 
             return result != null;
