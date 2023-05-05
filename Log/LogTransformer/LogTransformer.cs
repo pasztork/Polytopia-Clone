@@ -62,7 +62,7 @@ namespace LogView.LogTransformer
                 var p = AssemblePlayerState(log, player);
                 _playerStates.Add(p.Name, p);
             }
-            foreach(var action in log.Actions)
+            foreach (var action in log.Actions)
             {
                 if (!previousPlayer.Equals(action.Name) && _playerStates[action.Name].Techs.Contains("Sanitation"))
                 {
@@ -72,7 +72,7 @@ namespace LogView.LogTransformer
                 var function = _processorFunctions[action.Action];
                 function.Invoke(_playerStates[action.Name], action.ActionDatas);
             }
-            foreach(var playerState in _playerStates.Values)
+            foreach (var playerState in _playerStates.Values)
             {
                 _gameState.PlayerState.Add(playerState);
             }
@@ -84,12 +84,12 @@ namespace LogView.LogTransformer
             _playerBuildingHealths.Add(result.Name, new Dictionary<int[], int>());
             _playerTroopHealths.Add(result.Name, new Dictionary<int[], int>());
             _playerSettings.Add(result.Name, new Settings()
-                {
-                    BaseProduction = _settings.BaseProduction,
-                    BuildingProperties = _settings.BuildingProperties,
-                    TechTreeItemCosts = _settings.TechTreeItemCosts,
-                    TroopProperties = _settings.TroopProperties,
-                }
+            {
+                BaseProduction = _settings.BaseProduction,
+                BuildingProperties = _settings.BuildingProperties,
+                TechTreeItemCosts = _settings.TechTreeItemCosts,
+                TroopProperties = _settings.TroopProperties,
+            }
             );
             result.Cities.Add(player.StartingTile);
             return result;
@@ -97,21 +97,12 @@ namespace LogView.LogTransformer
 
         private void HandleAttackBuilding(PlayerState playerState, JsonActionDatas actionDatas)
         {
-            // TODO:
-            // Keep track of each players buildings.
-            // One dictionary is mapped to each player.
-            // Inside each dictionary coordinates are
-            // mapped to their health values (int).
-            // Decrease health of attacked building, 
-            // based on the settings used.
-            // Remove building from playerState if destroyed.
-
             _playerBuildingHealths[playerState.Name][actionDatas.End]
                 -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
 
-            if(_playerBuildingHealths[playerState.Name][actionDatas.End] <= 0)
+            if (_playerBuildingHealths[playerState.Name][actionDatas.End] <= 0)
             {
-                List<int[]> buildingsList = 
+                List<int[]> buildingsList =
                     playerState.Banks
                     .Concat(playerState.Cities)
                     .Concat(playerState.Farms)
@@ -126,15 +117,6 @@ namespace LogView.LogTransformer
 
         private void HandleAttackTroop(PlayerState playerState, JsonActionDatas actionDatas)
         {
-            // TODO:
-            // Keep track of each players troops.
-            // One dictionary is mapped to each player.
-            // Inside each dictionary coordinates are
-            // mapped to their health values (int).
-            // Decrease health of attacked troop, 
-            // based on the settings used.
-            // Remove troop from playerState if destroyed.
-
             _playerTroopHealths[playerState.Name][actionDatas.End]
                 -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
 
@@ -188,11 +170,6 @@ namespace LogView.LogTransformer
 
         private void HandleLearn(PlayerState playerState, JsonActionDatas actionDatas)
         {
-            // TODO:
-            // Tech items might affect future actions.
-            // Settings should be mapped to each player.
-            // This way we can produce a precise copy of the game state.
-            // Some players' troops might have more health etc
             playerState.Techs.Add(actionDatas.Tech);
 
             if (actionDatas.Tech.Equals("Militarism"))
