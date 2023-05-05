@@ -6,16 +6,16 @@ namespace LogView.LogTransformer
 {
     public class LogTransformer
     {
+        public string LogFilePath { get; set; }
+        public string SettingsFilePath { get; set; } = $"{Directory.GetCurrentDirectory()}\\GameSettings\\PropertiesSettings.json";
+
         private readonly GameState _gameState = new();
 
         private readonly Dictionary<string, Action<PlayerState, JsonActionDatas>> _processorFunctions;
 
         private readonly Dictionary<string, PlayerState> _playerStates = new();
 
-        private static readonly string directory = $"{Directory.GetCurrentDirectory()}\\GameSettings";
-        private static readonly string propertiesSettingsFilename = "PropertiesSettings.json";
-
-        private readonly Settings _settings;
+        private Settings _settings = null;
 
         private readonly Dictionary<string, Dictionary<int[], int>> _playerBuildingHealths = new();
         private readonly Dictionary<string, Dictionary<int[], int>> _playerTroopHealths = new();
@@ -25,17 +25,16 @@ namespace LogView.LogTransformer
 
         public LogTransformer()
         {
+            LogFilePath = JsonLogger.FilePath;
             _processorFunctions = new Dictionary<string, Action<PlayerState, JsonActionDatas>>
             {
-                { "AttackBuilding", HandleAttackBuilding },
-                { "AttackTroop", HandleAttackTroop },
+                { "Attackbuilding", HandleAttackBuilding },
+                { "Attacktroop", HandleAttackTroop },
                 { "Build", HandleBuild },
                 { "Learn", HandleLearn },
                 { "Move", HandleMove },
                 { "Train", HandleTrain },
             };
-            string config = File.ReadAllText(Path.Combine(directory, propertiesSettingsFilename));
-            _settings = JsonSerializer.Deserialize<Settings>(config)!;
         }
 
         /// <summary>
@@ -47,8 +46,9 @@ namespace LogView.LogTransformer
         /// </returns>
         public string Transform()
         {
-            var filePath = JsonLogger.FilePath;
-            var json = File.ReadAllText(filePath);
+            string config = File.ReadAllText(SettingsFilePath);
+            _settings = JsonSerializer.Deserialize<Settings>(config)!;
+            var json = File.ReadAllText(LogFilePath);
             var log = JsonSerializer.Deserialize<JsonDataHolder>(json) ??
                 throw new JsonException("Unable to deserialize log file.");
             AssembleGameState(log);
@@ -62,8 +62,14 @@ namespace LogView.LogTransformer
                 var p = AssemblePlayerState(log, player);
                 _playerStates.Add(p.Name, p);
             }
+
             foreach (var action in log.Actions)
             {
+                if (!_processorFunctions.ContainsKey(action.Action))
+                {
+                    continue;
+                }
+
                 if (!previousPlayer.Equals(action.Name) && _playerStates[action.Name].Techs.Contains("Sanitation"))
                 {
                     TechTransformer.Sanitation(_playerStates[action.Name], _playerTroopHealths[action.Name]);
@@ -72,6 +78,7 @@ namespace LogView.LogTransformer
                 var function = _processorFunctions[action.Action];
                 function.Invoke(_playerStates[action.Name], action.ActionDatas);
             }
+
             foreach (var playerState in _playerStates.Values)
             {
                 _gameState.PlayerState.Add(playerState);
@@ -97,33 +104,68 @@ namespace LogView.LogTransformer
 
         private void HandleAttackBuilding(PlayerState playerState, JsonActionDatas actionDatas)
         {
-            _playerBuildingHealths[playerState.Name][actionDatas.End]
+            var buildingOwner = GetPlayerWhoOwnsInList(actionDatas.End, GetBuildingList);
+            var buildingPosition =
+                GetReferenceOfArrayWithSameValues(actionDatas.End, _playerBuildingHealths[buildingOwner].Keys.ToList());
+            _playerBuildingHealths[buildingOwner][buildingPosition]
                 -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
 
-            if (_playerBuildingHealths[playerState.Name][actionDatas.End] <= 0)
+            if (_playerBuildingHealths[buildingOwner][buildingPosition] <= 0)
             {
-                List<int[]> buildingsList =
-                    playerState.Banks
+                var owner = _playerStates[buildingOwner];
+                var allBuildings = new List<List<int[]>>
+                {
+                    owner.Banks,
+                    owner.Cities,
+                    owner.Farms,
+                    owner.Harbors,
+                    owner.Suppliers,
+                };
+
+                allBuildings.ForEach(b => FindAndRemoveIfPresent(buildingPosition, b));
+                _playerBuildingHealths[buildingOwner].Remove(buildingPosition);
+            }
+        }
+
+        private List<int[]> GetBuildingList(PlayerState playerState)
+        {
+            return playerState.Banks
                     .Concat(playerState.Cities)
                     .Concat(playerState.Farms)
                     .Concat(playerState.Harbors)
                     .Concat(playerState.Suppliers)
                     .ToList();
-
-                buildingsList.Remove(actionDatas.End);
-                _playerBuildingHealths[playerState.Name].Remove(actionDatas.End);
-            }
         }
 
         private void HandleAttackTroop(PlayerState playerState, JsonActionDatas actionDatas)
         {
-            _playerTroopHealths[playerState.Name][actionDatas.End]
+            var troopOwner = GetPlayerWhoOwnsInList(actionDatas.End, GetTroopList);
+            var troopPosition =
+                GetReferenceOfArrayWithSameValues(actionDatas.End, _playerTroopHealths[troopOwner].Keys.ToList());
+            _playerTroopHealths[troopOwner][troopPosition]
                 -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
 
-            if (_playerTroopHealths[playerState.Name][actionDatas.End] <= 0)
+            if (_playerTroopHealths[troopOwner][troopPosition] <= 0)
             {
-                List<int[]> troopsList =
-                    playerState.Archers
+                var owner = _playerStates[troopOwner];
+                var allTroops = new List<List<int[]>>
+                {
+                    owner.Archers,
+                    owner.Boats,
+                    owner.Builders,
+                    owner.Catapults,
+                    owner.Scouts,
+                    owner.Settlers,
+                    owner.Warriors,
+                };
+                allTroops.ForEach(t => FindAndRemoveIfPresent(troopPosition, t));
+                _playerTroopHealths[troopOwner].Remove(troopPosition);
+            }
+        }
+
+        private List<int[]> GetTroopList(PlayerState playerState)
+        {
+            return playerState.Archers
                     .Concat(playerState.Boats)
                     .Concat(playerState.Builders)
                     .Concat(playerState.Catapults)
@@ -131,10 +173,35 @@ namespace LogView.LogTransformer
                     .Concat(playerState.Settlers)
                     .Concat(playerState.Warriors)
                     .ToList();
+        }
 
-                troopsList.Remove(actionDatas.End);
-                _playerTroopHealths[playerState.Name].Remove(actionDatas.End);
+        private string GetPlayerWhoOwnsInList(int[] coord, Func<PlayerState, List<int[]>> listFunc)
+        {
+            foreach (var p in _playerStates.Values)
+            {
+                foreach (var t in listFunc.Invoke(p))
+                {
+                    if (coord[0] == t[0] && coord[1] == t[1])
+                    {
+                        return p.Name;
+                    }
+                }
             }
+
+            return string.Empty;
+        }
+
+        private int[] GetReferenceOfArrayWithSameValues(int[] values, List<int[]> original)
+        {
+            foreach (var v in original)
+            {
+                if (values[0] == v[0] && values[1] == v[1])
+                {
+                    return v;
+                }
+            }
+
+            return Array.Empty<int>();
         }
 
         private void HandleBuild(PlayerState playerState, JsonActionDatas actionDatas)
@@ -189,19 +256,16 @@ namespace LogView.LogTransformer
             moveableList.AddRange(playerState.Settlers);
             moveableList.AddRange(playerState.Warriors);
 
-            moveableList.ForEach(moveable => MoveIfNecessary(playerState, moveable, actionDatas));
+            moveableList.ForEach(moveable => MoveIfNecessary(moveable, actionDatas));
         }
 
-        private void MoveIfNecessary(PlayerState playerState, int[] moveable, JsonActionDatas actionDatas)
+        private void MoveIfNecessary(int[] moveable, JsonActionDatas actionDatas)
         {
             if (moveable[0] == actionDatas.Start[0] &&
                 moveable[1] == actionDatas.Start[1])
             {
                 moveable[0] = actionDatas.End[0];
                 moveable[1] = actionDatas.End[1];
-                int health = _playerTroopHealths[playerState.Name][actionDatas.Start];
-                _playerTroopHealths[playerState.Name].Remove(actionDatas.Start);
-                _playerTroopHealths[playerState.Name].Add(actionDatas.End, health);
             }
         }
 
