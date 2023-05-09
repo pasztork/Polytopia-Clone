@@ -1,6 +1,6 @@
 ﻿namespace JsonLog
 {
-    public class JsonActionDatas
+    public class JsonActionParameters
     {
         public int[] Start { get; set; } = new int[0];
         public int[] End { get; set; } = new int[0];

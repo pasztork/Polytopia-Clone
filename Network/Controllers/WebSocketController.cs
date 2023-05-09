@@ -1,40 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LogView.LogTransformer;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.WebSockets;
 using System.Text;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-using ViewUtil;
 
 namespace Network.Controllers;
 
 public class WebSocketController : ControllerBase
 {
-    private NetworkCommandProcessor _commandProcessor = new();
+    private readonly NetworkCommandProcessor _commandProcessor = new();
+    private bool _gameEnded = false;
 
-   
-    private bool gameEnd = false;
-   
-    //bolean ahhoz hogy mikor induljon el -> manualresetevent de az szálakhoz van
-    //async while ciklus amig nincsennek meg a jatekosok
-    
     [Route("/ws")]
     public async Task Get()
     {
         if (HttpContext.WebSockets.IsWebSocketRequest)
         {
             using WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-            var succes =  WebSocketServer.Register(webSocket);
-           
-
-            if (succes)
-            {
-                Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += CloseConnection;
-                await Echo(webSocket);
-            }
-            else
+            if (!WebSocketServer.Register(webSocket))
             {
                 HttpContext.Response.StatusCode = StatusCodes.Status409Conflict;
+                return;
             }
+
+            Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += CloseConnection;
+            await HandleWebSocketCommunication(webSocket);
         }
         else
         {
@@ -42,46 +31,62 @@ public class WebSocketController : ControllerBase
         }
     }
 
-    private async Task Echo(WebSocket webSocket)
-    { 
+    private async Task HandleWebSocketCommunication(WebSocket webSocket)
+    {
+        var buffer = new byte[4096];
+        await webSocket.ReceiveAsync(
+            new ArraySegment<byte>(buffer),
+            CancellationToken.None);
 
-        // create buffer for messages arriving from client
-        byte[] buffer = new byte[4096];
-        WebSocketReceiveResult receiveResult = await webSocket.ReceiveAsync(
-            new ArraySegment<byte>(buffer), CancellationToken.None);
+        WebSocketServer.CreatePlayer(
+            TrimBufferString(Encoding.UTF8.GetString(buffer)), webSocket);
 
-        WebSocketServer.CreatePlayer(Encoding.UTF8.GetString(buffer), webSocket);
-
-        // process messages from client
-        while (webSocket.State == WebSocketState.Open && !gameEnd)
+        while (webSocket.State == WebSocketState.Open && !_gameEnded)
         {
-            // wait for next message
+            Array.Clear(buffer);
             await webSocket.ReceiveAsync(
-                new ArraySegment<byte>(buffer), CancellationToken.None);
+                new ArraySegment<byte>(buffer),
+                CancellationToken.None);
 
-            string receivedString = Encoding.UTF8.GetString(buffer);
-
-            if (WebSocketServer.IsCurrentPlyer(webSocket))
+            string receivedString = TrimBufferString(Encoding.UTF8.GetString(buffer));
+            if (WebSocketServer.CurrentSocketPlayer == webSocket)
             {
-                bool succes = _commandProcessor.Process(receivedString);
-                if (succes)
+                if (receivedString.Contains("GetGameState"))
                 {
-                    WebSocketServer.Broadcast(receivedString);
+                    await SendGameStateTo(webSocket);
+                }
+                else if (_commandProcessor.Process(receivedString))
+                {
                     Console.WriteLine(receivedString);
+                    await WebSocketServer.Broadcast(webSocket, receivedString);
                 }
             }
-            Array.Clear(buffer);
         }
 
-        // close websocket
         await webSocket.CloseAsync(
             WebSocketCloseStatus.NormalClosure,
             "WebSocket connection closed",
             CancellationToken.None);
     }
 
-    public void CloseConnection(Model.Player player)
+    private void CloseConnection(Model.Player player) => _gameEnded = true;
+
+    private static async Task SendGameStateTo(WebSocket webSocket)
     {
-        gameEnd = true;
+        var logTransformer = new LogTransformer();
+        var gameState = logTransformer.Transform();
+        await webSocket.SendAsync(
+            new ArraySegment<byte>(Encoding.UTF8.GetBytes(gameState)),
+            WebSocketMessageType.Text,
+            WebSocketMessageFlags.EndOfMessage,
+            CancellationToken.None);
+    }
+
+    private static string TrimBufferString(string bufferString)
+    {
+        var nullIndex = bufferString.IndexOf('\0');
+        if (nullIndex < 0) { return bufferString; }
+
+        return bufferString[..nullIndex];
     }
 }

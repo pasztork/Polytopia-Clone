@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Model
+﻿namespace Model
 {
     public class Player
     {
@@ -20,7 +17,7 @@ namespace Model
 
         public ResourceContainer ResourceContainer { get; private set; } = new ResourceContainer();
 
-        public Dictionary<string, TechTreeItemBase> Techs { get; set; } = new Dictionary<string, TechTreeItemBase>();
+        public Dictionary<string, TechTreeItemBase> Techs { get; set; } = new();
         public BonusProperty BonusProperty { get; set; } = new BonusProperty();
 
         public int StartingCityRange { get; set; }
@@ -28,16 +25,17 @@ namespace Model
         public IList<TroopBase> Troops { get; } = new List<TroopBase>();
         public ISet<TileBase> AvailableTiles { get; } = new HashSet<TileBase>();
 
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public IList<string> AvailableBuildings { get; set; }
-        public IList<string> AvailableTroops { get; set; }
+        public IList<string> AvailableBuildings { get; set; } = new List<string>();
+        public IList<string> AvailableTroops { get; set; } = new List<string>();
 
         public Player(string name)
         {
             Name = name;
             GameManager.Get<TurnManagerBase>().PlayerCreated(this);
             GameManager.Players.Add(this);
+            GameManager.Get<TechTreeManagerBase>().ConnectTree(Techs);
         }
 
         public void StartTurn()

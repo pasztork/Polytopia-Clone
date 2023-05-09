@@ -8,6 +8,12 @@ namespace Model
             Init(player);
         }
 
+        public Builder() : base()
+        {
+            initialValues = TroopProperties["Builder"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
+        }
+
         public override void FillRequirements(RequirementsListBase requirements)
         {
             requirements.NonTrainingBuilderFound = true;

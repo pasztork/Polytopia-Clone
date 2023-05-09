@@ -27,7 +27,6 @@ namespace ReplayView
 
         public void Awake()
         {
-            stepBackwardButton.interactable = false;
             Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += DisplayWinner;
             actionFunctions.Add("Move", Move);
             actionFunctions.Add("Train", Train);
@@ -99,33 +98,9 @@ namespace ReplayView
             actionFunctions[action.Action]();
         }
 
-        //public void ReplayOneStepBackward()
-        //{
-        //    if (cursor - 1 > 0)
-        //    {
-        //        cursor--;
-        //        UndoAction(actionList[cursor]);
-        //        UpdateTechList();
-
-        //        stepForwardButton.interactable = true;
-        //        skipButton.interactable = true;
-        //        skipFastButton.interactable = true;
-        //    }
-        //    if(cursor - 1 <= 0)
-        //    {
-        //        stepBackwardButton.interactable = false;
-        //    }
-        //}
-
-        //private void UndoAction(LogView.JsonActionObject action)
-        //{
-        //    HighlightManager.Instance.Clear();
-        //    undoActionFunctions[action.Action]();
-        //}
-
         private void Move()
         {
-            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionParameters datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
@@ -144,7 +119,7 @@ namespace ReplayView
 
         private void Train()
         {
-            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionParameters datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             TroopManager.Instance.Train(start, datas.Troop);
 
@@ -156,7 +131,7 @@ namespace ReplayView
 
         private void Build()
         {
-            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionParameters datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             BuildingManager.Instance.Build(start, datas.Building);
 
@@ -168,7 +143,7 @@ namespace ReplayView
 
         private void AttackTroop()
         {
-            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionParameters datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
@@ -212,7 +187,7 @@ namespace ReplayView
 
         private void AttackBuilding()
         {
-            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionParameters datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
@@ -257,7 +232,7 @@ namespace ReplayView
 
         private void MissAttack()
         {
-            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionParameters datas = actionList[cursor].ActionDatas;
             Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
             Tile end = MapBuilder.Instance.GetTileByCoord(datas.End[0], datas.End[1]);
 
@@ -272,7 +247,7 @@ namespace ReplayView
 
         private void Learn()
         {
-            JsonLog.JsonActionDatas datas = actionList[cursor].ActionDatas;
+            JsonLog.JsonActionParameters datas = actionList[cursor].ActionDatas;
             TechTreeManager.Instance.LearnTech(datas.Tech);
 
             actionText.text = $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +

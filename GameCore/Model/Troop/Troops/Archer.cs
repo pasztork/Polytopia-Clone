@@ -8,6 +8,12 @@ namespace Model
             Init(player);
         }
 
+        public Archer() : base()
+        {
+            initialValues = TroopProperties["Archer"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
+        }
+
         public override string ToString()
         {
             return "Archer";

@@ -11,7 +11,7 @@ namespace LogView.LogTransformer
 
         private readonly GameState _gameState = new();
 
-        private readonly Dictionary<string, Action<PlayerState, JsonActionDatas>> _processorFunctions;
+        private readonly Dictionary<string, Action<PlayerState, JsonActionParameters>> _processorFunctions;
 
         private readonly Dictionary<string, PlayerState> _playerStates = new();
 
@@ -26,7 +26,7 @@ namespace LogView.LogTransformer
         public LogTransformer()
         {
             LogFilePath = JsonLogger.FilePath;
-            _processorFunctions = new Dictionary<string, Action<PlayerState, JsonActionDatas>>
+            _processorFunctions = new Dictionary<string, Action<PlayerState, JsonActionParameters>>
             {
                 { "AttackBuilding", HandleAttackBuilding },
                 { "AttackTroop", HandleAttackTroop },
@@ -49,13 +49,13 @@ namespace LogView.LogTransformer
             string config = File.ReadAllText(SettingsFilePath);
             _settings = JsonSerializer.Deserialize<Settings>(config)!;
             var json = File.ReadAllText(LogFilePath);
-            var log = JsonSerializer.Deserialize<JsonDataHolder>(json) ??
+            var log = JsonSerializer.Deserialize<JsonLogContent>(json) ??
                 throw new JsonException("Unable to deserialize log file.");
             AssembleGameState(log);
             return JsonSerializer.Serialize(_gameState);
         }
 
-        private void AssembleGameState(JsonDataHolder log)
+        private void AssembleGameState(JsonLogContent log)
         {
             foreach (var player in log.Players)
             {
@@ -85,7 +85,7 @@ namespace LogView.LogTransformer
             }
         }
 
-        private PlayerState AssemblePlayerState(JsonDataHolder log, JsonPlayerObject player)
+        private PlayerState AssemblePlayerState(JsonLogContent log, JsonPlayerObject player)
         {
             var result = new PlayerState { Name = player.Name };
             _playerBuildingHealths.Add(result.Name, new Dictionary<int[], int>());
@@ -102,7 +102,7 @@ namespace LogView.LogTransformer
             return result;
         }
 
-        private void HandleAttackBuilding(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleAttackBuilding(PlayerState playerState, JsonActionParameters actionDatas)
         {
             var buildingOwner = GetPlayerWhoOwnsInList(actionDatas.End, GetBuildingList);
             var buildingPosition =
@@ -137,7 +137,7 @@ namespace LogView.LogTransformer
                     .ToList();
         }
 
-        private void HandleAttackTroop(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleAttackTroop(PlayerState playerState, JsonActionParameters actionDatas)
         {
             var troopOwner = GetPlayerWhoOwnsInList(actionDatas.End, GetTroopList);
             var troopPosition =
@@ -204,7 +204,7 @@ namespace LogView.LogTransformer
             return Array.Empty<int>();
         }
 
-        private void HandleBuild(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleBuild(PlayerState playerState, JsonActionParameters actionDatas)
         {
             var stringFieldMap = new Dictionary<string, List<int[]>>
             {
@@ -235,7 +235,7 @@ namespace LogView.LogTransformer
             findHere.Remove(toRemove);
         }
 
-        private void HandleLearn(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleLearn(PlayerState playerState, JsonActionParameters actionDatas)
         {
             playerState.Techs.Add(actionDatas.Tech);
 
@@ -245,7 +245,7 @@ namespace LogView.LogTransformer
             }
         }
 
-        private void HandleMove(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleMove(PlayerState playerState, JsonActionParameters actionDatas)
         {
             List<int[]> moveableList = new();
             moveableList.AddRange(playerState.Archers);
@@ -259,7 +259,7 @@ namespace LogView.LogTransformer
             moveableList.ForEach(moveable => MoveIfNecessary(moveable, actionDatas));
         }
 
-        private void MoveIfNecessary(int[] moveable, JsonActionDatas actionDatas)
+        private void MoveIfNecessary(int[] moveable, JsonActionParameters actionDatas)
         {
             if (moveable[0] == actionDatas.Start[0] &&
                 moveable[1] == actionDatas.Start[1])
@@ -269,7 +269,7 @@ namespace LogView.LogTransformer
             }
         }
 
-        private void HandleTrain(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleTrain(PlayerState playerState, JsonActionParameters actionDatas)
         {
             var stringTroopMap = new Dictionary<string, List<int[]>>
             {

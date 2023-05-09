@@ -8,6 +8,12 @@ namespace Model
             Init(player);
         }
 
+        public Settler() : base()
+        {
+            initialValues = TroopProperties["Settler"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
+        }
+
         public override void FillRequirements(RequirementsListBase requirements)
         {
             requirements.TrainingBuilderFound = true;

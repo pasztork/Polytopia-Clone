@@ -4,7 +4,7 @@
     {
         public override bool Train(Model.BuildingBase building, Model.TroopBase troop)
         {
-            return Model.GameManager.Get<Model.TrainManagerBase>().Train(building, troop);
+            return Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Train(building, troop);
         }
 
         public override bool MoveTroop(Model.TroopBase troop, Model.TileBase tile)

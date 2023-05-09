@@ -12,8 +12,9 @@ namespace ViewUtil
 
         public bool Process(string commandString)
         {
-            _command = JsonSerializer.Deserialize<JsonLog.JsonActionObject>(commandString);
-            
+            _command = JsonSerializer.Deserialize<JsonLog.JsonActionObject>(commandString) ??
+                throw new ArgumentNullException(nameof(commandString));
+
             if (VerifyCommandExists())
             {
                 actions[_command.Action]();
@@ -27,7 +28,6 @@ namespace ViewUtil
             if (!actions.ContainsKey(_command.Action))
             {
                 throw new ArgumentOutOfRangeException("No such command exists!");
-                //return false;
             }
             return true;
         }

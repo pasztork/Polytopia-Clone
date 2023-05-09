@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "Network/1.0.0": {
         "dependencies": {
-          "GameCore": "1.0.0"
+          "GameCore": "1.0.0",
+          "LogView": "1.0.0"
         },
         "runtime": {
           "Network.dll": {}
@@ -101,6 +102,16 @@
         "runtime": {
           "GameCore.dll": {}
         }
+      },
+      "LogView/1.0.0": {
+        "dependencies": {
+          "GameCore": "1.0.0",
+          "System.Reflection": "4.3.0",
+          "System.Text.Json": "7.0.0"
+        },
+        "runtime": {
+          "LogView.dll": {}
+        }
       }
     }
   },
@@ -188,6 +199,11 @@
       "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
     },
     "GameCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LogView/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

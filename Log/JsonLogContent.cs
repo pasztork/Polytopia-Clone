@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace LogView
+﻿namespace LogView
 {
-    public class JsonDataHolder
+    public class JsonLogContent
     {
         public string Map { get; set; } = "";
-        public List<JsonPlayerObject> Players { get; set; } = new List<JsonPlayerObject>();
-        public List<JsonLog.JsonActionObject> Actions { get; set; } = new List<JsonLog.JsonActionObject>();
+        public List<JsonPlayerObject> Players { get; set; } = new();
+        public List<JsonLog.JsonActionObject> Actions { get; set; } = new();
     }
 }

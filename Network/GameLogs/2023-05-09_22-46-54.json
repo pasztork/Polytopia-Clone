@@ -1,0 +1,58 @@
+{
+  "Map": "D:\\felev6\\onlab\\Polytopia-Clone\\Network\\Maps\\2023-04-01_00-20-33.json",
+  "Players": [
+    {
+      "Name": "Alice",
+      "Color": [],
+      "StartingTile": [
+        12,
+        2
+      ],
+      "StartingCityRange": 0
+    },
+    {
+      "Name": "Bob",
+      "Color": [],
+      "StartingTile": [
+        3,
+        0
+      ],
+      "StartingCityRange": 0
+    }
+  ],
+  "Actions": [
+    {
+      "Name": "Alice",
+      "Action": "Train",
+      "ActionDatas": {
+        "Start": [
+          12,
+          2
+        ],
+        "End": [],
+        "Neighbors": [],
+        "Tech": "",
+        "Building": "",
+        "Troop": "Builder"
+      }
+    },
+    {
+      "Name": "Alice",
+      "Action": "Move",
+      "ActionDatas": {
+        "Start": [
+          12,
+          2
+        ],
+        "End": [
+          12,
+          3
+        ],
+        "Neighbors": [],
+        "Tech": "",
+        "Building": "",
+        "Troop": ""
+      }
+    }
+  ]
+}

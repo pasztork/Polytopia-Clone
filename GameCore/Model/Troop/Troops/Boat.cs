@@ -8,6 +8,12 @@
             Init(player);
         }
 
+        public Boat() : base()
+        {
+            initialValues = TroopProperties["Boat"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
+        }
+
         public override string ToString()
         {
             return "Boat";

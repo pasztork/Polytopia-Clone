@@ -4,6 +4,6 @@
     {
         public string Name { get; set; } = "";
         public string Action { get; set; } = "";
-        public JsonActionDatas ActionDatas { get; set; } = new JsonActionDatas();
+        public JsonActionParameters ActionDatas { get; set; } = new();
     }
 }

@@ -107,9 +107,6 @@ namespace View
             TechTreeWindow.SetActive(false);
         }
 
-        // ez a modell feladata
-        // kiad egy esemenyt, hogy felepitette
-        // ok szia
         public Dictionary<string, Model.TechTreeItemBase> GetNewTechTree()
         {
             Dictionary<string, Model.TechTreeItemBase> modelItems = new Dictionary<string, Model.TechTreeItemBase>();

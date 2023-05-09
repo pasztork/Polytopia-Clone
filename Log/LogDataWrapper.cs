@@ -37,7 +37,7 @@
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogAction.Build.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Building = building.ToString(),
                     Start = JsonLogger.GetTileCoords(building.Tile)
@@ -52,7 +52,7 @@
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogAction.Train.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Troop = troop.ToString(),
                     Start = JsonLogger.GetTileCoords(troop.Tile)
@@ -67,7 +67,7 @@
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogAction.Move.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Start = JsonLogger.GetTileCoords(from),
                     End = JsonLogger.GetTileCoords(target)
@@ -82,7 +82,7 @@
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogAction.AttackTroop.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Start = JsonLogger.GetTileCoords(attacker.Tile),
                     End = JsonLogger.GetTileCoords(targetTile),
@@ -106,7 +106,7 @@
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogAction.AttackBuilding.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Start = JsonLogger.GetTileCoords(attacker.Tile),
                     End = JsonLogger.GetTileCoords(targetTile),
@@ -133,7 +133,7 @@
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogAction.EndTurn.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionParameters()
             };
             JsonLogger.LogNewEvent(action);
         }
@@ -144,7 +144,7 @@
             {
                 Name = player.Name,
                 Action = LogAction.EndGame.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionParameters()
             };
             JsonLogger.LogNewEvent(action);
         }
@@ -155,7 +155,7 @@
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogAction.Learn.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Tech = tech.HashCode
                 }
@@ -169,7 +169,7 @@
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
                 Action = LogAction.MissAttack.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Start = JsonLogger.GetTileCoords(attacker.Tile),
                     End = JsonLogger.GetTileCoords(target.Tile)

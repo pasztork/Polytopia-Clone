@@ -8,6 +8,12 @@
             Init(player);
         }
 
+        public Farm() : base()
+        {
+            initialValues = BuildingProperties["Farm"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
+        }
+
         public override void IncreaseFoodProduction(int amount)
         {
             foreach (ProducerBase producer in Producers)

@@ -189,16 +189,15 @@ Egységek
     ```json
     {
         "Action": "StartGame",
-        "Tiles": [["Grass", "Grass"],["Grass", "Grass"]],
-        "StartingTile": ["x koordináta (int)", "y koordináta (int)"],
-        "Settings": { ...ide jön az éppen használt settings fájl tartalma... }
+        "Tiles": ...ide jön az éppen használt pálya leírása...,
+        "Settings": ...ide jön az éppen használt settings fájl tartalma...
     }
     ```
 - értesíti a soron következő klienst az alábbi formátumú üzenettel:
     ```json
     {
         "Action": "StartTurn",
-        "Name": "ide jön a soron következő kliens neve (string)"
+        "Name": ...ide jön a soron következő kliens neve...
     }
     ```
     - leginkább debug célból küldi vissza a nevet
@@ -221,6 +220,7 @@ Egységek
     - `AttackTroop`
     - `Build`
     - `EndTurn`
+    - `GetGameState` &rarr; lekéri a játék aktuális állapotát
     - `Learn`
     - `Move`
     - `Train`

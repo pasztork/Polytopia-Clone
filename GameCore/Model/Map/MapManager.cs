@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Util;
 
 namespace Model
@@ -56,6 +53,7 @@ namespace Model
 
         public override void LoadMap(string filePath)
         {
+            Console.WriteLine(filePath);
             if (!File.Exists(filePath))
             {
                 throw new FileNotFoundException(filePath);
@@ -66,11 +64,11 @@ namespace Model
             string jsonString = File.ReadAllText(filePath);
             JsonTiles jsonTiles = JsonSerializer.Deserialize<JsonTiles>(jsonString);
             ConvertJsonToModel(jsonTiles);
+            GameManager.Get<MapGeneratorBase>().ConnectLoadedMap();
         }
 
         private void ConvertJsonToModel(JsonTiles jsonTiles)
         {
-            // Create factory to create tiles that are cast back to TileBase
             Factory<TileBase> factory = new Factory<TileBase>();
             IDictionary<string, Func<TileBase>> dict = new Dictionary<string, Func<TileBase>>
             {
@@ -88,9 +86,35 @@ namespace Model
                     Tiles[row, column] = dict[jsonTiles.Tiles[row][column]].Invoke();
                 }
             }
+            FindStartingTiles(jsonTiles);
         }
 
-        internal class JsonTiles
+        private void FindStartingTiles(JsonTiles jsonTiles)
+        {
+            var size = jsonTiles.Tiles.Count;
+            var offsets = new[] { (0, 0), (0, 1), (1, 0), (1, 1) };
+            var rand = new Random(DateTime.Now.Millisecond);
+
+            foreach ((int, int) offset in offsets)
+            {
+                var contenders = new List<TileBase>();
+                for (int x = offset.Item1 * size / 2; x < (offset.Item1 + 1) * size / 2; x++)
+                {
+                    for (int y = offset.Item2 * size / 2; y < (offset.Item2 + 1) * size / 2; y++)
+                    {
+                        var tileName = jsonTiles.Tiles[x][y];
+                        if (tileName.Equals("Grass") || tileName.Equals("Sand"))
+                        {
+                            contenders.Add(Tiles[x, y]);
+                        }
+                    }
+                }
+                GameManager.Get<MapManagerBase>().StartingTiles
+                    .Add(contenders[rand.Next(contenders.Count)]);
+            }
+        }
+
+        private class JsonTiles
         {
             public List<List<string>> Tiles { get; set; }
         }

@@ -82,7 +82,14 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 
     private void ExtractCoordsFromCommand()
     {
-        startCoords = new int[] { Command.ActionDatas.Start[0], Command.ActionDatas.Start[1] };
-        endCoords = new int[] { Command.ActionDatas.End[0], Command.ActionDatas.End[1] };
+        if (Command.ActionDatas.Start.Length > 0)
+        {
+            startCoords = new int[] { Command.ActionDatas.Start[0], Command.ActionDatas.Start[1] };
+        }
+
+        if (Command.ActionDatas.End.Length > 0)
+        {
+            endCoords = new int[] { Command.ActionDatas.End[0], Command.ActionDatas.End[1] };
+        }
     }
 }

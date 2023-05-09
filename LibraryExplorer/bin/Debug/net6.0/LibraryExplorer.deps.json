@@ -116,7 +116,8 @@
       },
       "Network/1.0.0": {
         "dependencies": {
-          "GameCore": "1.0.0"
+          "GameCore": "1.0.0",
+          "LogView": "1.0.0"
         },
         "runtime": {
           "Network.dll": {}

@@ -13,7 +13,7 @@ namespace Model
         /// By default the game is not deterministic.
         /// Must be set to true if used outside of Unity.
         /// </summary>
-        public static bool IsGameplayDeterministic = false;
+        public static bool IsGameplayDeterministic { get; set; } = false;
 
         private static readonly DependencyContainer dependencyContainer = new DependencyContainer();
 
@@ -42,9 +42,6 @@ namespace Model
             OnGameStarted?.Invoke(Players, Get<MapManagerBase>().MapFilePath);
         }
 
-        public static T Get<T>()
-        {
-            return dependencyContainer.Get<T>();
-        }
+        public static T Get<T>() => dependencyContainer.Get<T>();
     }
 }

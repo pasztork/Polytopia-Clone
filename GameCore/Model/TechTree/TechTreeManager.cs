@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Model
+﻿namespace Model
 {
     public class TechTreeManager : TechTreeManagerBase
     {
@@ -8,7 +6,7 @@ namespace Model
         {
             var playerTechs = GameManager.Get<TurnManagerBase>().CurrentPlayer.Techs;
             IList<TechTreeItemBase> techValues = new List<TechTreeItemBase>();
-            foreach (var tech in playerTechs.Values) 
+            foreach (var tech in playerTechs.Values)
             {
                 techValues.Add(tech);
             }
@@ -27,6 +25,8 @@ namespace Model
 
         public override Dictionary<string, TechTreeItemBase> ConnectTree(Dictionary<string, TechTreeItemBase> items)
         {
+            if (items.Count == 0) { FillTechDict(items); }
+
             items["Catapult"].Requirements.Add(items["Mathematics"]);
             items["Catapult"].Requirements.Add(items["Militarism"]);
             items["GemMining"].Requirements.Add(items["Forestry"]);
@@ -47,6 +47,28 @@ namespace Model
             items["StockMarket"].Requirements.Add(items["Mathematics"]);
             items["Strategy"].Requirements.Add(items["Militarism"]);
             return items;
+        }
+
+        private void FillTechDict(Dictionary<string, TechTreeItemBase> dict)
+        {
+            dict.Add("Archery", new ArcheryTech());
+            dict.Add("Banking", new BankingTech());
+            dict.Add("Catapult", new CatapultTech());
+            dict.Add("Farming", new FarmingTech());
+            dict.Add("Forestry", new ForestryTech());
+            dict.Add("GemMining", new GemMiningTech());
+            dict.Add("Harbor", new HarborTech());
+            dict.Add("IndustrialRevolution", new IndustrialRevolutionTech());
+            dict.Add("Irrigation", new IrrigationTech());
+            dict.Add("Mathematics", new MathematicsTech());
+            dict.Add("Militarism", new MilitarismTech());
+            dict.Add("Mining", new MiningTech());
+            dict.Add("Navigation", new NavigationTech());
+            dict.Add("Riding", new RidingTech());
+            dict.Add("Sailing", new SailingTech());
+            dict.Add("Sanitation", new SanitationTech());
+            dict.Add("StockMarket", new StockMarketTech());
+            dict.Add("Strategy", new StrategyTech());
         }
     }
 }

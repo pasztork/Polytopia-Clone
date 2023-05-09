@@ -8,6 +8,12 @@
             Init(player);
         }
 
+        public Warrior() : base()
+        {
+            initialValues = TroopProperties["Warrior"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
+        }
+
         public override string ToString()
         {
             return "Warrior";
