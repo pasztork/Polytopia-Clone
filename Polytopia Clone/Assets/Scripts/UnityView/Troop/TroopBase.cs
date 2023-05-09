@@ -18,6 +18,7 @@ namespace View
         private IList<Tile> TilesToHighLight = new List<Tile>();
 
         protected Model.TroopProperty TroopProperties;
+        public List<string> Buildings { get; protected set; } = new List<string>();
 
         public abstract Model.TroopBase ToModel(Model.Player player);
 
@@ -215,6 +216,11 @@ namespace View
             }
 
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
+        }
+
+        public virtual bool CanBuild()
+        {
+            return false;
         }
     }
 }

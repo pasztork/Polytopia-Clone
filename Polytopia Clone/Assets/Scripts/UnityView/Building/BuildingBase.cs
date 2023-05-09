@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace View
@@ -11,6 +12,7 @@ namespace View
         private Color startColor;
 
         public abstract Model.BuildingBase ToModel(Model.Player player);
+        public List<string> Troops { get; protected set; } = new List<string>();
 
         private void Awake()
         {
@@ -56,9 +58,6 @@ namespace View
                 Deselect();
                 return;
             }
-
-            View.TroopManager.Instance.SelectedTroop = null;
-            View.MapManager.Instance.SelectedTile = null;
             View.BuildingManager.Instance.SelectedBuilding = this;
         }
 
@@ -88,6 +87,11 @@ namespace View
             }
 
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().Value = remainingHealth;
+        }
+
+        public virtual bool CanTrain()
+        {
+            return false;
         }
     }
 }

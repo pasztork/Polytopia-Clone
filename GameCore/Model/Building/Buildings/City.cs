@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Model
+﻿namespace Model
 {
     public class City : TroopTrainingBuilding
     {
@@ -9,6 +6,12 @@ namespace Model
         {
             initialValues = BuildingProperties["City"];
             Init(player);
+        }
+
+        public City() : base()
+        {
+            initialValues = BuildingProperties["City"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
         }
 
         public override IList<TileBase> GetTilesInRange()

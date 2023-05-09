@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Model
+﻿namespace Model
 {
     public abstract class TroopBase
     {
@@ -97,7 +93,7 @@ namespace Model
         public bool TakeDamage(int damage)
         {
             bool dodged = new Random().NextDouble() <= TroopProperty.DodgeRate;
-            if (dodged)
+            if (dodged && !GameManager.IsGameplayDeterministic)
                 return false;
 
             TroopProperty.Health -= damage;

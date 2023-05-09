@@ -8,7 +8,7 @@ namespace ReplayView
     {
         [SerializeField]
         private string jsonLogFilePath;
-        private LogView.JsonDataHolder jsonDataHolder;
+        private LogView.JsonLogContent jsonDataHolder;
         private static ReloadManager instance;
         public static ReloadManager Instance
         {
@@ -25,7 +25,7 @@ namespace ReplayView
         private void Awake()
         {
             string fileContent = File.ReadAllText(jsonLogFilePath);
-            jsonDataHolder = JsonSerializer.Deserialize<LogView.JsonDataHolder>(fileContent);
+            jsonDataHolder = JsonSerializer.Deserialize<LogView.JsonLogContent>(fileContent);
 
             Model.GameManager.Get<Model.MapManagerBase>().LoadMap(jsonDataHolder.Map);
             Model.GameManager.Get<Model.MapGeneratorBase>().ConnectLoadedMap();

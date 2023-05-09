@@ -75,9 +75,6 @@ namespace View
                 View.TroopManager.Instance.MoveSelectedTroop(this);
                 return;
             }
-
-            View.TroopManager.Instance.SelectedTroop = null;
-            View.BuildingManager.Instance.SelectedBuilding = null;
             View.MapManager.Instance.SelectedTile = this;
         }
 

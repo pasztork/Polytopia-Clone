@@ -8,6 +8,12 @@
             Init(player);
         }
 
+        public Supplier() : base()
+        {
+            initialValues = BuildingProperties["Supplier"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
+        }
+
         public override void IncreaseMaterialProduction(int amount)
         {
             foreach (ProducerBase producer in Producers)

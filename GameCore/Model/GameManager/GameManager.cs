@@ -7,6 +7,14 @@ namespace Model
         public static event Action<IList<Player>, string> OnGameStarted;
 
         public static IList<Player> Players { get; } = new List<Player>();
+
+        /// <summary>
+        /// Should be set before game is started.
+        /// By default the game is not deterministic.
+        /// Must be set to true if used outside of Unity.
+        /// </summary>
+        public static bool IsGameplayDeterministic { get; set; } = false;
+
         private static readonly DependencyContainer dependencyContainer = new DependencyContainer();
 
         private static readonly string directory = $"{Directory.GetCurrentDirectory()}\\GameSettings";
@@ -34,9 +42,6 @@ namespace Model
             OnGameStarted?.Invoke(Players, Get<MapManagerBase>().MapFilePath);
         }
 
-        public static T Get<T>()
-        {
-            return dependencyContainer.Get<T>();
-        }
+        public static T Get<T>() => dependencyContainer.Get<T>();
     }
 }

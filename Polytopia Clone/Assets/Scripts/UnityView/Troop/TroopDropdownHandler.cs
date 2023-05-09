@@ -21,17 +21,22 @@ namespace View
             Model.GameManager.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
             Model.GameManager.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
             Model.GameManager.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
+            View.TrainPanelController.Instance.OnTrainPanelRevealed += UpdateContent;
 
             View.TroopManager.Instance.OnTrainAttempted += SetSelected;
         }
 
         private void UpdateContent(Model.Player player)
         {
+            if (View.BuildingManager.Instance.SelectedBuilding == null)
+                return;
+
             dropdown.ClearOptions();
             IList<string> availableTroops = player.AvailableTroops;
             foreach (string troopName in availableTroops)
             {
-                if (player.ResourceContainer.HasEnoughFor(Model.Cost.CreateNewFromJsonCost(Model.TroopBase.TroopProperties[troopName].Cost)))
+                if (player.ResourceContainer.HasEnoughFor(Model.Cost.CreateNewFromJsonCost(Model.TroopBase.TroopProperties[troopName].Cost))
+                    && View.BuildingManager.Instance.SelectedBuilding.Troops.Contains(troopName))
                     dropdown.options.Add(new TMP_Dropdown.OptionData() { text = troopName });
             }
             dropdown.value = 0;

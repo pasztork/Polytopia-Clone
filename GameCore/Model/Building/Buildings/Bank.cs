@@ -2,11 +2,16 @@
 {
     public class Bank : NonTrainingBuilding
     {
-
         public Bank(Player player) : base()
         {
             initialValues = BuildingProperties["Bank"];
             Init(player);
+        }
+
+        public Bank() : base()
+        {
+            initialValues = BuildingProperties["Bank"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
         }
 
         public override void IncreaseMoneyProduction(int amount)

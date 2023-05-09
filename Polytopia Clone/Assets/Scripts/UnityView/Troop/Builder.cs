@@ -12,6 +12,7 @@ namespace View
         {
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
                 Initialize(Model.TroopBase.TroopProperties["Builder"].Health);
+            Buildings.AddRange(new List<string>() { "Farm", "Harbor", "Supplier", "Bank" });
         }
 
         public override Model.TroopBase ToModel(Model.Player player)

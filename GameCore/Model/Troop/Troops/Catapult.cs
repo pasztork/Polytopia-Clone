@@ -8,6 +8,12 @@ namespace Model
             Init(player);
         }
 
+        public Catapult() : base()
+        {
+            initialValues = TroopProperties["Catapult"];
+            Init(GameManager.Get<TurnManagerBase>().CurrentPlayer);
+        }
+
         public override List<TileBase> Attack(TroopBase troop)
         {
             IList<TileBase> tilesInRange = GetTilesInAttackRange(TroopProperty.AttackRange);

@@ -1,18 +1,35 @@
 ﻿using JsonLog;
+using Model;
 using System.Text.Json;
 
 namespace LogView.LogTransformer
 {
     public class LogTransformer
     {
+        public string LogFilePath { get; set; }
+        public string SettingsFilePath { get; set; } = $"{Directory.GetCurrentDirectory()}\\GameSettings\\PropertiesSettings.json";
+
         private readonly GameState _gameState = new();
 
-        private readonly Dictionary<string, Action<PlayerState, JsonActionDatas>> _processorFunctions;
+        private readonly Dictionary<string, Action<PlayerState, JsonActionParameters>> _processorFunctions;
+
+        private readonly Dictionary<string, PlayerState> _playerStates = new();
+
+        private Settings _settings = null;
+
+        private readonly Dictionary<string, Dictionary<int[], int>> _playerBuildingHealths = new();
+        private readonly Dictionary<string, Dictionary<int[], int>> _playerTroopHealths = new();
+        private readonly Dictionary<string, Settings> _playerSettings = new();
+
+        private string previousPlayer = "";
 
         public LogTransformer()
         {
-            _processorFunctions = new Dictionary<string, Action<PlayerState, JsonActionDatas>>
+            LogFilePath = JsonLogger.FilePath;
+            _processorFunctions = new Dictionary<string, Action<PlayerState, JsonActionParameters>>
             {
+                { "AttackBuilding", HandleAttackBuilding },
+                { "AttackTroop", HandleAttackTroop },
                 { "Build", HandleBuild },
                 { "Learn", HandleLearn },
                 { "Move", HandleMove },
@@ -25,42 +42,169 @@ namespace LogView.LogTransformer
         /// one JSON object that represents the current inner state.
         /// </summary>
         /// <returns>
-        /// A string in JSON format containing the state of the game.
+        /// A string in JSON format containing the current state of the game.
         /// </returns>
         public string Transform()
         {
-            var filePath = JsonLogger.FilePath;
-            var json = File.ReadAllText(filePath);
-            var log = JsonSerializer.Deserialize<JsonDataHolder>(json);
+            string config = File.ReadAllText(SettingsFilePath);
+            _settings = JsonSerializer.Deserialize<Settings>(config)!;
+            var json = File.ReadAllText(LogFilePath);
+            var log = JsonSerializer.Deserialize<JsonLogContent>(json) ??
+                throw new JsonException("Unable to deserialize log file.");
             AssembleGameState(log);
             return JsonSerializer.Serialize(_gameState);
         }
 
-        private void AssembleGameState(JsonDataHolder log)
+        private void AssembleGameState(JsonLogContent log)
         {
             foreach (var player in log.Players)
             {
                 var p = AssemblePlayerState(log, player);
-                _gameState.PlayerState.Add(p);
+                _playerStates.Add(p.Name, p);
+            }
+
+            foreach (var action in log.Actions)
+            {
+                if (!_processorFunctions.ContainsKey(action.Action))
+                {
+                    continue;
+                }
+
+                if (!previousPlayer.Equals(action.Name) && _playerStates[action.Name].Techs.Contains("Sanitation"))
+                {
+                    TechTransformer.Sanitation(_playerStates[action.Name], _playerTroopHealths[action.Name]);
+                    previousPlayer = action.Name;
+                }
+                var function = _processorFunctions[action.Action];
+                function.Invoke(_playerStates[action.Name], action.ActionDatas);
+            }
+
+            foreach (var playerState in _playerStates.Values)
+            {
+                _gameState.PlayerState.Add(playerState);
             }
         }
 
-        private PlayerState AssemblePlayerState(JsonDataHolder log, JsonPlayerObject player)
+        private PlayerState AssemblePlayerState(JsonLogContent log, JsonPlayerObject player)
         {
             var result = new PlayerState { Name = player.Name };
-            result.Cities.Add(player.StartingTile);
-            foreach (var action in log.Actions)
+            _playerBuildingHealths.Add(result.Name, new Dictionary<int[], int>());
+            _playerTroopHealths.Add(result.Name, new Dictionary<int[], int>());
+            _playerSettings.Add(result.Name, new Settings()
             {
-                if (action.Name.Equals(player.Name) && _processorFunctions.ContainsKey(action.Action))
-                {
-                    var function = _processorFunctions[action.Action];
-                    function.Invoke(result, action.ActionDatas);
-                }
+                BaseProduction = _settings.BaseProduction,
+                BuildingProperties = _settings.BuildingProperties,
+                TechTreeItemCosts = _settings.TechTreeItemCosts,
+                TroopProperties = _settings.TroopProperties,
             }
+            );
+            result.Cities.Add(player.StartingTile);
             return result;
         }
 
-        private void HandleBuild(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleAttackBuilding(PlayerState playerState, JsonActionParameters actionDatas)
+        {
+            var buildingOwner = GetPlayerWhoOwnsInList(actionDatas.End, GetBuildingList);
+            var buildingPosition =
+                GetReferenceOfArrayWithSameValues(actionDatas.End, _playerBuildingHealths[buildingOwner].Keys.ToList());
+            _playerBuildingHealths[buildingOwner][buildingPosition]
+                -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
+
+            if (_playerBuildingHealths[buildingOwner][buildingPosition] <= 0)
+            {
+                var owner = _playerStates[buildingOwner];
+                var allBuildings = new List<List<int[]>>
+                {
+                    owner.Banks,
+                    owner.Cities,
+                    owner.Farms,
+                    owner.Harbors,
+                    owner.Suppliers,
+                };
+
+                allBuildings.ForEach(b => FindAndRemoveIfPresent(buildingPosition, b));
+                _playerBuildingHealths[buildingOwner].Remove(buildingPosition);
+            }
+        }
+
+        private List<int[]> GetBuildingList(PlayerState playerState)
+        {
+            return playerState.Banks
+                    .Concat(playerState.Cities)
+                    .Concat(playerState.Farms)
+                    .Concat(playerState.Harbors)
+                    .Concat(playerState.Suppliers)
+                    .ToList();
+        }
+
+        private void HandleAttackTroop(PlayerState playerState, JsonActionParameters actionDatas)
+        {
+            var troopOwner = GetPlayerWhoOwnsInList(actionDatas.End, GetTroopList);
+            var troopPosition =
+                GetReferenceOfArrayWithSameValues(actionDatas.End, _playerTroopHealths[troopOwner].Keys.ToList());
+            _playerTroopHealths[troopOwner][troopPosition]
+                -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
+
+            if (_playerTroopHealths[troopOwner][troopPosition] <= 0)
+            {
+                var owner = _playerStates[troopOwner];
+                var allTroops = new List<List<int[]>>
+                {
+                    owner.Archers,
+                    owner.Boats,
+                    owner.Builders,
+                    owner.Catapults,
+                    owner.Scouts,
+                    owner.Settlers,
+                    owner.Warriors,
+                };
+                allTroops.ForEach(t => FindAndRemoveIfPresent(troopPosition, t));
+                _playerTroopHealths[troopOwner].Remove(troopPosition);
+            }
+        }
+
+        private List<int[]> GetTroopList(PlayerState playerState)
+        {
+            return playerState.Archers
+                    .Concat(playerState.Boats)
+                    .Concat(playerState.Builders)
+                    .Concat(playerState.Catapults)
+                    .Concat(playerState.Scouts)
+                    .Concat(playerState.Settlers)
+                    .Concat(playerState.Warriors)
+                    .ToList();
+        }
+
+        private string GetPlayerWhoOwnsInList(int[] coord, Func<PlayerState, List<int[]>> listFunc)
+        {
+            foreach (var p in _playerStates.Values)
+            {
+                foreach (var t in listFunc.Invoke(p))
+                {
+                    if (coord[0] == t[0] && coord[1] == t[1])
+                    {
+                        return p.Name;
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
+
+        private int[] GetReferenceOfArrayWithSameValues(int[] values, List<int[]> original)
+        {
+            foreach (var v in original)
+            {
+                if (values[0] == v[0] && values[1] == v[1])
+                {
+                    return v;
+                }
+            }
+
+            return Array.Empty<int>();
+        }
+
+        private void HandleBuild(PlayerState playerState, JsonActionParameters actionDatas)
         {
             var stringFieldMap = new Dictionary<string, List<int[]>>
             {
@@ -71,6 +215,7 @@ namespace LogView.LogTransformer
                 { "Supplier", playerState.Suppliers },
             };
             stringFieldMap[actionDatas.Building].Add(actionDatas.Start);
+            _playerBuildingHealths[playerState.Name].Add(actionDatas.Start, _settings.BuildingProperties[actionDatas.Building].Health);
 
             FindAndRemoveIfPresent(actionDatas.Start, playerState.Builders);
             FindAndRemoveIfPresent(actionDatas.Start, playerState.Settlers);
@@ -90,12 +235,17 @@ namespace LogView.LogTransformer
             findHere.Remove(toRemove);
         }
 
-        private void HandleLearn(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleLearn(PlayerState playerState, JsonActionParameters actionDatas)
         {
             playerState.Techs.Add(actionDatas.Tech);
+
+            if (actionDatas.Tech.Equals("Militarism"))
+            {
+                TechTransformer.Militarism(_playerSettings[playerState.Name]);
+            }
         }
 
-        private void HandleMove(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleMove(PlayerState playerState, JsonActionParameters actionDatas)
         {
             List<int[]> moveableList = new();
             moveableList.AddRange(playerState.Archers);
@@ -109,7 +259,7 @@ namespace LogView.LogTransformer
             moveableList.ForEach(moveable => MoveIfNecessary(moveable, actionDatas));
         }
 
-        private void MoveIfNecessary(int[] moveable, JsonActionDatas actionDatas)
+        private void MoveIfNecessary(int[] moveable, JsonActionParameters actionDatas)
         {
             if (moveable[0] == actionDatas.Start[0] &&
                 moveable[1] == actionDatas.Start[1])
@@ -119,7 +269,7 @@ namespace LogView.LogTransformer
             }
         }
 
-        private void HandleTrain(PlayerState playerState, JsonActionDatas actionDatas)
+        private void HandleTrain(PlayerState playerState, JsonActionParameters actionDatas)
         {
             var stringTroopMap = new Dictionary<string, List<int[]>>
             {
@@ -131,7 +281,56 @@ namespace LogView.LogTransformer
                 { "Settler", playerState.Settlers },
                 { "Warrior", playerState.Warriors },
             };
-            stringTroopMap[actionDatas.Building].Add(actionDatas.Start);
+            stringTroopMap[actionDatas.Troop].Add(actionDatas.Start);
+            _playerTroopHealths[playerState.Name].Add(actionDatas.Start, _settings.TroopProperties[actionDatas.Troop].Health);
+        }
+    }
+
+
+    public static class TechTransformer
+    {
+
+        public static void Militarism(Settings settings)
+        {
+            settings.TroopProperties["Archer"].Damage += 1;
+            settings.TroopProperties["Boat"].Damage += 1;
+            settings.TroopProperties["Catapult"].MovementRange += 1;
+            settings.TroopProperties["Scout"].MovementRange += 1;
+            settings.TroopProperties["Warrior"].MovementRange += 1;
+        }
+
+        public static void Sanitation(PlayerState playerState, Dictionary<int[], int> troopHealths)
+        {
+            HashSet<int[]> tilesInCityRange = new HashSet<int[]>();
+            foreach (int[] coords in playerState.Cities)
+            {
+                tilesInCityRange.Add(coords);
+                tilesInCityRange.Add(new int[] { coords[0] - 1, coords[1] - 1 });
+                tilesInCityRange.Add(new int[] { coords[0] - 1, coords[1] });
+                tilesInCityRange.Add(new int[] { coords[0] - 1, coords[1] + 1 });
+                tilesInCityRange.Add(new int[] { coords[0], coords[1] - 1 });
+                tilesInCityRange.Add(new int[] { coords[0], coords[1] + 1 });
+                tilesInCityRange.Add(new int[] { coords[0] + 1, coords[1] - 1 });
+                tilesInCityRange.Add(new int[] { coords[0] + 1, coords[1] });
+                tilesInCityRange.Add(new int[] { coords[0] + 1, coords[1] + 1 });
+            }
+            List<int[]> troopsList =
+                    playerState.Archers
+                    .Concat(playerState.Boats)
+                    .Concat(playerState.Builders)
+                    .Concat(playerState.Catapults)
+                    .Concat(playerState.Scouts)
+                    .Concat(playerState.Settlers)
+                    .Concat(playerState.Warriors)
+                    .ToList();
+
+            foreach (int[] troopCoords in troopsList)
+            {
+                if (tilesInCityRange.Contains(troopCoords))
+                {
+                    troopHealths[troopCoords] += 1;
+                }
+            }
         }
     }
 }

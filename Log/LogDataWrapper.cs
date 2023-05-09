@@ -36,8 +36,8 @@
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Build.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                Action = LogAction.Build.ToString(),
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Building = building.ToString(),
                     Start = JsonLogger.GetTileCoords(building.Tile)
@@ -51,8 +51,8 @@
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Train.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                Action = LogAction.Train.ToString(),
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Troop = troop.ToString(),
                     Start = JsonLogger.GetTileCoords(troop.Tile)
@@ -66,8 +66,8 @@
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Move.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                Action = LogAction.Move.ToString(),
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Start = JsonLogger.GetTileCoords(from),
                     End = JsonLogger.GetTileCoords(target)
@@ -76,16 +76,17 @@
             JsonLogger.LogNewEvent(action);
         }
 
-        public void TriggerAttackTroop(Model.TileBase attackerTile, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
+        public void TriggerAttackTroop(Model.TroopBase attacker, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Attacktroop.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                Action = LogAction.AttackTroop.ToString(),
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
-                    Start = JsonLogger.GetTileCoords(attackerTile),
+                    Start = JsonLogger.GetTileCoords(attacker.Tile),
                     End = JsonLogger.GetTileCoords(targetTile),
+                    Troop = attacker.ToString(),
                     Neighbors = new int[targetedTiles.Count * 2]
                 }
             };
@@ -99,16 +100,17 @@
             JsonLogger.LogNewEvent(action);
         }
 
-        public void TriggerAttackBuilding(Model.TileBase attackerTile, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
+        public void TriggerAttackBuilding(Model.TroopBase attacker, Model.TileBase targetTile, List<Model.TileBase> targetedTiles)
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Attackbuilding.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                Action = LogAction.AttackBuilding.ToString(),
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
-                    Start = JsonLogger.GetTileCoords(attackerTile),
-                    End = JsonLogger.GetTileCoords(targetTile)
+                    Start = JsonLogger.GetTileCoords(attacker.Tile),
+                    End = JsonLogger.GetTileCoords(targetTile),
+                    Troop = attacker.ToString()
                 }
             };
             if (targetedTiles.Count > 0)
@@ -130,8 +132,8 @@
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Endturn.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                Action = LogAction.EndTurn.ToString(),
+                ActionDatas = new JsonLog.JsonActionParameters()
             };
             JsonLogger.LogNewEvent(action);
         }
@@ -140,9 +142,9 @@
         {
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
-                Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Gameend.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                Name = player.Name,
+                Action = LogAction.EndGame.ToString(),
+                ActionDatas = new JsonLog.JsonActionParameters()
             };
             JsonLogger.LogNewEvent(action);
         }
@@ -152,8 +154,8 @@
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Learn.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                Action = LogAction.Learn.ToString(),
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Tech = tech.HashCode
                 }
@@ -166,8 +168,8 @@
             JsonLog.JsonActionObject action = new JsonLog.JsonActionObject()
             {
                 Name = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name,
-                Action = LogActions.Missattack.ToString(),
-                ActionDatas = new JsonLog.JsonActionDatas()
+                Action = LogAction.MissAttack.ToString(),
+                ActionDatas = new JsonLog.JsonActionParameters()
                 {
                     Start = JsonLogger.GetTileCoords(attacker.Tile),
                     End = JsonLogger.GetTileCoords(target.Tile)

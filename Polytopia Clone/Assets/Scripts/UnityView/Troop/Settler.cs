@@ -8,6 +8,7 @@ namespace View
         {
             GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
                 Initialize(Model.TroopBase.TroopProperties["Settler"].Health);
+            Buildings.Add("City");
         }
 
         public override Model.TroopBase ToModel(Model.Player player)
