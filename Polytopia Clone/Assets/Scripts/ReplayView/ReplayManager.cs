@@ -33,11 +33,11 @@ namespace ReplayView
             actionFunctions.Add("Train", Train);
             actionFunctions.Add("Build", Build);
             actionFunctions.Add("Learn", Learn);
-            actionFunctions.Add("Attacktroop", AttackTroop);
-            actionFunctions.Add("Attackbuilding", AttackBuilding);
-            actionFunctions.Add("Missattack", MissAttack);
-            actionFunctions.Add("Endturn", EndTurn);
-            actionFunctions.Add("Gameend", GameEnd);
+            actionFunctions.Add("AttackTroop", AttackTroop);
+            actionFunctions.Add("AttackBuilding", AttackBuilding);
+            actionFunctions.Add("MissAttack", MissAttack);
+            actionFunctions.Add("EndTurn", EndTurn);
+            actionFunctions.Add("EndGame", GameEnd);
             skipButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize} Steps";
             skipFastButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize * 2} Steps";
         }

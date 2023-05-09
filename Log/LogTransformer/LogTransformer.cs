@@ -28,8 +28,8 @@ namespace LogView.LogTransformer
             LogFilePath = JsonLogger.FilePath;
             _processorFunctions = new Dictionary<string, Action<PlayerState, JsonActionDatas>>
             {
-                { "Attackbuilding", HandleAttackBuilding },
-                { "Attacktroop", HandleAttackTroop },
+                { "AttackBuilding", HandleAttackBuilding },
+                { "AttackTroop", HandleAttackTroop },
                 { "Build", HandleBuild },
                 { "Learn", HandleLearn },
                 { "Move", HandleMove },
