@@ -8,7 +8,7 @@ NAME = 'Alice'
 
 
 def on_open(ws):
-    message = {'Name': NAME}
+    message = { 'Name': NAME }
     ws.send(json.dumps(message))
 
 

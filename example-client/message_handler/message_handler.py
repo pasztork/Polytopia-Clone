@@ -15,7 +15,10 @@ def start_game(message):
 def start_turn(message):
     if (message['Name'] != this.NAME):
         return {}
-    return {'Action': 'FinishTurn'}
+    return {
+        'Name': this.NAME,
+        'Action': 'FinishTurn'
+    }
 
 
 MESSAGE_FUNCTION_DICT = {
