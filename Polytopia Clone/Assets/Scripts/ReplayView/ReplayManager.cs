@@ -20,7 +20,6 @@ namespace ReplayView
 		[SerializeField] private Button stepForwardButton;
 		[SerializeField] private Button skipButton;
 		[SerializeField] private Button skipFastButton;
-		[SerializeField] private Button stepBackwardButton;
 		[SerializeField] private GameObject techListPanel;
 		[SerializeField] private TextMeshProUGUI techListText;
 		[SerializeField] private TextMeshProUGUI actionText;
@@ -68,7 +67,6 @@ namespace ReplayView
 				PlayAction(actionList[cursor]);
 				UpdateTechList();
 				cursor++;
-				stepBackwardButton.interactable = true;
 			}
 			else
 			{
