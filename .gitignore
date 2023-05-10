@@ -81,4 +81,5 @@ Network/bin/
 __pycache__/
 
 # Ignore LibraryExplorer
-LibraryExplorer/bin
+[Bb]in/
+Network/GameLogs

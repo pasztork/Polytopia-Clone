@@ -181,18 +181,15 @@ Egységek
         "Name": "ide jön a kliens neve (string)"
     }
     ```
-- a kliensek számát előre beállítjuk
-    - amikor a kliensek száma eléri ezt a számot, a játék elindul
-    - ilyenkor a szerver minden kliensnek elküldi a pályát, a mentéshez használt formátumban
-    - illetve az adott kliens kezdő mezőjét is elküldi
-    - továbbá a játék beállításait is elküldi
+- csatlakozás után a szerver visszaküldi a játék beállításait a lenti formában
     ```json
     {
-        "Action": "StartGame",
-        "Tiles": ...ide jön az éppen használt pálya leírása...,
-        "Settings": ...ide jön az éppen használt settings fájl tartalma...
+        "Tiles": ...a pálya leírása...,
+        "Settings": ...a játék beállításai...
     }
     ```
+- a kliensek számát előre beállítjuk
+    - amikor a kliensek száma eléri ezt a számot, a játék elindul
 - értesíti a soron következő klienst az alábbi formátumú üzenettel:
     ```json
     {
@@ -200,14 +197,9 @@ Egységek
         "Name": ...ide jön a soron következő kliens neve...
     }
     ```
-    - leginkább debug célból küldi vissza a nevet
 - a ,,[Parancsok](#parancsok)'' c. fejezetben leírt parancsokat tudja feldolgozni a szerver
-    - a kliens egy tömben küldi el az összes parancsot, amit az adott körben ki akar adni
-    - a szervert ezeket sorban feldolgozza
-- minden validált parancsot az összes kliensnek továbbítja a szerver
-    - a küldő is visszakapja, így meggyőződhet arról, hogy helyes volt a kiadott parancsa
-- a szervertől bármikor le lehet kérdezni a játék aktuális állapotát
-    - ehhez a `LogTransformer` komponenst használja a hálózat
+    - a kliens egyenként küldhet parancsokat 
+- minden validált parancsot az összes kliensnek (kivéve, amelyik kiadta a parancsot) továbbítja a szerver
 - amikor a kliens végzett a körével, `EndTurn` parancsot küld, ekkor a szerver értesíti a következő klienst
 - amikor az egyik kliens győz, a szerver felbontja a kapcsolatot az összes klienssel
 

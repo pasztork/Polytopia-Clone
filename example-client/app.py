@@ -14,6 +14,8 @@ def on_open(ws):
 
 def on_message(ws, message):
     response = message_handler.get_response_for(message)
+    if (response == None):
+        return
     ws.send(json.dumps(response))
 
 

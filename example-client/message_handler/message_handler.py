@@ -8,9 +8,9 @@ this = sys.modules[__name__]
 this.tiles = None
 
 
-def start_game(message):
+def setup(message):
     this.tiles = message['Tiles']
-    return {}
+    return None
 
 
 def start_turn(message):
@@ -23,7 +23,7 @@ def start_turn(message):
 
 
 MESSAGE_FUNCTION_DICT = {
-    'StartGame': start_game,
+    'Setup': setup,
     'StartTurn': start_turn,
 }
 
