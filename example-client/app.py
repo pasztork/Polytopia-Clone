@@ -4,7 +4,7 @@ import websocket
 from message_handler import message_handler
 
 SERVER_URL = 'ws://localhost:53658/ws'
-NAME = 'Alice'
+NAME = 'Cersei'
 
 
 def on_open(ws):

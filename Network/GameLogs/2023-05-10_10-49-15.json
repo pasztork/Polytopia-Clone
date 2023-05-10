@@ -1,0 +1,24 @@
+{
+  "Map": "D:\\felev6\\onlab\\Polytopia-Clone\\Network\\Maps\\2023-04-01_00-20-33.json",
+  "Players": [
+    {
+      "Name": "Cersei",
+      "Color": [],
+      "StartingTile": [
+        15,
+        5
+      ],
+      "StartingCityRange": 0
+    },
+    {
+      "Name": "Alice",
+      "Color": [],
+      "StartingTile": [
+        5,
+        4
+      ],
+      "StartingCityRange": 0
+    }
+  ],
+  "Actions": []
+}

@@ -24,7 +24,7 @@
     {
       "Name": "Alice",
       "Action": "Train",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [
           9,
           2
@@ -39,7 +39,7 @@
     {
       "Name": "Alice",
       "Action": "EndTurn",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [],
         "End": [],
         "Neighbors": [],
@@ -51,7 +51,7 @@
     {
       "Name": "Bob",
       "Action": "EndTurn",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [],
         "End": [],
         "Neighbors": [],

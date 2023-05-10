@@ -2,20 +2,20 @@
   "Map": "D:\\felev6\\onlab\\Polytopia-Clone\\Network\\Maps\\2023-04-01_00-20-33.json",
   "Players": [
     {
-      "Name": "Alice",
+      "Name": "Cersei",
       "Color": [],
       "StartingTile": [
-        6,
-        12
+        2,
+        9
       ],
       "StartingCityRange": 0
     },
     {
-      "Name": "Bob",
+      "Name": "Alice",
       "Color": [],
       "StartingTile": [
         9,
-        10
+        13
       ],
       "StartingCityRange": 0
     }
@@ -35,11 +35,47 @@
     },
     {
       "Name": "Alice",
+      "Action": "Learn",
+      "Parameters": {
+        "Start": [],
+        "End": [],
+        "Neighbors": [],
+        "Tech": "Mining",
+        "Building": "",
+        "Troop": ""
+      }
+    },
+    {
+      "Name": "Alice",
+      "Action": "Learn",
+      "Parameters": {
+        "Start": [],
+        "End": [],
+        "Neighbors": [],
+        "Tech": "IndustrialRevolution",
+        "Building": "",
+        "Troop": ""
+      }
+    },
+    {
+      "Name": "Alice",
+      "Action": "Learn",
+      "Parameters": {
+        "Start": [],
+        "End": [],
+        "Neighbors": [],
+        "Tech": "Mathematics",
+        "Building": "",
+        "Troop": ""
+      }
+    },
+    {
+      "Name": "Alice",
       "Action": "Train",
       "Parameters": {
         "Start": [
-          6,
-          12
+          9,
+          13
         ],
         "End": [],
         "Neighbors": [],
@@ -53,12 +89,12 @@
       "Action": "Move",
       "Parameters": {
         "Start": [
-          6,
-          12
+          9,
+          13
         ],
         "End": [
-          6,
-          13
+          9,
+          14
         ],
         "Neighbors": [],
         "Tech": "",
@@ -71,13 +107,13 @@
       "Action": "Build",
       "Parameters": {
         "Start": [
-          6,
-          13
+          9,
+          14
         ],
         "End": [],
         "Neighbors": [],
         "Tech": "",
-        "Building": "Farm",
+        "Building": "Supplier",
         "Troop": ""
       }
     },
@@ -94,7 +130,7 @@
       }
     },
     {
-      "Name": "Bob",
+      "Name": "Cersei",
       "Action": "EndTurn",
       "Parameters": {
         "Start": [],
@@ -110,8 +146,8 @@
       "Action": "Train",
       "Parameters": {
         "Start": [
-          6,
-          12
+          9,
+          13
         ],
         "End": [],
         "Neighbors": [],
@@ -125,13 +161,37 @@
       "Action": "Move",
       "Parameters": {
         "Start": [
-          6,
-          12
+          9,
+          13
         ],
         "End": [
-          6,
-          11
+          9,
+          15
         ],
+        "Neighbors": [],
+        "Tech": "",
+        "Building": "",
+        "Troop": ""
+      }
+    },
+    {
+      "Name": "Alice",
+      "Action": "EndTurn",
+      "Parameters": {
+        "Start": [],
+        "End": [],
+        "Neighbors": [],
+        "Tech": "",
+        "Building": "",
+        "Troop": ""
+      }
+    },
+    {
+      "Name": "Cersei",
+      "Action": "EndTurn",
+      "Parameters": {
+        "Start": [],
+        "End": [],
         "Neighbors": [],
         "Tech": "",
         "Building": "",

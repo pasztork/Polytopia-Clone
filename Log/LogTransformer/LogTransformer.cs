@@ -76,7 +76,7 @@ namespace LogView.LogTransformer
                     previousPlayer = action.Name;
                 }
                 var function = _processorFunctions[action.Action];
-                function.Invoke(_playerStates[action.Name], action.ActionDatas);
+                function.Invoke(_playerStates[action.Name], action.Parameters);
             }
 
             foreach (var playerState in _playerStates.Values)
@@ -102,13 +102,13 @@ namespace LogView.LogTransformer
             return result;
         }
 
-        private void HandleAttackBuilding(PlayerState playerState, JsonActionParameters actionDatas)
+        private void HandleAttackBuilding(PlayerState playerState, JsonActionParameters Parameters)
         {
-            var buildingOwner = GetPlayerWhoOwnsInList(actionDatas.End, GetBuildingList);
+            var buildingOwner = GetPlayerWhoOwnsInList(Parameters.End, GetBuildingList);
             var buildingPosition =
-                GetReferenceOfArrayWithSameValues(actionDatas.End, _playerBuildingHealths[buildingOwner].Keys.ToList());
+                GetReferenceOfArrayWithSameValues(Parameters.End, _playerBuildingHealths[buildingOwner].Keys.ToList());
             _playerBuildingHealths[buildingOwner][buildingPosition]
-                -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
+                -= _playerSettings[playerState.Name].TroopProperties[Parameters.Troop].Damage;
 
             if (_playerBuildingHealths[buildingOwner][buildingPosition] <= 0)
             {
@@ -137,13 +137,13 @@ namespace LogView.LogTransformer
                     .ToList();
         }
 
-        private void HandleAttackTroop(PlayerState playerState, JsonActionParameters actionDatas)
+        private void HandleAttackTroop(PlayerState playerState, JsonActionParameters Parameters)
         {
-            var troopOwner = GetPlayerWhoOwnsInList(actionDatas.End, GetTroopList);
+            var troopOwner = GetPlayerWhoOwnsInList(Parameters.End, GetTroopList);
             var troopPosition =
-                GetReferenceOfArrayWithSameValues(actionDatas.End, _playerTroopHealths[troopOwner].Keys.ToList());
+                GetReferenceOfArrayWithSameValues(Parameters.End, _playerTroopHealths[troopOwner].Keys.ToList());
             _playerTroopHealths[troopOwner][troopPosition]
-                -= _playerSettings[playerState.Name].TroopProperties[actionDatas.Troop].Damage;
+                -= _playerSettings[playerState.Name].TroopProperties[Parameters.Troop].Damage;
 
             if (_playerTroopHealths[troopOwner][troopPosition] <= 0)
             {
@@ -204,7 +204,7 @@ namespace LogView.LogTransformer
             return Array.Empty<int>();
         }
 
-        private void HandleBuild(PlayerState playerState, JsonActionParameters actionDatas)
+        private void HandleBuild(PlayerState playerState, JsonActionParameters Parameters)
         {
             var stringFieldMap = new Dictionary<string, List<int[]>>
             {
@@ -214,11 +214,11 @@ namespace LogView.LogTransformer
                 { "Harbor", playerState.Harbors },
                 { "Supplier", playerState.Suppliers },
             };
-            stringFieldMap[actionDatas.Building].Add(actionDatas.Start);
-            _playerBuildingHealths[playerState.Name].Add(actionDatas.Start, _settings.BuildingProperties[actionDatas.Building].Health);
+            stringFieldMap[Parameters.Building].Add(Parameters.Start);
+            _playerBuildingHealths[playerState.Name].Add(Parameters.Start, _settings.BuildingProperties[Parameters.Building].Health);
 
-            FindAndRemoveIfPresent(actionDatas.Start, playerState.Builders);
-            FindAndRemoveIfPresent(actionDatas.Start, playerState.Settlers);
+            FindAndRemoveIfPresent(Parameters.Start, playerState.Builders);
+            FindAndRemoveIfPresent(Parameters.Start, playerState.Settlers);
         }
 
         private void FindAndRemoveIfPresent(int[] posToFind, List<int[]> findHere)
@@ -235,17 +235,17 @@ namespace LogView.LogTransformer
             findHere.Remove(toRemove);
         }
 
-        private void HandleLearn(PlayerState playerState, JsonActionParameters actionDatas)
+        private void HandleLearn(PlayerState playerState, JsonActionParameters Parameters)
         {
-            playerState.Techs.Add(actionDatas.Tech);
+            playerState.Techs.Add(Parameters.Tech);
 
-            if (actionDatas.Tech.Equals("Militarism"))
+            if (Parameters.Tech.Equals("Militarism"))
             {
                 TechTransformer.Militarism(_playerSettings[playerState.Name]);
             }
         }
 
-        private void HandleMove(PlayerState playerState, JsonActionParameters actionDatas)
+        private void HandleMove(PlayerState playerState, JsonActionParameters Parameters)
         {
             List<int[]> moveableList = new();
             moveableList.AddRange(playerState.Archers);
@@ -256,20 +256,20 @@ namespace LogView.LogTransformer
             moveableList.AddRange(playerState.Settlers);
             moveableList.AddRange(playerState.Warriors);
 
-            moveableList.ForEach(moveable => MoveIfNecessary(moveable, actionDatas));
+            moveableList.ForEach(moveable => MoveIfNecessary(moveable, Parameters));
         }
 
-        private void MoveIfNecessary(int[] moveable, JsonActionParameters actionDatas)
+        private void MoveIfNecessary(int[] moveable, JsonActionParameters Parameters)
         {
-            if (moveable[0] == actionDatas.Start[0] &&
-                moveable[1] == actionDatas.Start[1])
+            if (moveable[0] == Parameters.Start[0] &&
+                moveable[1] == Parameters.Start[1])
             {
-                moveable[0] = actionDatas.End[0];
-                moveable[1] = actionDatas.End[1];
+                moveable[0] = Parameters.End[0];
+                moveable[1] = Parameters.End[1];
             }
         }
 
-        private void HandleTrain(PlayerState playerState, JsonActionParameters actionDatas)
+        private void HandleTrain(PlayerState playerState, JsonActionParameters Parameters)
         {
             var stringTroopMap = new Dictionary<string, List<int[]>>
             {
@@ -281,8 +281,8 @@ namespace LogView.LogTransformer
                 { "Settler", playerState.Settlers },
                 { "Warrior", playerState.Warriors },
             };
-            stringTroopMap[actionDatas.Troop].Add(actionDatas.Start);
-            _playerTroopHealths[playerState.Name].Add(actionDatas.Start, _settings.TroopProperties[actionDatas.Troop].Health);
+            stringTroopMap[Parameters.Troop].Add(Parameters.Start);
+            _playerTroopHealths[playerState.Name].Add(Parameters.Start, _settings.TroopProperties[Parameters.Troop].Health);
         }
     }
 

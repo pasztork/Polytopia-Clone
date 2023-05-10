@@ -24,7 +24,7 @@
     {
       "Name": "Alice",
       "Action": "Learn",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [],
         "End": [],
         "Neighbors": [],
@@ -36,7 +36,7 @@
     {
       "Name": "Alice",
       "Action": "Train",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [
           6,
           12
@@ -51,7 +51,7 @@
     {
       "Name": "Alice",
       "Action": "Move",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [
           6,
           12
@@ -69,7 +69,7 @@
     {
       "Name": "Alice",
       "Action": "Build",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [
           6,
           13
@@ -84,7 +84,7 @@
     {
       "Name": "Alice",
       "Action": "EndTurn",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [],
         "End": [],
         "Neighbors": [],
@@ -96,7 +96,7 @@
     {
       "Name": "Bob",
       "Action": "EndTurn",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [],
         "End": [],
         "Neighbors": [],
@@ -108,7 +108,7 @@
     {
       "Name": "Alice",
       "Action": "Train",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [
           6,
           12
@@ -123,7 +123,7 @@
     {
       "Name": "Alice",
       "Action": "Move",
-      "ActionDatas": {
+      "Parameters": {
         "Start": [
           6,
           12

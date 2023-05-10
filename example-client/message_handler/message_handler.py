@@ -1,3 +1,4 @@
+import json
 import sys
 
 # Value set by app.py module
@@ -17,7 +18,7 @@ def start_turn(message):
         return {}
     return {
         'Name': this.NAME,
-        'Action': 'FinishTurn'
+        'Action': 'EndTurn'
     }
 
 
@@ -28,4 +29,5 @@ MESSAGE_FUNCTION_DICT = {
 
 
 def get_response_for(message):
-    return MESSAGE_FUNCTION_DICT[message['Action']](message)
+    jsonmsg = json.loads(message)
+    return MESSAGE_FUNCTION_DICT[jsonmsg['Action']](jsonmsg)
