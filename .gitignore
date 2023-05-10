@@ -79,3 +79,6 @@ Network/bin/
 
 # Ignore __pycache__ folders
 __pycache__/
+
+# Ignore LibraryExplorer
+LibraryExplorer/bin
