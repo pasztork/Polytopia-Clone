@@ -71,9 +71,6 @@ Polytopia Clone/Assets/Log.meta
 # Saved maps file
 Polytopia Clone/SavedMaps/
 
-# Log files
-Polytopia Clone/GameLogs/
-
 # Bin files
 Network/bin/
 
@@ -82,4 +79,4 @@ __pycache__/
 
 # Ignore LibraryExplorer
 [Bb]in/
-Network/GameLogs
+GameLogs/
