@@ -13,9 +13,9 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 
 	private readonly TroopFactory _troopFactory = new();
 
-	private readonly int[] startCoords = new int[2];
+	private readonly int[] _startCoords = new int[2];
 
-	private readonly int[] endCoords = new int[2];
+	private readonly int[] _endCoords = new int[2];
 
 	public NetworkCommandProcessor()
 	{
@@ -32,30 +32,28 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 	{
 		ExtractCoordsFromCommand();
 
-		// Parameter check
-		if (startCoords.Length < 2 ||
-			endCoords.Length < 2 ||
-			_coordinateMapper.GetTroopAt(startCoords[0], startCoords[1]) is null ||
-			_coordinateMapper.GetBuildingAt(endCoords[0], endCoords[1]) is null) { return; }
+		if (_startCoords.Length < 2 ||
+			_endCoords.Length < 2 ||
+			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null ||
+			_coordinateMapper.GetBuildingAt(_endCoords[0], _endCoords[1]) is null) { return; }
 
 		Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(
-			_coordinateMapper.GetTroopAt(startCoords[0], startCoords[1]),
-			_coordinateMapper.GetBuildingAt(endCoords[0], endCoords[1]));
+			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
+			_coordinateMapper.GetBuildingAt(_endCoords[0], _endCoords[1]));
 	}
 
 	private void AttackTroop()
 	{
 		ExtractCoordsFromCommand();
 
-		// Parameter check
-		if (startCoords.Length < 2 ||
-			endCoords.Length < 2 ||
-			_coordinateMapper.GetTroopAt(startCoords[0], startCoords[1]) is null ||
-			_coordinateMapper.GetTroopAt(endCoords[0], endCoords[1]) is null) { return; }
+		if (_startCoords.Length < 2 ||
+			_endCoords.Length < 2 ||
+			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null ||
+			_coordinateMapper.GetTroopAt(_endCoords[0], _endCoords[1]) is null) { return; }
 
 		Controller.GameManager.Get<Controller.TroopManagerBase>().Attack(
-			_coordinateMapper.GetTroopAt(startCoords[0], startCoords[1]),
-			_coordinateMapper.GetTroopAt(endCoords[0], endCoords[1]));
+			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
+			_coordinateMapper.GetTroopAt(_endCoords[0], _endCoords[1]));
 	}
 
 	private void Build()
@@ -63,12 +61,11 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 		ExtractCoordsFromCommand();
 		var buildingName = Command.Parameters.Building;
 
-		// Parameter check
-		if (startCoords.Length < 2 ||
-			_coordinateMapper.GetTroopAt(startCoords[0], startCoords[1]) is null) { return; }
+		if (_startCoords.Length < 2 ||
+			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null) { return; }
 
 		Controller.GameManager.Get<Controller.BuildingManagerBase>().Build(
-			_coordinateMapper.GetTroopAt(startCoords[0], startCoords[1]),
+			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
 			_buildingFactory.Instantiate(buildingName));
 	}
 
@@ -79,7 +76,6 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 	{
 		string techName = Command.Parameters.Tech;
 
-		// Parameter check
 		var currentPlayer = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer;
 		if (!currentPlayer.Techs.ContainsKey(techName)) { return; }
 
@@ -91,15 +87,14 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 	{
 		ExtractCoordsFromCommand();
 
-		// Parameter check
-		if (startCoords.Length < 2 ||
-			endCoords.Length < 2 ||
-			_coordinateMapper.GetTroopAt(startCoords[0], startCoords[1]) is null ||
-			_coordinateMapper.GetTileAt(endCoords[0], endCoords[1]) is null) { return; }
+		if (_startCoords.Length < 2 ||
+			_endCoords.Length < 2 ||
+			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null ||
+			_coordinateMapper.GetTileAt(_endCoords[0], _endCoords[1]) is null) { return; }
 
 		Controller.GameManager.Get<Controller.TroopManagerBase>().MoveTroop(
-			_coordinateMapper.GetTroopAt(startCoords[0], startCoords[1]),
-			_coordinateMapper.GetTileAt(endCoords[0], endCoords[1]));
+			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
+			_coordinateMapper.GetTileAt(_endCoords[0], _endCoords[1]));
 	}
 
 	private void Train()
@@ -107,19 +102,18 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 		ExtractCoordsFromCommand();
 		string troopName = Command.Parameters.Troop;
 
-		// Parameter check
-		if (startCoords.Length < 2 ||
-			_coordinateMapper.GetBuildingAt(startCoords[0], startCoords[1]) is null) { return; }
+		if (_startCoords.Length < 2 ||
+			_coordinateMapper.GetBuildingAt(_startCoords[0], _startCoords[1]) is null) { return; }
 
 		Controller.GameManager.Get<Controller.TroopManagerBase>().Train(
-			_coordinateMapper.GetBuildingAt(startCoords[0], startCoords[1]),
+			_coordinateMapper.GetBuildingAt(_startCoords[0], _startCoords[1]),
 			_troopFactory.Instantiate(troopName));
 	}
 
 	private void ExtractCoordsFromCommand()
 	{
-		ExtractCoordsFromTo(Command.Parameters.Start, startCoords);
-		ExtractCoordsFromTo(Command.Parameters.End, endCoords);
+		ExtractCoordsFromTo(Command.Parameters.Start, _startCoords);
+		ExtractCoordsFromTo(Command.Parameters.End, _endCoords);
 	}
 
 	private static void ExtractCoordsFromTo(int[] from, int[] to)
