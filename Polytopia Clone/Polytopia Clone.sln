@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{1A54B0DE-E1FD-B9D2-C1BC-057E688D6EB5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{1DB8747B-B02E-F5DB-9AAC-1A04E224A81C}"
@@ -10,8 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameCore", "..\GameCore\GameCore.csproj", "{03BFF3E4-B0F9-4438-865C-DE4A74955F86}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogView", "..\Log\LogView.csproj", "{AA5E6097-B277-409C-9FCF-A27F9A8B9A27}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryExplorer", "..\LibraryExplorer\LibraryExplorer.csproj", "{10B732F4-FAF8-477F-B4DD-D1FC12FDD6D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,12 +39,11 @@ Global
 		{AA5E6097-B277-409C-9FCF-A27F9A8B9A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA5E6097-B277-409C-9FCF-A27F9A8B9A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA5E6097-B277-409C-9FCF-A27F9A8B9A27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10B732F4-FAF8-477F-B4DD-D1FC12FDD6D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10B732F4-FAF8-477F-B4DD-D1FC12FDD6D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10B732F4-FAF8-477F-B4DD-D1FC12FDD6D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10B732F4-FAF8-477F-B4DD-D1FC12FDD6D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8555D89-3AB3-4A47-ACB7-188149379807}
 	EndGlobalSection
 EndGlobal
