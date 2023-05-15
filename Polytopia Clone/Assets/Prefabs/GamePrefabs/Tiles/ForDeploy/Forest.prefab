@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5097369658464519510}
   - component: {fileID: 6786625557570621698}
   - component: {fileID: 2548211893384389128}
+  - component: {fileID: 7165092702806179011}
   m_Layer: 0
   m_Name: Forest
-  m_TagString: Untagged
+  m_TagString: Forest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +99,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7165092702806179011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234902312771882835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a401e38e9da9c544caea57c721527578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  troopOffset: {x: -1.1, y: 0.5, z: -0.9}
+  buildingOffset: {x: 0.8, y: 0.5, z: 0.5}
 --- !u!1 &8082058088309910606
 GameObject:
   m_ObjectHideFlags: 0

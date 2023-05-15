@@ -137,7 +137,7 @@ namespace View
             foreach (Tile step in path)
             {
                 Vector3 center = step.gameObject.transform.position;
-                Vector3 nextPosition = center + step.Offset;
+                Vector3 nextPosition = center + step.TroopOffset;
                 gameObject.transform.position = nextPosition;
                 yield return new WaitForSeconds(0.25f);
             }

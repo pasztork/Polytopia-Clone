@@ -59,7 +59,7 @@ namespace View
 
             Model.BuildingBase modelBuilding = View.BuildingManager.Instance.ViewToModelMap[View.BuildingManager.Instance.SelectedBuilding];
             View.Tile tile = View.MapManager.Instance.ModelToViewMap[modelBuilding.Tile];
-            View.TroopBase viewTroop = Instantiate(Blueprint, tile.transform.position + tile.Offset, Quaternion.identity);
+            View.TroopBase viewTroop = Instantiate(Blueprint, tile.transform.position + tile.TroopOffset, Blueprint.transform.rotation);
             Model.TroopBase troop = viewTroop.ToModel(Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer);
             bool trained = Controller.GameManager.Get<Controller.TroopManagerBase>().Train(modelBuilding, troop);
 

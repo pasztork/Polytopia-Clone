@@ -7,8 +7,10 @@ namespace View
 {
     public class Tile : MonoBehaviour
     {
-        [SerializeField] private Vector3 offset;
-        public Vector3 Offset { get => offset; private set => offset = value; }
+        [SerializeField] private Vector3 troopOffset;
+        [SerializeField] private Vector3 buildingOffset;
+        public Vector3 BuildingOffset { get => buildingOffset; private set => buildingOffset = value; }
+        public Vector3 TroopOffset { get => troopOffset; private set => troopOffset = value; }
         public List<Tile> Neighbors { get; } = new List<Tile>();
 
         public Color StartColor { get; private set; }
