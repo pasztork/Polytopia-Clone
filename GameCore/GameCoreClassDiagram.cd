@@ -1,0 +1,991 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Model.Bank">
+    <Position X="18.25" Y="19.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\Buildings\Bank.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.BuildingBase">
+    <Position X="23" Y="13.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Events" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AECgAAAAABAEgEAABAEAABAAAAIRAAAAAIADgQBAAQA=</HashCode>
+      <FileName>Model\Building\Buildings\BuildingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.City">
+    <Position X="25" Y="20" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAEAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Model\Building\Buildings\City.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Farm">
+    <Position X="20.5" Y="19.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAEBAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\Buildings\Farm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Harbor">
+    <Position X="27.25" Y="20" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\Buildings\Harbor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.NonTrainingBuilding">
+    <Position X="20.5" Y="18" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\Buildings\NonTrainingBuilding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Supplier">
+    <Position X="22.75" Y="19.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAABAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\Buildings\Supplier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TroopTrainingBuilding">
+    <Position X="25" Y="18" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\Buildings\TroopTrainingBuilding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.WaterTroopTrainingBuilding">
+    <Position X="27.25" Y="18" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAEAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\Buildings\WaterTroopTrainingBuilding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.NonTrainingRequirementsList">
+    <Position X="21" Y="10.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\RequirementsList\NonTrainingRequirementsList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.RequirementsListBase">
+    <Position X="18.75" Y="7.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAACAAAABAAAAAAAAAAAAAQAACAAAA=</HashCode>
+      <FileName>Model\Building\RequirementsList\RequirementsListBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TrainingRequirementsList">
+    <Position X="16.5" Y="10.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\RequirementsList\TrainingRequirementsList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.WaterTrainingRequirementsList">
+    <Position X="18.75" Y="10.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\RequirementsList\WaterTrainingRequirementsList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.BuildingProperty">
+    <Position X="27" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAACAgAAAAAAAAAAAAAAiAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\BuildingProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.BuildManager">
+    <Position X="3.75" Y="28.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\BuildManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.BuildManagerBase">
+    <Position X="3.75" Y="26.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAABAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Building\BuildManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.GameManager">
+    <Position X="32.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgAAABAAEAAQAABAAAAAACAAAAAgIAAAAAAAAAABQAA=</HashCode>
+      <FileName>Model\GameManager\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.ForestTile">
+    <Position X="0.75" Y="15.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Map\Tiles\ForestTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.GrassTile">
+    <Position X="3" Y="15.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Map\Tiles\GrassTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.NonTraversableTile">
+    <Position X="8.75" Y="13.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Map\Tiles\NonTraversableTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.RockTile">
+    <Position X="9.75" Y="15.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Map\Tiles\RockTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.SandTile">
+    <Position X="5.25" Y="15.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Map\Tiles\SandTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TileBase">
+    <Position X="5.25" Y="11.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAEAAQAAAAAAAAAAAEAAAAAAAAAAAAAIAAAAAAAAIA=</HashCode>
+      <FileName>Model\Map\Tiles\TileBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TraversableTile">
+    <Position X="3" Y="13.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Map\Tiles\TraversableTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.WaterTile">
+    <Position X="7.5" Y="15.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAEAAAAAAAAAAAEAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Map\Tiles\WaterTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MapGenerationProperties">
+    <Position X="34" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAoAAACAAgAAAAAAAQAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Model\Map\MapGenerationProperties.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MapGenerator">
+    <Position X="0.75" Y="28.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAAQABAAAAAAgAAAABAAAAAAIggAAAQAAAAACEACQAA=</HashCode>
+      <FileName>Model\Map\MapGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MapGeneratorBase">
+    <Position X="0.75" Y="26.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAgAAAAAAIAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Model\Map\MapGeneratorBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MapManager">
+    <Position X="9.75" Y="29.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Model.MapManager.JsonTiles" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Model\Map\MapManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAACACACEAIAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Model\Map\MapManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MapManagerBase">
+    <Position X="9.75" Y="26.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAEEIgAAAAIAAAAACAAAQAA=</HashCode>
+      <FileName>Model\Map\MapManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.BonusProperty">
+    <Position X="19" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQAAAgAAAACAgAAIAAAAAAAAAQAAAAAAAAAACAIAAAA=</HashCode>
+      <FileName>Model\Player\BonusProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Player">
+    <Position X="17" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEgAVACABEAAgEBAAIBMAQAAIAYiAAAACMAQAGAAZE=</HashCode>
+      <FileName>Model\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cost">
+    <Position X="24" Y="23.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIAACAAAAAAAAAEAJAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Resources\Cost.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.FoodProducer">
+    <Position X="8.5" Y="20.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Resources\FoodProducer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MaterialProducer">
+    <Position X="10.75" Y="20.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Resources\MaterialProducer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MoneyProducer">
+    <Position X="13" Y="20.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Resources\MoneyProducer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.ProducerBase">
+    <Position X="10.75" Y="17.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAQAAgAAACAAA=</HashCode>
+      <FileName>Model\Resources\ProducerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.ResourceContainer">
+    <Position X="27.75" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAABAAAIAAEQUAAAAAAAAAAQAAgAAAAQAAA=</HashCode>
+      <FileName>Model\Resources\ResourceContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MapSettingsLoader">
+    <Position X="32.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Settings\MapSettingsLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.PropertiesLoader">
+    <Position X="34.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Settings\PropertiesLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Settings">
+    <Position X="36.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAI=</HashCode>
+      <FileName>Model\Settings\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.JsonCost">
+    <Position X="26" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Model\Settings\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.JsonBuilding">
+    <Position X="25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAACAAAAAAgABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Settings\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.JsonProductionRate">
+    <Position X="29" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Model\Settings\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.JsonTroop">
+    <Position X="6.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACACAAAEAAAAAAAAEABAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Model\Settings\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.ArcheryTech">
+    <Position X="19.5" Y="29.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\ArcheryTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.BankingTech">
+    <Position X="24" Y="29.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\BankingTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.CatapultTech">
+    <Position X="17.25" Y="28" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\CatapultTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.FarmingTech">
+    <Position X="21.75" Y="28" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\FarmingTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.ForestryTech">
+    <Position X="26.25" Y="28" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\ForestryTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.GemMiningTech">
+    <Position X="19.5" Y="31.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\GemMiningTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.HarborTech">
+    <Position X="24" Y="31.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\HarborTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.IndustrialRevolutionTech">
+    <Position X="19.5" Y="33.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\IndustrialRevolutionTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.IrrigationTech">
+    <Position X="21.75" Y="33.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Model\TechTree\Techs\IrrigationTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MathematicsTech">
+    <Position X="24" Y="33.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\MathematicsTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MilitarismTech">
+    <Position X="17.25" Y="29.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\MilitarismTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MiningTech">
+    <Position X="21.75" Y="29.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\MiningTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.NavigationTech">
+    <Position X="26.25" Y="29.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\NavigationTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.RidingTech">
+    <Position X="19.5" Y="28" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\RidingTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.SailingTech">
+    <Position X="24" Y="28" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\SailingTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.SanitationTech">
+    <Position X="17.25" Y="31.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\SanitationTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.StockMarketTech">
+    <Position X="21.75" Y="31.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\StockMarketTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.StrategyTech">
+    <Position X="26.25" Y="31.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\Techs\StrategyTech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TechTreeItemBase">
+    <Position X="21.75" Y="25.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAQAAIIAAAAAAAADAIAAAAA=</HashCode>
+      <FileName>Model\TechTree\TechTreeItemBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TechTreeItemProperty">
+    <Position X="24" Y="25.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Model\TechTree\TechTreeItemProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TechTreeManager">
+    <Position X="6.75" Y="28.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAKAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\TechTreeManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TechTreeManagerBase">
+    <Position X="6.75" Y="26.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAQAABAAAAKAAAAAAA=</HashCode>
+      <FileName>Model\TechTree\TechTreeManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Archer">
+    <Position X="7.75" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Troop\Troops\Archer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Boat">
+    <Position X="0.75" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Troop\Troops\Boat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Builder">
+    <Position X="3" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Model\Troop\Troops\Builder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Catapult">
+    <Position X="10" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAIAAAgAAAAAAAAAAABA=</HashCode>
+      <FileName>Model\Troop\Troops\Catapult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.LandTroop">
+    <Position X="9" Y="6" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Model\Troop\Troops\LandTroop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.OffensiveLandTroop">
+    <Position X="9" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAUAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Troop\Troops\OffensiveLandTroop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.OffensiveWaterTroop">
+    <Position X="0.75" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAUAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Troop\Troops\OffensiveWaterTroop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Scout">
+    <Position X="12.25" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Troop\Troops\Scout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Settler">
+    <Position X="5.25" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Model\Troop\Troops\Settler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TroopBase">
+    <Position X="4.25" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAkAAAgEMAECECAAAAAIBAAIIAgAAAAAAADgQAgQQQ=</HashCode>
+      <FileName>Model\Troop\Troops\TroopBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Warrior">
+    <Position X="5.5" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Troop\Troops\Warrior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.WaterTroop">
+    <Position X="0.75" Y="6" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAEAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Model\Troop\Troops\WaterTroop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.WorkerTroop">
+    <Position X="4.25" Y="6" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Model\Troop\Troops\WorkerTroop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TrainManager" Collapsed="true">
+    <Position X="12.75" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Troop\TrainManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TrainManagerBase" Collapsed="true">
+    <Position X="12.75" Y="26.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Troop\TrainManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TroopProperty">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACACAAAEAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Model\Troop\TroopProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TurnManager" Collapsed="true">
+    <Position X="12.75" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAACAAAAAABAQAMAAEAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Model\Turn\TurnManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.TurnManagerBase" Collapsed="true">
+    <Position X="12.75" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEIAAACADAAAAAABAAAEAAAAAAgAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Model\Turn\TurnManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ViewUtil.CoordinateToModelMapper">
+    <Position X="32.25" Y="7.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAEAAAAIAAg=</HashCode>
+      <FileName>ViewUtil\CoordinateToModelMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Util.BuildingFactory">
+    <Position X="5" Y="20.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Util\GameObjectFactory\BuildingFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Util.GameObjectFactory&lt;TBaseClass&gt;">
+    <Position X="2.75" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAQAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Util\GameObjectFactory\GameObjectFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Util.TechTreeItemFactory">
+    <Position X="0.5" Y="20.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Util\GameObjectFactory\TechTreeItemFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Util.TroopFactory">
+    <Position X="2.75" Y="20.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Util\GameObjectFactory\TroopFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Util.DependencyContainer">
+    <Position X="30" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAgAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Util\DependencyContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Util.Factory&lt;TBaseClass&gt;">
+    <Position X="7.25" Y="11.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Util\Factory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.BuildingManager">
+    <Position X="9.75" Y="25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Building\BuildingManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.BuildingManagerBase">
+    <Position X="9.75" Y="23.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Building\BuildingManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.GameManager">
+    <Position X="32.25" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAACAABABCAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Controller\GameManager\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.MapProperties">
+    <Position X="30.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\GameManager\MapProperties.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.TechTreeManager">
+    <Position X="6.75" Y="25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Controller\TechTree\TechTreeManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.TechTreeManagerBase">
+    <Position X="6.75" Y="23.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Controller\TechTree\TechTreeManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.TroopManager">
+    <Position X="3.75" Y="25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAgAAACAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Troop\TroopManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.TroopManagerBase">
+    <Position X="3.75" Y="23.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAgAAACAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Troop\TroopManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.TurnManager">
+    <Position X="0.75" Y="25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Turn\TurnManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.TurnManagerBase">
+    <Position X="0.75" Y="23.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Turn\TurnManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

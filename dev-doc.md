@@ -293,3 +293,10 @@ Minden más egyedi befogadási logikát itt kell megvalósítani.
 ## Játék bővítése új nyersanyaggal és nyersanyag termelővel
 
 Új nyersanyag termelő felvételéhez, mint amilyen a `FoodProducer`, a `MaterialProducer`, valamint a `MoneyProducer`, akkor szükség van a `ProducerBase` ősosztályból való leszármazásra, majd ezt követően felül kell definiálni a `Produce()` metódusát. Az ősosztály tartalmaz egy `ResourceContainer` típusú property-t, ebbe az osztályba kell felvennünk az újonnan létrehozott nyersanyag termelőt a hozzá tartozó `BaseXXXProduction` property-vel, valamint tárolnunk kell az aktuális mennyiséget az `XXXCount` property-be. A `HasEnoughFor()` és az `operator-` metódusok módosításával, vagy új metódusok hozzáadásával pedig beköthetjük az új nyersanyagot a játékba.
+
+## Projekt áttekintő nézete
+### Loggoló osztályok nézete
+![](images/LogViewClassDiagram.png)
+
+### 
+![]()

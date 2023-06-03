@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LogView.LogDataWrapper">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAkAAGAAgAAAAAAAIAABIAAAAQAAAAEAAAAA=</HashCode>
+      <FileName>LogDataWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogView.JsonPlayerObject">
+    <Position X="3.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAQA=</HashCode>
+      <FileName>JsonPlayerObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogView.JsonLogger">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAACAAAAAAISAAAAAAAAEAAgABCAEAAAAA=</HashCode>
+      <FileName>JsonLogger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogView.JsonLogContent">
+    <Position X="3.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIBAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JsonLogContent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogView.LogTransformer.GameState">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LogTransformer\GameState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogView.LogTransformer.LogTransformer">
+    <Position X="6.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAABRAggAQgIggAAQAAAAIAABAEABCCSBIQAI=</HashCode>
+      <FileName>LogTransformer\LogTransformer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogView.LogTransformer.TechTransformer">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LogTransformer\LogTransformer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogView.LogTransformer.PlayerState">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAAggYAAAAAAAIAAAAAgEAQAAQACAAgACAAAAQAAAAA=</HashCode>
+      <FileName>LogTransformer\PlayerState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="LogView.LogAction">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAIAAAAAAAAABAAFAAAIAgAAAAAAAgAAQAAA=</HashCode>
+      <FileName>LogAction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
