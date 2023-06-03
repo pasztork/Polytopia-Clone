@@ -17,7 +17,7 @@ Amennyiben kérdés merül fel az olvasóban [ide](mailto:pasztor.kristof.kp@gma
 9. [Játék bővítése új technológiákkal](#játék-bővítése-új-technológiákkal)
 10. [Játék bővítése új típusú mezőkkel](#játék-bővítése-új-típusú-mezőkkel)
 11. [Játék bővítése új nyersanyaggal és nyersanyag termelővel](#játék-bővítése-új-nyersanyaggal-és-nyersanyag-termelővel)
-12. [Projekt áttekintő nézete (osztálydiagramok)](#projekt-áttekintő-nézete)
+12. [Projekt áttekintő nézete (osztálydiagramok)](#projekt-áttekintő-nézete-osztálydiagramok)
 
 ## Áttekintés
 
