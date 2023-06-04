@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.172768, g: 0.21589169, b: 0.29782546, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7337,6 +7337,123 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8437339839156311853, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
   m_PrefabInstance: {fileID: 1951485242}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1342853957
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4361153787314045572, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_Name
+      value: DavePlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: name
+      value: Dave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[0]
+      value: Builder
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[1]
+      value: Scout
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[2]
+      value: Settler
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[3]
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[4]
+      value: Settler
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[5]
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[0]
+      value: City
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[1]
+      value: Supplier
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
 --- !u!1 &1347726287 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8437339839156311853, guid: 75a60936ce1e4f7439985b43748660d5, type: 3}
@@ -7430,6 +7547,123 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359472246}
   m_CullTransparentMesh: 1
+--- !u!1001 &1375834841
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4361153787314045572, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_Name
+      value: CarolPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361153787314045574, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: name
+      value: Carol
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: playerColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[0]
+      value: Builder
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[1]
+      value: Scout
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[2]
+      value: Settler
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[3]
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[4]
+      value: Settler
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingTroops.Array.data[5]
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[0]
+      value: City
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187262714836610260, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
+      propertyPath: startingBuildings.Array.data[1]
+      value: Supplier
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
 --- !u!1 &1375935942
 GameObject:
   m_ObjectHideFlags: 0
