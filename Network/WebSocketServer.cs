@@ -20,7 +20,7 @@ public class WebSocketServer
 	private static readonly IDictionary<Model.Player, WebSocket> s_playerToWebSocketsDict = new Dictionary<Model.Player, WebSocket>();
 
 	static WebSocketServer() =>
-		Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += EndTurnMessage;
+		Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += StartTurnMessage;
 
 	public static void Start()
 	{
@@ -30,7 +30,7 @@ public class WebSocketServer
 
 	public static bool Register(WebSocket webSocket)
 	{
-		if (s_webSockets.Count > PlayerCount ||
+		if (s_webSockets.Count >= PlayerCount ||
 			s_webSockets.Contains(webSocket)) { return false; }
 
 		s_webSockets.Add(webSocket);
@@ -60,7 +60,7 @@ public class WebSocketServer
 		if (s_playerToWebSocketsDict.Count == PlayerCount) { GameManager.StartNew(); }
 	}
 
-	private static async void EndTurnMessage(Model.Player player)
+	private static async void StartTurnMessage(Model.Player player)
 	{
 		var message = new { Action = "StartTurn", player.Name };
 		string json = JsonSerializer.Serialize(message);
