@@ -1,7 +1,6 @@
 ﻿using JsonLog;
 using LogView.LogTransformer;
 using Microsoft.AspNetCore.Mvc;
-using Model;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
@@ -25,7 +24,7 @@ public class WebSocketController : ControllerBase
 				return;
 			}
 
-			GameManager.Get<TurnManagerBase>().OnWinnerDecided += CloseConnection;
+			Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += CloseConnection;
 			await HandleWebSocketCommunication(webSocket);
 		}
 		else
@@ -64,7 +63,11 @@ public class WebSocketController : ControllerBase
 				{
 					await SendGameStateTo(webSocket);
 				}
-				else if (_commandProcessor.Process(receivedString) &&
+				else if (json.Action.Equals("GetAvailableActions"))
+				{
+					await SendAvailableActionsTo(json, webSocket);
+				}
+				else if (_commandProcessor.Process(json) &&
 					!json.Action.Equals("EndTurn"))
 				{
 					await WebSocketServer.Broadcast(webSocket, receivedString);
@@ -78,12 +81,23 @@ public class WebSocketController : ControllerBase
 			CancellationToken.None);
 	}
 
-	private void CloseConnection(Model.Player player) => _gameEnded = true;
+    private void CloseConnection(Model.Player player) => _gameEnded = true;
 
-	private static async Task SendGameStateTo(WebSocket webSocket)
+    private async Task SendAvailableActionsTo(JsonActionObject jsonCommand, WebSocket webSocket)
+    {
+		var logTransformer = new LogTransformer();
+		var actionState = _commandProcessor.GetAvailableActions(jsonCommand);
+        await webSocket.SendAsync(
+            new ArraySegment<byte>(Encoding.UTF8.GetBytes(actionState)),
+            WebSocketMessageType.Text,
+            WebSocketMessageFlags.EndOfMessage,
+            CancellationToken.None);
+    }
+
+    private static async Task SendGameStateTo(WebSocket webSocket)
 	{
 		var logTransformer = new LogTransformer();
-		var gameState = logTransformer.Transform();
+		var gameState = logTransformer.TransformGameState();
 		await webSocket.SendAsync(
 			new ArraySegment<byte>(Encoding.UTF8.GetBytes(gameState)),
 			WebSocketMessageType.Text,
@@ -101,9 +115,9 @@ public class WebSocketController : ControllerBase
 
 	private static async Task SendSettingsTo(WebSocket webSocket)
 	{
-		var settingsFilepath = GameManager.PropertiesSettingsFilepath;
+		var settingsFilepath = Model.GameManager.PropertiesSettingsFilepath;
 		var settingsJson = System.IO.File.ReadAllText(settingsFilepath);
-		var settings = JsonSerializer.Deserialize<Settings>(settingsJson);
+		var settings = JsonSerializer.Deserialize<Model.Settings>(settingsJson);
 
 		var mapFilepath = WebSocketServer.MapFilePath;
 		var mapJson = System.IO.File.ReadAllText(mapFilepath);

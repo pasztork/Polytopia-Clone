@@ -5,6 +5,7 @@ namespace Model
         public Builder(Player player) : base()
         {
             initialValues = TroopBase.TroopProperties["Builder"];
+            Buildings.AddRange(new List<string>() { "Farm", "Harbor", "Supplier", "Bank" });
             Init(player);
         }
 

@@ -44,7 +44,7 @@ namespace LogView.LogTransformer
         /// <returns>
         /// A string in JSON format containing the current state of the game.
         /// </returns>
-        public string Transform()
+        public string TransformGameState()
         {
             string config = File.ReadAllText(SettingsFilePath);
             _settings = JsonSerializer.Deserialize<Settings>(config)!;

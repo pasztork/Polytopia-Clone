@@ -1,20 +1,17 @@
-﻿using System.Text.Json;
-
-namespace ViewUtil
+﻿namespace ViewUtil
 {
 	public abstract class JsonCommandProcessorBase
 	{
 		private JsonLog.JsonActionObject _command = new();
-
 		protected JsonLog.JsonActionObject Command => _command;
 
 		protected readonly IDictionary<string, Action> actions = new Dictionary<string, Action>();
 
-		public bool Process(string commandString)
-		{
-			_command = JsonSerializer.Deserialize<JsonLog.JsonActionObject>(commandString) ??
-				throw new ArgumentNullException(nameof(commandString));
+		public abstract string GetAvailableActions(JsonLog.JsonActionObject jsonCommand);
 
+		public bool Process(JsonLog.JsonActionObject jsonCommand)
+		{
+			_command = jsonCommand;
 			if (!VerifyCommandExists()) { return false; }
 			actions[_command.Action]();
 			return true;

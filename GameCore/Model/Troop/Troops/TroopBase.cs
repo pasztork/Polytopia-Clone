@@ -11,10 +11,11 @@
         public Cost Cost { get; set; }
         public int MaxHealth { private get; set; }
         public TroopProperty TroopProperty { get; set; }
+        public List<string> Buildings { get; protected set; } = new List<string>();
         public TileBase Tile { get; set; }
         public Player Player { get; set; }
 
-        protected bool movedInTurn = false;
+        public bool MovedInTurn { get; protected set; }
 
         // Doesn't contain Tile.
         public IList<TileBase> TilesInMovementRange { get => GetTilesInRange(TroopProperty.MovementRange); }
@@ -25,12 +26,12 @@
         public TroopBase()
         {
             GameManager.Get<TurnManagerBase>().OnTurnStarted +=
-                (player) => movedInTurn = false;
+                (player) => MovedInTurn = false;
         }
 
         public bool Move(TileBase target)
         {
-            if (!TilesInMovementRange.Contains(target) || movedInTurn)
+            if (!TilesInMovementRange.Contains(target) || MovedInTurn)
                 return false;
 
             bool accepted = target.AcceptTroop(this);
