@@ -2,22 +2,23 @@
 {
     public abstract class TroopTrainingBuilding : BuildingBase
     {
-        protected bool troopTrained = false;
+        public override bool TroopTrained { get; protected set; }
 
         public TroopTrainingBuilding()
         {
             Requirements = new TrainingRequirementsList();
+            TrainableTroops.AddRange(new List<string>() { "Archer", "Builder", "Catapult", "Scout", "Settler", "Warrior" });
             GameManager.Get<TurnManagerBase>().OnTurnStarted +=
-                (player) => troopTrained = false;
+                (player) => TroopTrained = false;
         }
 
         public override bool TrainTroop(TroopBase troop)
         {
-            if (troopTrained)
+            if (TroopTrained)
                 return false;
 
             bool tileAccepted = Tile.TrainTroop(troop);
-            troopTrained = tileAccepted;
+            TroopTrained = tileAccepted;
             return tileAccepted;
         }
     }

@@ -33,6 +33,8 @@
 		public Player(string name)
 		{
 			Name = name;
+			new List<string> { "City", "Supplier" }.ForEach(x => AvailableBuildings.Add(x));
+			new List<string>{ "Scout", "Builder", "Settler", "Warrior" }.ForEach(x => AvailableTroops.Add(x));
 			GameManager.Get<TurnManagerBase>().PlayerCreated(this);
 			GameManager.Players.Add(this);
 			GameManager.Get<TechTreeManagerBase>().ConnectTree(Techs);
@@ -53,7 +55,9 @@
 			RequirementsListBase requirements = building.Requirements;
 			troop.FillRequirements(requirements);
 			bool requirementsMet = requirements.RequirementsMet(ResourceContainer, BonusProperty.BuildingDiscount, AvailableTiles, troop.Tile);
-			if (!requirementsMet || !Troops.Contains(troop))
+			if (!requirementsMet || 
+				!Troops.Contains(troop) || 
+				!AvailableBuildings.Contains(building.ToString()))
 			{
 				building.StopProduction();
 				return false;
@@ -77,8 +81,9 @@
 
 		public bool Train(BuildingBase building, TroopBase troop)
 		{
-			if (!Buildings.Contains(building) ||
-				!ResourceContainer.HasEnoughFor(troop.Cost))
+			if (!Buildings.Contains(building) || 
+				!ResourceContainer.HasEnoughFor(troop.Cost) || 
+				!AvailableTroops.Contains(troop.ToString()))
 				return false;
 
 			bool trained = building.TrainTroop(troop);
@@ -182,18 +187,17 @@
 
 		public bool UnlockTech(TechTreeItemBase techToLearn)
 		{
-			if (!ResourceContainer.HasEnoughFor(techToLearn.TechTreeItemProperty.Cost))
+			TechTreeItemBase playerTech = Techs[techToLearn.HashCode];
+            if (!ResourceContainer.HasEnoughFor(techToLearn.TechTreeItemProperty.Cost) ||
+				!playerTech.IsAvailable ||
+                playerTech.TechTreeItemProperty.IsUnlocked)
 				return false;
-
-			if (!Techs[techToLearn.HashCode].TechTreeItemProperty.IsUnlocked)
-			{
-				Techs[techToLearn.HashCode].TechTreeItemProperty.IsUnlocked = true;
-				Techs[techToLearn.HashCode].ActivateEffect(this);
-				ResourceContainer -= techToLearn.TechTreeItemProperty.Cost;
-				OnTechLearned?.Invoke(techToLearn);
-				return true;
-			}
-			return false;
+			
+			playerTech.TechTreeItemProperty.IsUnlocked = true;
+			playerTech.ActivateEffect(this);
+			ResourceContainer -= techToLearn.TechTreeItemProperty.Cost;
+			OnTechLearned?.Invoke(techToLearn);
+			return true;
 		}
 
 		public void RaiseOnAttackMissed(TroopBase attacker, TroopBase target) =>

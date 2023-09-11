@@ -63,7 +63,7 @@ public class WebSocketController : ControllerBase
 				{
 					await SendGameStateTo(webSocket);
 				}
-				else if (json.Action.Equals("GetAvailableActions"))
+				else if (json.Action.Equals("GetActions"))
 				{
 					await SendAvailableActionsTo(json, webSocket);
 				}

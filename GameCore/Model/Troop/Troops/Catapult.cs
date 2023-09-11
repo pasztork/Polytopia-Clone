@@ -18,10 +18,10 @@ namespace Model
         {
             IList<TileBase> tilesInRange = GetTilesInAttackRange(TroopProperty.AttackRange);
 
-            if (!tilesInRange.Contains(troop.Tile) || attackedInTurn)
+            if (!tilesInRange.Contains(troop.Tile) || AttackedInTurn)
                 return null;
 
-            attackedInTurn = true;
+            AttackedInTurn = true;
             List<TileBase> tilesOfAttackedTroops = new();
             bool damageTaken = troop.TakeDamage(TroopProperty.Damage);
 
@@ -45,10 +45,10 @@ namespace Model
         {
             IList<TileBase> tilesInRange = GetTilesInAttackRange(TroopProperty.AttackRange);
 
-            if (!tilesInRange.Contains(building.Tile) || attackedInTurn)
+            if (!tilesInRange.Contains(building.Tile) || AttackedInTurn)
                 return null;
 
-            attackedInTurn = true;
+            AttackedInTurn = true;
             List<TileBase> attackedTiles = new();
             building.TakeDamage(TroopProperty.Damage);
             attackedTiles.Add(building.Tile);

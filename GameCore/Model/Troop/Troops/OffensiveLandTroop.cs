@@ -2,20 +2,20 @@
 {
     public abstract class OffensiveLandTroop : LandTroop
     {
-        protected bool attackedInTurn;
+        public override bool AttackedInTurn { get; protected set; }
 
         public OffensiveLandTroop() : base()
         {
             GameManager.Get<TurnManagerBase>().OnTurnStarted +=
-                (player) => attackedInTurn = false;
+                (player) => AttackedInTurn = false;
         }
 
         public override List<TileBase> Attack(TroopBase troop)
         {
-            if (!TilesInAttackRange.Contains(troop.Tile) || attackedInTurn)
+            if (!TilesInAttackRange.Contains(troop.Tile) || AttackedInTurn)
                 return null;
 
-            attackedInTurn = true;
+            AttackedInTurn = true;
             bool damageTaken = troop.TakeDamage(TroopProperty.Damage);
             if (!damageTaken)
             {
@@ -30,10 +30,10 @@
         {
             IList<TileBase> tilesInRange = TilesInAttackRange;
             tilesInRange.Add(Tile);
-            if (!tilesInRange.Contains(building.Tile) || attackedInTurn)
+            if (!tilesInRange.Contains(building.Tile) || AttackedInTurn)
                 return null;
 
-            attackedInTurn = true;
+            AttackedInTurn = true;
             building.TakeDamage(TroopProperty.Damage);
             return new List<TileBase>() { building.Tile };
         }

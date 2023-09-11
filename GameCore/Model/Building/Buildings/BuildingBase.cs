@@ -22,8 +22,15 @@ namespace Model
             }
         }
 
+        public virtual bool TroopTrained
+        {
+            get => false;
+            protected set { }
+        }
+
         public TileBase Tile { get; set; }
         public BuildingProperty BuildingProperty { get; set; }
+        public List<string> TrainableTroops { get; protected set; } = new List<string>();
         public Player Player { get; set; }
         public RequirementsListBase Requirements { get; set; }
 

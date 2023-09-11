@@ -12,12 +12,17 @@
             if (BuildingOnTop != null)
                 return false;
 
-            bool techRequirementMet = buildingOnTop.CheckTechRequirement(this, player);
+            bool techRequirementMet = CheckTechRequirement(buildingOnTop, player);
             if (!techRequirementMet)
                 return false;
 
             BuildingOnTop = buildingOnTop;
             return true;
+        }
+
+        public override bool CheckTechRequirement(BuildingBase buildingOnTop, Player player)
+        {
+            return buildingOnTop.CheckTechRequirement(this, player);
         }
 
         public override bool TrainTroop(TroopBase troop)

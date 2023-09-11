@@ -1,8 +1,6 @@
-﻿using Controller;
-using JsonLog;
+﻿using JsonLog;
 using LogView.LogTransformer;
 using Model;
-using System.Collections.Generic;
 using System.Text.Json;
 using Util;
 using ViewUtil;
@@ -58,28 +56,43 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
         {
 			troops.Add(new TroopState
 			{
+				Type = troop.ToString(),
 				Health = troop.TroopProperty.Health,
 				Damage = troop.TroopProperty.Damage,
+				Position = new[]
+				{
+                    _coordinateMapper.GetCoordinatesOf(troop.Tile).Item1,
+                    _coordinateMapper.GetCoordinatesOf(troop.Tile).Item2
+                },
 				TilesToMove = GetTilesToMove(troop),
 				EnemiesToAttack = GetEnemies(troop),
-				BuildingsToBuild = GetBuildableBuildings(player, troop)
+				BuildingsToBuild = GetBuildableBuildings(troop)
 			});
         }
 		return troops;
     }
 
-	private int[] GetTilesToMove(TroopBase troop)
+	private List<int[]> GetTilesToMove(TroopBase troop)
 	{
 		if (troop.MovedInTurn)
 		{
-			return new int[0];
+			return new();
 		}
-		return _coordinateMapper.GetCoordinatesOf(troop.TilesInMovementRange);
+		List<int[]> tilesToMove = new();
+        troop.TilesInMovementRange.Where(t => t.TroopOnTop == null).ToList().ForEach(tile => {
+			var coordinates = _coordinateMapper.GetCoordinatesOf(tile);
+            tilesToMove.Add(new int[]
+			{
+				coordinates.Item1,
+				coordinates.Item2
+			});
+		});
+        return tilesToMove;
     }
 
 	private List<EnemyState> GetEnemies(TroopBase troop)
 	{
-		if(troop.TroopProperty.AttackRange == 0)
+		if(troop.TroopProperty.AttackRange == 0 || troop.AttackedInTurn)
 		{
 			return new();
 		}
@@ -87,7 +100,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
         List<EnemyState> enemies = new();
         foreach (TileBase tile in troop.TilesInAttackRange)
         {
-            if (tile.TroopOnTop is not null)
+            if (tile.TroopOnTop is not null && troop.Player != tile.TroopOnTop.Player)
             {
                 var enemy = tile.TroopOnTop;
                 enemies.Add(new EnemyState
@@ -96,48 +109,142 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
                     Type = enemy.ToString(),
                     Health = enemy.TroopProperty.Health,
                     Damage = enemy.TroopProperty.Damage,
-                    Coordinates = new[] {
-                            _coordinateMapper.GetCoordinatesOf(tile).Item1,
-                            _coordinateMapper.GetCoordinatesOf(tile).Item2
-                        }
+                    Position = new[] 
+					{
+                        _coordinateMapper.GetCoordinatesOf(tile).Item1,
+                        _coordinateMapper.GetCoordinatesOf(tile).Item2
+                    }
                 });
             }
+			if(tile.BuildingOnTop is not null && troop.Player != tile.BuildingOnTop.Player)
+			{
+				var enemy = tile.BuildingOnTop;
+				enemies.Add(new EnemyState
+				{
+					Name = enemy.Player.Name,
+					Type = enemy.ToString(),
+					Health = enemy.BuildingProperty.Health,
+					Damage = 0,
+					Position = new[]
+					{
+                        _coordinateMapper.GetCoordinatesOf(tile).Item1,
+                        _coordinateMapper.GetCoordinatesOf(tile).Item2
+                    }
+				});
+			}
         }
 		return enemies;
     }
 
-	private List<(string, CostState)> GetBuildableBuildings(Player player, TroopBase troop)
+	private List<BuildableBuildingState> GetBuildableBuildings(TroopBase troop)
 	{
-		if(troop.Tile.BuildingOnTop is not null) 
-		{
-			return new();
-		}
+        if (troop.Tile.BuildingOnTop is not null)
+        {
+            return new();
+        }
 
-        List<(string, CostState)> buildings = new();
-        foreach (var buildingName in player.AvailableBuildings)
+        HashSet<TileBase> tilesInCityRange = new();
+		troop.Player.Buildings.ToList().ForEach(building =>
 		{
-			Cost buildingCost = Cost.CreateNewFromJsonCost(BuildingBase.BuildingProperties[buildingName].Cost);
-            if (player.ResourceContainer.HasEnoughFor(buildingCost) && troop.Buildings.Contains(buildingName))
+			tilesInCityRange.UnionWith(building.GetTilesInRange());
+		});
+
+        List<BuildableBuildingState> buildableBuildings = new();
+        foreach (var buildingName in troop.Player.AvailableBuildings)
+		{
+			var building = _buildingFactory.Instantiate(buildingName);
+			troop.FillRequirements(building.Requirements);
+            bool requirementsMet = building.Requirements.RequirementsMet(troop.Player.ResourceContainer, troop.Player.BonusProperty.BuildingDiscount, tilesInCityRange, troop.Tile);
+            
+			if (requirementsMet && 
+				troop.Tile.CheckTechRequirement(building, troop.Player) && 
+				troop.Player.AvailableBuildings.Contains(buildingName))
 			{
-				buildings.Add((buildingName, new CostState
-				{
-					FoodCost = buildingCost.FoodCost,
-					MaterialCost = buildingCost.MaterialCost,
-					MoneyCost = buildingCost.MoneyCost
-				}));
+				Cost cost = building.Cost * (1f - troop.Player.BonusProperty.BuildingDiscount);
+                buildableBuildings.Add(new BuildableBuildingState{ 
+					Type =  buildingName, 
+					Cost = new CostState
+					{
+						FoodCost = cost.FoodCost,
+						MaterialCost = cost.MaterialCost,
+						MoneyCost = cost.MoneyCost
+					} 
+				});
 			}
 		}
-		return buildings;
+		return buildableBuildings;
 	}
 
 	private List<BuildingState> GetBuildings(Player player)
 	{
-		throw new NotImplementedException();
+		List<BuildingState> buildings = new();
+		foreach(BuildingBase building in player.Buildings)
+		{
+			buildings.Add(new BuildingState
+			{
+				Type = building.ToString(),
+				Health = building.BuildingProperty.Health,
+				Position = new[]
+				{
+                    _coordinateMapper.GetCoordinatesOf(building.Tile).Item1,
+                    _coordinateMapper.GetCoordinatesOf(building.Tile).Item2
+                },
+				TroopsToTrain = GetTroopsToTrain(building)
+			});
+		}
+		return buildings;
 	}
+
+    private List<TrainableTroopState> GetTroopsToTrain(BuildingBase building)
+    {
+		if(building.Tile.TroopOnTop is not null || building.TroopTrained)
+		{
+			return new();
+		}
+
+		List<TrainableTroopState> trainableTroops = new();
+		foreach(var troopName in building.Player.AvailableTroops)
+		{
+            Cost cost = Cost.CreateNewFromJsonCost(TroopBase.TroopProperties[troopName].Cost);
+            if (building.TrainableTroops.Contains(troopName) && 
+				building.Player.AvailableTroops.Contains(troopName) && 
+				building.Player.ResourceContainer.HasEnoughFor(cost))
+			{
+                trainableTroops.Add(new TrainableTroopState 
+				{
+					Type = troopName,
+					Cost = new CostState
+                    {
+                        FoodCost = cost.FoodCost,
+                        MaterialCost = cost.MaterialCost,
+                        MoneyCost = cost.MoneyCost
+                    }
+                });
+			}
+		}
+		return trainableTroops;
+    }
 
     private List<TechState> GetTechs(Player player)
     {
-        throw new NotImplementedException();
+		List<TechState> availableTechs = new();
+        foreach (var tech in player.Techs.Values)
+        {
+			if (tech.IsAvailable)
+			{
+				availableTechs.Add(new TechState
+				{
+					Name = tech.HashCode,
+					CostState = new CostState
+					{
+						FoodCost = tech.TechTreeItemProperty.Cost.FoodCost,
+						MaterialCost = tech.TechTreeItemProperty.Cost.MaterialCost,
+						MoneyCost = tech.TechTreeItemProperty.Cost.MoneyCost
+					}
+				});
+			}
+        }
+        return availableTechs;
     }
 
     private void AttackBuilding()

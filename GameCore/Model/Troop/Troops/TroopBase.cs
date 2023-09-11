@@ -11,11 +11,15 @@
         public Cost Cost { get; set; }
         public int MaxHealth { private get; set; }
         public TroopProperty TroopProperty { get; set; }
-        public List<string> Buildings { get; protected set; } = new List<string>();
         public TileBase Tile { get; set; }
         public Player Player { get; set; }
 
         public bool MovedInTurn { get; protected set; }
+
+        public virtual bool AttackedInTurn { 
+            get => false;
+            protected set {}
+        }
 
         // Doesn't contain Tile.
         public IList<TileBase> TilesInMovementRange { get => GetTilesInRange(TroopProperty.MovementRange); }
