@@ -21,13 +21,17 @@ def start_turn(message):
         'Action': 'EndTurn'
     }
 
+def choose_action(message):
+    return
+
 
 MESSAGE_FUNCTION_DICT = {
     'Setup': setup,
     'StartTurn': start_turn,
+    'ActionState': choose_action,
 }
 
 
 def get_response_for(message):
     jsonmsg = json.loads(message)
-    return MESSAGE_FUNCTION_DICT[jsonmsg['Action']](jsonmsg)
+    return MESSAGE_FUNCTION_DICT[jsonmsg['Type']](jsonmsg)

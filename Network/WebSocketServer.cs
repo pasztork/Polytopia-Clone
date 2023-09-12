@@ -62,7 +62,7 @@ public class WebSocketServer
 
 	private static async void StartTurnMessage(Model.Player player)
 	{
-		var message = new { Action = "StartTurn", player.Name };
+		var message = new { Type = "StartTurn", player.Name };
 		string json = JsonSerializer.Serialize(message);
 		await s_playerToWebSocketsDict[player].SendAsync(
 				new ArraySegment<byte>(Encoding.UTF8.GetBytes(json)),

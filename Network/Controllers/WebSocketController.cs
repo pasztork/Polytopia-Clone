@@ -139,7 +139,7 @@ public class WebSocketController : ControllerBase
 
 		var setup = new
 		{
-			Action = "Setup",
+			Type = "Setup",
 			Tiles = map,
 			Settings = settings,
 		};
