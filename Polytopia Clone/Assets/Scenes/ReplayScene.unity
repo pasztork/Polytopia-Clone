@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.172768, g: 0.21589169, b: 0.29782546, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4356,7 +4356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1707fb3db12143945a00ad4ba217320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonLogFilePath: D:\Jegyzetek\Egyetem\6_felev\Polytopia-Clone\Polytopia Clone\GameLogs\2023-05-10_15-16-59.json
+  jsonLogFilePath: 'C:\Users\user\Documents\GitHub\Polytopia-Clone\Network\GameLogs\2023-09-12_14-54-07.json '
 --- !u!1 &1486645811
 GameObject:
   m_ObjectHideFlags: 0

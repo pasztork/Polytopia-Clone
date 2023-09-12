@@ -28,8 +28,6 @@ namespace ReplayView
             modelPlayer.AvailableTiles.Add(tile);
             modelPlayer.AddBuilding(city);
             modelPlayer.Techs = TechTreeManager.Instance.GetNewTechTree();
-            modelPlayer.AvailableBuildings = new List<string>();
-            modelPlayer.AvailableTroops = new List<string>();
             BuildingManager.Instance.BuildStartingCity(tile, city, player.Name);
         }
 

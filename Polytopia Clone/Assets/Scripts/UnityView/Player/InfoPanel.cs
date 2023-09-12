@@ -22,7 +22,6 @@ namespace View
             Instance = this;
             Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += UpdateContent;
             Model.GameManager.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
-            Model.GameManager.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
             Model.GameManager.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
         }
 
