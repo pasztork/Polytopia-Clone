@@ -7,9 +7,9 @@
             return Model.GameManager.Get<Model.BuildManagerBase>().Build(troop, building);
         }
 
-        public override void Attack(Model.TroopBase troop, Model.BuildingBase building)
+        public override bool Attack(Model.TroopBase troop, Model.BuildingBase building)
         {
-            Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Attack(troop, building);
+            return Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Attack(troop, building);
         }
     }
 }

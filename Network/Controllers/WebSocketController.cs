@@ -67,10 +67,15 @@ public class WebSocketController : ControllerBase
 				{
 					await SendAvailableActionsTo(json, webSocket);
 				}
-				else if (_commandProcessor.Process(json) &&
-					!json.Action.Equals("EndTurn"))
+				else
 				{
-					await WebSocketServer.Broadcast(webSocket, receivedString);
+					(bool, string) result = _commandProcessor.Process(json);
+					await SendResponseTo(webSocket, result.Item2);
+
+					if (!json.Action.Equals("EndTurn") && result.Item1)
+					{
+						await WebSocketServer.Broadcast(webSocket, receivedString);
+					}
 				}
 			}
 		}
@@ -104,6 +109,15 @@ public class WebSocketController : ControllerBase
 			WebSocketMessageFlags.EndOfMessage,
 			CancellationToken.None);
 	}
+
+	private static async Task SendResponseTo(WebSocket webSocket, string response)
+	{
+        await webSocket.SendAsync(
+            new ArraySegment<byte>(Encoding.UTF8.GetBytes(response)),
+            WebSocketMessageType.Text,
+            WebSocketMessageFlags.EndOfMessage,
+            CancellationToken.None);
+    }
 
 	private static string TrimBufferString(string bufferString)
 	{
