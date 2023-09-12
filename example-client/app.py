@@ -1,7 +1,7 @@
 import json
 import websocket
 
-from message_handler import message_handler
+from message_handler import message_handler_v2
 
 SERVER_URL = 'ws://localhost:53658/ws'
 NAME = 'Cersei'
@@ -13,7 +13,7 @@ def on_open(ws):
 
 
 def on_message(ws, message):
-    response = message_handler.get_response_for(message)
+    response = message_handler_v2.get_response_for(message)
     if (response == None):
         return
     ws.send(json.dumps(response))
@@ -27,5 +27,5 @@ def connect_and_listen():
 
 
 if __name__ == '__main__':
-    message_handler.NAME = NAME
+    message_handler_v2.NAME = NAME
     connect_and_listen()
