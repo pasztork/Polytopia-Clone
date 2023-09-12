@@ -28,7 +28,6 @@ namespace ReplayView
             jsonDataHolder = JsonSerializer.Deserialize<LogView.JsonLogContent>(fileContent);
 
             Model.GameManager.Get<Model.MapManagerBase>().LoadMap(jsonDataHolder.Map);
-            Model.GameManager.Get<Model.MapGeneratorBase>().ConnectLoadedMap();
 
             MapManager.Instance.OnViewMappedToModel += AddPlayers;
             MapBuilder.Instance.BuildMapGFX(Model.GameManager.Get<Model.MapManagerBase>().Tiles);
