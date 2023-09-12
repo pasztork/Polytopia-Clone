@@ -247,101 +247,101 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
         return availableTechs;
     }
 
-    private string AttackBuilding()
+    private bool AttackBuilding()
 	{
 		ExtractCoordsFromCommand();
 
 		if (_startCoords.Length < 2 ||
 			_endCoords.Length < 2 ||
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null ||
-			_coordinateMapper.GetBuildingAt(_endCoords[0], _endCoords[1]) is null) { return ERROR; }
+			_coordinateMapper.GetBuildingAt(_endCoords[0], _endCoords[1]) is null) { return false; }
 
 		bool result = Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
 			_coordinateMapper.GetBuildingAt(_endCoords[0], _endCoords[1]));
 
-		return result ? OK : ERROR;
+		return result;
 	}
 
-	private string AttackTroop()
+	private bool AttackTroop()
 	{
 		ExtractCoordsFromCommand();
 
 		if (_startCoords.Length < 2 ||
 			_endCoords.Length < 2 ||
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null ||
-			_coordinateMapper.GetTroopAt(_endCoords[0], _endCoords[1]) is null) { return ERROR; }
+			_coordinateMapper.GetTroopAt(_endCoords[0], _endCoords[1]) is null) { return false; }
 
 		bool result = Controller.GameManager.Get<Controller.TroopManagerBase>().Attack(
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
 			_coordinateMapper.GetTroopAt(_endCoords[0], _endCoords[1]));
 
-		return result ? OK : ERROR;
+		return result;
 	}
 
-	private string Build()
+	private bool Build()
 	{
 		ExtractCoordsFromCommand();
 		var buildingName = Command.Parameters.Building;
 
 		if (_startCoords.Length < 2 ||
-			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null) { return ERROR; }
+			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null) { return false; }
 
 		bool result = Controller.GameManager.Get<Controller.BuildingManagerBase>().Build(
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
 			_buildingFactory.Instantiate(buildingName));
 
-		return result ? OK : ERROR;
+		return result;
 	}
 
-	private string EndTurn()
+	private bool EndTurn()
 	{
 		Controller.GameManager.Get<Controller.TurnManagerBase>().FinishTurn();
-		return OK;
+		return true;
 	}
 
-	private string Learn()
+	private bool Learn()
 	{
 		string techName = Command.Parameters.Tech;
 
 		var currentPlayer = Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer;
-		if (!currentPlayer.Techs.ContainsKey(techName)) { return ERROR; }
+		if (!currentPlayer.Techs.ContainsKey(techName)) { return false; }
 
 		Model.TechTreeItemBase techItem = _techTreeItemFactory.Instantiate(techName);
 		bool result = Controller.GameManager.Get<Controller.TechTreeManagerBase>().UnlockTech(techItem);
 
-		return result ? OK : ERROR;
+		return result;
 	}
 
-	private string Move()
+	private bool Move()
 	{
 		ExtractCoordsFromCommand();
 
 		if (_startCoords.Length < 2 ||
 			_endCoords.Length < 2 ||
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null ||
-			_coordinateMapper.GetTileAt(_endCoords[0], _endCoords[1]) is null) { return ERROR; }
+			_coordinateMapper.GetTileAt(_endCoords[0], _endCoords[1]) is null) { return false; }
 
 		bool result = Controller.GameManager.Get<Controller.TroopManagerBase>().MoveTroop(
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
 			_coordinateMapper.GetTileAt(_endCoords[0], _endCoords[1]));
 
-		return result ? OK : ERROR;
+		return result;
 	}
 
-	private string Train()
+	private bool Train()
 	{
 		ExtractCoordsFromCommand();
 		string troopName = Command.Parameters.Troop;
 
 		if (_startCoords.Length < 2 ||
-			_coordinateMapper.GetBuildingAt(_startCoords[0], _startCoords[1]) is null) { return ERROR; }
+			_coordinateMapper.GetBuildingAt(_startCoords[0], _startCoords[1]) is null) { return false; }
 
         bool result = Controller.GameManager.Get<Controller.TroopManagerBase>().Train(
 			_coordinateMapper.GetBuildingAt(_startCoords[0], _startCoords[1]),
 			_troopFactory.Instantiate(troopName));
 
-		return result ? OK : ERROR;
+		return result;
 	}
 
 	private void ExtractCoordsFromCommand()

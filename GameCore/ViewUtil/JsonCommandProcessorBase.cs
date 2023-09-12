@@ -7,7 +7,7 @@ namespace ViewUtil
 		private JsonLog.JsonActionObject _command = new();
 		protected JsonLog.JsonActionObject Command => _command;
 
-		protected readonly IDictionary<string, Func<string>> actions = new Dictionary<string, Func<string>>();
+		protected readonly IDictionary<string, Func<bool>> actions = new Dictionary<string, Func<bool>>();
 
         protected static readonly string OK = "OK";
 
@@ -23,9 +23,9 @@ namespace ViewUtil
 		public (bool, string) Process(JsonLog.JsonActionObject jsonCommand)
 		{
 			_command = jsonCommand;
-			if (!VerifyCommandExists()) { return ResponseOk(); }
-			string result = actions[_command.Action]();
-			return result == OK ? ResponseOk() : ResponseError();
+			if (!VerifyCommandExists()) { return ResponseError(); }
+			bool result = actions[_command.Action]();
+            return result ? ResponseOk() : ResponseError();
         }
 
 		private (bool, string) ResponseOk()
