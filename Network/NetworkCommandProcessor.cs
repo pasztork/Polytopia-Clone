@@ -54,20 +54,30 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 		List<TroopState> troops = new();
         foreach (TroopBase troop in player.Troops)
         {
-			troops.Add(new TroopState
+			var tilesToMove = GetTilesToMove(troop);
+			var enemiesToAttack = GetEnemies(troop);
+			var buildingsToBuild = GetBuildableBuildings(troop);
+			if(tilesToMove.Count > 0 || 
+				enemiesToAttack.Item1.Count > 0 || 
+				enemiesToAttack.Item2.Count > 0 || 
+				buildingsToBuild.Count > 0)
 			{
-				Type = troop.ToString(),
-				Health = troop.TroopProperty.Health,
-				Damage = troop.TroopProperty.Damage,
-				Position = new[]
-				{
+                troops.Add(new TroopState
+                {
+                    Type = troop.ToString(),
+                    Health = troop.TroopProperty.Health,
+                    Damage = troop.TroopProperty.Damage,
+                    Position = new[]
+                {
                     _coordinateMapper.GetCoordinatesOf(troop.Tile).Item1,
                     _coordinateMapper.GetCoordinatesOf(troop.Tile).Item2
                 },
-				TilesToMove = GetTilesToMove(troop),
-				EnemiesToAttack = GetEnemies(troop),
-				BuildingsToBuild = GetBuildableBuildings(troop)
-			});
+                    TilesToMove = tilesToMove,
+                    TroopsToAttack = enemiesToAttack.Item1,
+					BuildingsToAttack = enemiesToAttack.Item2,
+                    BuildingsToBuild = buildingsToBuild
+                });
+            }
         }
 		return troops;
     }
@@ -90,20 +100,21 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
         return tilesToMove;
     }
 
-	private List<EnemyState> GetEnemies(TroopBase troop)
+	private (List<EnemyState>, List<EnemyState>) GetEnemies(TroopBase troop)
 	{
 		if(troop.TroopProperty.AttackRange == 0 || troop.AttackedInTurn)
 		{
-			return new();
+			return (new(), new());
 		}
 
-        List<EnemyState> enemies = new();
+        List<EnemyState> enemyTroops = new();
+        List<EnemyState> enemyBuildings = new();
         foreach (TileBase tile in troop.TilesInAttackRange)
         {
             if (tile.TroopOnTop is not null && troop.Player != tile.TroopOnTop.Player)
             {
                 var enemy = tile.TroopOnTop;
-                enemies.Add(new EnemyState
+                enemyTroops.Add(new EnemyState
                 {
                     Name = enemy.Player.Name,
                     Type = enemy.ToString(),
@@ -119,7 +130,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 			if(tile.BuildingOnTop is not null && troop.Player != tile.BuildingOnTop.Player)
 			{
 				var enemy = tile.BuildingOnTop;
-				enemies.Add(new EnemyState
+                enemyBuildings.Add(new EnemyState
 				{
 					Name = enemy.Player.Name,
 					Type = enemy.ToString(),
@@ -133,7 +144,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 				});
 			}
         }
-		return enemies;
+		return (enemyTroops, enemyBuildings);
     }
 
 	private List<BuildableBuildingState> GetBuildableBuildings(TroopBase troop)
@@ -180,17 +191,21 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 		List<BuildingState> buildings = new();
 		foreach(BuildingBase building in player.Buildings)
 		{
-			buildings.Add(new BuildingState
+			var troopsToTrain = GetTroopsToTrain(building);
+			if(troopsToTrain.Count > 0)
 			{
-				Type = building.ToString(),
-				Health = building.BuildingProperty.Health,
-				Position = new[]
-				{
+                buildings.Add(new BuildingState
+                {
+                    Type = building.ToString(),
+                    Health = building.BuildingProperty.Health,
+                    Position = new[]
+                {
                     _coordinateMapper.GetCoordinatesOf(building.Tile).Item1,
                     _coordinateMapper.GetCoordinatesOf(building.Tile).Item2
                 },
-				TroopsToTrain = GetTroopsToTrain(building)
-			});
+                    TroopsToTrain = troopsToTrain
+                });
+            }
 		}
 		return buildings;
 	}
@@ -230,7 +245,9 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 		List<TechState> availableTechs = new();
         foreach (var tech in player.Techs.Values)
         {
-			if (tech.IsAvailable)
+			if (tech.IsAvailable && 
+				!tech.TechTreeItemProperty.IsUnlocked && 
+				player.ResourceContainer.HasEnoughFor(tech.TechTreeItemProperty.Cost))
 			{
 				availableTechs.Add(new TechState
 				{

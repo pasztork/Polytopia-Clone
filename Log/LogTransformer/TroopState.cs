@@ -7,7 +7,8 @@
         public int Damage { get; set; } = new int();
         public int[] Position { get; set; } = Array.Empty<int>();
         public List<int[]> TilesToMove { get; set; } = new();
-        public List<EnemyState> EnemiesToAttack { get; set; } = new();
+        public List<EnemyState> TroopsToAttack { get; set; } = new();
+        public List<EnemyState> BuildingsToAttack { get; set; } = new();
         public List<BuildableBuildingState> BuildingsToBuild { get; set; } = new();
     }
 
