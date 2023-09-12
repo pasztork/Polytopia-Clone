@@ -15,6 +15,7 @@ namespace ViewUtil
 
         private class Response
         {
+			public string Type { get; } = nameof(Response);
             public string Status { get; set; } = string.Empty;
         }
 
