@@ -141,7 +141,10 @@
 				OnBuildingAttacked?.Invoke(attacker, targetTile, result);
 			}
 
-			return result != null;
+            if (Buildings.Count == 0)
+                OnEliminated.Invoke(this);
+
+            return result != null;
 		}
 
 		public void SetupStartingPosition()
@@ -171,9 +174,6 @@
 			Buildings.Remove(building);
 			GetAllAvailableTiles();
 			building.DestroyEveryThingInRange(AvailableTiles);
-
-			if (Buildings.Count == 0)
-				OnEliminated.Invoke(this);
 		}
 
 		private void GetAllAvailableTiles()

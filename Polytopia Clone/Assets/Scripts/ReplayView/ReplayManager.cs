@@ -261,7 +261,7 @@ namespace ReplayView
 
 		private void GameEnd()
 		{
-			Model.GameManager.Get<Model.TurnManagerBase>().ReplayStopGame();
+			//Model.GameManager.Get<Model.TurnManagerBase>().ReplayStopGame();
 		}
 
 		public void OnTechListButtonClicked()
@@ -307,6 +307,8 @@ namespace ReplayView
 		{
 			actionText.text = $"Action: {player.Name} won the game";
 			stepForwardButton.interactable = false;
+			skipButton.interactable = false;
+			skipFastButton.interactable = false;
 		}
 	}
 }

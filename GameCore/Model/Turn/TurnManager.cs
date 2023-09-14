@@ -24,12 +24,6 @@ namespace Model
 
         private void StartTurn()
         {
-            if (players.Count == 1)
-            {
-                StopGame();
-                return;
-            }
-
             playerNode = playerNode.Next ?? players.First;
             CurrentPlayer = playerNode.Value;
             CurrentPlayer.StartTurn();
@@ -45,6 +39,10 @@ namespace Model
         private void HandlePlayerEliminated(Player player)
         {
             players.Remove(player);
+            if(players.Count == 1)
+            {
+                StopGame();
+            }
         }
 
         private void StopGame()

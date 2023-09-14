@@ -89,10 +89,10 @@ namespace Model
             return attackedNeighbors;
         }
 
-        private IList<TileBase> GetTilesInAttackRange(int range)
+        protected override IList<TileBase> GetTilesInAttackRange(int range)
         {
-            IList<TileBase> allTiles = base.GetTilesInRange(range);
-            IList<TileBase> notReachables = base.GetTilesInRange(range - 1);
+            IList<TileBase> allTiles = base.GetTilesInMovementRange(range);
+            IList<TileBase> notReachables = base.GetTilesInMovementRange(range - 1);
 
             var reachables = allTiles.ToHashSet();
 

@@ -22,8 +22,8 @@
         }
 
         // Doesn't contain Tile.
-        public IList<TileBase> TilesInMovementRange { get => GetTilesInRange(TroopProperty.MovementRange); }
-        public IList<TileBase> TilesInAttackRange { get => GetTilesInRange(TroopProperty.AttackRange); }
+        public IList<TileBase> TilesInMovementRange { get => GetTilesInMovementRange(TroopProperty.MovementRange); }
+        public IList<TileBase> TilesInAttackRange { get => GetTilesInAttackRange(TroopProperty.AttackRange); }
 
         protected JsonTroop initialValues = null;
 
@@ -124,7 +124,7 @@
             return true;
         }
 
-        protected virtual IList<TileBase> GetTilesInRange(int range)
+        protected virtual IList<TileBase> GetTilesInMovementRange(int range)
         {
             ISet<TileBase> reachables = new HashSet<TileBase> { Tile };
             for (int i = 0; i < range; i++)
@@ -139,6 +139,11 @@
             }
             reachables.Remove(Tile);
             return reachables.ToList();
+        }
+
+        protected virtual IList<TileBase> GetTilesInAttackRange(int range)
+        {
+            return GetTilesInMovementRange(range).ToList();
         }
 
         public virtual void FillRequirements(RequirementsListBase requirements)
