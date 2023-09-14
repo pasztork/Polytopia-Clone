@@ -37,9 +37,9 @@ namespace Model
 		{
 			foreach (Player player in Players)
 				player.SetupStartingPosition();
-			dependencyContainer.Get<TurnManagerBase>().Start();
 
 			OnGameStarted?.Invoke(Players, Get<MapManagerBase>().MapFilePath);
+			dependencyContainer.Get<TurnManagerBase>().Start();
 		}
 
 		public static T Get<T>() => dependencyContainer.Get<T>();

@@ -20,7 +20,7 @@
 		public Dictionary<string, TechTreeItemBase> Techs { get; set; } = new();
 		public BonusProperty BonusProperty { get; set; } = new BonusProperty();
 
-		public int StartingCityRange { get; set; }
+		public int StartingCityRange { get; set; } = 1;
 		public IList<BuildingBase> Buildings { get; } = new List<BuildingBase>();
 		public IList<TroopBase> Troops { get; } = new List<TroopBase>();
 		public ISet<TileBase> AvailableTiles { get; } = new HashSet<TileBase>();

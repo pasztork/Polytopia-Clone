@@ -10,7 +10,7 @@ namespace Model
 
         public override void Start()
         {
-            playerNode = players.Last;
+            playerNode = players.First;
             CurrentPlayer = playerNode.Value;
             CurrentPlayer.StartTurn();
             RaiseOnTurnStarted(CurrentPlayer);
@@ -38,7 +38,7 @@ namespace Model
 
         public override void PlayerCreated(Player player)
         {
-            players.AddFirst(player);
+            players.AddLast(player);
             player.OnEliminated += HandlePlayerEliminated;
         }
 

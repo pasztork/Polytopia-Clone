@@ -30,4 +30,4 @@ MESSAGE_FUNCTION_DICT = {
 
 def get_response_for(message):
     jsonmsg = json.loads(message)
-    return MESSAGE_FUNCTION_DICT[jsonmsg['Action']](jsonmsg)
+    return MESSAGE_FUNCTION_DICT[jsonmsg['Type']](jsonmsg)
