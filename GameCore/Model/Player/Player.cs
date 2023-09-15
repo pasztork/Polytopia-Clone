@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using System.Collections.Generic;
+
+namespace Model
 {
 	public class Player
 	{
@@ -23,7 +25,7 @@
 		public int StartingCityRange { get; set; } = 1;
 		public IList<BuildingBase> Buildings { get; } = new List<BuildingBase>();
 		public IList<TroopBase> Troops { get; } = new List<TroopBase>();
-		public ISet<TileBase> AvailableTiles { get; } = new HashSet<TileBase>();
+		public ISet<TileBase> AvailableTiles { get => GetAllAvailableTiles(); }
 
 		public string Name { get; set; } = string.Empty;
 
@@ -140,9 +142,8 @@
 				result.RemoveAt(0);
 				OnBuildingAttacked?.Invoke(attacker, targetTile, result);
 			}
-
-            if (Buildings.Count == 0)
-                OnEliminated?.Invoke(this);
+            if (target.Player.Buildings.Count == 0)
+                OnEliminated?.Invoke(target.Player);
 
             return result != null;
 		}
@@ -157,7 +158,6 @@
 			city.Tile = tile;
 			city.Player = this;
 			tile.SetBuildingOnTop(city, this);
-			AvailableTiles.Add(tile);
 			AddBuilding(city);
 			OnBuildCreated?.Invoke(city);
 			OnStartingCitySpawned?.Invoke(this, tile, city);
@@ -166,23 +166,22 @@
 		public void AddBuilding(BuildingBase building)
 		{
 			Buildings.Add(building);
-			AvailableTiles.UnionWith(building.GetTilesInRange());
 		}
 
 		public void RemoveBuilding(BuildingBase building)
 		{
 			Buildings.Remove(building);
-			GetAllAvailableTiles();
 			building.DestroyEveryThingInRange(AvailableTiles);
 		}
 
-		private void GetAllAvailableTiles()
+		private ISet<TileBase> GetAllAvailableTiles()
 		{
-			AvailableTiles.Clear();
-			foreach (var building in Buildings)
+            ISet<TileBase> tiles = new HashSet<TileBase>();
+            foreach (var building in Buildings)
 			{
-				AvailableTiles.UnionWith(building.GetTilesInRange());
+				tiles.UnionWith(building.GetTilesInRange());
 			}
+			return tiles;
 		}
 
 		public bool UnlockTech(TechTreeItemBase techToLearn)

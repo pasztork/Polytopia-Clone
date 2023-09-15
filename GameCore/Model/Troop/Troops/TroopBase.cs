@@ -16,10 +16,7 @@
 
         public bool MovedInTurn { get; protected set; }
 
-        public virtual bool AttackedInTurn { 
-            get => false;
-            protected set {}
-        }
+        public abstract bool AttackedInTurn { get; protected set; }
 
         // Doesn't contain Tile.
         public IList<TileBase> TilesInMovementRange { get => GetTilesInMovementRange(TroopProperty.MovementRange); }

@@ -86,7 +86,14 @@ public class WebSocketController : ControllerBase
 			CancellationToken.None);
 	}
 
-    private void CloseConnection(Model.Player player) => _gameEnded = true;
+	private void CloseConnection(Model.Player player)
+	{
+		if (!_gameEnded)
+		{
+			Console.Write($"{player.Name} won the game!");
+			_gameEnded = true;
+		}
+	}
 
     private async Task SendAvailableActionsTo(JsonActionObject jsonCommand, WebSocket webSocket)
     {

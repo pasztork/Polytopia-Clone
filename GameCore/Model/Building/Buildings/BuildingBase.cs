@@ -22,11 +22,7 @@ namespace Model
             }
         }
 
-        public virtual bool TroopTrained
-        {
-            get => false;
-            protected set { }
-        }
+        public abstract bool TroopTrainedInTurn { get; protected set; }
 
         public TileBase Tile { get; set; }
         public BuildingProperty BuildingProperty { get; set; }

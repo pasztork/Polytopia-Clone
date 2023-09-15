@@ -2,23 +2,23 @@
 {
     public abstract class WaterTroopTrainingBuilding : BuildingBase
     {
-        public override bool TroopTrained { get; protected set; }
+        public override bool TroopTrainedInTurn { get; protected set; }
 
         public WaterTroopTrainingBuilding()
         {
             Requirements = new WaterTrainingRequirementsList();
             TrainableTroops.Add("Boat");
             GameManager.Get<TurnManagerBase>().OnTurnStarted +=
-                (player) => TroopTrained = false;
+                (player) => TroopTrainedInTurn = false;
         }
 
         public override bool TrainTroop(TroopBase troop)
         {
-            if (TroopTrained)
+            if (TroopTrainedInTurn)
                 return false;
 
             bool tileAccepted = Tile.TrainTroop(troop);
-            TroopTrained = tileAccepted;
+            TroopTrainedInTurn = tileAccepted;
             return tileAccepted;
         }
 

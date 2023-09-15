@@ -149,7 +149,6 @@ namespace ReplayView
 			Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
 
 			List<Tile> attackedTroopTiles = new();
-
 			for (int i = 0; i < datas.Neighbors.Length; i += 2)
 			{
 				attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i + 1]));
@@ -192,35 +191,32 @@ namespace ReplayView
 			Model.TileBase attackerTile = MapManager.Instance.ViewToModelMap[start];
 			Model.TileBase targetTile = MapManager.Instance.ViewToModelMap[end];
 
-			if (datas.Neighbors.Length > 0)
+            List<Tile> attackedTroopTiles = new();
+			for (int i = 0; i < datas.Neighbors.Length; i += 2)
 			{
-				List<Tile> attackedTroopTiles = new();
-				for (int i = 0; i < datas.Neighbors.Length; i += 2)
-				{
-					attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i + 1]));
-				}
-				if (targetTile.TroopOnTop != null)
-				{
-					if (attackedTroopTiles.Contains(end))
-						targetTile.TroopOnTop.TroopProperty.DodgeRate = 0.0;
-					else
-						targetTile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
-				}
-
-				foreach (var neighbor in end.Neighbors)
-				{
-					Model.TileBase modelNeighbor = MapManager.Instance.ViewToModelMap[neighbor];
-					if (modelNeighbor.TroopOnTop != null)
-					{
-						if (attackedTroopTiles.Contains(neighbor))
-							modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 0.0;
-						else
-							modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 1.0;
-					}
-				}
+				attackedTroopTiles.Add(MapBuilder.Instance.GetTileByCoord(datas.Neighbors[i], datas.Neighbors[i + 1]));
 			}
 
-			actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
+            if (targetTile.TroopOnTop != null)
+            {
+                if (attackedTroopTiles.Contains(end))
+                    targetTile.TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                else
+                    targetTile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
+            }
+            foreach (var neighbor in end.Neighbors)
+            {
+                Model.TileBase modelNeighbor = MapManager.Instance.ViewToModelMap[neighbor];
+                if (modelNeighbor.TroopOnTop != null)
+                {
+                    if (attackedTroopTiles.Contains(neighbor))
+                        modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 0.0;
+                    else
+                        modelNeighbor.TroopOnTop.TroopProperty.DodgeRate = 1.0;
+                }
+            }
+
+            actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"attacked {targetTile.BuildingOnTop} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
@@ -236,6 +232,9 @@ namespace ReplayView
 
 			Model.TileBase startTile = MapManager.Instance.ViewToModelMap[start];
 			Model.TileBase endTile = MapManager.Instance.ViewToModelMap[end];
+
+			endTile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
+			TroopManager.Instance.Attack(startTile.TroopOnTop, endTile.TroopOnTop);
 
 			actionText.text = $"Action: {startTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"missed attack on {endTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";

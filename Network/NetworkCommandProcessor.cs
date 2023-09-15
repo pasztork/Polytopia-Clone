@@ -154,11 +154,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
             return new();
         }
 
-        HashSet<TileBase> tilesInCityRange = new();
-		troop.Player.Buildings.ToList().ForEach(building =>
-		{
-			tilesInCityRange.UnionWith(building.GetTilesInRange());
-		});
+		HashSet<TileBase> tilesInCityRange = troop.Player.AvailableTiles.ToHashSet();
 
         List<BuildableBuildingState> buildableBuildings = new();
         foreach (var buildingName in troop.Player.AvailableBuildings)
@@ -212,7 +208,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 
     private List<TrainableTroopState> GetTroopsToTrain(BuildingBase building)
     {
-		if(building.Tile.TroopOnTop is not null || building.TroopTrained)
+		if(building.Tile.TroopOnTop is not null || building.TroopTrainedInTurn)
 		{
 			return new();
 		}

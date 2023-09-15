@@ -2,6 +2,11 @@
 {
     public abstract class WorkerTroop : TroopBase
     {
+        public override bool AttackedInTurn { 
+            get => true; // Always true so it can not attack
+            protected set { } 
+        }
+
         public override bool Relocate(TraversableTile target)
         {
             return MoveTo(target);

@@ -27,7 +27,6 @@
                 foreach (TileBase tile in toAdd)
                     reachables.Add(tile);
             }
-            reachables.Remove(Tile);
             return reachables.ToList();
         }
 
@@ -36,7 +35,8 @@
             var cityRange = GetTilesInRange();
             foreach (TileBase tile in cityRange)
             {
-                if (!availableTiles.Contains(tile) && tile.BuildingOnTop != null && tile.BuildingOnTop.Player == Player)
+                if (!availableTiles.Contains(tile) && tile.BuildingOnTop != null && 
+                    tile.BuildingOnTop != this && tile.BuildingOnTop.Player == Player)
                     tile.BuildingOnTop.TakeDamage(tile.BuildingOnTop.BuildingProperty.Health);
             }
         }
