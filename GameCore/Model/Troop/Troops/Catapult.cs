@@ -28,8 +28,8 @@ namespace Model
             // igen, fontos, hogy 2x kerüljön bele ha teljesül a feltétel
             if (damageTaken)
                 tilesOfAttackedTroops.Add(troop.Tile);
-            else
-                troop.Player.RaiseOnAttackMissed(this, troop);
+            //else
+            //    troop.Player.RaiseOnAttackMissed(this, troop);
 
             tilesOfAttackedTroops.Add(troop.Tile);
 
@@ -38,7 +38,7 @@ namespace Model
 
             tilesOfAttackedTroops.AddRange(AttackNeighbors(troop.Tile));
 
-            return (tilesOfAttackedTroops.Count == 1) ? null : tilesOfAttackedTroops;
+            return tilesOfAttackedTroops;
         }
 
         public override List<TileBase> Attack(BuildingBase building)
@@ -59,8 +59,8 @@ namespace Model
                 bool damageTaken = target.TakeDamage(TroopProperty.Damage);
                 if (damageTaken)
                     attackedTiles.Add(building.Tile);
-                else
-                    target.Player.RaiseOnAttackMissed(this, target);
+                //else
+                //    target.Player.RaiseOnAttackMissed(this, target);
 
             }
             attackedTiles.AddRange(AttackNeighbors(building.Tile));
@@ -79,8 +79,8 @@ namespace Model
                     bool damageTaken = targetTroop.TakeDamage(TroopProperty.Damage / 2);
                     if (damageTaken)
                         attackedNeighbors.Add(neighbor);
-                    else
-                        targetTroop.Player.RaiseOnAttackMissed(this, targetTroop);
+                    //else
+                    //    targetTroop.Player.RaiseOnAttackMissed(this, targetTroop);
                 }
 
                 if (neighbor.BuildingOnTop != null && neighbor.BuildingOnTop.Player != Player)

@@ -10,6 +10,24 @@
                 (player) => AttackedInTurn = false;
         }
 
+        protected override IList<TileBase> GetTilesInMovementRange(int range)
+        {
+            ISet<TileBase> reachables = new HashSet<TileBase> { Tile };
+            for (int i = 0; i < range; i++)
+            {
+                ISet<TileBase> toAdd = new HashSet<TileBase>();
+                foreach (TileBase reachable in reachables)
+                    foreach (TileBase tile in reachable.Neighbors)
+                        if (tile is TraversableTile)
+                            toAdd.Add(tile);
+
+                foreach (TileBase tile in toAdd)
+                    reachables.Add(tile);
+            }
+            reachables.Remove(Tile);
+            return reachables.ToList();
+        }
+
         public override List<TileBase> Attack(TroopBase troop)
         {
             if (!TilesInAttackRange.Contains(troop.Tile) || AttackedInTurn)

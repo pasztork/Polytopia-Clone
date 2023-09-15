@@ -2860,7 +2860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055d5d22dffa77245895c73d28360b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipSize: 5
+  skipSize: 50
   stepForwardButton: {fileID: 82460329}
   skipButton: {fileID: 377690704}
   skipFastButton: {fileID: 1929291132}
@@ -4356,7 +4356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1707fb3db12143945a00ad4ba217320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonLogFilePath: C:\Users\user\Documents\GitHub\Polytopia-Clone\Network\GameLogs\2023-09-14_13-47-09.json
+  jsonLogFilePath: 'C:\Users\user\Documents\GitHub\Polytopia-Clone\Network\GameLogs\2023-09-15_12-22-16.json '
 --- !u!1 &1486645811
 GameObject:
   m_ObjectHideFlags: 0

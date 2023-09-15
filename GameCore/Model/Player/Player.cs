@@ -142,7 +142,7 @@
 			}
 
             if (Buildings.Count == 0)
-                OnEliminated.Invoke(this);
+                OnEliminated?.Invoke(this);
 
             return result != null;
 		}

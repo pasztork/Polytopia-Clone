@@ -25,7 +25,7 @@ namespace Model
                 return null;
             }
 
-            return new List<TileBase>() { troop.Tile, troop.Tile };
+            return new List<TileBase>() { troop.Tile };
         }
 
         public override List<TileBase> Attack(BuildingBase building)
