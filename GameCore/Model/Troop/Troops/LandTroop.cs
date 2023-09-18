@@ -5,7 +5,6 @@
         public override bool Relocate(TraversableTile target)
         {
             Tile.TroopOnTop = null;
-            MovedInTurn = true;
             Tile = target;
             return true;
         }

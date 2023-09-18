@@ -21,7 +21,7 @@ namespace Model
             bool damageTaken = troop.TakeDamage(TroopProperty.Damage);
             if (!damageTaken)
             {
-                troop.Player.RaiseOnAttackMissed(this, troop);
+                Player.RaiseOnAttackMissed(this, troop);
                 return null;
             }
 

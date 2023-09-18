@@ -36,6 +36,7 @@
                 return false;
 
             bool accepted = target.AcceptTroop(this);
+            if(accepted) { MovedInTurn = true; }
             return accepted;
         }
 

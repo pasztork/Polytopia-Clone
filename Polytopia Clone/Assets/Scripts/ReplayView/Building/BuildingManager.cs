@@ -27,17 +27,19 @@ namespace ReplayView
         [SerializeField] private SerializableDictionary<string, BuildingBase> blueprints;
         public SerializableDictionary<string, BuildingBase> Blueprints { get => blueprints; }
 
-        public void Build(Tile where, string what)
+        public bool Build(Tile where, string what)
         {
             Model.TileBase modelTile = MapManager.Instance.ViewToModelMap[where];
             BuildingBase viewBuilding = Instantiate(Blueprints[what], where.transform.position + new Vector3(0f, where.Offset.y, 0f), Quaternion.identity);
             Model.BuildingBase building = viewBuilding.ToModel(Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer);
-            Controller.GameManager.Get<Controller.BuildingManagerBase>().Build(modelTile.TroopOnTop, building);
+            bool built = Controller.GameManager.Get<Controller.BuildingManagerBase>().Build(modelTile.TroopOnTop, building);
 
             viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
 
             ViewToModelMap[viewBuilding] = building;
             ModelToViewMap[building] = viewBuilding;
+
+            return built;
         }
 
         public void BuildStartingCity(Model.TileBase tile, Model.City city, string playerName)
@@ -53,9 +55,9 @@ namespace ReplayView
             ModelToViewMap[city] = viewCity;
         }
 
-        public void Attack(Model.TroopBase attacker, Model.BuildingBase target)
+        public bool Attack(Model.TroopBase attacker, Model.BuildingBase target)
         {
-            Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(attacker, target);
+            return Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(attacker, target);
         }
     }
 }

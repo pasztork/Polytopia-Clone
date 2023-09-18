@@ -32,9 +32,9 @@ namespace ReplayView
             return Model.GameManager.Get<Model.TechTreeManagerBase>().ConnectTree(modelItems);
         }
 
-        public void LearnTech(string techName)
+        public bool LearnTech(string techName)
         {
-            Controller.GameManager.Get<Controller.TechTreeManagerBase>().UnlockTech(TechTreeItems[techName].ToModel());
+            return Controller.GameManager.Get<Controller.TechTreeManagerBase>().UnlockTech(TechTreeItems[techName].ToModel());
         }
     }
 }

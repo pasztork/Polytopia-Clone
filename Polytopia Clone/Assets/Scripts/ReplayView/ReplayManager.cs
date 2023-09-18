@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.ParticleSystem;
 
 namespace ReplayView
 {
@@ -106,38 +109,47 @@ namespace ReplayView
 			Model.TroopBase troop = startTile.TroopOnTop;
 			Model.TileBase endTile = MapManager.Instance.ViewToModelMap[end];
 
-			TroopManager.Instance.MoveSelectedTroop(troop, endTile);
+			bool moved = TroopManager.Instance.MoveSelectedTroop(troop, endTile);
 
-			actionText.text = $"Action: {troop} moved " +
+            actionText.text = $"Action: {troop} moved " +
 				$"from {startTile} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"to {endTile} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.red);
 			HighlightManager.Instance.Add(end, Color.green);
-		}
+
+            if (!moved)
+                Debug.LogError($"Error in move, action no. {cursor}");
+        }
 
 		private void Train()
 		{
 			JsonLog.JsonActionParameters datas = actionList[cursor].Parameters;
 			Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
-			TroopManager.Instance.Train(start, datas.Troop);
+			bool trained = TroopManager.Instance.Train(start, datas.Troop);
 
 			Model.TileBase trainTile = MapManager.Instance.ViewToModelMap[start];
 			actionText.text = $"Action: {trainTile.TroopOnTop} trained " +
 				$"at {trainTile.BuildingOnTop} ({datas.Start[0]}, {datas.Start[1]})";
 			HighlightManager.Instance.Add(start, Color.magenta);
-		}
+
+            if (!trained)
+                Debug.LogError($"Error in train, action no. {cursor}");
+        }
 
 		private void Build()
 		{
 			JsonLog.JsonActionParameters datas = actionList[cursor].Parameters;
 			Tile start = MapBuilder.Instance.GetTileByCoord(datas.Start[0], datas.Start[1]);
-			BuildingManager.Instance.Build(start, datas.Building);
+			bool built = BuildingManager.Instance.Build(start, datas.Building);
 
 			Model.TileBase buildingTile = MapManager.Instance.ViewToModelMap[start];
 			actionText.text = $"Action: {buildingTile.BuildingOnTop} built " +
 				$"on {buildingTile} ({datas.Start[0]}, {datas.Start[1]})";
 			HighlightManager.Instance.Add(start, Color.yellow);
-		}
+
+            if (!built)
+                Debug.LogError($"Error in build, action no. {cursor}");
+        }
 
 		private void AttackTroop()
 		{
@@ -179,8 +191,11 @@ namespace ReplayView
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
 
-			TroopManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.TroopOnTop);
-		}
+			bool attacked = TroopManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.TroopOnTop);
+
+            if (!attacked)
+                Debug.LogError($"Error in attack troop, action no. {cursor}");
+        }
 
 		private void AttackBuilding()
 		{
@@ -221,8 +236,11 @@ namespace ReplayView
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
 
-			BuildingManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.BuildingOnTop);
-		}
+			bool attacked = BuildingManager.Instance.Attack(attackerTile.TroopOnTop, targetTile.BuildingOnTop);
+
+            if (!attacked)
+                Debug.LogError($"Error in attack building, action no. {cursor}");
+        }
 
 		private void MissAttack()
 		{
@@ -234,22 +252,35 @@ namespace ReplayView
 			Model.TileBase endTile = MapManager.Instance.ViewToModelMap[end];
 
 			endTile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
-			TroopManager.Instance.Attack(startTile.TroopOnTop, endTile.TroopOnTop);
+			foreach(Model.TileBase tile in endTile.Neighbors)
+			{
+				if(tile.TroopOnTop != null)
+				{
+					tile.TroopOnTop.TroopProperty.DodgeRate = 1.0;
+				}
+			}
+			bool attacked = TroopManager.Instance.Attack(startTile.TroopOnTop, endTile.TroopOnTop);
 
 			actionText.text = $"Action: {startTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"missed attack on {endTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
+
+			if (attacked)
+				Debug.LogError($"Error in miss, action no. {cursor}");
 		}
 
 		private void Learn()
 		{
 			JsonLog.JsonActionParameters datas = actionList[cursor].Parameters;
-			TechTreeManager.Instance.LearnTech(datas.Tech);
+			bool learnt = TechTreeManager.Instance.LearnTech(datas.Tech);
 
 			actionText.text = $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +
 				$"learnt {datas.Tech}";
-		}
+
+            if (!learnt)
+                Debug.LogError($"Error in learn, action no. {cursor}");
+        }
 
 		private void EndTurn()
 		{

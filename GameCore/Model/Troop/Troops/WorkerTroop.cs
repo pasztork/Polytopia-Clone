@@ -25,7 +25,6 @@
         protected bool MoveTo(TileBase tile)
         {
             Tile.TroopOnTop = null;
-            MovedInTurn = true;
             Tile = tile;
             return true;
         }

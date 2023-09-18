@@ -38,11 +38,11 @@ def choose_action(message):
         if(len(enemyTroops) > 0):
             enemy = random.choice(enemyTroops)
             return {
-                "Name": this.NAME,
-                "Action": "AttackTroop",
-                "Parameters": {
-                    "Start": [troop['Position'][0], troop['Position'][1]],
-                    "End": [enemy['Position'][0], enemy['Position'][1]]
+                'Name': this.NAME,
+                'Action': 'AttackTroop',
+                'Parameters': {
+                    'Start': [troop['Position'][0], troop['Position'][1]],
+                    'End': [enemy['Position'][0], enemy['Position'][1]]
                 }
             }
         elif(len(enemyBuildings) > 0):
@@ -94,7 +94,7 @@ def choose_action(message):
             'Name': this.NAME,
             'Action': 'Learn',
             'Parameters': {
-                "Tech": tech['Name']
+                'Tech': tech['Name']
             }
         }
     else:

@@ -33,10 +33,19 @@ namespace Model
 
             tilesOfAttackedTroops.Add(troop.Tile);
 
-            if (troop.Tile.BuildingOnTop != null && troop.Tile.BuildingOnTop.Player != Player)
-                troop.Tile.BuildingOnTop.TakeDamage(TroopProperty.Damage);
+            BuildingBase building = troop.Tile.BuildingOnTop;
+            if (building != null && building.Player != Player)
+                building.TakeDamage(TroopProperty.Damage);
 
             tilesOfAttackedTroops.AddRange(AttackNeighbors(troop.Tile));
+
+            if(tilesOfAttackedTroops.Count == 1 &&
+                building == null &&
+                troop.Tile.Neighbors.Count(n => n.BuildingOnTop != null) == 0)
+            {
+                Player.RaiseOnAttackMissed(this, troop);
+                return null;
+            }
 
             return tilesOfAttackedTroops;
         }
@@ -94,13 +103,12 @@ namespace Model
             IList<TileBase> allTiles = base.GetTilesInMovementRange(range);
             IList<TileBase> notReachables = base.GetTilesInMovementRange(range - 1);
 
-            var reachables = allTiles.ToHashSet();
 
             foreach (TileBase tile in notReachables)
-                reachables.Remove(tile);
+                allTiles.Remove(tile);
 
-            reachables.Remove(Tile);
-            return reachables.ToList();
+            allTiles.Remove(Tile);
+            return allTiles;
         }
         public override string ToString()
         {
