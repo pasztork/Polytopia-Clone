@@ -11,6 +11,7 @@ public class WebSocketController : ControllerBase
 {
 	private readonly NetworkCommandProcessor _commandProcessor = new();
 	private bool _gameEnded = false;
+	private WebSocket _webSocket;
 
 	[Route("/ws")]
 	public async Task Get()
@@ -18,6 +19,7 @@ public class WebSocketController : ControllerBase
 		if (HttpContext.WebSockets.IsWebSocketRequest)
 		{
 			using WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+			_webSocket = webSocket;
 			if (!WebSocketServer.Register(webSocket))
 			{
 				HttpContext.Response.StatusCode = StatusCodes.Status409Conflict;
@@ -88,11 +90,11 @@ public class WebSocketController : ControllerBase
 
 	private void CloseConnection(Model.Player player)
 	{
-		if (!_gameEnded)
+		_gameEnded = true;
+		if(WebSocketServer.IsWinner(_webSocket, player))
 		{
-			Console.Write($"{player.Name} won the game!");
-			_gameEnded = true;
-		}
+            Console.WriteLine($"{player.Name} won the game!");
+        }
 	}
 
     private async Task SendAvailableActionsTo(JsonActionObject jsonCommand, WebSocket webSocket)

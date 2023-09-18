@@ -60,7 +60,12 @@ public class WebSocketServer
 		if (s_playerToWebSocketsDict.Count == PlayerCount) { GameManager.StartNew(); }
 	}
 
-	private static async void StartTurnMessage(Model.Player player)
+    public static bool IsWinner(WebSocket webSocket, Model.Player player)
+    {
+        return (s_playerToWebSocketsDict[player] == webSocket);
+    }
+
+    private static async void StartTurnMessage(Model.Player player)
 	{
 		var message = new { Type = "StartTurn", player.Name };
 		string json = JsonSerializer.Serialize(message);
@@ -71,7 +76,7 @@ public class WebSocketServer
 				CancellationToken.None);
 	}
 
-	private class WebPlayer
+    private class WebPlayer
 	{
 		public string Name { get; set; } = string.Empty;
 	}
