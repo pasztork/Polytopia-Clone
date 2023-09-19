@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace View
+{
+    public class BuildingManager : MonoBehaviour
+    {
+        private static BuildingManager instance;
+        public static BuildingManager Instance
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = FindObjectOfType<BuildingManager>();
+                }
+                return instance;
+            }
+        }
+
+        // Used by UI elements
+        public event Action OnBuildAttempted;
+
+        public Dictionary<View.BuildingBase, Model.BuildingBase> ViewToModelMap { get; }
+            = new Dictionary<View.BuildingBase, Model.BuildingBase>();
+
+        public Dictionary<Model.BuildingBase, View.BuildingBase> ModelToViewMap { get; }
+            = new Dictionary<Model.BuildingBase, View.BuildingBase>();
+
+        [SerializeField] private SerializableDictionary<string, View.BuildingBase> blueprints;
+        public SerializableDictionary<string, View.BuildingBase> Blueprints { get => blueprints; }
+
+        private View.BuildingBase selectedBuilding;
+        public View.BuildingBase SelectedBuilding
+        {
+            get => selectedBuilding;
+            set
+            {
+                selectedBuilding = value;
+                if (selectedBuilding != null)
+                {
+                    View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(selectedBuilding);
+                    View.TroopManager.Instance.SelectedTroop = null;
+                    View.MapManager.Instance.SelectedTile = null;
+                }
+                View.TrainPanelController.Instance.BuildingSelected(selectedBuilding);
+            }
+        }
+
+        public View.BuildingBase Blueprint { private get; set; }
+
+        public void Build()
+        {
+            // Should throw error if there are no subscribers.
+            // Whoever responds should set the value of Blueprint.
+            OnBuildAttempted.Invoke();
+            if (Blueprint == null || View.TroopManager.Instance.SelectedTroop == null)
+            {
+                return;
+            }
+
+            Model.TroopBase troop = View.TroopManager.Instance.ViewToModelMap[View.TroopManager.Instance.SelectedTroop];
+            View.Tile tile = View.MapManager.Instance.ModelToViewMap[troop.Tile];
+            View.BuildingBase viewBuilding = Instantiate(Blueprint, tile.transform.position + tile.BuildingOffset, Blueprint.transform.rotation);
+            Model.BuildingBase building = viewBuilding.ToModel(Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer);
+            bool built = Controller.GameManager.Get<Controller.BuildingManagerBase>().Build(troop, building);
+
+            if (!built)
+            {
+                viewBuilding.TakeDamage(0);
+                Destroy(viewBuilding);
+                return;
+            }
+            viewBuilding.GetComponentInChildren<View.NameText>().BackgroundColor = View.TurnManager.Instance.PlayerColors[Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name];
+
+            ViewToModelMap[viewBuilding] = building;
+            ModelToViewMap[building] = viewBuilding;
+            View.TroopManager.Instance.SelectedTroop = null;
+            View.HighlightManager.Instance.FireMonoBehaviourSelectedEvent(null);
+        }
+
+        public void BuildStartingCity(Model.TileBase modelTile, Model.BuildingBase modelBuilding, string name)
+        {
+            View.Tile viewTile = View.MapManager.Instance.ModelToViewMap[modelTile];
+            View.BuildingBase viewBuilding = Instantiate(blueprints["City"], viewTile.transform.position + viewTile.BuildingOffset, blueprints["City"].transform.rotation);
+            View.NameText buildingText = viewBuilding.GetComponentInChildren<View.NameText>();
+            buildingText.Name = name + "\nCapital";
+            buildingText.BackgroundColor = View.TurnManager.Instance.PlayerColors[name];
+            modelBuilding.OnDamageTaken += viewBuilding.TakeDamage;
+
+            ViewToModelMap[viewBuilding] = modelBuilding;
+            ModelToViewMap[modelBuilding] = viewBuilding;
+        }
+
+        public void Attack(View.BuildingBase building)
+        {
+            Model.TroopBase modelAttacker = View.TroopManager.Instance.ViewToModelMap[View.TroopManager.Instance.SelectedTroop];
+            Model.BuildingBase modelTarget = ViewToModelMap[building];
+            Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(modelAttacker, modelTarget);
+        }
+    }
+}

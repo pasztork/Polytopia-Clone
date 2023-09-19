@@ -1,0 +1,23 @@
+using UnityEngine;
+
+namespace View
+{
+    public class Settler : WorkerTroop
+    {
+        private void Start()
+        {
+            GetComponentInChildren<Canvas>().GetComponentInChildren<HealthBar>().
+                Initialize(Model.TroopBase.TroopProperties["Settler"].Health);
+            Buildings.Add("City");
+        }
+
+        public override Model.TroopBase ToModel(Model.Player player)
+        {
+            Model.TroopBase settler = new Model.Settler(player);
+            TroopProperties = settler.TroopProperty;
+            settler.OnDamageTaken += TakeDamage;
+            settler.OnTroopHealed += Heal;
+            return settler;
+        }
+    }
+}
