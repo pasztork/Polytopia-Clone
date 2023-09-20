@@ -186,7 +186,7 @@ namespace ReplayView
 				}
 			}
 
-			actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
+			actionText.text = $"Action({cursor}): {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"attacked {targetTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
