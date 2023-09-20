@@ -57,7 +57,12 @@ namespace Model
 		{
 			RequirementsListBase requirements = building.Requirements;
 			troop.FillRequirements(requirements);
-			bool requirementsMet = requirements.RequirementsMet(ResourceContainer, BonusProperty.BuildingDiscount, AvailableTiles, troop.Tile);
+			ISet<TileBase> occupiedTiles = new HashSet<TileBase>();
+            foreach (var player in GameManager.Players)
+            {
+				occupiedTiles.UnionWith(player.AvailableTiles);
+            }
+            bool requirementsMet = requirements.RequirementsMet(ResourceContainer, BonusProperty.BuildingDiscount, occupiedTiles, AvailableTiles, troop.Tile);
 			if (!requirementsMet || 
 				!Troops.Contains(troop) || 
 				!AvailableBuildings.Contains(building.ToString()))

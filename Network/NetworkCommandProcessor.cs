@@ -155,13 +155,18 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
         }
 
 		HashSet<TileBase> tilesInCityRange = troop.Player.AvailableTiles.ToHashSet();
+		HashSet<TileBase> occupiedTiles = new HashSet<TileBase>();
+		foreach(var player in GameManager.Players)
+		{
+			occupiedTiles.UnionWith(player.AvailableTiles);
+		}
 
         List<BuildableBuildingState> buildableBuildings = new();
         foreach (var buildingName in troop.Player.AvailableBuildings)
 		{
 			var building = _buildingFactory.Instantiate(buildingName);
 			troop.FillRequirements(building.Requirements);
-            bool requirementsMet = building.Requirements.RequirementsMet(troop.Player.ResourceContainer, troop.Player.BonusProperty.BuildingDiscount, tilesInCityRange, troop.Tile);
+            bool requirementsMet = building.Requirements.RequirementsMet(troop.Player.ResourceContainer, troop.Player.BonusProperty.BuildingDiscount, occupiedTiles, tilesInCityRange, troop.Tile);
             
 			if (requirementsMet && 
 				troop.Tile.CheckTechRequirement(building, troop.Player) && 

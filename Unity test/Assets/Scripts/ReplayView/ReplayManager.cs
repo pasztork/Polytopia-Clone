@@ -111,7 +111,7 @@ namespace ReplayView
 
 			bool moved = TroopManager.Instance.MoveSelectedTroop(troop, endTile);
 
-            actionText.text = $"Action: {troop} moved " +
+            actionText.text = $"Action({cursor}): {troop} moved " +
 				$"from {startTile} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"to {endTile} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.red);
@@ -128,7 +128,7 @@ namespace ReplayView
 			bool trained = TroopManager.Instance.Train(start, datas.Troop);
 
 			Model.TileBase trainTile = MapManager.Instance.ViewToModelMap[start];
-			actionText.text = $"Action: {trainTile.TroopOnTop} trained " +
+			actionText.text = $"Action({cursor}): {trainTile.TroopOnTop} trained " +
 				$"at {trainTile.BuildingOnTop} ({datas.Start[0]}, {datas.Start[1]})";
 			HighlightManager.Instance.Add(start, Color.magenta);
 
@@ -143,7 +143,7 @@ namespace ReplayView
 			bool built = BuildingManager.Instance.Build(start, datas.Building);
 
 			Model.TileBase buildingTile = MapManager.Instance.ViewToModelMap[start];
-			actionText.text = $"Action: {buildingTile.BuildingOnTop} built " +
+			actionText.text = $"Action({cursor}): {buildingTile.BuildingOnTop} built " +
 				$"on {buildingTile} ({datas.Start[0]}, {datas.Start[1]})";
 			HighlightManager.Instance.Add(start, Color.yellow);
 
@@ -231,7 +231,7 @@ namespace ReplayView
                 }
             }
 
-            actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
+            actionText.text = $"Action({cursor}): {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"attacked {targetTile.BuildingOnTop} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
@@ -261,7 +261,7 @@ namespace ReplayView
 			}
 			bool attacked = TroopManager.Instance.Attack(startTile.TroopOnTop, endTile.TroopOnTop);
 
-			actionText.text = $"Action: {startTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
+			actionText.text = $"Action({cursor}): {startTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"missed attack on {endTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
@@ -275,7 +275,7 @@ namespace ReplayView
 			JsonLog.JsonActionParameters datas = actionList[cursor].Parameters;
 			bool learnt = TechTreeManager.Instance.LearnTech(datas.Tech);
 
-			actionText.text = $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +
+			actionText.text = $"Action({cursor}): {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +
 				$"learnt {datas.Tech}";
 
             if (!learnt)
@@ -285,7 +285,7 @@ namespace ReplayView
 		private void EndTurn()
 		{
 			actionText.text =
-				$"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} ended their turn";
+				$"Action({cursor}): {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} ended their turn";
 			TurnManager.Instance.FinishTurn();
 		}
 
