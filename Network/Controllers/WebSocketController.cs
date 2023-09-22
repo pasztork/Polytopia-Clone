@@ -72,11 +72,11 @@ public class WebSocketController : ControllerBase
 				else
 				{
 					(bool, string) result = _commandProcessor.Process(json);
-					await SendResponseTo(webSocket, result.Item2);
 
-					if (!json.Action.Equals("EndTurn") && result.Item1)
+                    if (!json.Action.Equals("EndTurn") && result.Item1)
 					{
-						await WebSocketServer.Broadcast(webSocket, receivedString);
+                        await SendResponseTo(webSocket, result.Item2);
+                        await WebSocketServer.Broadcast(webSocket, receivedString);
 					}
 				}
 			}

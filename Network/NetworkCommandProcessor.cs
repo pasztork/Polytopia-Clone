@@ -274,11 +274,11 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null ||
 			_coordinateMapper.GetBuildingAt(_endCoords[0], _endCoords[1]) is null) { return false; }
 
-		bool result = Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(
+		Controller.GameManager.Get<Controller.BuildingManagerBase>().Attack(
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
 			_coordinateMapper.GetBuildingAt(_endCoords[0], _endCoords[1]));
 
-		return result;
+		return true;
 	}
 
 	private bool AttackTroop()
@@ -290,11 +290,11 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]) is null ||
 			_coordinateMapper.GetTroopAt(_endCoords[0], _endCoords[1]) is null) { return false; }
 
-		bool result = Controller.GameManager.Get<Controller.TroopManagerBase>().Attack(
+		Controller.GameManager.Get<Controller.TroopManagerBase>().Attack(
 			_coordinateMapper.GetTroopAt(_startCoords[0], _startCoords[1]),
 			_coordinateMapper.GetTroopAt(_endCoords[0], _endCoords[1]));
 
-		return result;
+		return true;
 	}
 
 	private bool Build()

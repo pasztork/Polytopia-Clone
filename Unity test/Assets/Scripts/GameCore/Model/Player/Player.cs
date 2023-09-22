@@ -133,8 +133,10 @@ namespace Model
 				result.RemoveAt(0);
 				OnTroopAttacked?.Invoke(attacker, targetTile, result);
 			}
+            if (target.Player.Buildings.Count == 0)
+                OnEliminated?.Invoke(target.Player);
 
-			return result != null;
+            return result != null;
 		}
 
 		public bool Attack(TroopBase attacker, BuildingBase target)
