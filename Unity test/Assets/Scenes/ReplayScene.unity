@@ -4356,7 +4356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1707fb3db12143945a00ad4ba217320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonLogFilePath: C:\Users\user\Documents\GitHub\Polytopia-Clone\Network\GameLogs\2023-09-20_08-59-59.json
+  jsonLogFilePath: C:\Users\user\Documents\GitHub\Polytopia-Clone\Network\GameLogs\2023-09-23_16-25-13.json
 --- !u!1 &1486645811
 GameObject:
   m_ObjectHideFlags: 0

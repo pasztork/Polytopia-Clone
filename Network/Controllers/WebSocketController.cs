@@ -9,11 +9,12 @@ namespace Network.Controllers;
 
 public class WebSocketController : ControllerBase
 {
-	private readonly NetworkCommandProcessor _commandProcessor = new();
-	private bool _gameEnded = false;
+	private static readonly NetworkCommandProcessor _commandProcessor = NetworkCommandProcessor.Instance;
+	private static bool _gameEnded = false;
+    private static object _lock = new object();
 	private WebSocket _webSocket;
 
-	[Route("/ws")]
+    [Route("/ws")]
 	public async Task Get()
 	{
 		if (HttpContext.WebSockets.IsWebSocketRequest)
@@ -71,7 +72,11 @@ public class WebSocketController : ControllerBase
 				}
 				else
 				{
-					(bool, string) result = _commandProcessor.Process(json);
+					(bool, string) result;
+                    lock (_lock)
+					{
+						result = _commandProcessor.Process(json);
+					}
 
                     if (!json.Action.Equals("EndTurn") && result.Item1)
 					{

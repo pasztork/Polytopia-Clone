@@ -9,7 +9,21 @@ namespace Network;
 
 public class NetworkCommandProcessor : JsonCommandProcessorBase
 {
-	private readonly CoordinateToModelMapper _coordinateMapper = new();
+    private static NetworkCommandProcessor instance;
+
+    public static NetworkCommandProcessor Instance
+    {
+		get
+		{
+			if (instance == null)
+			{
+				instance = new NetworkCommandProcessor();
+			}
+			return instance;
+		}
+    }
+
+    private readonly CoordinateToModelMapper _coordinateMapper = new();
 
 	private readonly BuildingFactory _buildingFactory = new();
 
@@ -21,7 +35,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 
 	private readonly int[] _endCoords = new int[2];
 
-	public NetworkCommandProcessor()
+	private NetworkCommandProcessor()
 	{
 		actions.Add("AttackBuilding", AttackBuilding);
 		actions.Add("AttackTroop", AttackTroop);
