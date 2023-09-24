@@ -99,7 +99,7 @@ namespace Model
 
         public bool TakeDamage(int damage)
         {
-            bool dodged = new Random().NextDouble() <= TroopProperty.DodgeRate;
+            bool dodged = GameManager.Random.NextDouble() <= TroopProperty.DodgeRate;
             if (dodged && !GameManager.IsGameplayDeterministic)
                 return false;
 

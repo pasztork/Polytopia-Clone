@@ -25,6 +25,7 @@ namespace Model
 		private static readonly string propertiesSettingsFilename = "PropertiesSettings.json";
 		public static string PropertiesSettingsFilepath { get => Path.Combine(directory, propertiesSettingsFilename); }
 
+		public static Random Random { get; } = new Random(DateTime.Now.Millisecond);
 		static GameManager()
 		{
 			dependencyContainer.Register<MapManagerBase, MapManager>();
@@ -32,7 +33,8 @@ namespace Model
 			dependencyContainer.Register<TurnManagerBase, TurnManager>();
 			dependencyContainer.Register<BuildManagerBase, BuildManager>();
 			dependencyContainer.Register<TechTreeManagerBase, TechTreeManager>();
-			MapSettingsLoader.Load(Path.Combine(directory, mapGenerationSettingsFilename));
+            dependencyContainer.Register<TrainManagerBase, TrainManager>();
+            MapSettingsLoader.Load(Path.Combine(directory, mapGenerationSettingsFilename));
 			PropertiesLoader.Load(Path.Combine(directory, propertiesSettingsFilename));
 		}
 

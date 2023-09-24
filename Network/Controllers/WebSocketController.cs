@@ -68,19 +68,25 @@ public class WebSocketController : ControllerBase
 				}
 				else if (json.Action.Equals("GetActions"))
 				{
-					await SendAvailableActionsTo(json, webSocket);
-				}
+                    string actionState;
+                    lock (_lock)
+                    {
+                        actionState = _commandProcessor.GetAvailableActions(json);
+                    }
+                    await SendAvailableActionsTo(actionState, webSocket);
+                }
 				else
 				{
 					(bool, string) result;
+                    string actionState;
                     lock (_lock)
 					{
 						result = _commandProcessor.Process(json);
-					}
-
-                    if (!json.Action.Equals("EndTurn") && result.Item1)
+                        actionState = _commandProcessor.GetAvailableActions(json);
+                    }
+                    if (!json.Action.Equals("EndTurn"))
 					{
-                        await SendResponseTo(webSocket, result.Item2);
+                        await SendAvailableActionsTo(actionState, webSocket);
                         await WebSocketServer.Broadcast(webSocket, receivedString);
 					}
 				}
@@ -102,10 +108,8 @@ public class WebSocketController : ControllerBase
         }
 	}
 
-    private async Task SendAvailableActionsTo(JsonActionObject jsonCommand, WebSocket webSocket)
+    private async Task SendAvailableActionsTo(string actionState, WebSocket webSocket)
     {
-		var logTransformer = new LogTransformer();
-		var actionState = _commandProcessor.GetAvailableActions(jsonCommand);
         await webSocket.SendAsync(
             new ArraySegment<byte>(Encoding.UTF8.GetBytes(actionState)),
             WebSocketMessageType.Text,

@@ -21,6 +21,7 @@ namespace View
             Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += UpdateContent;
             Model.GameManager.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
             Model.GameManager.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
+            Model.GameManager.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
             View.BuildPanelController.Instance.OnBuildPanelRevealed += UpdateContent;
 
             View.BuildingManager.Instance.OnBuildAttempted += SetSelected;

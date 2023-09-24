@@ -30,7 +30,8 @@ namespace Model
 			dependencyContainer.Register<TurnManagerBase, TurnManager>();
 			dependencyContainer.Register<BuildManagerBase, BuildManager>();
 			dependencyContainer.Register<TechTreeManagerBase, TechTreeManager>();
-			MapSettingsLoader.Load(Path.Combine(directory, mapGenerationSettingsFilename));
+            dependencyContainer.Register<TrainManagerBase, TrainManager>();
+            MapSettingsLoader.Load(Path.Combine(directory, mapGenerationSettingsFilename));
 			PropertiesLoader.Load(Path.Combine(directory, propertiesSettingsFilename));
 		}
 

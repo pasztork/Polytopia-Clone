@@ -20,6 +20,7 @@ namespace View
             Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += UpdateContent;
             Model.GameManager.Get<Model.BuildManagerBase>().OnBuildingBuilt += UpdateContent;
             Model.GameManager.Get<Model.TechTreeManagerBase>().OnTechUnlocked += UpdateContent;
+            Model.GameManager.Get<Model.TrainManagerBase>().OnTroopTrained += UpdateContent;
             View.TrainPanelController.Instance.OnTrainPanelRevealed += UpdateContent;
 
             View.TroopManager.Instance.OnTrainAttempted += SetSelected;

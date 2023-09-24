@@ -262,6 +262,8 @@
     <Compile Include="Assets\Scripts\ReplayView\Troops\Catapult.cs" />
     <Compile Include="Assets\Scripts\GameCore\Model\Map\MapGenerationProperties.cs" />
     <Compile Include="Assets\Scripts\GameCore\Model\Map\Tiles\TileBase.cs" />
+    <Compile Include="Assets\Scripts\GameCore\Model\Troop\TrainManagerBase.cs" />
+    <Compile Include="Assets\Scripts\GameCore\Model\Troop\TrainManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

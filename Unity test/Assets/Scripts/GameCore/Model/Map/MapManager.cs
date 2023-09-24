@@ -16,8 +16,7 @@ namespace Model
 
 		public override TileBase GetStartingTile()
 		{
-			Random rand = new Random(DateTime.Now.Millisecond);
-			TileBase tile = StartingTiles[rand.Next(StartingTiles.Count)];
+			TileBase tile = StartingTiles[GameManager.Random.Next(StartingTiles.Count)];
 			StartingTiles.Remove(tile);
 			return tile;
 		}
@@ -95,7 +94,6 @@ namespace Model
 		{
 			var size = jsonTiles.Tiles.Count;
 			var offsets = new[] { (0, 0), (0, 1), (1, 0), (1, 1) };
-			var rand = new Random(DateTime.Now.Millisecond);
 
 			foreach ((int, int) offset in offsets)
 			{
@@ -112,7 +110,7 @@ namespace Model
 					}
 				}
 				GameManager.Get<MapManagerBase>().StartingTiles
-					.Add(contenders[rand.Next(contenders.Count)]);
+					.Add(contenders[GameManager.Random.Next(contenders.Count)]);
 			}
 		}
 
