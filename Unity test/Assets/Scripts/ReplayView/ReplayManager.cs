@@ -291,7 +291,7 @@ namespace ReplayView
 
 		private void GameEnd()
 		{
-			//Model.GameManager.Get<Model.TurnManagerBase>().ReplayStopGame();
+			return;
 		}
 
 		public void OnTechListButtonClicked()

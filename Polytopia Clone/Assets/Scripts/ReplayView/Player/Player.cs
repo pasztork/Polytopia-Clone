@@ -18,6 +18,9 @@ namespace ReplayView
             modelPlayer.StartingCityRange = player.StartingCityRange;
             SetPlayerColor(player.Name);
             Model.City city = new Model.City(modelPlayer);
+            city.Producers.Add(new Model.FoodProducer(modelPlayer.ResourceContainer, Model.Player.BaseProduction.Food));
+            city.Producers.Add(new Model.MaterialProducer(modelPlayer.ResourceContainer, Model.Player.BaseProduction.Material));
+            city.Producers.Add(new Model.MoneyProducer(modelPlayer.ResourceContainer, Model.Player.BaseProduction.Money));
             Model.TileBase tile = Model.GameManager.Get<Model.MapManagerBase>().Tiles[player.StartingTile[0], player.StartingTile[1]];
             city.Tile = tile;
             tile.SetBuildingOnTop(city, modelPlayer);

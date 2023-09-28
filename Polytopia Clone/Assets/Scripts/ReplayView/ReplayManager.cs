@@ -15,8 +15,9 @@ namespace ReplayView
 		private List<JsonLog.JsonActionObject> actionList = new();
 		private readonly Dictionary<string, Action> actionFunctions = new();
 		private int cursor = 0;
+		private bool winnerDisplayed = false;
 
-		[Header("Skip")]
+        [Header("Skip")]
 		[SerializeField] private int skipSize = 5;
 
 		[Header("UI Elements")]
@@ -73,10 +74,13 @@ namespace ReplayView
 			}
 			else
 			{
-				actionText.text = "Action: Log file ended";
-				stepForwardButton.interactable = false;
-				skipButton.interactable = false;
-				skipFastButton.interactable = false;
+				if (!winnerDisplayed)
+				{
+					actionText.text = $"Action({cursor+1}): Log file ended";
+					stepForwardButton.interactable = false;
+					skipButton.interactable = false;
+					skipFastButton.interactable = false;
+				}
 			}
 		}
 
@@ -111,7 +115,7 @@ namespace ReplayView
 
 			bool moved = TroopManager.Instance.MoveSelectedTroop(troop, endTile);
 
-            actionText.text = $"Action: {troop} moved " +
+            actionText.text = $"Action({cursor+1}): {troop} moved " +
 				$"from {startTile} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"to {endTile} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.red);
@@ -128,7 +132,7 @@ namespace ReplayView
 			bool trained = TroopManager.Instance.Train(start, datas.Troop);
 
 			Model.TileBase trainTile = MapManager.Instance.ViewToModelMap[start];
-			actionText.text = $"Action: {trainTile.TroopOnTop} trained " +
+			actionText.text = $"Action({cursor+1}): {trainTile.TroopOnTop} trained " +
 				$"at {trainTile.BuildingOnTop} ({datas.Start[0]}, {datas.Start[1]})";
 			HighlightManager.Instance.Add(start, Color.magenta);
 
@@ -143,7 +147,7 @@ namespace ReplayView
 			bool built = BuildingManager.Instance.Build(start, datas.Building);
 
 			Model.TileBase buildingTile = MapManager.Instance.ViewToModelMap[start];
-			actionText.text = $"Action: {buildingTile.BuildingOnTop} built " +
+			actionText.text = $"Action({cursor + 1}): {buildingTile.BuildingOnTop} built " +
 				$"on {buildingTile} ({datas.Start[0]}, {datas.Start[1]})";
 			HighlightManager.Instance.Add(start, Color.yellow);
 
@@ -186,7 +190,7 @@ namespace ReplayView
 				}
 			}
 
-			actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
+			actionText.text = $"Action({cursor + 1}): {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"attacked {targetTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
@@ -231,7 +235,7 @@ namespace ReplayView
                 }
             }
 
-            actionText.text = $"Action: {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
+            actionText.text = $"Action({cursor + 1}): {attackerTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"attacked {targetTile.BuildingOnTop} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
@@ -261,7 +265,7 @@ namespace ReplayView
 			}
 			bool attacked = TroopManager.Instance.Attack(startTile.TroopOnTop, endTile.TroopOnTop);
 
-			actionText.text = $"Action: {startTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
+			actionText.text = $"Action({cursor + 1}): {startTile.TroopOnTop} ({datas.Start[0]}, {datas.Start[1]}) " +
 				$"missed attack on {endTile.TroopOnTop} ({datas.End[0]}, {datas.End[1]})";
 			HighlightManager.Instance.Add(start, Color.green);
 			HighlightManager.Instance.Add(end, Color.red);
@@ -275,7 +279,7 @@ namespace ReplayView
 			JsonLog.JsonActionParameters datas = actionList[cursor].Parameters;
 			bool learnt = TechTreeManager.Instance.LearnTech(datas.Tech);
 
-			actionText.text = $"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +
+			actionText.text = $"Action({cursor + 1}): {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} " +
 				$"learnt {datas.Tech}";
 
             if (!learnt)
@@ -285,13 +289,13 @@ namespace ReplayView
 		private void EndTurn()
 		{
 			actionText.text =
-				$"Action: {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} ended their turn";
+				$"Action({cursor + 1}): {Model.GameManager.Get<Model.TurnManagerBase>().CurrentPlayer.Name} ended their turn";
 			TurnManager.Instance.FinishTurn();
 		}
 
 		private void GameEnd()
 		{
-			//Model.GameManager.Get<Model.TurnManagerBase>().ReplayStopGame();
+			return;
 		}
 
 		public void OnTechListButtonClicked()
@@ -335,7 +339,8 @@ namespace ReplayView
 
 		private void DisplayWinner(Model.Player player)
 		{
-			actionText.text = $"Action: {player.Name} won the game";
+			winnerDisplayed = true;
+			actionText.text = $"Action({cursor + 1}): {player.Name} won the game";
 			stepForwardButton.interactable = false;
 			skipButton.interactable = false;
 			skipFastButton.interactable = false;

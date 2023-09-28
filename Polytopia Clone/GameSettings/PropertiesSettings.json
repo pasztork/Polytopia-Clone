@@ -1,8 +1,8 @@
 {
     "BaseProduction": {
-        "Money": 100,
-        "Material": 100,
-        "Food": 100
+        "Money": 500,
+        "Material": 500,
+        "Food": 500
     },
     "BuildingProperties": {
         "Bank": {

@@ -159,12 +159,11 @@ namespace Model
 		public void SetupStartingPosition()
 		{
 			BuildingBase city = new City(this);
-			//city.Producers.Add(new FoodProducer(ResourceContainer, BaseProduction.Food));
-			//city.Producers.Add(new MaterialProducer(ResourceContainer, BaseProduction.Material));
-			//city.Producers.Add(new MoneyProducer(ResourceContainer, BaseProduction.Money));
+			city.Producers.Add(new FoodProducer(ResourceContainer, BaseProduction.Food));
+			city.Producers.Add(new MaterialProducer(ResourceContainer, BaseProduction.Material));
+			city.Producers.Add(new MoneyProducer(ResourceContainer, BaseProduction.Money));
 			TileBase tile = GameManager.Get<MapManagerBase>().GetStartingTile();
 			city.Tile = tile;
-			//city.Player = this;
 			tile.SetBuildingOnTop(city, this);
 			AddBuilding(city);
 			OnBuildCreated?.Invoke(city);
