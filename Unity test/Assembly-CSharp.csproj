@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\GameCore\Util\Factory.cs" />
     <Compile Include="Assets\Scripts\GameCore\Model\Troop\Troops\Warrior.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Troops\Boat.cs" />
+    <Compile Include="Assets\Scripts\GameCore\Model\Troop\TrainManagerBase.cs" />
     <Compile Include="Assets\Scripts\UnityView\Player\NameText.cs" />
     <Compile Include="Assets\Scripts\Log\LogDataWrapper.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Building\Supplier.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Assets\Scripts\GameCore\Model\Turn\TurnManager.cs" />
     <Compile Include="Assets\Scripts\GameCore\Util\GameObjectFactory\BuildingFactory.cs" />
     <Compile Include="Assets\Scripts\Log\LogTransformer\TroopState.cs" />
+    <Compile Include="Assets\Scripts\GameCore\Model\Troop\TrainManager.cs" />
     <Compile Include="Assets\Scripts\UnityView\Troop\WorkerTroop.cs" />
     <Compile Include="Assets\Scripts\GameCore\Controller\TechTree\TechTreeManagerBase.cs" />
     <Compile Include="Assets\Scripts\UnityView\Troop\HealthBar.cs" />
@@ -262,8 +264,6 @@
     <Compile Include="Assets\Scripts\ReplayView\Troops\Catapult.cs" />
     <Compile Include="Assets\Scripts\GameCore\Model\Map\MapGenerationProperties.cs" />
     <Compile Include="Assets\Scripts\GameCore\Model\Map\Tiles\TileBase.cs" />
-    <Compile Include="Assets\Scripts\GameCore\Model\Troop\TrainManagerBase.cs" />
-    <Compile Include="Assets\Scripts\GameCore\Model\Troop\TrainManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

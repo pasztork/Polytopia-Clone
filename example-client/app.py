@@ -1,5 +1,6 @@
 import json
 import websocket
+import sys
 
 from message_handler import message_handler_v2
 
@@ -27,5 +28,8 @@ def connect_and_listen():
 
 
 if __name__ == '__main__':
+    if(len(sys.argv) == 2):
+        NAME = sys.argv[1]
+
     message_handler_v2.NAME = NAME
     connect_and_listen()

@@ -179,6 +179,8 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
         foreach (var buildingName in troop.Player.AvailableBuildings)
 		{
 			var building = _buildingFactory.Instantiate(buildingName);
+			building.StopProduction();
+			troop.Player.Buildings.Remove(building);
 			troop.FillRequirements(building.Requirements);
             bool requirementsMet = building.Requirements.RequirementsMet(troop.Player.ResourceContainer, troop.Player.BonusProperty.BuildingDiscount, occupiedTiles, tilesInCityRange, troop.Tile);
             
