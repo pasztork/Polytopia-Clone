@@ -10,6 +10,8 @@ namespace Model
         public int MaterialCount { get; set; }
         public int FoodCount { get; set; }
 
+        public int AllCount { get => MoneyCount + MaterialCount + FoodCount; }
+
         public int BaseMoneyProduction { set => new MoneyProducer(this, value); }
         public int BaseMaterialProduction { set => new MaterialProducer(this, value); }
         public int BaseFoodProduction { set => new FoodProducer(this, value); }

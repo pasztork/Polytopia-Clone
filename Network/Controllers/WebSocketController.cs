@@ -10,7 +10,6 @@ namespace Network.Controllers;
 public class WebSocketController : ControllerBase
 {
 	private static readonly NetworkCommandProcessor _commandProcessor = NetworkCommandProcessor.Instance;
-	private static bool _gameEnded = false;
     private static object _lock = new object();
 	private WebSocket _webSocket;
 
@@ -28,7 +27,14 @@ public class WebSocketController : ControllerBase
 			}
 
 			Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += CloseConnection;
-			await HandleWebSocketCommunication(webSocket);
+			try
+			{
+				await HandleWebSocketCommunication(webSocket);
+			}
+			catch (Exception ex) 
+			{
+				Console.WriteLine($"Hiba: {ex.Message}");
+			}
 		}
 		else
 		{
@@ -48,7 +54,7 @@ public class WebSocketController : ControllerBase
 		WebSocketServer.CreatePlayer(
 			TrimBufferString(Encoding.UTF8.GetString(buffer)), webSocket);
 
-		while (webSocket.State == WebSocketState.Open && !_gameEnded)
+		while (webSocket.State == WebSocketState.Open)
 		{
 			Array.Clear(buffer);
 			await webSocket.ReceiveAsync(
@@ -92,21 +98,16 @@ public class WebSocketController : ControllerBase
 				}
 			}
 		}
-
-		await webSocket.CloseAsync(
-			WebSocketCloseStatus.NormalClosure,
-			"WebSocket connection closed",
-			CancellationToken.None);
 	}
 
 	private void CloseConnection(Model.Player player)
 	{
-		_gameEnded = true;
-		if(WebSocketServer.IsWinner(_webSocket, player))
-		{
-            Console.WriteLine($"{player.Name} won the game!");
-        }
-	}
+        Console.WriteLine($"{player.Name} won the game!");
+        _webSocket.CloseAsync(
+            WebSocketCloseStatus.NormalClosure,
+            "WebSocket connection closed",
+            CancellationToken.None).Wait();
+    }
 
     private async Task SendAvailableActionsTo(string actionState, WebSocket webSocket)
     {

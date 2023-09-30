@@ -12,6 +12,10 @@ public class NetworkInterfaceBuilder
         {
             KeepAliveInterval = TimeSpan.FromMinutes(2)
         };
+        app.Lifetime.ApplicationStarted.Register(() =>
+        {
+            Client.ClientManager.StartClients().Wait();
+        });
         app.UseWebSockets(webSocketOptions);
         app.MapControllers();
         app.Run();
