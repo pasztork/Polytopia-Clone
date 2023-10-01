@@ -1,12 +1,12 @@
-﻿{
+{
   "profiles": {
     "Network": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:53657;http://localhost:53658"
+      "applicationUrl": "https://localhost:53000;http://localhost:53001"
     }
   }
 }
