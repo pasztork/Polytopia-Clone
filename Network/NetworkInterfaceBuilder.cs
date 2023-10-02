@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Hosting;
-
-namespace Network;
+﻿namespace Network;
 
 public class NetworkInterfaceBuilder
 {
-    private static readonly string SERVER_URL = "http://localhost:53658";
+    private static readonly string SERVER_ADDRESS = "ip+port";
+    private static readonly string SERVER_URL = $"http://{SERVER_ADDRESS}";
+    private static WebApplication app;
     public void Start(List<string> clients)
     {
+        Environment.SetEnvironmentVariable("TERRA_IMPERIUM_SERVER_ADDRESS", SERVER_ADDRESS);
+
+        WebSocketServer.OnAllClientsDisconnected += Stop;
         WebApplicationBuilder builder = WebApplication.CreateBuilder();
         builder.WebHost.UseUrls(SERVER_URL);
         builder.Services.AddControllers();
 
-        WebApplication app = builder.Build();
+        app = builder.Build();
         WebSocketOptions webSocketOptions = new()
         {
             KeepAliveInterval = TimeSpan.FromMinutes(2)
@@ -23,5 +26,10 @@ public class NetworkInterfaceBuilder
         app.UseWebSockets(webSocketOptions);
         app.MapControllers();
         app.Run();
+    }
+
+    public void Stop()
+    {
+        app.StopAsync().Wait();
     }
 }

@@ -4,7 +4,7 @@ import os
 
 import message_handler_v2
 
-SERVER_URL = f'ws://{os.environ.get("SERVER_URL")}:53658/ws'
+SERVER_URL = f'ws://{os.environ.get("SERVER_ADDRESS")}/ws'
 NAME = os.environ.get('PLAYER_NAME')
 
 

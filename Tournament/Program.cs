@@ -1,14 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-
+﻿using System.Diagnostics;
 namespace Tournament;
 
 class Program
 {
     private static string[] clientIDs = new[]
-    { 
-        "390498cdb1ccf066248b589ae001f13094e0d16707b2afbd69988c6f214b53cd",
-        "2848ecf499e9da73b0911ce297cc7d46c755a879063ea39a2031daf0e418b6a3"
+    {
+        "client1",
+        "client2"
     };
 
     public static void Main(string[] args)

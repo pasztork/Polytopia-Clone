@@ -107,6 +107,11 @@ public class WebSocketController : ControllerBase
             WebSocketCloseStatus.NormalClosure,
             "WebSocket connection closed",
             CancellationToken.None).Wait();
+
+		lock(_lock)
+		{
+			WebSocketServer.Remove(_webSocket);
+		}
     }
 
     private async Task SendAvailableActionsTo(string actionState, WebSocket webSocket)

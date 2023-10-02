@@ -8,6 +8,7 @@ namespace Network;
 
 public class WebSocketServer
 {
+	public static event Action OnAllClientsDisconnected;
 	public static string MapFilePath { get; set; } = string.Empty;
 	public static int PlayerCount { private get; set; } = 2;
 	public static WebSocket CurrentSocketPlayer
@@ -35,6 +36,15 @@ public class WebSocketServer
 
 		s_webSockets.Add(webSocket);
 		return true;
+	}
+
+	public static void Remove(WebSocket webSocket)
+	{
+		s_webSockets.Remove(webSocket);
+		if(s_webSockets.Count == 0)
+		{
+			OnAllClientsDisconnected?.Invoke();
+		}
 	}
 
 	public static async Task Broadcast(WebSocket from, string message)
