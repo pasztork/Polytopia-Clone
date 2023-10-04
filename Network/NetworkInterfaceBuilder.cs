@@ -4,7 +4,7 @@ public class NetworkInterfaceBuilder
 {
     private static readonly string SERVER_ADDRESS = Environment.GetEnvironmentVariable("TERRA_IMPERIUM_SERVER_ADDRESS");
     private static readonly string SERVER_URL = $"http://{SERVER_ADDRESS}";
-    private static WebApplication app;
+    private WebApplication app;
     public void Start(List<string> clients)
     {
         if(SERVER_ADDRESS == null)

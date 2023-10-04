@@ -9,7 +9,9 @@ public static class ClientManager
     private static readonly string ROOT_FOLDER_PATH = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
     private static readonly string COMP_FOLDER_PATH = Path.Combine(ROOT_FOLDER_PATH, "Network\\Client\\ClientFiles\\Compressed");
     private static readonly string EXTR_FOLDER_PATH = Path.Combine(ROOT_FOLDER_PATH, "Network\\Client\\ClientFiles\\Extracted");
-    private static int defaultPort = 53657;
+    private static readonly int defaultPort = 53657;
+    private static List<string> _clients = new List<string>();
+
     public static async Task StartClients(string serverAddress, List<string> clients)
     {
         if(clients.Count == 0)
@@ -17,11 +19,11 @@ public static class ClientManager
             Console.WriteLine("No clients connected automatically, waiting for connections");
             return;
         }
-
-        for(int i = 0; i < clients.Count; i++)
+        _clients = clients;
+        for(int i = 0; i < _clients.Count; i++)
         {
-            Unzip(clients[i]);
-            CreateDockerContainer(clients[i], serverAddress, defaultPort + i);
+            Unzip(_clients[i]);
+            CreateDockerContainer(_clients[i], serverAddress, defaultPort + i);
         }
         await StartContainers();
     }
@@ -64,25 +66,31 @@ public static class ClientManager
     private static async Task StartContainers()
     {
         using DockerClient client = new DockerClientConfiguration().CreateClient();
-
         var containers = await client.Containers.ListContainersAsync(new ContainersListParameters() { All = true });
 
         foreach (var container in containers)
         {
-            await client.Containers.StartContainerAsync(container.ID, new ContainerStartParameters());
+            if (_clients.Contains(container.Image))
+            {
+                await client.Containers.StartContainerAsync(container.ID, new ContainerStartParameters());
+            }
         }
     }
 
     private static async Task RemoveContainers()
     {
         using DockerClient client = new DockerClientConfiguration().CreateClient();
-
         var containers = await client.Containers.ListContainersAsync(new ContainersListParameters() { All = true });
-        Console.WriteLine("Konténerek száma: "+ containers.Count);
+
         foreach(var container in containers)
         {
-            await client.Containers.RemoveContainerAsync(container.ID, new ContainerRemoveParameters());
+            if (_clients.Contains(container.Image))
+            {
+                await client.Containers.StopContainerAsync(container.ID, new ContainerStopParameters());
+                await client.Containers.RemoveContainerAsync(container.ID, new ContainerRemoveParameters());
+            }
         }
+        _clients.Clear();
     }
 
     private static void Unzip(string fileName)

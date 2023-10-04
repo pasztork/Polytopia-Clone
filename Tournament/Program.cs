@@ -6,17 +6,24 @@ class Program
 {
     private static string[] clientIDs = new[]
     {
-        "client1",
-        "client2"
+        "bob",
+        "cersei"
     };
 
     public static void Main(string[] args)
     {
+        string result = RunGame(clientIDs);
+        Console.WriteLine(result);
+    }
+
+    private static string RunGame(string[] clients)
+    {
+        string winner = "";
         string exePath = Path.Combine(Directory.GetCurrentDirectory(), "Network.exe");
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
             FileName = exePath,
-            Arguments = string.Join(" ", clientIDs),
+            Arguments = string.Join(" ", clients),
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true
@@ -30,6 +37,10 @@ class Program
             {
                 if (!string.IsNullOrEmpty(e.Data))
                 {
+                    if (e.Data.Contains("won the game"))
+                    {
+                        winner = e.Data.Split(" ")[0];
+                    }
                     Console.WriteLine("Output: " + e.Data);
                 }
             };
@@ -43,16 +54,12 @@ class Program
             };
 
             process.Start();
-
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
-
-            // Wait for the process to exit
             process.WaitForExit();
-
-            // Process has exited
             int exitCode = process.ExitCode;
             Console.WriteLine("Process exited with exit code: " + exitCode);
         }
+        return winner;
     }
 }
