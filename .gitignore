@@ -68,6 +68,9 @@ crashlytics-build.properties
 Polytopia Clone/Assets/Log/
 Polytopia Clone/Assets/Log.meta
 
+# Client files
+Network/Client/ClientFiles/
+
 # Saved maps file
 Polytopia Clone/SavedMaps/
 
