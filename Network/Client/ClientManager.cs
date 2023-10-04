@@ -26,6 +26,11 @@ public static class ClientManager
         await StartContainers();
     }
 
+    public static async Task RemoveClients()
+    {
+        await RemoveContainers();
+    }
+
     private static void CreateDockerContainer(string name, string serverAddress, int port)
     {
         string buildCommand = $"docker build -t {name} .";
@@ -65,6 +70,18 @@ public static class ClientManager
         foreach (var container in containers)
         {
             await client.Containers.StartContainerAsync(container.ID, new ContainerStartParameters());
+        }
+    }
+
+    private static async Task RemoveContainers()
+    {
+        using DockerClient client = new DockerClientConfiguration().CreateClient();
+
+        var containers = await client.Containers.ListContainersAsync(new ContainersListParameters() { All = true });
+        Console.WriteLine("Konténerek száma: "+ containers.Count);
+        foreach(var container in containers)
+        {
+            await client.Containers.RemoveContainerAsync(container.ID, new ContainerRemoveParameters());
         }
     }
 

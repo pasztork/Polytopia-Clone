@@ -28,6 +28,7 @@ public class NetworkInterfaceBuilder
 
     public void Stop()
     {
+        Client.ClientManager.RemoveClients().Wait();
         app.StopAsync().Wait();
     }
 }
