@@ -7,8 +7,6 @@ public class NetworkInterfaceBuilder
     private static WebApplication app;
     public void Start(List<string> clients)
     {
-        Environment.SetEnvironmentVariable("TERRA_IMPERIUM_SERVER_ADDRESS", SERVER_ADDRESS);
-
         WebSocketServer.OnAllClientsDisconnected += Stop;
         WebApplicationBuilder builder = WebApplication.CreateBuilder();
         builder.WebHost.UseUrls(SERVER_URL);
@@ -21,7 +19,7 @@ public class NetworkInterfaceBuilder
         };
         app.Lifetime.ApplicationStarted.Register(() =>
         {
-            Client.ClientManager.StartClients(clients).Wait();
+            Client.ClientManager.StartClients(SERVER_ADDRESS, clients).Wait();
         });
         app.UseWebSockets(webSocketOptions);
         app.MapControllers();

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+
 namespace Tournament;
 
 class Program
@@ -11,8 +12,7 @@ class Program
 
     public static void Main(string[] args)
     {
-        string exePath = "C:\\Users\\user\\Documents\\GitHub\\Polytopia-Clone\\Network\\bin\\Debug\\net6.0\\Network.exe";
-
+        string exePath = Path.Combine(Directory.GetCurrentDirectory(), "Network.exe");
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
             FileName = exePath,

@@ -9,7 +9,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\GameCore\GameCore.csproj" />
 		<ProjectReference Include="..\Log\LogView.csproj" />
-		<ProjectReference Include="..\DockerClient\Client.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Docker.DotNet" Version="3.125.15" />
 	</ItemGroup>
 
 </Project>
