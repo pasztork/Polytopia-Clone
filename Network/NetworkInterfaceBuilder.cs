@@ -7,6 +7,11 @@ public class NetworkInterfaceBuilder
     private static WebApplication app;
     public void Start(List<string> clients)
     {
+        if(SERVER_ADDRESS == null)
+        {
+            Console.WriteLine("Server address needs to be set as an environment variable");
+            return;
+        }
         WebSocketServer.OnAllClientsDisconnected += Stop;
         WebApplicationBuilder builder = WebApplication.CreateBuilder();
         builder.WebHost.UseUrls(SERVER_URL);
