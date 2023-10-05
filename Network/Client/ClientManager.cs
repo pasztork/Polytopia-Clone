@@ -33,13 +33,14 @@ public static class ClientManager
         await RemoveContainers();
     }
 
-    private static void CreateDockerContainer(string name, string serverAddress, int port)
+    private static void CreateDockerContainer(string folderName, string serverAddress, int port)
     {
-        string buildCommand = $"docker build -t {name} .";
-        RunShellCommand(buildCommand, name);
+        string buildCommand = $"docker build -t {folderName} .";
+        RunShellCommand(buildCommand, folderName);
 
-        string runCommand = $"docker create -p {port}:53658 -e SERVER_ADDRESS={serverAddress} {name}";
-        RunShellCommand(runCommand, name);
+        string playerName = AssemblePlayerName(folderName);
+        string runCommand = $"docker create -p {port}:53658 -e SERVER_ADDRESS={serverAddress} -e PLAYER_NAME=\"{playerName}\" {folderName}";
+        RunShellCommand(runCommand, folderName);
     }
 
     private static void RunShellCommand(string command, string name)
@@ -93,21 +94,43 @@ public static class ClientManager
         _clients.Clear();
     }
 
-    private static void Unzip(string fileName)
+    public static async Task RemoveImages(List<string> imageNames)
     {
-        if(Directory.Exists(Path.Combine(EXTR_FOLDER_PATH, fileName)))
+        using DockerClient client = new DockerClientConfiguration().CreateClient();
+
+        foreach(var imageName in imageNames)
+        {
+            await client.Images.DeleteImageAsync(imageName, new ImageDeleteParameters());
+        }
+    }
+
+    private static void Unzip(string zipFileName)
+    {
+        if(Directory.Exists(Path.Combine(EXTR_FOLDER_PATH, zipFileName)))
         {
             return;
         }
-        string zipFilePath = Path.Combine(COMP_FOLDER_PATH, fileName + ".zip");
+        string zipFilePath = Path.Combine(COMP_FOLDER_PATH, zipFileName + ".zip");
 
         try
         {
-            ZipFile.ExtractToDirectory(zipFilePath, Path.Combine(EXTR_FOLDER_PATH, fileName));
+            ZipFile.ExtractToDirectory(zipFilePath, Path.Combine(EXTR_FOLDER_PATH, zipFileName));
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
+    }
+
+    private static string AssemblePlayerName(string folderName)
+    {
+        string[] words = folderName.Split('_');
+        for(int i = 0; i < words.Length; i++)
+        {
+            char[] charArray = words[i].ToCharArray();
+            charArray[0] = char.ToUpper(charArray[0]);
+            words[i] = new(charArray);
+        }
+        return String.Join(" ", words);
     }
 }

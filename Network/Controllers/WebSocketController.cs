@@ -102,7 +102,7 @@ public class WebSocketController : ControllerBase
 
 	private void CloseConnection(Model.Player player)
 	{
-        Console.WriteLine($"{player.Name} won the game!");
+        Console.WriteLine($"Winner: {player.Name}");
         _webSocket.CloseAsync(
             WebSocketCloseStatus.NormalClosure,
             "WebSocket connection closed",

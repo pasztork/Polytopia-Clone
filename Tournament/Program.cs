@@ -4,16 +4,28 @@ namespace Tournament;
 
 class Program
 {
-    private static string[] clientIDs = new[]
+    private static readonly string[] _clientIDs = new[]
     {
-        "bob",
-        "cersei"
+        "alice", "bob", "cersei", "two_named"
     };
 
     public static void Main(string[] args)
     {
-        string result = RunGame(clientIDs);
-        Console.WriteLine(result);
+        List<string> players = new List<string>(_clientIDs);
+
+        for(int i = 0; i <= (int)Math.Log2(players.Count); i++)
+        {
+            List<string> eliminated = new();
+            for(int j = 0; j < players.Count; j += 2)
+            {
+                List<string> lobby = new() { players[j], players[j + 1] };
+                string winner = RunGame(lobby.ToArray());
+                lobby.Remove(winner);
+                eliminated.AddRange(lobby);
+            }
+            players.RemoveAll(p => eliminated.Contains(p));
+        }
+        Network.Client.ClientManager.RemoveImages(_clientIDs.ToList()).Wait();
     }
 
     private static string RunGame(string[] clients)
@@ -37,9 +49,9 @@ class Program
             {
                 if (!string.IsNullOrEmpty(e.Data))
                 {
-                    if (e.Data.Contains("won the game"))
+                    if (e.Data.Contains("Winner: "))
                     {
-                        winner = e.Data.Split(" ")[0];
+                        winner = GetWinnerNameFromText(e.Data);
                     }
                     Console.WriteLine("Output: " + e.Data);
                 }
@@ -61,5 +73,10 @@ class Program
             Console.WriteLine("Process exited with exit code: " + exitCode);
         }
         return winner;
+    }
+
+    private static string GetWinnerNameFromText(string text)
+    {
+        return text.Replace("Winner: ", "").Replace(' ', '_').ToLower();
     }
 }
