@@ -9,7 +9,7 @@ namespace Network;
 
 public class NetworkCommandProcessor : JsonCommandProcessorBase
 {
-    private static NetworkCommandProcessor instance;
+    private static NetworkCommandProcessor? instance;
 
     public static NetworkCommandProcessor Instance
     {
@@ -78,7 +78,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 			{
                 troops.Add(new TroopState
                 {
-                    Type = troop.ToString(),
+                    Type = troop.ToString()!,
                     Health = troop.TroopProperty.Health,
                     Damage = troop.TroopProperty.Damage,
                     Position = new[]
@@ -131,7 +131,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
                 enemyTroops.Add(new EnemyState
                 {
                     Name = enemy.Player.Name,
-                    Type = enemy.ToString(),
+                    Type = enemy.ToString()!,
                     Health = enemy.TroopProperty.Health,
                     Damage = enemy.TroopProperty.Damage,
                     Position = new[] 
@@ -147,7 +147,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
                 enemyBuildings.Add(new EnemyState
 				{
 					Name = enemy.Player.Name,
-					Type = enemy.ToString(),
+					Type = enemy.ToString()!,
 					Health = enemy.BuildingProperty.Health,
 					Damage = 0,
 					Position = new[]
@@ -213,7 +213,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 			{
                 buildings.Add(new BuildingState
                 {
-                    Type = building.ToString(),
+                    Type = building.ToString()!,
                     Health = building.BuildingProperty.Health,
                     Position = new[]
                 {

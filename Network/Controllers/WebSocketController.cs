@@ -11,7 +11,7 @@ public class WebSocketController : ControllerBase
 {
 	private static readonly NetworkCommandProcessor _commandProcessor = NetworkCommandProcessor.Instance;
     private static object _lock = new object();
-	private WebSocket _webSocket;
+	private WebSocket? _webSocket;
 
     [Route("/ws")]
 	public async Task Get()
@@ -103,7 +103,7 @@ public class WebSocketController : ControllerBase
 	private void CloseConnection(Model.Player player)
 	{
         Console.WriteLine($"Winner: {player.Name}");
-        _webSocket.CloseAsync(
+        _webSocket!.CloseAsync(
             WebSocketCloseStatus.NormalClosure,
             "WebSocket connection closed",
             CancellationToken.None).Wait();

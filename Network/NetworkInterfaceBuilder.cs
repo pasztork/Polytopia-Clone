@@ -2,9 +2,9 @@
 
 public class NetworkInterfaceBuilder
 {
-    private static readonly string SERVER_ADDRESS = Environment.GetEnvironmentVariable("TERRA_IMPERIUM_SERVER_ADDRESS");
+    private static readonly string? SERVER_ADDRESS = Environment.GetEnvironmentVariable("TERRA_IMPERIUM_SERVER_ADDRESS");
     private static readonly string SERVER_URL = $"http://{SERVER_ADDRESS}";
-    private WebApplication app;
+    private WebApplication? app;
     public void Start(List<string> clients)
     {
         if(SERVER_ADDRESS == null)
@@ -34,6 +34,6 @@ public class NetworkInterfaceBuilder
     public void Stop()
     {
         Client.ClientManager.RemoveClients().Wait();
-        app.StopAsync().Wait();
+        app!.StopAsync().Wait();
     }
 }
