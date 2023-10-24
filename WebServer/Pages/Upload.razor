@@ -1,0 +1,47 @@
+﻿@page "/upload"
+
+@using WebServer.Data
+@using Microsoft.AspNetCore.Http
+
+<fieldset>
+    <legend>Upload your AI here!</legend>
+    <EditForm Model="submission" OnValidSubmit="HandleFormSubmit" enctype="multipart/form-data">
+        <div class="form-floating mb-3 col-4">
+            <InputText @bind-Value="submission.Name" id="name" name="name" class="form-control" placeholder="Name" required />
+            <label for="name">Enter your name</label>
+        </div>
+        <div class="form-floating mb-3 col-4">
+            <InputText @bind-Value="submission.Neptun" type="text" class="form-control" id="neptun" name="neptun" pattern=".{6}" placeholder="Neptun code" required />
+            <label for="neptun">Neptun code</label>
+        </div>
+        <div class="form-group mb-3">
+            <label for="file">Select your AI file to upload (.zip)</label><br/>
+            <InputFile OnChange="LoadFile" @bind-Value="submission.File" id="file" class="form-control-file" accept=".zip" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </EditForm>
+</fieldset>
+
+
+@code {
+    private string SAVE_DIRECTORY_PATH = Path.Combine(Environment.CurrentDirectory, "ZipFiles");
+    private Submission submission = new Submission();
+
+    private async Task HandleFormSubmit()
+    {
+        if (submission.File != null)
+        {
+            var uniqueFileName = $"{submission.Neptun}_{DateTime.Now.ToString("yyyyMMddHHmmss")}{Path.GetExtension(submission.File.Name)}";
+
+            using (var fileStream = new FileStream(Path.Combine(SAVE_DIRECTORY_PATH, uniqueFileName), FileMode.Create))
+            {
+                await submission.File.OpenReadStream().CopyToAsync(fileStream);
+            }
+        }
+    }
+
+    private void LoadFile(InputFileChangeEventArgs e)
+    {
+        submission.File = e.File;
+    }
+}
