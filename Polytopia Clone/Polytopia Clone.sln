@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogView", "..\Log\LogView.c
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tournament", "..\Tournament\Tournament.csproj", "{C8AC2AD2-1ABF-4641-B215-199C3BC7C027}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServer", "..\WebServer\WebServer.csproj", "{E08ED063-8C25-4D9E-8424-4039CD32726C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer", "..\WebServer\WebServer.csproj", "{E08ED063-8C25-4D9E-8424-4039CD32726C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

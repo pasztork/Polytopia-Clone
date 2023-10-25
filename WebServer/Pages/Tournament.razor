@@ -1,0 +1,98 @@
+﻿@page "/tournament"
+
+@using WebServer.Data
+
+<h3 class="mb-3">Tournament</h3>
+<div class="left-container col-7">
+    <div class="choosers-container row col-12 mb-3">
+        <fieldset class="col-6">
+            <legend>Select AI files</legend>
+            <div class="file-list p-1">
+                @foreach (var file in zipFiles)
+                {
+                    <div class="mb-2">
+                        <input type="checkbox" id="@file.Name" @bind="file.IsSelected" />
+                        <label for="@file.Name">@file.Name</label>
+                    </div>
+                }
+            </div>
+        </fieldset>
+        <fieldset class="col-6">
+            <legend>Select map file</legend>
+            <div class="file-list p-1">
+                @foreach (var map in maps)
+                {
+                    <div class="mb-2">
+                        <input type="radio" id="@map.Name" name="mapGroup" checked="@map.IsSelected" @onchange="() => SelectMap(map)" />
+                        <label for="@map.Name">@map.Name</label>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+    <button class="btn btn-primary" @onclick="StartTournament">Start</button>
+</div>
+
+
+
+@code {
+    private readonly string ZIP_FOLDERS_PATH = Path.Combine(Environment.CurrentDirectory, "ZipFiles");
+    private readonly string MAP_FILES_PATH = Path.Combine(Environment.CurrentDirectory, "Maps");
+    private List<FileModel> zipFiles = new();
+    private List<FileModel> maps = new();
+
+    protected override void OnInitialized()
+    {
+        GetZipFiles();
+        GetMapFiles();
+    }
+
+    private void GetZipFiles()
+    {
+        if (Directory.Exists(ZIP_FOLDERS_PATH))
+        {
+            string[] fileEntries = Directory.GetFiles(ZIP_FOLDERS_PATH);
+
+            foreach (string filePath in fileEntries)
+            {
+                zipFiles.Add(new FileModel
+                {
+                    Name = Path.GetFileName(filePath),
+                    Path = filePath
+                });
+            }
+        }
+    }
+
+    private void GetMapFiles()
+    {
+        if (Directory.Exists(MAP_FILES_PATH))
+        {
+            string[] fileEntries = Directory.GetFiles(MAP_FILES_PATH);
+
+            foreach (string filePath in fileEntries)
+            {
+                maps.Add(new FileModel
+                {
+                    Name = Path.GetFileName(filePath),
+                    Path = filePath
+                });
+            }
+        }
+    }
+
+    private void SelectMap(FileModel selectedMap)
+    {
+        foreach (var map in maps)
+        {
+            map.IsSelected = false;
+        }
+
+        selectedMap.IsSelected = true;
+    }
+
+    private void StartTournament()
+    {
+        
+    }
+}

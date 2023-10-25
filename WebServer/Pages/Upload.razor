@@ -38,11 +38,10 @@
 @code {
     MarkupString AlertMessage;
     string AlertClass = string.Empty;
-    private string SAVE_DIRECTORY_PATH = Path.Combine(Environment.CurrentDirectory, "ZipFiles");
+    private readonly string SAVE_DIRECTORY_PATH = Path.Combine(Environment.CurrentDirectory, "ZipFiles");
     private long maxFileSize = 1024L * 1024L * 5;
     private bool isFileTooLarge = false;
     private bool isFileExtensionWrong = false;
-    private bool noFileSelectedInfo = false;
     private bool isSuccessful = false;
     private Submission submission = new Submission();
 
