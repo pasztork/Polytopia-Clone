@@ -5,7 +5,7 @@
 
 <fieldset>
     <legend>Upload your AI here!</legend>
-    <EditForm Model="submission" OnValidSubmit="HandleFormSubmit" enctype="multipart/form-data">
+    <EditForm Model="submission" @onclick="() => {isSuccessful = false;}" OnValidSubmit="HandleFormSubmit" enctype="multipart/form-data">
         <div class="form-floating mb-3 col-4">
             <InputText @bind-Value="submission.Name" id="name" name="name" class="form-control" placeholder="Name" required />
             <label for="name">Enter your name</label>
@@ -18,30 +18,80 @@
             <label for="file">Select your AI file to upload (.zip)</label><br/>
             <InputFile OnChange="LoadFile" @bind-Value="submission.File" id="file" class="form-control-file" accept=".zip" required />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        @if (isFileExtensionWrong || isFileTooLarge)
+        {
+            <div class="@AlertClass col-4" role="alert">
+                @AlertMessage
+            </div>
+        }
+        <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        @if (isSuccessful)
+        {
+            <div class="@AlertClass col-4" role="alert">
+                @AlertMessage
+            </div>
+        }
     </EditForm>
 </fieldset>
 
 
 @code {
+    MarkupString AlertMessage;
+    string AlertClass = string.Empty;
     private string SAVE_DIRECTORY_PATH = Path.Combine(Environment.CurrentDirectory, "ZipFiles");
+    private long maxFileSize = 1024L * 1024L * 5;
+    private bool isFileTooLarge = false;
+    private bool isFileExtensionWrong = false;
+    private bool noFileSelectedInfo = false;
+    private bool isSuccessful = false;
     private Submission submission = new Submission();
 
     private async Task HandleFormSubmit()
     {
         if (submission.File != null)
         {
-            var uniqueFileName = $"{submission.Neptun}_{DateTime.Now.ToString("yyyyMMddHHmmss")}{Path.GetExtension(submission.File.Name)}";
+            var uniqueFileName = $"{submission.Neptun.ToUpper()}_{DateTime.Now.ToString("yyyyMMddHHmmss")}{Path.GetExtension(submission.File.Name)}";
 
             using (var fileStream = new FileStream(Path.Combine(SAVE_DIRECTORY_PATH, uniqueFileName), FileMode.Create))
             {
                 await submission.File.OpenReadStream().CopyToAsync(fileStream);
             }
+            SetAlert("alert alert-success", "oi oi-check", $"<strong>{submission.File.Name}</strong> ({submission.File.Size} bytes) file uploaded on server.");
+            isSuccessful = true;
+            submission = new Submission();
         }
     }
 
     private void LoadFile(InputFileChangeEventArgs e)
     {
+        isFileTooLarge = false;
+        isFileExtensionWrong = false;
+        if (!e.File.Name.EndsWith(".zip"))
+        {
+            SetAlert(
+                "alert alert-danger", 
+                "oi oi-warning", 
+                "Wrong file type, please choose a <strong>.zip</strong> to upload"
+            );
+            isFileExtensionWrong = true;
+            return;
+        }
+        if(e.File.Size > maxFileSize)
+        {
+            SetAlert(
+                "alert alert-danger", 
+                "oi oi-ban", 
+                $"File size exceeds the limit. Maximum allowed size is <strong>{maxFileSize / (1024 * 1024)} MB</strong>."
+            );
+            isFileTooLarge = true;
+            return;
+        }
         submission.File = e.File;
+    }
+
+    private void SetAlert(string alertClass, string iconClass, string message)
+    {
+        AlertClass = alertClass;
+        AlertMessage = new MarkupString($"<span class='{iconClass}' aria-hidden='true'></span> {message}");
     }
 }
