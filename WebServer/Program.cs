@@ -1,3 +1,5 @@
+using WebServer.Services;
+
 namespace WebServer
 {
     public class Program
@@ -7,6 +9,7 @@ namespace WebServer
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
+            builder.Services.AddSingleton<TournamentService>();
 
             var app = builder.Build();
             if (!app.Environment.IsDevelopment())

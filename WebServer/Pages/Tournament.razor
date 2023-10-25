@@ -1,6 +1,7 @@
 ﻿@page "/tournament"
 
 @using WebServer.Data
+@inject Services.TournamentService TournamentService
 
 <h3 class="mb-3">Tournament</h3>
 <div class="left-container col-7">
@@ -93,6 +94,12 @@
 
     private void StartTournament()
     {
-        
+        FileModel? selectedMap = maps.Find(m => m.IsSelected);
+        List<string> selectedZipFiles = zipFiles.FindAll(z => z.IsSelected).Select(s => s.Name.Split('.')[0]).ToList();
+
+        if(selectedMap != null && selectedZipFiles.Count > 0)
+        {
+            TournamentService.StartTournament(selectedMap.Name, selectedZipFiles);
+        }
     }
 }

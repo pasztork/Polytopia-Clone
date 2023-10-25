@@ -6,7 +6,7 @@ using System.IO.Compression;
 
 public static class ClientManager
 {
-    private static readonly string? ROOT_FOLDER_PATH = Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.Parent?.FullName;
+    private static readonly string? ROOT_FOLDER_PATH = Directory.GetParent(Environment.CurrentDirectory)?.FullName;
     private static readonly string COMP_FOLDER_PATH = Path.Combine(ROOT_FOLDER_PATH!, "Network\\Client\\ClientFiles\\Compressed");
     private static readonly string EXTR_FOLDER_PATH = Path.Combine(ROOT_FOLDER_PATH!, "Network\\Client\\ClientFiles\\Extracted");
     private static readonly int defaultPort = 53657;
