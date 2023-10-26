@@ -1,0 +1,14 @@
+﻿<div class="@AlertClass @Width" role="alert">
+    @AlertMessage
+</div>
+
+@code {
+    [Parameter]
+    public string AlertClass { get; set; } = string.Empty;
+
+    [Parameter]
+    public MarkupString AlertMessage { get; set; }
+
+    [Parameter]
+    public string Width { get; set; } = string.Empty;
+}

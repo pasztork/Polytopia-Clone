@@ -8,7 +8,7 @@ namespace Network;
 
 public class WebSocketServer
 {
-	public static event Action OnAllClientsDisconnected;
+	public static event Action? OnAllClientsDisconnected;
 	public static string MapFilePath { get; set; } = string.Empty;
 	public static int PlayerCount { private get; set; } = 2;
 	public static WebSocket CurrentSocketPlayer

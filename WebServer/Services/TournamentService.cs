@@ -1,29 +1,113 @@
 ﻿using System.Diagnostics;
+using WebServer.Data;
 
 namespace WebServer.Services;
 
 public class TournamentService
 {
-    public void StartTournament(string map, List<string> clientIDs)
+    private static readonly string ZIP_FILES_PATH = Path.Combine(Environment.CurrentDirectory, "ZipFiles");
+    private static readonly string MAP_FILE_PATH = Path.Combine(Environment.CurrentDirectory, "Maps");
+    private static readonly string NETWORK_ROOT_PATH = Path.Combine(Directory.GetParent(Environment.CurrentDirectory)!.FullName, "Network");
+    private static readonly string COMP_FILES_DEST = Path.Combine(NETWORK_ROOT_PATH, "Client\\ClientFiles\\Compressed");
+    private static readonly string EXTR_FILES_DEST = Path.Combine(NETWORK_ROOT_PATH, "Client\\ClientFiles\\Extracted");
+    private static readonly string MAP_FILE_DEST = Path.Combine(NETWORK_ROOT_PATH, "Maps");
+
+    public event Action<int>? OnTournamentStarted;
+    public event Action<Dictionary<string, int>, TournamentType>? OnTournamentCompleted;
+    public void StartTournament(string map, List<string> zipFileNames, TournamentType tournamentType, int roundCount)
+    {
+        OnTournamentStarted?.Invoke(zipFileNames.Count);
+        CopyFilesToNetwork(map, zipFileNames);
+
+        List<string> clientIDs = zipFileNames.Select(z => z.Split('.')[0]).ToList();
+        Dictionary<string, int> winners = new();
+        if(tournamentType == TournamentType.League)
+        {
+            winners = RunLeagueTournament(map, clientIDs, roundCount);
+        }
+        else
+        {
+            winners = RunKnockoutTournament(map, clientIDs.ToList());
+        }
+
+        RemoveFilesFromNetwork(map, zipFileNames);
+        // Task.Run(() => { Network.Client.ClientManager.RemoveImages(clientIDs.ToList()).Wait(); });
+        OnTournamentCompleted?.Invoke(winners, tournamentType);
+    }
+
+    private Dictionary<string, int> RunLeagueTournament(string map, List<string> clientIDs, int roundCount)
+    {
+        Dictionary<string, int> points = new();
+
+        foreach (var clientID in clientIDs)
+        {
+            points.Add(clientID, 0);
+        }
+
+        for(int round = 1; round <= roundCount; round++)
+        {
+            for(int i = 0; i < clientIDs.Count - 1; i++)
+            {
+                for(int j = i + 1; j < clientIDs.Count; j++)
+                {
+                    string matchWinner = clientIDs[i]; // RunGame(map, new[]{ clientIDs[i], clientIDs[j] });
+                    points[matchWinner] += 1;
+                }
+            }
+        }
+
+        return points.OrderByDescending(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
+    }
+
+    private Dictionary<string, int> RunKnockoutTournament(string map, List<string> clientIDs)
     {
         List<string> players = new List<string>(clientIDs);
+        Dictionary<string, int> points = new();
 
-        for (int i = 0; i <= (int)Math.Log2(players.Count); i++)
+        foreach (var clientID in clientIDs)
+        {
+            points.Add(clientID, 0);
+        }
+
+        int roundsCount = (int)Math.Log2(clientIDs.Count);
+        for (int i = 1; i <= roundsCount; i++)
         {
             List<string> eliminated = new();
             for (int j = 0; j < players.Count; j += 2)
             {
                 List<string> lobby = new() { players[j], players[j + 1] };
-                string winner = RunGame(map, lobby.ToArray());
-                lobby.Remove(winner);
+                string matchWinner = lobby[0]; // RunGame(map, lobby.ToArray());
+                lobby.Remove(matchWinner);
                 eliminated.AddRange(lobby);
             }
-            players.RemoveAll(p => eliminated.Contains(p));
+            if(players.Count == 4)
+            {
+                players.RemoveAll(p => eliminated.Contains(p));
+                string mathWinner = eliminated[0]; // RunGame(map, eliminated.ToArray());
+                eliminated.Remove(mathWinner);
+                points[mathWinner] = 3;
+                points[eliminated[0]] = 4;
+            }
+            else if(players.Count == 2)
+            {
+                players.RemoveAll(p => eliminated.Contains(p));
+                points[players[0]] = 1;
+                points[eliminated[0]] = 2;
+            }
+            else
+            {
+                foreach (var elim in eliminated)
+                {
+                    players.Remove(elim);
+                    points[elim] = roundsCount + 3 - i;
+                }
+            }
         }
-        Task.Run(() => { Network.Client.ClientManager.RemoveImages(clientIDs.ToList()).Wait(); });
+
+        return points.OrderBy(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
     }
 
-    private static string RunGame(string map, string[] clients)
+    private string RunGame(string map, string[] clients)
     {
         string winner = "";
         string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Network.exe");
@@ -68,8 +152,50 @@ public class TournamentService
         return winner;
     }
 
-    private static string GetWinnerNameFromText(string text)
+    private string GetWinnerNameFromText(string text)
     {
         return text.Replace("Winner: ", "").Replace(' ', '_').ToLower();
+    }
+
+    private void CopyFilesToNetwork(string map, List<string> zipFileNames)
+    {
+        var mapDest = Path.Combine(MAP_FILE_DEST, map);
+        if (!File.Exists(mapDest))
+        {
+            File.Copy(Path.Combine(MAP_FILE_PATH, map), mapDest);
+        }
+
+        foreach (var zipFile in zipFileNames)
+        {
+            var zipDest = Path.Combine(COMP_FILES_DEST, zipFile);
+            if (!File.Exists(zipDest))
+            {
+                File.Copy(Path.Combine(ZIP_FILES_PATH, zipFile), zipDest);
+            }
+        }
+    }
+
+    private void RemoveFilesFromNetwork(string map, List<string> zipFileNames)
+    {
+        var mapDest = Path.Combine(MAP_FILE_DEST, map);
+        if (File.Exists(mapDest))
+        {
+            File.Delete(mapDest);
+        }
+
+        foreach (var zipFile in zipFileNames)
+        {
+            var compDest = Path.Combine(COMP_FILES_DEST, zipFile);
+            if (File.Exists(compDest))
+            {
+                File.Delete(compDest);
+            }
+
+            var extrDest = Path.Combine(EXTR_FILES_DEST, zipFile.Split('.')[0]);
+            if (Directory.Exists(compDest))
+            {
+                Directory.Delete(extrDest, true);
+            }
+        }
     }
 }

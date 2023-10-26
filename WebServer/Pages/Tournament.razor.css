@@ -1,5 +1,5 @@
 ﻿.file-list {
-    max-height: 300px;
+    max-height: 290px;
     overflow-y: auto;
     border: 1px solid #ccc;
 }
@@ -10,8 +10,19 @@
     justify-content: space-evenly;
 }
 
+.setup-container {
+    display: flex;
+    flex-direction: row;
+}
+
 .left-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.result-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

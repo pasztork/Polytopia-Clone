@@ -1,58 +1,156 @@
 ﻿@page "/tournament"
 
 @using WebServer.Data
+@using WebServer.Components
+@using WebServer.Helpers
 @inject Services.TournamentService TournamentService
 
 <h3 class="mb-3">Tournament</h3>
-<div class="left-container col-7">
-    <div class="choosers-container row col-12 mb-3">
-        <fieldset class="col-6">
-            <legend>Select AI files</legend>
-            <div class="file-list p-1">
-                @foreach (var file in zipFiles)
-                {
-                    <div class="mb-2">
-                        <input type="checkbox" id="@file.Name" @bind="file.IsSelected" />
-                        <label for="@file.Name">@file.Name</label>
+<div class="setup-container col-12">
+    <div class="left-container col-7">
+        <div class="choosers-container col-12 mb-3">
+            <fieldset class="col-5">
+                <legend>Select AI files</legend>
+                <div class="file-list p-1">
+                    @foreach (var file in zipFiles)
+                    {
+                        <div class="mb-2">
+                            <input type="checkbox" id="@file.Name" @bind="file.IsSelected" />
+                            <label for="@file.Name">@file.Name</label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+            <fieldset class="col-5">
+                <legend>Select map file</legend>
+                <div class="file-list p-1">
+                    @foreach (var map in maps)
+                    {
+                        <div class="mb-2">
+                            <input type="radio" id="@map.Name" name="mapGroup" @onchange="() => SelectMap(map)" />
+                            <label for="@map.Name">@map.Name</label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-12">
+            <fieldset class="mb-3 ms-3">
+                <legend>Select Tournament Mode</legend>
+                <div>
+                    <div class="mb-3">
+                        <input type="radio" id="league" name="modeGroup" 
+                            @onchange="() => { 
+                                tournamentType = TournamentType.League; 
+                                validator.TypeError = false;
+                                validator.KnockoutError = false;
+                            }" />
+                        <label for="league">League mode</label>
+                        @if (tournamentType == TournamentType.League)
+                        {
+                            <div class="ms-3">
+                                <label for="roundCount">Matches played against each other: </label>
+                                <input type="number" id="roundCount" name="roundCount" min="1" max="@maxRoundCount" @bind="@roundCount" />
+                            </div>
+                        }
                     </div>
-                }
-            </div>
-        </fieldset>
-        <fieldset class="col-6">
-            <legend>Select map file</legend>
-            <div class="file-list p-1">
-                @foreach (var map in maps)
-                {
-                    <div class="mb-2">
-                        <input type="radio" id="@map.Name" name="mapGroup" checked="@map.IsSelected" @onchange="() => SelectMap(map)" />
-                        <label for="@map.Name">@map.Name</label>
+                    <div>
+                        <input type="radio" id="knockout" name="modeGroup" 
+                            @onchange="() => { 
+                                tournamentType = TournamentType.Knockout; 
+                                validator.TypeError = false;
+                                validator.RoundCountError = false;
+                            }" />
+                        <label for="knockout">Knockout mode</label>
                     </div>
-                }
-            </div>
-        </fieldset>
+                </div>
+            </fieldset>
+        </div>
+        @if (validator.HasError)
+        {
+            <AlertComponent AlertClass="@validator.AlertClass" AlertMessage="@validator.AlertMessage" Width="col-12" />
+        }
+        <button class="btn btn-primary mb-3" @onclick="StartTournament">Start</button>
+        @if (validator.HasInfo)
+        {
+            <AlertComponent AlertClass="@validator.AlertClass" AlertMessage="@validator.AlertMessage" Width="col-12" />
+        }
     </div>
-    <button class="btn btn-primary" @onclick="StartTournament">Start</button>
+    <div class="right-container col-5">
+        <p>Map visualization</p>
+    </div>
 </div>
 
-
+<div class="result-wrapper col-7">
+    @if (results.Count > 0)
+    {
+        <div class="result-container col-10">
+            <fieldset>
+                @if (resultType == TournamentType.League)
+                {
+                    <legend>League Tournament Results</legend>
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>AI names</th>
+                            <th class="text-center">Points</th>
+                        </tr>
+                        @foreach (var result in results)
+                        {
+                            <tr>
+                                <td>@result.Key</td>
+                                <td class="text-center">@result.Value</td>
+                            </tr>
+                        }
+                    </table>
+                }
+                else
+                {
+                    <legend>Knockout Tournament Results</legend>
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>AI names</th>
+                            <th class="text-center">Standings</th>
+                        </tr>
+                        @foreach (var result in results)
+                        {
+                            <tr>
+                                <td>@result.Key</td>
+                                <td class="text-center">@result.Value</td>
+                            </tr>
+                        }
+                    </table>
+                }
+            </fieldset>
+        </div>
+    }
+</div>
 
 @code {
-    private readonly string ZIP_FOLDERS_PATH = Path.Combine(Environment.CurrentDirectory, "ZipFiles");
+    private readonly string ZIP_FILES_PATH = Path.Combine(Environment.CurrentDirectory, "ZipFiles");
     private readonly string MAP_FILES_PATH = Path.Combine(Environment.CurrentDirectory, "Maps");
+
+    private TournamentValidator validator = new TournamentValidator();
     private List<FileModel> zipFiles = new();
     private List<FileModel> maps = new();
+    private TournamentType? tournamentType = null;
+    private readonly int maxRoundCount = 10;
+    private int roundCount = 1;
+    private Dictionary<string, int> results = new();
+    private TournamentType? resultType = null;
 
     protected override void OnInitialized()
     {
+        TournamentService.OnTournamentStarted += validator.StartedAlert;
+        TournamentService.OnTournamentCompleted += ShowResults;
         GetZipFiles();
         GetMapFiles();
     }
 
     private void GetZipFiles()
     {
-        if (Directory.Exists(ZIP_FOLDERS_PATH))
+        if (Directory.Exists(ZIP_FILES_PATH))
         {
-            string[] fileEntries = Directory.GetFiles(ZIP_FOLDERS_PATH);
+            string[] fileEntries = Directory.GetFiles(ZIP_FILES_PATH);
 
             foreach (string filePath in fileEntries)
             {
@@ -90,16 +188,24 @@
         }
 
         selectedMap.IsSelected = true;
+        validator.MapError = false;
     }
 
     private void StartTournament()
     {
         FileModel? selectedMap = maps.Find(m => m.IsSelected);
-        List<string> selectedZipFiles = zipFiles.FindAll(z => z.IsSelected).Select(s => s.Name.Split('.')[0]).ToList();
+        List<string> selectedZipFiles = zipFiles.FindAll(z => z.IsSelected).Select(s => s.Name).ToList();
 
-        if(selectedMap != null && selectedZipFiles.Count > 0)
+        if(validator.Validate(selectedMap, selectedZipFiles, tournamentType, roundCount, maxRoundCount))
         {
-            TournamentService.StartTournament(selectedMap.Name, selectedZipFiles);
+            TournamentService.StartTournament(selectedMap!.Name, selectedZipFiles, tournamentType ?? TournamentType.League, roundCount);
         }
+    }
+
+    private void ShowResults(Dictionary<string, int> results, TournamentType resultType)
+    {
+        validator.CompletedAlert(results);
+        this.results = results;
+        this.resultType = resultType;
     }
 }

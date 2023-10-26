@@ -1,6 +1,7 @@
 ﻿@page "/upload"
 
 @using WebServer.Data
+@using WebServer.Components
 @using Microsoft.AspNetCore.Http
 
 <fieldset>
@@ -20,16 +21,12 @@
         </div>
         @if (isFileExtensionWrong || isFileTooLarge)
         {
-            <div class="@AlertClass col-4" role="alert">
-                @AlertMessage
-            </div>
+            <AlertComponent AlertClass="@AlertClass" AlertMessage="@AlertMessage" Width="col-4" />
         }
         <button type="submit" class="btn btn-primary mb-3">Submit</button>
         @if (isSuccessful)
         {
-            <div class="@AlertClass col-4" role="alert">
-                @AlertMessage
-            </div>
+            <AlertComponent AlertClass="@AlertClass" AlertMessage="@AlertMessage" Width="col-4" />
         }
     </EditForm>
 </fieldset>
