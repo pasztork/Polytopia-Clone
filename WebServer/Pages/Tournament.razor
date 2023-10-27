@@ -79,17 +79,20 @@
         }
     </div>
     <div class="right-container col-5 mb-3 ms-2">
-        @if(map.Tiles.Count > 0)
+        @if (map.Tiles.Count > 0)
         {
-            @foreach(var row in map.Tiles)
-            {
-                <div class="tile-row">
-                    @foreach (var tile in row)
-                    {
-                        <MapTile BackgroundColor="@tile" TilesInRow="@row.Count"></MapTile>
-                    }
-                </div>
-            }
+            <fieldset class="col-12">
+                <legend>Map preview</legend>
+                @foreach (var row in map.Tiles)
+                {
+                    <div class="tile-row">
+                        @foreach (var tile in row)
+                        {
+                            <MapTile BackgroundColor="@tile" TilesInRow="@row.Count"></MapTile>
+                        }
+                    </div>
+                }
+            </fieldset>
         }
     </div>
 </div>
