@@ -3,6 +3,8 @@
 @using WebServer.Data
 @using WebServer.Components
 @using WebServer.Helpers
+@using System.Text.Json
+
 @inject Services.TournamentService TournamentService
 
 <h3 class="mb-3">Tournament</h3>
@@ -76,8 +78,19 @@
             <AlertComponent AlertClass="@validator.AlertClass" AlertMessage="@validator.AlertMessage" Width="col-12" />
         }
     </div>
-    <div class="right-container col-5">
-        <p>Map visualization</p>
+    <div class="right-container col-5 mb-3 ms-2">
+        @if(map.Tiles.Count > 0)
+        {
+            @foreach(var row in map.Tiles)
+            {
+                <div class="tile-row">
+                    @foreach (var tile in row)
+                    {
+                        <MapTile BackgroundColor="@tile" TilesInRow="@row.Count"></MapTile>
+                    }
+                </div>
+            }
+        }
     </div>
 </div>
 
@@ -137,6 +150,7 @@
     private int roundCount = 1;
     private Dictionary<string, int> results = new();
     private TournamentType? resultType = null;
+    private MapModel map = new();
 
     protected override void OnInitialized()
     {
@@ -189,6 +203,9 @@
 
         selectedMap.IsSelected = true;
         validator.MapError = false;
+
+        string mapFileContent = File.ReadAllText(selectedMap.Path);
+        map = JsonSerializer.Deserialize<MapModel>(mapFileContent)!;
     }
 
     private void StartTournament()

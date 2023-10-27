@@ -1,0 +1,32 @@
+﻿<div style="width: calc(100% / @TilesInRow);
+			background-color: @backgroundColor;
+			border: 1px solid #000000;
+			aspect-ratio: 1/1">
+</div>
+
+@code {
+
+	private Dictionary<string, string> typeToColorMap = new Dictionary<string, string>
+	{
+		{"Forest", "#006400"},
+		{"Grass", "#567D46"},
+		{"Rock", "#636363"},
+		{"Sand", "#C2B280"},
+		{"Water", "#00D1E0"},
+	};
+
+	private string backgroundColor = string.Empty;
+
+	[Parameter]
+	public string BackgroundColor 
+	{
+		private get => backgroundColor;
+		set
+		{
+			backgroundColor = typeToColorMap[value];
+		}
+	}
+
+	[Parameter]
+	public int TilesInRow { private get; set; } = 16;
+}

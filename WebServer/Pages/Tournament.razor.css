@@ -21,6 +21,21 @@
     align-items: center;
 }
 
+.right-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 550px;
+}
+
+.tile-row {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
 .result-wrapper {
     display: flex;
     flex-direction: row;
