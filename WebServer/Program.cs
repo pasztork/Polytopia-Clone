@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebServer.Areas.Identity.Data;
 using WebServer.Services;
@@ -17,14 +16,16 @@ namespace WebServer
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Services.AddIdentity<User, IdentityRole>(options => 
-            {
+
+            builder.Services.AddDefaultIdentity<User>(options => {
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedAccount = true;
+                options.User.RequireUniqueEmail = true;
             })
                 .AddEntityFrameworkStores<DataContext>();
 

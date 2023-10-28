@@ -1,0 +1,15 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@attribute [IgnoreAntiforgeryToken]
+@inject SignInManager<User> SigInManager
+@functions{
+	public async Task<IActionResult> OnPostAsync()
+	{
+		if (SigInManager.IsSignedIn(User))
+		{
+			await SigInManager.SignOutAsync();
+		}
+
+		return Redirect("~/");
+	}
+}
