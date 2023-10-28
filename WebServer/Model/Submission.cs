@@ -1,4 +1,4 @@
-﻿namespace WebServer.Data;
+﻿namespace WebServer.Model;
 
 using Microsoft.AspNetCore.Components.Forms;
 
