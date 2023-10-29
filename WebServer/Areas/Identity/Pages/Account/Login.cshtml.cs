@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WebServer.Areas.Identity.Data;
+using WebServer.Data;
 
 namespace WebServer.Areas.Identity.Pages.Account;
 
@@ -60,9 +60,13 @@ public class LoginModel : PageModel
         if (ModelState.IsValid)
         {
             var user = await _userManager.FindByEmailAsync(Input.Email);
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, 
+            Microsoft.AspNetCore.Identity.SignInResult? result = null;
+            if (user != null)
+            {
+                result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password,
                 isPersistent: Input.RememberMe, lockoutOnFailure: false);
-            if (result.Succeeded)
+            }
+            if (result != null && result.Succeeded)
             {
                 return LocalRedirect(returnUrl);
             }

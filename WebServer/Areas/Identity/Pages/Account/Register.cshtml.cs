@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WebServer.Areas.Identity.Data;
+using WebServer.Areas.Identity.Constants;
+using WebServer.Data;
 
 namespace WebServer.Areas.Identity.Pages.Account;
 
@@ -10,11 +11,16 @@ public class RegisterModel : PageModel
 {
     private readonly SignInManager<User> _signInManager;
     private readonly UserManager<User> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public RegisterModel(UserManager<User> userManager, SignInManager<User> signInManager)
+    public RegisterModel(
+        UserManager<User> userManager, 
+        SignInManager<User> signInManager, 
+        RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _roleManager = roleManager;
     }
 
     [BindProperty]
@@ -67,13 +73,15 @@ public class RegisterModel : PageModel
 
             if (result.Succeeded)
             {
-                if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                User newUser = await _userManager.FindByEmailAsync(Input.Email);
+                await _userManager.AddToRoleAsync(newUser, Roles.UserRole);
+
+                if (_userManager.Options.SignIn.RequireConfirmedEmail)
                 {
                     return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl });
                 }
                 else
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
             }

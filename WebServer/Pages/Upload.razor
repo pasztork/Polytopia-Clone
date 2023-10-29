@@ -4,9 +4,12 @@
 @using WebServer.Components
 @using Microsoft.AspNetCore.Http
 
+
 <fieldset>
     <legend>Upload your AI here!</legend>
-    <EditForm Model="submission" @onclick="() => {isSuccessful = false;}" OnValidSubmit="HandleFormSubmit" enctype="multipart/form-data">
+    <AuthorizeView Context="authorizeContext">
+        <Authorized>
+            <EditForm Model="submission" @onclick="() => {isSuccessful = false;}" OnValidSubmit="HandleFormSubmit" enctype="multipart/form-data">
         <div class="form-floating mb-3 col-4">
             <InputText @bind-Value="submission.Name" id="name" name="name" class="form-control" autocomplete="off" placeholder="Name" required />
             <label for="name">Enter your name</label>
@@ -29,7 +32,13 @@
             <AlertComponent AlertClass="@AlertClass" AlertMessage="@AlertMessage" Width="col-4" />
         }
     </EditForm>
+        </Authorized>
+        <NotAuthorized>
+            <p>Log in to see this page.</p>
+        </NotAuthorized>
+    </AuthorizeView>
 </fieldset>
+
 
 
 @code {

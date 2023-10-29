@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using WebServer.Areas.Identity.Data
+@using WebServer.Data
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
@@ -8,7 +8,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        <a id="manage" class="nav-link btn-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @UserManager.GetUserName(User)!</a>
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">

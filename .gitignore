@@ -75,8 +75,8 @@ Network/Client/ClientFiles/
 Polytopia Clone/SavedMaps/
 
 # WebServer zip and map files
-WebServer/ZipFiles/
-WebServer/Maps/
+WebServer/Resources/ZipFiles/
+WebServer/Resources/Maps/
 
 # Bin files
 Network/bin/

@@ -1,12 +1,5 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
-    {
-        Layout = parentLayout.ToString();
-    }
-    else
-    {
-        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
-    }
+    Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
 <h1>Manage your account</h1>
@@ -16,7 +9,10 @@
     <hr />
     <div class="row">
         <div class="col-md-3">
-            <partial name="_ManageNav" />
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
+                <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
+            </ul>
         </div>
         <div class="col-md-9">
             @RenderBody()

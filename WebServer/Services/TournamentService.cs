@@ -5,8 +5,8 @@ namespace WebServer.Services;
 
 public class TournamentService
 {
-    private static readonly string ZIP_FILES_PATH = Path.Combine(Environment.CurrentDirectory, "ZipFiles");
-    private static readonly string MAP_FILE_PATH = Path.Combine(Environment.CurrentDirectory, "Maps");
+    private static readonly string ZIP_FILES_PATH = Path.Combine(Environment.CurrentDirectory, "Resources\\ZipFiles");
+    private static readonly string MAP_FILE_PATH = Path.Combine(Environment.CurrentDirectory, "Resources\\Maps");
     private static readonly string NETWORK_ROOT_PATH = Path.Combine(Directory.GetParent(Environment.CurrentDirectory)!.FullName, "Network");
     private static readonly string COMP_FILES_DEST = Path.Combine(NETWORK_ROOT_PATH, "Client\\ClientFiles\\Compressed");
     private static readonly string EXTR_FILES_DEST = Path.Combine(NETWORK_ROOT_PATH, "Client\\ClientFiles\\Extracted");
