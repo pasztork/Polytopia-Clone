@@ -10,20 +10,22 @@ public class DataContext : IdentityDbContext<User>
     {
     }
 
+    public DbSet<Submission> Submissions => Set<Submission>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
         builder.Entity<IdentityRole>().HasData(
-            new IdentityRole 
-            { 
-                Name = Areas.Identity.Constants.Roles.AdminRole, 
-                NormalizedName = Areas.Identity.Constants.Roles.AdminRole.ToUpper() 
+            new IdentityRole
+            {
+                Name = Areas.Identity.Constants.Roles.AdminRole,
+                NormalizedName = Areas.Identity.Constants.Roles.AdminRole.ToUpper()
             });
         builder.Entity<IdentityRole>().HasData(
-            new IdentityRole 
-            { 
-                Name = Areas.Identity.Constants.Roles.UserRole, 
-                NormalizedName = Areas.Identity.Constants.Roles.UserRole.ToUpper() 
+            new IdentityRole
+            {
+                Name = Areas.Identity.Constants.Roles.UserRole,
+                NormalizedName = Areas.Identity.Constants.Roles.UserRole.ToUpper()
             });
     }
 }

@@ -1,0 +1,21 @@
+﻿.main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.previous-uploads-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-list {
+    max-height: 290px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}

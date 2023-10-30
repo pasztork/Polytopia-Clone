@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebServer.Data;
 
@@ -11,9 +12,10 @@ using WebServer.Data;
 namespace WebServer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231030163632_SubmissionsMigration")]
+    partial class SubmissionsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace WebServer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "04b4922b-45dc-4f15-aa03-c0a0124ba449",
-                            ConcurrencyStamp = "e1559c56-1659-484d-98db-6a08c0e4377c",
+                            Id = "2776b9ca-03b9-4ecc-97bb-21e0229e155c",
+                            ConcurrencyStamp = "a31702e2-3eb5-4071-a17a-60bb94622d0f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d63cc070-cba9-4df8-9be7-15177bd89517",
-                            ConcurrencyStamp = "eaf88707-b4a9-43fd-8dfe-6ca84dd57f81",
+                            Id = "dccaa9bb-e9a8-4d08-b588-0661a2a66f6c",
+                            ConcurrencyStamp = "ce90304c-fb14-4933-8cb0-469bbf3d5952",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -180,10 +182,6 @@ namespace WebServer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OriginalFileName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
