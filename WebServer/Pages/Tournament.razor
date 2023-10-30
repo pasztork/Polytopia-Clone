@@ -81,10 +81,10 @@
                 }
             </div>
             <div class="right-container col-5 mb-3 ms-2">
-                @if (map.Tiles.Count > 0)
-                {
-                    <fieldset class="col-12">
-                        <legend>Map preview</legend>
+                <div class="map-container">
+                    <h4>Map preview</h4>
+                    @if (map.Tiles.Count > 0)
+                    {
                         @foreach (var row in map.Tiles)
                         {
                             <div class="tile-row">
@@ -94,8 +94,14 @@
                                 }
                             </div>
                         }
-                    </fieldset>
-                }
+                    }
+                    else
+                    {
+                        <div class="map-placeholder">
+                            <span>map preview here</span>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
 

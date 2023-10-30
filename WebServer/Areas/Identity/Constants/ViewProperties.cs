@@ -2,5 +2,5 @@
 
 public static class ViewProperties
 {
-    public const bool HasEmailSender = false;
+    public static readonly bool HasEmailSender = false;
 }
