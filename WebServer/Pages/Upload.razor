@@ -76,7 +76,10 @@
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         currentUser = await UserManager.GetUserAsync(authState.User);
-        GetUserSubmissions();
+        if (currentUser != null)
+        {
+            GetUserSubmissions();
+        }
     }
 
     private async Task HandleFormSubmit()
