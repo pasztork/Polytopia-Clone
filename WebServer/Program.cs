@@ -44,7 +44,7 @@ public class Program
             });
         });
 
-        builder.Services.AddSingleton<TournamentService>();
+        builder.Services.AddScoped<TournamentService>();
 
         var app = builder.Build();
         if (!app.Environment.IsDevelopment())

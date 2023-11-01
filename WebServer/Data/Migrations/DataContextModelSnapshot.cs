@@ -51,15 +51,15 @@ namespace WebServer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "04b4922b-45dc-4f15-aa03-c0a0124ba449",
-                            ConcurrencyStamp = "e1559c56-1659-484d-98db-6a08c0e4377c",
+                            Id = "47cbc108-baed-483a-a379-5ae2b9e98ebb",
+                            ConcurrencyStamp = "b7868432-638a-47c1-9126-1e4006fbcd62",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d63cc070-cba9-4df8-9be7-15177bd89517",
-                            ConcurrencyStamp = "eaf88707-b4a9-43fd-8dfe-6ca84dd57f81",
+                            Id = "e8dcc5c6-a3e1-4eb4-89dd-6db7692ce991",
+                            ConcurrencyStamp = "02748f19-3b6b-4f69-9e0a-0f106cad2fdd",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -171,6 +171,31 @@ namespace WebServer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("WebServer.Data.ResultItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TournamentResultId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TournamentResultId");
+
+                    b.ToTable("ResultItems");
+                });
+
             modelBuilder.Entity("WebServer.Data.Submission", b =>
                 {
                     b.Property<int>("Id")
@@ -194,6 +219,33 @@ namespace WebServer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Submissions");
+                });
+
+            modelBuilder.Entity("WebServer.Data.TournamentResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Finished")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MapFileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TournamentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TournamentResults");
                 });
 
             modelBuilder.Entity("WebServer.Data.User", b =>
@@ -314,6 +366,20 @@ namespace WebServer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebServer.Data.ResultItem", b =>
+                {
+                    b.HasOne("WebServer.Data.TournamentResult", null)
+                        .WithMany("ResultItems")
+                        .HasForeignKey("TournamentResultId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebServer.Data.TournamentResult", b =>
+                {
+                    b.Navigation("ResultItems");
                 });
 #pragma warning restore 612, 618
         }

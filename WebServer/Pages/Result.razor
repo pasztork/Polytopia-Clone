@@ -1,0 +1,69 @@
+﻿@page "/results"
+
+@using WebServer.Data
+@using Microsoft.EntityFrameworkCore
+@inject DataContext DataContext
+
+<h3>Tournament results</h3>
+<AuthorizeView>
+	<Authorized>
+		@if(tournamentResults.Count > 0)
+		{
+			@foreach (var tournamentResult in tournamentResults)
+			{
+				<div class="col-12">
+					<div class="col-8">
+						<table class="table table-bordered result-header">
+							<thead>
+								<tr>
+									<td class="text-center"><strong>Tournament type: </strong>@tournamentResult.TournamentType</td>
+									<td class="text-center"><strong>Date: </strong>@tournamentResult.DateTime</td>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div>
+						<table class="table table-bordered table-striped col-12">
+							<thead>
+								<tr>
+									<th>AI names</th>
+									<th class="text-center col-2">Standings</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var resultItem in tournamentResult.ResultItems)
+								{
+									<tr>
+										<td>@resultItem.FileName</td>
+										<td class="text-center">@resultItem.Value</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			}
+		}
+		else
+		{
+			<p>No finished tournaments yet.</p>
+		}
+	</Authorized>
+	<NotAuthorized>
+		<p>Log in to see this page.</p>
+	</NotAuthorized>
+</AuthorizeView>
+
+@code {
+	private List<TournamentResult> tournamentResults = new();
+
+	protected override void OnInitialized()
+	{
+		GetTournamentResults();
+	}
+
+	private void GetTournamentResults()
+	{
+		tournamentResults = DataContext.TournamentResults.Include(t => t.ResultItems).ToList();
+	}
+}

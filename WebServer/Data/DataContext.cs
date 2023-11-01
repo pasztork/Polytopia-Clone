@@ -11,6 +11,8 @@ public class DataContext : IdentityDbContext<User>
     }
 
     public DbSet<Submission> Submissions => Set<Submission>();
+    public DbSet<TournamentResult> TournamentResults => Set<TournamentResult>();
+    public DbSet<ResultItem> ResultItems => Set<ResultItem>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

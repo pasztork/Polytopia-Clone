@@ -114,34 +114,42 @@
                         {
                             <legend>League Tournament Results</legend>
                             <table class="table table-striped table-bordered">
-                                <tr>
-                                    <th>AI names</th>
-                                    <th class="text-center">Points</th>
-                                </tr>
-                                @foreach (var result in results)
-                                {
+                                <thead>
                                     <tr>
-                                        <td>@result.Key</td>
-                                        <td class="text-center">@result.Value</td>
+                                        <th>AI names</th>
+                                        <th class="text-center">Points</th>
                                     </tr>
-                                }
+                                </thead>
+                                <tbody>
+                                    @foreach (var result in results)
+                                    {
+                                        <tr>
+                                            <td>@result.Key</td>
+                                            <td class="text-center">@result.Value</td>
+                                        </tr>
+                                    }
+                                </tbody>
                             </table>
                         }
                         else
                         {
                             <legend>Knockout Tournament Results</legend>
                             <table class="table table-striped table-bordered">
-                                <tr>
-                                    <th>AI names</th>
-                                    <th class="text-center">Standings</th>
-                                </tr>
-                                @foreach (var result in results)
-                                {
+                                <thead>
                                     <tr>
-                                        <td>@result.Key</td>
-                                        <td class="text-center">@result.Value</td>
+                                        <th>AI names</th>
+                                        <th class="text-center">Standings</th>
                                     </tr>
-                                }
+                                </thead>
+                                <tbody>
+                                    @foreach (var result in results)
+                                    {
+                                        <tr>
+                                            <td>@result.Key</td>
+                                            <td class="text-center">@result.Value</td>
+                                        </tr>
+                                    }
+                                </tbody>
                             </table>
                         }
                     </fieldset>

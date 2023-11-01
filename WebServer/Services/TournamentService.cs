@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using WebServer.Data;
 using WebServer.Model;
 
 namespace WebServer.Services;
@@ -12,27 +13,59 @@ public class TournamentService
     private static readonly string EXTR_FILES_DEST = Path.Combine(NETWORK_ROOT_PATH, "Client\\ClientFiles\\Extracted");
     private static readonly string MAP_FILE_DEST = Path.Combine(NETWORK_ROOT_PATH, "Maps");
 
+    private DataContext _dataContext;
+
+    public TournamentService(DataContext dataContext)
+    {
+        _dataContext = dataContext;
+    }
+
     public event Action<int>? OnTournamentStarted;
     public event Action<Dictionary<string, int>, TournamentType>? OnTournamentCompleted;
     public void StartTournament(string map, List<string> zipFileNames, TournamentType tournamentType, int roundCount)
     {
+        TournamentResult tournamentResult = new TournamentResult
+        {
+            DateTime = DateTime.Now,
+            MapFileName = map,
+            TournamentType = tournamentType.ToString(),
+            Finished = false
+        };
+
+        _dataContext.TournamentResults.Add(tournamentResult);
+        _dataContext.SaveChanges();
+
         OnTournamentStarted?.Invoke(zipFileNames.Count);
         CopyFilesToNetwork(map, zipFileNames);
 
         List<string> clientIDs = zipFileNames.Select(z => z.Split('.')[0]).ToList();
-        Dictionary<string, int> winners = new();
+        Dictionary<string, int> results = new();
         if(tournamentType == TournamentType.League)
         {
-            winners = RunLeagueTournament(map, clientIDs, roundCount);
+            results = RunLeagueTournament(map, clientIDs, roundCount);
         }
         else
         {
-            winners = RunKnockoutTournament(map, clientIDs.ToList());
+            results = RunKnockoutTournament(map, clientIDs.ToList());
         }
 
         RemoveFilesFromNetwork(map, zipFileNames);
         // Task.Run(() => { Network.Client.ClientManager.RemoveImages(clientIDs.ToList()).Wait(); });
-        OnTournamentCompleted?.Invoke(winners, tournamentType);
+
+        tournamentResult.Finished = true;
+        _dataContext.TournamentResults.Update(tournamentResult);
+        foreach(var result in results)
+        {
+            _dataContext.ResultItems.Add(new ResultItem
+            {
+                FileName = result.Key,
+                Value = result.Value,
+                TournamentResultId = tournamentResult.Id
+            });
+        }
+        _dataContext.SaveChanges();
+
+        OnTournamentCompleted?.Invoke(results, tournamentType);
     }
 
     private Dictionary<string, int> RunLeagueTournament(string map, List<string> clientIDs, int roundCount)

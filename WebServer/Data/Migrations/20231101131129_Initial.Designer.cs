@@ -12,8 +12,8 @@ using WebServer.Data;
 namespace WebServer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231029131937_RolesMigration")]
-    partial class RolesMigration
+    [Migration("20231101131129_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,15 +53,15 @@ namespace WebServer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5dc366a8-336e-4075-869e-766f9bca09c0",
-                            ConcurrencyStamp = "cfa38d74-7e95-4f59-99f8-6351680dad44",
+                            Id = "47cbc108-baed-483a-a379-5ae2b9e98ebb",
+                            ConcurrencyStamp = "b7868432-638a-47c1-9126-1e4006fbcd62",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "87bc9f0f-55d9-4620-9eaf-b4d5d4c7e2b7",
-                            ConcurrencyStamp = "815e56e2-2d0a-4614-a751-54931c787230",
+                            Id = "e8dcc5c6-a3e1-4eb4-89dd-6db7692ce991",
+                            ConcurrencyStamp = "02748f19-3b6b-4f69-9e0a-0f106cad2fdd",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -173,7 +173,84 @@ namespace WebServer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WebServer.Areas.Identity.Data.User", b =>
+            modelBuilder.Entity("WebServer.Data.ResultItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TournamentResultId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TournamentResultId");
+
+                    b.ToTable("ResultItems");
+                });
+
+            modelBuilder.Entity("WebServer.Data.Submission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OriginalFileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Submissions");
+                });
+
+            modelBuilder.Entity("WebServer.Data.TournamentResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Finished")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MapFileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TournamentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TournamentResults");
+                });
+
+            modelBuilder.Entity("WebServer.Data.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -253,7 +330,7 @@ namespace WebServer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WebServer.Areas.Identity.Data.User", null)
+                    b.HasOne("WebServer.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -262,7 +339,7 @@ namespace WebServer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WebServer.Areas.Identity.Data.User", null)
+                    b.HasOne("WebServer.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -277,7 +354,7 @@ namespace WebServer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebServer.Areas.Identity.Data.User", null)
+                    b.HasOne("WebServer.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -286,11 +363,25 @@ namespace WebServer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WebServer.Areas.Identity.Data.User", null)
+                    b.HasOne("WebServer.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebServer.Data.ResultItem", b =>
+                {
+                    b.HasOne("WebServer.Data.TournamentResult", null)
+                        .WithMany("ResultItems")
+                        .HasForeignKey("TournamentResultId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebServer.Data.TournamentResult", b =>
+                {
+                    b.Navigation("ResultItems");
                 });
 #pragma warning restore 612, 618
         }
