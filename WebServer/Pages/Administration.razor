@@ -1,0 +1,104 @@
+﻿@page "/administration"
+@using WebServer.Areas.Identity.Constants
+@using WebServer.Data
+@inject DataContext DataContext
+
+<AuthorizeView Policy="@Policies.AdminPolicy">
+	<Authorized>
+		<h3>Administration</h3>
+		<div class="m-3">
+			<h4>Verified users</h4>
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Neptun</th>
+						<th scope="col">Email</th>
+						<th class="col-2 text-center" scope="col">Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var user in confirmedUsers)
+					{
+						<tr scope="row">
+							<td>@user.UserName</td>
+							<td>@user.NeptunCode</td>
+							<td>@user.Email</td>
+							<td class="text-center">
+								<button class="btn btn-danger admin-btn" @onclick="() => DeleteUser(user)"><span class="oi oi-trash"></span></button>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+		<div class="m-3">
+			<h4>Registration requests</h4>
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Neptun</th>
+						<th scope="col">Email</th>
+						<th class="col-2 text-center" scope="col">Accept / Decline</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var request in registrationRequests)
+					{
+						<tr scope="row">
+							<td>@request.UserName</td>
+							<td>@request.NeptunCode</td>
+							<td>@request.Email</td>
+							<td class="text-center">
+								<button class="btn btn-success admin-btn" @onclick="() => ConfirmRegistration(request)"><span class="oi oi-check"></span></button>
+								<button class="btn btn-danger admin-btn" @onclick="() => DeleteUser(request)"><span class="oi oi-x"></span></button>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</Authorized>
+	<NotAuthorized>
+		<p>This page is admin only.</p>
+	</NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+	private List<User> confirmedUsers = new();
+	private List<User> registrationRequests = new();
+
+	protected override void OnInitialized()
+	{
+		GetUsers();
+	}
+
+	private void GetUsers()
+	{
+		string userRoleId = DataContext.Roles.Where(r => r.Name == Roles.UserRole).First().Id;
+		List<User> allUsers = DataContext.Users.Where( 
+			u => DataContext.UserRoles.Where(
+				ur => ur.UserId == u.Id && 
+				ur.RoleId == userRoleId).FirstOrDefault() != null
+		).ToList();
+
+		confirmedUsers = allUsers.Where(a => a.EmailConfirmed).ToList();
+		registrationRequests = allUsers.Where(a => !a.EmailConfirmed).ToList();
+	}
+
+	private void DeleteUser(User user)
+	{
+		DataContext.Users.Remove(user);
+		DataContext.SaveChanges();
+		GetUsers();
+	}
+
+	private void ConfirmRegistration(User user)
+	{
+		user.EmailConfirmed = true;
+		DataContext.SaveChanges();
+		GetUsers();
+	}
+}
