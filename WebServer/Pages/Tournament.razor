@@ -15,27 +15,41 @@
                 <div class="choosers-container col-12 mb-3">
                     <fieldset class="col-5">
                         <legend>Select AI files</legend>
-                        <div class="file-list p-1">
-                            @foreach (var file in zipFiles)
-                            {
-                                <div class="mb-2">
-                                    <input type="checkbox" id="@file.Name" @bind="file.IsSelected" />
-                                    <label for="@file.Name">@file.Name</label>
-                                </div>
-                            }
-                        </div>
+                        @if(zipFiles.Count > 0)
+                        {
+                            <div class="file-list p-1">
+                                @foreach (var file in zipFiles)
+                                {
+                                    <div class="mb-2">
+                                        <input type="checkbox" id="@file.Name" @bind="file.IsSelected" />
+                                        <label for="@file.Name">@file.Name</label>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No files to show.</span>
+                        }
                     </fieldset>
                     <fieldset class="col-5">
                         <legend>Select map file</legend>
-                        <div class="file-list p-1">
-                            @foreach (var map in maps)
-                            {
-                                <div class="mb-2">
-                                    <input type="radio" id="@map.Name" name="mapGroup" @onchange="() => SelectMap(map)" />
-                                    <label for="@map.Name">@map.Name</label>
-                                </div>
-                            }
-                        </div>
+                        @if(maps.Count > 0)
+                        {
+                            <div class="file-list p-1">
+                                @foreach (var map in maps)
+                                {
+                                    <div class="mb-2">
+                                        <input type="radio" id="@map.Name" name="mapGroup" @onchange="() => SelectMap(map)" />
+                                        <label for="@map.Name">@map.Name</label>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No files to show.</span>
+                        }
                     </fieldset>
                 </div>
                 <div class="col-12">
