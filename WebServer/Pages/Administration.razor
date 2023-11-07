@@ -30,8 +30,8 @@
 							<td class="text-center">
 								@if (admin != currentUser)
 								{
-									<button class="btn btn-warning admin-btn" @onclick="() => RemoveFromAdmins(admin)"><span class="oi oi-ban"></span></button>
-									<button class="btn btn-danger admin-btn" @onclick="() => DeleteUser(admin)"><span class="oi oi-trash"></span></button>
+									<button class="btn btn-warning ratio-1x1" @onclick="() => RemoveFromAdmins(admin)"><span class="oi oi-ban"></span></button>
+									<button class="btn btn-danger ratio-1x1" @onclick="() => DeleteUser(admin)"><span class="oi oi-trash"></span></button>
 								}
 								else
 								{
@@ -62,8 +62,8 @@
 							<td>@user.NeptunCode</td>
 							<td>@user.Email</td>
 							<td class="text-center">
-								<button class="btn btn-warning admin-btn" @onclick="() => AddToAdmins(user)"><span class="oi oi-person"></span></button>
-								<button class="btn btn-danger admin-btn" @onclick="() => DeleteUser(user)"><span class="oi oi-trash"></span></button>
+								<button class="btn btn-warning ratio-1x1" @onclick="() => AddToAdmins(user)"><span class="oi oi-person"></span></button>
+								<button class="btn btn-danger ratio-1x1" @onclick="() => DeleteUser(user)"><span class="oi oi-trash"></span></button>
 							</td>
 						</tr>
 					}
@@ -89,8 +89,8 @@
 							<td>@request.NeptunCode</td>
 							<td>@request.Email</td>
 							<td class="text-center">
-								<button class="btn btn-success admin-btn" @onclick="() => ConfirmRegistration(request)"><span class="oi oi-check"></span></button>
-								<button class="btn btn-danger admin-btn" @onclick="() => DeleteUser(request)"><span class="oi oi-x"></span></button>
+								<button class="btn btn-success ratio-1x1" @onclick="() => ConfirmRegistration(request)"><span class="oi oi-check"></span></button>
+								<button class="btn btn-danger ratio-1x1" @onclick="() => DeleteUser(request)"><span class="oi oi-x"></span></button>
 							</td>
 						</tr>
 					}

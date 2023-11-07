@@ -1,6 +1,7 @@
 ﻿@page "/results"
 
 @using WebServer.Data
+@using WebServer.Model
 @using Microsoft.EntityFrameworkCore
 @inject DataContext DataContext
 
@@ -18,6 +19,7 @@
 								<tr>
 									<td class="text-center"><strong>Tournament type: </strong>@tournamentResult.TournamentType</td>
 									<td class="text-center"><strong>Date: </strong>@tournamentResult.DateTime</td>
+									<td class="text-center"><button class="btn btn-danger ratio-1x1" @onclick="() => DeleteResult(tournamentResult)"><span class="oi oi-trash"></span></button></td>
 								</tr>
 							</thead>
 						</table>
@@ -27,7 +29,14 @@
 							<thead>
 								<tr>
 									<th>AI names</th>
-									<th class="text-center col-2">Standings</th>
+									@if(tournamentResult.TournamentType == TournamentType.League.ToString())
+									{
+										<th class="text-center col-2">Points</th>
+									}
+									else
+									{
+										<th class="text-center col-2">Standings</th>
+									}
 								</tr>
 							</thead>
 							<tbody>
@@ -65,5 +74,12 @@
 	private void GetTournamentResults()
 	{
 		tournamentResults = DataContext.TournamentResults.Include(t => t.ResultItems).ToList();
+	}
+
+	private void DeleteResult(TournamentResult tournamentResult)
+	{
+		DataContext.TournamentResults.Remove(tournamentResult);
+		DataContext.SaveChanges();
+		GetTournamentResults();
 	}
 }
