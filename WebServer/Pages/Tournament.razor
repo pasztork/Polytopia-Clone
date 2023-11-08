@@ -87,9 +87,9 @@
                             <div class="mb-3">
                                 <span><strong>Match settings</strong></span>
                             </div>
-                            <div class="ms-3">
-                                <label for="matchRoundCount">Max rounds in a match: </label>
-                                <input style="width: 72px" type="number" id="matchRoundCount" name="matchRoundCount" min="1" @bind="@matchRoundCount" />
+                            <div class="ms-2">
+                                <label for="maxTurnsInMatch">Maximum turns in a match: </label>
+                                <input style="width: 72px" type="number" id="maxTurnsInMatch" name="maxTurnsInMatch" min="1" @bind="@maxTurnsInMatch" />
                             </div>
                         </div>
                     </fieldset>
@@ -212,7 +212,7 @@
     private TournamentType? tournamentType = null;
     private readonly int maxRoundCount = 10;
     private int roundCount = 1;
-    private int matchRoundCount = 50;
+    private int maxTurnsInMatch = 50;
     private Dictionary<string, int> results = new();
     private TournamentType? resultType = null;
     private MapModel map = new();
@@ -283,11 +283,11 @@
         FileModel? selectedMap = maps.Find(m => m.IsSelected);
         List<string> selectedZipFiles = zipFiles.FindAll(z => z.IsSelected).Select(s => s.Name).ToList();
 
-        if(validator.Validate(selectedMap, selectedZipFiles, tournamentType, roundCount, maxRoundCount))
+        if(validator.Validate(selectedMap, selectedZipFiles, tournamentType, roundCount, maxRoundCount, maxTurnsInMatch))
         {
             ResetResults();
             isTournamentRunning = true;
-            await TournamentService.StartTournament(selectedMap!.Name, selectedZipFiles, tournamentType ?? TournamentType.League, roundCount, matchRoundCount);
+            await TournamentService.StartTournament(selectedMap!.Name, selectedZipFiles, tournamentType ?? TournamentType.League, roundCount, maxTurnsInMatch);
         }
     }
 
@@ -326,11 +326,13 @@
         {
             results = points.OrderBy(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
         }
+        StateHasChanged();
     }
 
     private void AddEventMessage(string messageIcon, string message)
     {
         eventMessages.Insert(0, new MarkupString($"<span class='{messageIcon}' aria-hidden='true'></span> {message}"));
+        StateHasChanged();
     }
 
     private void ResetResults()
@@ -338,5 +340,6 @@
         results.Clear();
         resultType = null;
         eventMessages.Clear();
+        StateHasChanged();
     }
 }

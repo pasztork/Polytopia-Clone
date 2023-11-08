@@ -13,6 +13,7 @@ class TournamentValidator
     public bool TypeError { private get; set; } = false;
     public bool RoundCountError { private get; set; } = false;
     public bool KnockoutError { private get; set; } = false;
+    public bool MaxTurnsInMatchError { private get; set; } = false;
     public bool HasInfo { get; set; } = false;
 
     public bool HasError
@@ -30,6 +31,7 @@ class TournamentValidator
         TypeError = false;
         RoundCountError = false;
         KnockoutError = false;
+        MaxTurnsInMatchError = false;
         HasInfo = false;
     }
 
@@ -39,7 +41,7 @@ class TournamentValidator
         AlertMessage = new MarkupString($"<span class='{iconClass}' aria-hidden='true'></span> {message}");
     }
 
-    public bool Validate(FileModel? selectedMap, List<string> selectedZipFiles, TournamentType? tournamentType, int roundCount, int maxRoundCount)
+    public bool Validate(FileModel? selectedMap, List<string> selectedZipFiles, TournamentType? tournamentType, int roundCount, int maxTurnsInMatch, int matchRoundCount)
     {
         Reset();
         if (selectedMap == null)
@@ -77,12 +79,12 @@ class TournamentValidator
             return false;
         }
 
-        if (tournamentType == TournamentType.League && (roundCount < 1 || roundCount > maxRoundCount))
+        if (tournamentType == TournamentType.League && (roundCount < 1 || roundCount > maxTurnsInMatch))
         {
             SetAlert(
                 "alert alert-danger",
                 "oi oi-warning",
-                $"Wrong match number, matches played againt each other must be <strong>between 1 and {maxRoundCount}</strong>."
+                $"Wrong match number, matches played againt each other must be <strong>between 1 and {maxTurnsInMatch}</strong>."
             );
             RoundCountError = true;
             return false;
@@ -96,6 +98,17 @@ class TournamentValidator
                 $"Wrong number of contestants to start knockout tournament, number of selected files must be <strong>the power of two</strong>."
             );
             KnockoutError = true;
+            return false;
+        }
+
+        if(matchRoundCount <= 0)
+        {
+            SetAlert(
+                "alert alert-danger",
+                "oi oi-warning",
+                $"Maximum turns in a match should be <strong>at least 1</strong>"
+            );
+            MaxTurnsInMatchError = true;
             return false;
         }
 
