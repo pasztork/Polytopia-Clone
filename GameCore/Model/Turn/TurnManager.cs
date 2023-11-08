@@ -7,8 +7,16 @@ namespace Model
     {
         private readonly LinkedList<Player> players = new LinkedList<Player>();
         private LinkedListNode<Player> playerNode;
-        private readonly int maxTurns = 50;
         private int turns = 0;
+        private int? maxTurns = null;
+        private int MaxTurns
+        {
+            get => maxTurns ?? 50;
+            set
+            {
+                maxTurns = value;
+            }
+        }
 
         public override void Start()
         {
@@ -31,7 +39,7 @@ namespace Model
             if(playerNode == players.First)
             {
                 turns++;
-                if(turns == maxTurns)
+                if(turns == MaxTurns)
                 {
                     StopGameWithPoints();
                     return;
@@ -46,6 +54,11 @@ namespace Model
         {
             players.AddLast(player);
             player.OnEliminated += HandlePlayerEliminated;
+        }
+
+        public override void SetMaxTurns(int maxTurns)
+        {
+            MaxTurns = maxTurns;
         }
 
         private void HandlePlayerEliminated(Player player)

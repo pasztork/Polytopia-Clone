@@ -15,6 +15,8 @@ namespace Model
 
         public abstract void PlayerCreated(Player player);
 
+        public abstract void SetMaxTurns(int maxTurns);
+
         protected void RaiseOnTurnStarted(Player player)
         {
             OnTurnStarted?.Invoke(player);

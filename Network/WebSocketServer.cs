@@ -21,9 +21,14 @@ public class WebSocketServer
 	private static readonly IDictionary<Model.Player, WebSocket> s_playerToWebSocketsDict = new Dictionary<Model.Player, WebSocket>();
 
 	static WebSocketServer() =>
-		Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += StartTurnMessage;
+        Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += StartTurnMessage;
 
-	public static void Start()
+	public static void SetMaxTurns(int maxTurns)
+	{
+        Model.GameManager.Get<Model.TurnManagerBase>().SetMaxTurns(maxTurns);
+    }
+
+    public static void Start()
 	{
 		GameManager.NewGameWithSavedMap(MapFilePath);
 		JsonLogger.Init();
