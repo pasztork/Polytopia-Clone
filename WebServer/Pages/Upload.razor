@@ -86,7 +86,7 @@
     {
         if (submission.File != null)
         {
-            var uniqueFileName = $"{currentUser.NeptunCode.ToUpper()}_{DateTime.Now.ToString("yyyyMMddHHmmss")}{Path.GetExtension(submission.File.Name)}";
+            var uniqueFileName = $"{currentUser.NeptunCode.ToLower()}_{DateTime.Now.ToString("yyyyMMddHHmmss")}{Path.GetExtension(submission.File.Name)}";
 
             using (var fileStream = new FileStream(Path.Combine(SAVE_DIRECTORY_PATH, uniqueFileName), FileMode.Create))
             {

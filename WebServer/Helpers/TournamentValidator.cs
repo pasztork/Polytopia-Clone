@@ -107,7 +107,7 @@ class TournamentValidator
         SetAlert(
             "alert alert-info",
             "oi oi-loop-circular",
-            $"Tournament started with <strong>${playerCount}</strong> contestants."
+            $"Tournament started with <strong>{playerCount}</strong> contestants."
         );
         HasInfo = true;
     }

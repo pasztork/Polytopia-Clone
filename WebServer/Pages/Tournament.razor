@@ -266,7 +266,7 @@
         map = JsonSerializer.Deserialize<MapModel>(mapFileContent)!;
     }
 
-    private void StartTournament()
+    private async Task StartTournament()
     {
         FileModel? selectedMap = maps.Find(m => m.IsSelected);
         List<string> selectedZipFiles = zipFiles.FindAll(z => z.IsSelected).Select(s => s.Name).ToList();
@@ -274,7 +274,7 @@
         if(validator.Validate(selectedMap, selectedZipFiles, tournamentType, roundCount, maxRoundCount))
         {
             ResetResults();
-            TournamentService.StartTournament(selectedMap!.Name, selectedZipFiles, tournamentType ?? TournamentType.League, roundCount);
+            await TournamentService.StartTournament(selectedMap!.Name, selectedZipFiles, tournamentType ?? TournamentType.League, roundCount);
         }
     }
 
@@ -287,12 +287,12 @@
 
     private void MatchStarted(List<string> players)
     {
-        AddEventMessage($"Match started: <strong>{players[0]}</strong> vs <strong>{players[1]}</strong>");
+        AddEventMessage("oi oi-loop-circular", $"Match started: <strong>{players[0]}</strong> vs <strong>{players[1]}</strong>");
     }
 
     private void MatchCompleted(string winner)
     {
-        AddEventMessage($"Match ended, the winner is: <strong>{winner}</strong>");
+        AddEventMessage("oi oi-check", $"Match ended, the winner is: <strong>{winner}</strong>");
     }
 
     private void UpdateScores(Dictionary<string, int> points, TournamentType tournamentType)
@@ -308,9 +308,9 @@
         }
     }
 
-    private void AddEventMessage(string message)
+    private void AddEventMessage(string messageIcon, string message)
     {
-        eventMessages.Insert(0, new MarkupString($"<span aria-hidden='true'></span> {message}"));
+        eventMessages.Insert(0, new MarkupString($"<span class='{messageIcon}' aria-hidden='true'></span> {message}"));
     }
 
     private void ResetResults()

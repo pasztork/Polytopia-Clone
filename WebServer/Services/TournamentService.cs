@@ -26,7 +26,7 @@ public class TournamentService
     public event Action<string>? OnMatchCompleted;
     public event Action<Dictionary<string, int>, TournamentType>? OnPointsUpdated;
 
-    public void StartTournament(string map, List<string> zipFileNames, TournamentType tournamentType, int roundCount)
+    public async Task StartTournament(string map, List<string> zipFileNames, TournamentType tournamentType, int roundCount)
     {
         TournamentResult tournamentResult = new()
         {
@@ -46,15 +46,15 @@ public class TournamentService
         Dictionary<string, int> results = new();
         if(tournamentType == TournamentType.League)
         {
-            results = RunLeagueTournament(map, clientIDs, roundCount);
+            results = await RunLeagueTournament(map, clientIDs, roundCount);
         }
         else
         {
-            results = RunKnockoutTournament(map, clientIDs.ToList());
+            results = await RunKnockoutTournament(map, clientIDs.ToList());
         }
 
         RemoveFilesFromNetwork(map, zipFileNames);
-        Task.Run(() => { Network.Client.ClientManager.RemoveImages(clientIDs.ToList()).Wait(); });
+        await Network.Client.ClientManager.RemoveImages(clientIDs.ToList());
 
         tournamentResult.Finished = true;
         _dataContext.TournamentResults.Update(tournamentResult);
@@ -72,7 +72,7 @@ public class TournamentService
         OnTournamentCompleted?.Invoke(results, tournamentType);
     }
 
-    private Dictionary<string, int> RunLeagueTournament(string map, List<string> clientIDs, int roundCount)
+    private async Task<Dictionary<string, int>> RunLeagueTournament(string map, List<string> clientIDs, int roundCount)
     {
         Dictionary<string, int> points = new();
 
@@ -89,7 +89,7 @@ public class TournamentService
                 {
                     List<string> lobby = new() { clientIDs[i], clientIDs[j] };
                     OnMatchStarted?.Invoke(lobby);
-                    string matchWinner = RunGame(map, lobby.ToArray());
+                    string matchWinner = await RunGame(map, lobby.ToArray());
                     points[matchWinner] += 1;
                     OnMatchCompleted?.Invoke(matchWinner);
                     OnPointsUpdated?.Invoke(points, TournamentType.League);
@@ -100,7 +100,7 @@ public class TournamentService
         return points.OrderByDescending(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
     }
 
-    private Dictionary<string, int> RunKnockoutTournament(string map, List<string> clientIDs)
+    private async Task<Dictionary<string, int>> RunKnockoutTournament(string map, List<string> clientIDs)
     {
         List<string> players = new(clientIDs);
         Dictionary<string, int> points = new();
@@ -118,7 +118,7 @@ public class TournamentService
             {
                 List<string> lobby = new() { players[j], players[j + 1] };
                 OnMatchStarted?.Invoke(lobby);
-                string matchWinner = RunGame(map, lobby.ToArray());
+                string matchWinner = await RunGame(map, lobby.ToArray());
                 OnMatchCompleted?.Invoke(matchWinner);
                 lobby.Remove(matchWinner);
                 eliminated.AddRange(lobby);
@@ -127,7 +127,7 @@ public class TournamentService
             {
                 players.RemoveAll(p => eliminated.Contains(p));
                 OnMatchStarted?.Invoke(eliminated);
-                string matchWinner = RunGame(map, eliminated.ToArray());
+                string matchWinner = await RunGame(map, eliminated.ToArray());
                 OnMatchCompleted?.Invoke(matchWinner);
                 eliminated.Remove(matchWinner);
                 points[matchWinner] = 3;
@@ -155,7 +155,7 @@ public class TournamentService
         return points.OrderBy(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
     }
 
-    private string RunGame(string map, string[] clients)
+    private async Task<string> RunGame(string map, string[] clients)
     {
         string winner = "";
         string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Network.exe");
@@ -195,7 +195,7 @@ public class TournamentService
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
-            process.WaitForExit();
+            await process.WaitForExitAsync();
         }
         return winner;
     }
