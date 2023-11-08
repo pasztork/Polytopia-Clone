@@ -39,7 +39,7 @@
 .result-wrapper {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .map-container {
@@ -56,4 +56,13 @@
     width: 100%;
     font-size: 20px;
     aspect-ratio: 1/1;
+}
+
+.event-feed {
+    display: flex;
+    flex-direction: column;
+    color: #212529;
+    background-color: rgba(0, 0, 0, 0.05);
+    max-height: 300px;
+    overflow-y: auto;
 }

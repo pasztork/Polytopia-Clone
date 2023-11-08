@@ -119,10 +119,26 @@
             </div>
         </div>
 
-        <div class="result-wrapper col-7">
-            @if (results.Count > 0)
-            {
-                <div class="result-container col-10">
+        <div class="result-wrapper col-12 mb-5">
+            <div class="col-6">
+                @if(eventMessages.Count > 0)
+                {
+                    <fieldset>
+                        <legend>Event feed</legend>
+                        <div class="event-feed ps-2 pe-2 pt-1 pb-1">
+                            @foreach (var message in eventMessages)
+                            {
+
+                                <AlertComponent AlertClass="alert alert-info mt-1 mb-1" AlertMessage="@message" Width="col-12"></AlertComponent>
+                                
+                            }
+                        </div>
+                    </fieldset>
+                }
+            </div>
+            <div class="result-container col-5">
+                @if (results.Count > 0)
+                {
                     <fieldset>
                         @if (resultType == TournamentType.League)
                         {
@@ -167,8 +183,8 @@
                             </table>
                         }
                     </fieldset>
-                </div>
-            }
+                }
+            </div>
         </div>
     </Authorized>
     <NotAuthorized>
@@ -189,11 +205,15 @@
     private Dictionary<string, int> results = new();
     private TournamentType? resultType = null;
     private MapModel map = new();
+    private List<MarkupString> eventMessages = new();
 
     protected override void OnInitialized()
     {
         TournamentService.OnTournamentStarted += validator.StartedAlert;
         TournamentService.OnTournamentCompleted += ShowResults;
+        TournamentService.OnMatchStarted += MatchStarted;
+        TournamentService.OnMatchCompleted += MatchCompleted;
+        TournamentService.OnPointsUpdated += UpdateScores;
         GetZipFiles();
         GetMapFiles();
     }
@@ -253,6 +273,7 @@
 
         if(validator.Validate(selectedMap, selectedZipFiles, tournamentType, roundCount, maxRoundCount))
         {
+            ResetResults();
             TournamentService.StartTournament(selectedMap!.Name, selectedZipFiles, tournamentType ?? TournamentType.League, roundCount);
         }
     }
@@ -262,5 +283,40 @@
         validator.CompletedAlert(results);
         this.results = results;
         this.resultType = resultType;
+    }
+
+    private void MatchStarted(List<string> players)
+    {
+        AddEventMessage($"Match started: <strong>{players[0]}</strong> vs <strong>{players[1]}</strong>");
+    }
+
+    private void MatchCompleted(string winner)
+    {
+        AddEventMessage($"Match ended, the winner is: <strong>{winner}</strong>");
+    }
+
+    private void UpdateScores(Dictionary<string, int> points, TournamentType tournamentType)
+    {
+        resultType = tournamentType;
+        if (resultType == TournamentType.League)
+        {
+            results = points.OrderByDescending(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
+        }
+        else
+        {
+            results = points.OrderBy(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
+        }
+    }
+
+    private void AddEventMessage(string message)
+    {
+        eventMessages.Insert(0, new MarkupString($"<span aria-hidden='true'></span> {message}"));
+    }
+
+    private void ResetResults()
+    {
+        results.Clear();
+        resultType = null;
+        eventMessages.Clear();
     }
 }

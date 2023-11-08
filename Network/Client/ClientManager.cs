@@ -131,6 +131,6 @@ public static class ClientManager
             charArray[0] = char.ToUpper(charArray[0]);
             words[i] = new(charArray);
         }
-        return String.Join(" ", words);
+        return string.Join(" ", words);
     }
 }

@@ -1,12 +1,13 @@
 ﻿@page "/results"
 
+@using WebServer.Areas.Identity.Constants;
 @using WebServer.Data
 @using WebServer.Model
 @using Microsoft.EntityFrameworkCore
 @inject DataContext DataContext
 
 <h3>Tournament results</h3>
-<AuthorizeView>
+<AuthorizeView Context="authorizeContext">
 	<Authorized>
 		@if(tournamentResults.Count > 0)
 		{
@@ -19,7 +20,9 @@
 								<tr>
 									<td class="text-center"><strong>Tournament type: </strong>@tournamentResult.TournamentType</td>
 									<td class="text-center"><strong>Date: </strong>@tournamentResult.DateTime</td>
-									<td class="text-center"><button class="btn btn-danger ratio-1x1" @onclick="() => DeleteResult(tournamentResult)"><span class="oi oi-trash"></span></button></td>
+									<AuthorizeView Roles="@Roles.AdminRole">
+										<td class="text-center"><button class="btn btn-danger ratio-1x1" @onclick="() => DeleteResult(tournamentResult)"><span class="oi oi-trash"></span></button></td>
+									</AuthorizeView>
 								</tr>
 							</thead>
 						</table>

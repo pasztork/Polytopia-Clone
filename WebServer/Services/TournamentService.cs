@@ -13,7 +13,7 @@ public class TournamentService
     private static readonly string EXTR_FILES_DEST = Path.Combine(NETWORK_ROOT_PATH, "Client\\ClientFiles\\Extracted");
     private static readonly string MAP_FILE_DEST = Path.Combine(NETWORK_ROOT_PATH, "Maps");
 
-    private DataContext _dataContext;
+    private readonly DataContext _dataContext;
 
     public TournamentService(DataContext dataContext)
     {
@@ -22,9 +22,13 @@ public class TournamentService
 
     public event Action<int>? OnTournamentStarted;
     public event Action<Dictionary<string, int>, TournamentType>? OnTournamentCompleted;
+    public event Action<List<string>>? OnMatchStarted;
+    public event Action<string>? OnMatchCompleted;
+    public event Action<Dictionary<string, int>, TournamentType>? OnPointsUpdated;
+
     public void StartTournament(string map, List<string> zipFileNames, TournamentType tournamentType, int roundCount)
     {
-        TournamentResult tournamentResult = new TournamentResult
+        TournamentResult tournamentResult = new()
         {
             DateTime = DateTime.Now,
             MapFileName = map,
@@ -50,7 +54,7 @@ public class TournamentService
         }
 
         RemoveFilesFromNetwork(map, zipFileNames);
-        // Task.Run(() => { Network.Client.ClientManager.RemoveImages(clientIDs.ToList()).Wait(); });
+        Task.Run(() => { Network.Client.ClientManager.RemoveImages(clientIDs.ToList()).Wait(); });
 
         tournamentResult.Finished = true;
         _dataContext.TournamentResults.Update(tournamentResult);
@@ -83,8 +87,12 @@ public class TournamentService
             {
                 for(int j = i + 1; j < clientIDs.Count; j++)
                 {
-                    string matchWinner = clientIDs[i]; // RunGame(map, new[]{ clientIDs[i], clientIDs[j] });
+                    List<string> lobby = new() { clientIDs[i], clientIDs[j] };
+                    OnMatchStarted?.Invoke(lobby);
+                    string matchWinner = RunGame(map, lobby.ToArray());
                     points[matchWinner] += 1;
+                    OnMatchCompleted?.Invoke(matchWinner);
+                    OnPointsUpdated?.Invoke(points, TournamentType.League);
                 }
             }
         }
@@ -94,7 +102,7 @@ public class TournamentService
 
     private Dictionary<string, int> RunKnockoutTournament(string map, List<string> clientIDs)
     {
-        List<string> players = new List<string>(clientIDs);
+        List<string> players = new(clientIDs);
         Dictionary<string, int> points = new();
 
         foreach (var clientID in clientIDs)
@@ -109,23 +117,29 @@ public class TournamentService
             for (int j = 0; j < players.Count; j += 2)
             {
                 List<string> lobby = new() { players[j], players[j + 1] };
-                string matchWinner = lobby[0]; // RunGame(map, lobby.ToArray());
+                OnMatchStarted?.Invoke(lobby);
+                string matchWinner = RunGame(map, lobby.ToArray());
+                OnMatchCompleted?.Invoke(matchWinner);
                 lobby.Remove(matchWinner);
                 eliminated.AddRange(lobby);
             }
             if(players.Count == 4)
             {
                 players.RemoveAll(p => eliminated.Contains(p));
-                string mathWinner = eliminated[0]; // RunGame(map, eliminated.ToArray());
-                eliminated.Remove(mathWinner);
-                points[mathWinner] = 3;
+                OnMatchStarted?.Invoke(eliminated);
+                string matchWinner = RunGame(map, eliminated.ToArray());
+                OnMatchCompleted?.Invoke(matchWinner);
+                eliminated.Remove(matchWinner);
+                points[matchWinner] = 3;
                 points[eliminated[0]] = 4;
+                OnPointsUpdated?.Invoke(points, TournamentType.Knockout);
             }
             else if(players.Count == 2)
             {
                 players.RemoveAll(p => eliminated.Contains(p));
                 points[players[0]] = 1;
                 points[eliminated[0]] = 2;
+                OnPointsUpdated?.Invoke(points, TournamentType.Knockout);
             }
             else
             {
@@ -133,6 +147,7 @@ public class TournamentService
                 {
                     players.Remove(elim);
                     points[elim] = roundsCount + 3 - i;
+                    OnPointsUpdated?.Invoke(points, TournamentType.Knockout);
                 }
             }
         }
@@ -144,7 +159,7 @@ public class TournamentService
     {
         string winner = "";
         string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Network.exe");
-        ProcessStartInfo startInfo = new ProcessStartInfo
+        ProcessStartInfo startInfo = new()
         {
             FileName = exePath,
             Arguments = $"{map} {string.Join(" ", clients)}",
@@ -153,7 +168,7 @@ public class TournamentService
             RedirectStandardError = true
         };
 
-        using (Process process = new Process())
+        using (Process process = new())
         {
             process.StartInfo = startInfo;
 
