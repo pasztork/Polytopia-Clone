@@ -88,7 +88,7 @@
                 {
                     <AlertComponent AlertClass="@validator.AlertClass" AlertMessage="@validator.AlertMessage" Width="col-12" />
                 }
-                <button class="btn btn-primary mb-3" @onclick="StartTournament">Start</button>
+                <button class="btn btn-primary mb-3" disabled="@isTournamentRunning" @onclick="StartTournament">Start</button>
                 @if (validator.HasInfo)
                 {
                     <AlertComponent AlertClass="@validator.AlertClass" AlertMessage="@validator.AlertMessage" Width="col-12" />
@@ -206,10 +206,11 @@
     private TournamentType? resultType = null;
     private MapModel map = new();
     private List<MarkupString> eventMessages = new();
+    private bool isTournamentRunning = false;
 
     protected override void OnInitialized()
     {
-        TournamentService.OnTournamentStarted += validator.StartedAlert;
+        TournamentService.OnTournamentStarted += TournamentStarted;
         TournamentService.OnTournamentCompleted += ShowResults;
         TournamentService.OnMatchStarted += MatchStarted;
         TournamentService.OnMatchCompleted += MatchCompleted;
@@ -274,8 +275,15 @@
         if(validator.Validate(selectedMap, selectedZipFiles, tournamentType, roundCount, maxRoundCount))
         {
             ResetResults();
+            isTournamentRunning = true;
             await TournamentService.StartTournament(selectedMap!.Name, selectedZipFiles, tournamentType ?? TournamentType.League, roundCount);
         }
+    }
+
+    private void TournamentStarted(int playerCount)
+    {
+        isTournamentRunning = true;
+        validator.StartedAlert(playerCount);
     }
 
     private void ShowResults(Dictionary<string, int> results, TournamentType resultType)
@@ -283,6 +291,7 @@
         validator.CompletedAlert(results);
         this.results = results;
         this.resultType = resultType;
+        isTournamentRunning = false;
     }
 
     private void MatchStarted(List<string> players)
