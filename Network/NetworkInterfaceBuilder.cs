@@ -12,7 +12,7 @@ public class NetworkInterfaceBuilder
             Console.WriteLine("Server address needs to be set as an environment variable");
             return;
         }
-        WebSocketServer.OnAllClientsDisconnected += Stop;
+        WebSocketServer.OnEverythingFinished += Stop;
         WebApplicationBuilder builder = WebApplication.CreateBuilder();
         builder.WebHost.UseUrls(SERVER_URL);
         builder.Services.AddControllers();

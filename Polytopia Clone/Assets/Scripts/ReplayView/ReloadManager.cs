@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Assets.Scripts.ReplayView.Navigation;
+using System.IO;
 using System.Text.Json;
 using UnityEngine;
 
@@ -6,8 +7,6 @@ namespace ReplayView
 {
     public class ReloadManager : MonoBehaviour
     {
-        [SerializeField]
-        private string jsonLogFilePath;
         private LogView.JsonLogContent jsonDataHolder;
         private static ReloadManager instance;
         public static ReloadManager Instance
@@ -24,7 +23,7 @@ namespace ReplayView
 
         private void Awake()
         {
-            string fileContent = File.ReadAllText(jsonLogFilePath);
+            string fileContent = File.ReadAllText(FileNameTransferer.Instance.LogFilePath);
             jsonDataHolder = JsonSerializer.Deserialize<LogView.JsonLogContent>(fileContent);
 
             Model.GameManager.Get<Model.MapManagerBase>().LoadMap(jsonDataHolder.Map);

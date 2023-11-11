@@ -15,6 +15,8 @@
             }
         }
 
+        public event Action? OnLoggingEnded;
+
         public void SubscribeToPlayerEvents()
         {
             foreach (Model.Player player in Model.GameManager.Players)
@@ -147,6 +149,7 @@
                 Parameters = new JsonLog.JsonActionParameters()
             };
             JsonLogger.LogNewEvent(action);
+            OnLoggingEnded?.Invoke();
         }
 
         public void TriggerTechLearned(Model.TechTreeItemBase tech)

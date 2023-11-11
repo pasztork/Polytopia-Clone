@@ -8,9 +8,11 @@ namespace Network;
 
 public class WebSocketServer
 {
-	public static event Action? OnAllClientsDisconnected;
+	public static event Action? OnEverythingFinished;
 	public static string MapFilePath { get; set; } = string.Empty;
 	public static int PlayerCount { private get; set; } = 2;
+	public static bool LoggingEnded { get; private set; } = false;
+	public static bool AllClientsDisconnected { get; private set; } = false;
 	public static WebSocket CurrentSocketPlayer
 	{
 		get => s_playerToWebSocketsDict[Model.GameManager
@@ -20,8 +22,11 @@ public class WebSocketServer
 	private static readonly IList<WebSocket> s_webSockets = new List<WebSocket>();
 	private static readonly IDictionary<Model.Player, WebSocket> s_playerToWebSocketsDict = new Dictionary<Model.Player, WebSocket>();
 
-	static WebSocketServer() =>
+	static WebSocketServer()
+	{
         Model.GameManager.Get<Model.TurnManagerBase>().OnTurnStarted += StartTurnMessage;
+		LogDataWrapper.Instance.OnLoggingEnded += () => { LoggingEnded = true; EvalFinished(); };
+	}
 
 	public static void SetMaxTurns(int maxTurns)
 	{
@@ -48,8 +53,9 @@ public class WebSocketServer
 		s_webSockets.Remove(webSocket);
 		if(s_webSockets.Count == 0)
 		{
-			OnAllClientsDisconnected?.Invoke();
-		}
+			AllClientsDisconnected = true;
+			EvalFinished();
+        }
 	}
 
 	public static async Task Broadcast(WebSocket from, string message)
@@ -84,6 +90,14 @@ public class WebSocketServer
 				WebSocketMessageType.Text,
 				WebSocketMessageFlags.EndOfMessage,
 				CancellationToken.None);
+	}
+
+	private static void EvalFinished()
+	{
+		if(AllClientsDisconnected && LoggingEnded)
+		{
+			OnEverythingFinished?.Invoke();
+		}
 	}
 
     private class WebPlayer

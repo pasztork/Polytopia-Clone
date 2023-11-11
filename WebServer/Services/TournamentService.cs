@@ -53,7 +53,7 @@ public class TournamentService
             results = await RunKnockoutTournament(map, clientIDs.ToList(), maxTurnsInMatch);
         }
 
-        RemoveFilesFromNetwork(map, zipFileNames);
+        RemoveFilesFromNetwork(zipFileNames);
         await Network.Client.ClientManager.RemoveImages(clientIDs.ToList());
 
         tournamentResult.Finished = true;
@@ -223,14 +223,8 @@ public class TournamentService
         }
     }
 
-    private void RemoveFilesFromNetwork(string map, List<string> zipFileNames)
+    private void RemoveFilesFromNetwork(List<string> zipFileNames)
     {
-        var mapDest = Path.Combine(MAP_FILE_DEST, map);
-        if (File.Exists(mapDest))
-        {
-            File.Delete(mapDest);
-        }
-
         foreach (var zipFile in zipFileNames)
         {
             var compDest = Path.Combine(COMP_FILES_DEST, zipFile);

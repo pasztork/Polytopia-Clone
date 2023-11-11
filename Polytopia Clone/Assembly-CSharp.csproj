@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{1A54B0DE-E1FD-B9D2-C1BC-057E688D6EB5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -149,6 +150,8 @@
     <Compile Include="Assets\Scripts\ReplayView\Troops\Scout.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\BankingTechView.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Troops\Catapult.cs" />
+    <Compile Include="Assets\Scripts\ReplayView\Navigation\MenuManager.cs" />
+    <Compile Include="Assets\Scripts\ReplayView\Navigation\FileNameTransferer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DLLs\LogView.dll" />
@@ -182,6 +185,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
