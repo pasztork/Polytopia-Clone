@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -9,8 +10,15 @@ namespace Assets.Scripts.ReplayView.Navigation
 {
     public class MenuManager : MonoBehaviour
     {
-        private readonly string LogFilesPath = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).FullName, "WebServer\\GameLogs");
-        
+        private Dictionary<string, string> _nameToDirectoryMap = new()
+        {
+            { "WebServer", "WebServer" },
+            { "Network", "Network" },
+            { "Unity", "Polytopia Clone" }
+        };
+
+        public string FileDirectory { private get; set; } = string.Empty;
+
         [SerializeField]
         private TMP_InputField fileNameInput;
 
@@ -40,12 +48,22 @@ namespace Assets.Scripts.ReplayView.Navigation
         {
             if(fileNameInput.text != string.Empty)
             {
-                string filePath = Path.Combine(LogFilesPath, $"{fileNameInput.text}.json");
+                string filePath = Path.Combine(
+                    PathTransferer.Instance.ProjectRoot, 
+                    $"{_nameToDirectoryMap[FileDirectory]}\\GameLogs\\{fileNameInput.text}.json");
                 if (File.Exists(filePath))
                 {
-                    FileNameTransferer.Instance.LogFilePath = filePath;
-                    SceneManager.LoadScene("ReplayScene");
+                    PathTransferer.Instance.LogFilePath = filePath;
+                    SceneManager.LoadScene(1);
                 }
+            }
+        }
+
+        private void Update()
+        {
+            if(Input.GetKeyUp(KeyCode.Escape))
+            {
+                Application.Quit();
             }
         }
     }

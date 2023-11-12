@@ -23,7 +23,7 @@ namespace ReplayView
 
         private void Awake()
         {
-            string fileContent = File.ReadAllText(FileNameTransferer.Instance.LogFilePath);
+            string fileContent = File.ReadAllText(PathTransferer.Instance.LogFilePath);
             jsonDataHolder = JsonSerializer.Deserialize<LogView.JsonLogContent>(fileContent);
 
             Model.GameManager.Get<Model.MapManagerBase>().LoadMap(jsonDataHolder.Map);

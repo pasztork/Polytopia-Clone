@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene.unity
     guid: 2a675cba14d734845a06fbebc2e7ad10
   - enabled: 1
-    path: Assets/Scenes/ReplaySceneMenu.unity
+    path: Assets/Scenes/ReplayMenuScene.unity
     guid: 0e694f5de1260824ebd554b0859871a4
   - enabled: 1
     path: Assets/Scenes/ReplayScene.unity

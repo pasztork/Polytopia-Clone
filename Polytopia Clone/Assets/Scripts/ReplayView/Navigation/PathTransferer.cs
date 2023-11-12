@@ -2,10 +2,14 @@
 
 namespace Assets.Scripts.ReplayView.Navigation
 {
-    public class FileNameTransferer : MonoBehaviour
+    public class PathTransferer : MonoBehaviour
     {
-        public static FileNameTransferer Instance { get; private set; }
+        public static PathTransferer Instance { get; private set; }
 
+        [SerializeField]
+        private string _projectRoot;
+
+        public string ProjectRoot { get => _projectRoot; }
         public string LogFilePath { get; set; } = string.Empty;
 
         private void Awake()
