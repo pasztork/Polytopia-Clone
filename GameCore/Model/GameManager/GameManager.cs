@@ -17,7 +17,7 @@ namespace Model
 
 		private static readonly DependencyContainer dependencyContainer = new DependencyContainer();
 
-		private static readonly string directory = $"{Directory.GetCurrentDirectory()}\\GameSettings";
+		private static readonly string directory = $"{Environment.GetEnvironmentVariable("TERRA_IMPERIUM_PROJECT_ROOT")}\\Resources\\GameSettings";
 		private static readonly string mapGenerationSettingsFilename = "MapGenerationSettings.json";
 		private static readonly string propertiesSettingsFilename = "PropertiesSettings.json";
 		public static string PropertiesSettingsFilepath { get => Path.Combine(directory, propertiesSettingsFilename); }

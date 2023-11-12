@@ -19,9 +19,11 @@ Ez a dokumentum arra szolgál, hogy bemutassa, hogyan kell elindítani, valamint
 
 ## Környezeti változó beállítása
 
-A projekt letöltését követően szükséges felvenni az operációs rendszeren egy, a fiókhoz tartozó környezeti változót, amely megadja az applikáció számára a játékot futtató szerver elérését. 
+A projekt letöltését követően szükséges felvenni az operációs rendszeren két, a fiókhoz tartozó környezeti változót, amelyből az egyik megadja az applikáció gyökérkönyvtárát, a másik pedig az applikáció számára a játékot futtató szerver elérését. 
 
-A környezeti változó formátuma:
+A környezeti változók formátuma:
+* A változó neve: TERRA_IMPERIUM_PROJECT_ROOT
+* A változó értéke: <elérési út>\Polytopia-Clone
 * A változó neve: TERRA_IMPERIUM_SERVER_ADDRESS
 * A változó értéke: <szerver_ip_címe>:53658
 

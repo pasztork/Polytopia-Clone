@@ -20,7 +20,7 @@ namespace Model
 
 		private void SaveMap()
 		{
-			string saveDirectory = $"{Directory.GetCurrentDirectory()}\\SavedMaps";
+			string saveDirectory = $"{Environment.GetEnvironmentVariable("TERRA_IMPERIUM_PROJECT_ROOT")}\\Resources\\Maps";
 			if (!Directory.Exists(saveDirectory))
 			{
 				Directory.CreateDirectory(saveDirectory);

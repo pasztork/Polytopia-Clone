@@ -7,7 +7,7 @@ namespace LogView.LogTransformer
     public class LogTransformer
     {
         public string LogFilePath { get; set; }
-        public string SettingsFilePath { get; set; } = $"{Directory.GetCurrentDirectory()}\\GameSettings\\PropertiesSettings.json";
+        public string SettingsFilePath { get; set; } = $"{Environment.GetEnvironmentVariable("TERRA_IMPERIUM_PROJECT_ROOT")}\\GameSettings\\PropertiesSettings.json";
 
         private readonly GameState _gameState = new();
 

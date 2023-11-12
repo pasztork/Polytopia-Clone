@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.ReplayView.Navigation
 {
@@ -9,7 +8,7 @@ namespace Assets.Scripts.ReplayView.Navigation
         {
             if(Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene(0);
+                Application.Quit();
             }
         }
     }

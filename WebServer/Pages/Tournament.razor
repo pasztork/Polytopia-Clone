@@ -203,8 +203,8 @@
 </AuthorizeView>
 
 @code {
-    private readonly string ZIP_FILES_PATH = Path.Combine(Environment.CurrentDirectory, "Resources\\ZipFiles");
-    private readonly string MAP_FILES_PATH = Path.Combine(Environment.CurrentDirectory, "Resources\\Maps");
+    private readonly string ZIP_FILES_PATH = Path.Combine(Environment.GetEnvironmentVariable("TERRA_IMPERIUM_PROJECT_ROOT")!, "WebServer\\ZipFiles");
+    private readonly string MAP_FILES_PATH = Path.Combine(Environment.GetEnvironmentVariable("TERRA_IMPERIUM_PROJECT_ROOT")!, "Resources\\Maps");
 
     private TournamentValidator validator = new TournamentValidator();
     private List<FileModel> zipFiles = new();

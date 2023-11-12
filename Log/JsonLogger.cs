@@ -4,7 +4,7 @@ namespace LogView
 {
     public static class JsonLogger
     {
-        private static readonly string saveDirectory = $"{Directory.GetCurrentDirectory()}\\GameLogs";
+        private static readonly string saveDirectory = $"{Environment.GetEnvironmentVariable("TERRA_IMPERIUM_PROJECT_ROOT")}\\Resources\\GameLogs";
         private static readonly string filePath = $"{saveDirectory}\\{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.json";
         public static string FilePath { get => filePath; }
 

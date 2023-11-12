@@ -63,7 +63,7 @@
 @code {
     MarkupString AlertMessage;
     string AlertClass = string.Empty;
-    private readonly string SAVE_DIRECTORY_PATH = Path.Combine(Environment.CurrentDirectory, "Resources\\ZipFiles");
+    private readonly string SAVE_DIRECTORY_PATH = Path.Combine(Environment.GetEnvironmentVariable("TERRA_IMPERIUM_PROJECT_ROOT")!, "WebServer\\Resources\\ZipFiles");
     private long maxFileSize = 1024L * 1024L * 5;
     private bool isFileTooLarge = false;
     private bool isFileExtensionWrong = false;

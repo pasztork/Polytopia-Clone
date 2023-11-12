@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,13 +8,6 @@ namespace Assets.Scripts.ReplayView.Navigation
 {
     public class MenuManager : MonoBehaviour
     {
-        private Dictionary<string, string> _nameToDirectoryMap = new()
-        {
-            { "WebServer", "WebServer" },
-            { "Network", "Network" },
-            { "Unity", "Polytopia Clone" }
-        };
-
         public string FileDirectory { private get; set; } = string.Empty;
 
         [SerializeField]
@@ -50,11 +41,11 @@ namespace Assets.Scripts.ReplayView.Navigation
             {
                 string filePath = Path.Combine(
                     PathTransferer.Instance.ProjectRoot, 
-                    $"{_nameToDirectoryMap[FileDirectory]}\\GameLogs\\{fileNameInput.text}.json");
+                    $"Resources\\GameLogs\\{fileNameInput.text}.json");
                 if (File.Exists(filePath))
                 {
                     PathTransferer.Instance.LogFilePath = filePath;
-                    SceneManager.LoadScene(1);
+                    SceneManager.LoadScene(1, LoadSceneMode.Single);
                 }
             }
         }

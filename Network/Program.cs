@@ -4,7 +4,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        WebSocketServer.MapFilePath = $"{Directory.GetParent(Directory.GetCurrentDirectory())?.FullName}\\Network\\Maps\\{args[0]}";
+        WebSocketServer.MapFilePath = $"{Environment.GetEnvironmentVariable("TERRA_IMPERIUM_PROJECT_ROOT")}\\Resources\\Maps\\{args[0]}";
         if(int.TryParse(args[1], out int maxTurns))
         {
             WebSocketServer.SetMaxTurns(maxTurns);
