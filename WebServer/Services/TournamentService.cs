@@ -38,7 +38,7 @@ public class TournamentService
         _dataContext.SaveChanges();
 
         OnTournamentStarted?.Invoke(zipFileNames.Count);
-        CopyFilesToNetwork(map, zipFileNames);
+        CopyFilesToNetwork(zipFileNames);
 
         List<string> clientIDs = zipFileNames.Select(z => z.Split('.')[0]).ToList();
         Dictionary<string, int> results = new();
@@ -203,7 +203,7 @@ public class TournamentService
         return text.Replace("Winner: ", "").Replace(' ', '_').ToLower();
     }
 
-    private void CopyFilesToNetwork(string map, List<string> zipFileNames)
+    private void CopyFilesToNetwork(List<string> zipFileNames)
     {
         foreach (var zipFile in zipFileNames)
         {
