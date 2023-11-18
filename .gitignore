@@ -72,11 +72,10 @@ Polytopia Clone/Assets/Log.meta
 Network/Client/ClientFiles/
 
 # Saved maps file
-Polytopia Clone/SavedMaps/
+Resources/Maps/
 
 # WebServer zip and map files
-WebServer/Resources/ZipFiles/
-WebServer/Resources/Maps/
+WebServer/ZipFiles/
 
 # Bin files
 Network/bin/
