@@ -14,5 +14,13 @@ namespace View
         {
             Controller.GameManager.StartNew();
         }
+
+        private void Update()
+        {
+            if(Input.GetKeyUp(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }
     }
 }

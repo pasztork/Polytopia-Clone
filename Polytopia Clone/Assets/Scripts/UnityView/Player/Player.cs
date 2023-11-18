@@ -13,7 +13,7 @@ namespace View
         [SerializeField] private string[] startingTroops;
         [SerializeField] private Color playerColor;
 
-        private void Start()
+        private void Awake()
         {
             Model.Player player = new Model.Player(name);
             player.Techs = View.TechTreeManager.Instance.GetNewTechTree();

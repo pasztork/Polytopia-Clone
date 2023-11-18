@@ -39,6 +39,7 @@ namespace Model
 			new List<string>{ "Scout", "Builder", "Settler", "Warrior" }.ForEach(x => AvailableTroops.Add(x));
 			GameManager.Get<TurnManagerBase>().PlayerCreated(this);
 			GameManager.Players.Add(this);
+			Console.WriteLine("Játékos hozzáadva: " +  Name);
 			GameManager.Get<TechTreeManagerBase>().ConnectTree(Techs);
 		}
 

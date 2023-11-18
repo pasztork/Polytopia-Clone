@@ -37,6 +37,7 @@ namespace Model
 
 		public static void StartNew()
 		{
+			Console.WriteLine("Játékosok száma: "+ Players.Count);
 			foreach (Player player in Players)
 				player.SetupStartingPosition();
 
