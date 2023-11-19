@@ -76,7 +76,7 @@
 
 	private void GetTournamentResults()
 	{
-		tournamentResults = DataContext.TournamentResults.Include(t => t.ResultItems).ToList();
+		tournamentResults = DataContext.TournamentResults.Include(t => t.ResultItems).OrderByDescending(t => t.DateTime).ToList();
 	}
 
 	private void DeleteResult(TournamentResult tournamentResult)
