@@ -72,7 +72,7 @@
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\ForestryTechView.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Building\BuildingBase.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Troops\Builder.cs" />
-    <Compile Include="Assets\Scripts\ReplayView\Navigation\MenuManager.cs" />
+    <Compile Include="Assets\Scripts\ReplayView\Navigation\ReplayMenuManager.cs" />
     <Compile Include="Assets\Scripts\JsonLogManager.cs" />
     <Compile Include="Assets\Scripts\UnityView\Building\BuildingManager.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\SailingTechView.cs" />
@@ -153,6 +153,8 @@
     <Compile Include="Assets\Scripts\ReplayView\Troops\Scout.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\BankingTechView.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Troops\Catapult.cs" />
+    <Compile Include="Assets\Scripts\UnityView\Menu\GameMenuManager.cs" />
+    <Compile Include="Assets\Scripts\UnityView\Menu\PlayerTransferer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DLLs\LogView.dll" />

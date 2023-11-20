@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.ReplayView.Navigation
 {
-    public class MenuManager : MonoBehaviour
+    public class ReplayMenuManager : MonoBehaviour
     {
         public string FileDirectory { private get; set; } = string.Empty;
 
@@ -22,14 +22,14 @@ namespace Assets.Scripts.ReplayView.Navigation
         [SerializeField]
         private TextMeshProUGUI fileNameText;
 
-        private static MenuManager instance;
-        public static MenuManager Instance
+        private static ReplayMenuManager instance;
+        public static ReplayMenuManager Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = FindObjectOfType<MenuManager>();
+                    instance = FindObjectOfType<ReplayMenuManager>();
                 }
                 return instance;
             }

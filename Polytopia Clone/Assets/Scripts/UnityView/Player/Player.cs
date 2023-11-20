@@ -1,22 +1,20 @@
-﻿using LogView;
-using Model;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace View
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] private new string name;
+        [SerializeField] public new string name;
         [SerializeField] private int startingCityRange;
         [SerializeField] private string[] startingBuildings;
         [SerializeField] private string[] startingTroops;
-        [SerializeField] private Color playerColor;
+        [SerializeField] public Color playerColor;
 
-        private void Awake()
+        public void SetupPlayer() 
         {
             Model.Player player = new Model.Player(name);
-            player.Techs = View.TechTreeManager.Instance.GetNewTechTree();
+            // player.Techs = View.TechTreeManager.Instance.GetNewTechTree();
             View.TurnManager.Instance.PlayerColors.Add(player.Name, playerColor);
             player.StartingCityRange = startingCityRange;
             player.AvailableBuildings = startingBuildings.ToList();

@@ -21,7 +21,7 @@ namespace Assets.Scripts.ReplayView.Navigation
 
         public void OnValueChanged()
         {
-            MenuManager.Instance.FileDirectory = dropdown.options[dropdown.value].text;
+            ReplayMenuManager.Instance.FileDirectory = dropdown.options[dropdown.value].text;
         }
     }
 }

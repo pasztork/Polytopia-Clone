@@ -47,18 +47,11 @@ MonoBehaviour:
   name: 
   startingCityRange: 1
   startingBuildings:
-  - Bank
   - City
-  - Farm
-  - Harbor
   - Supplier
   startingTroops:
-  - Archer
-  - Boat
   - Builder
-  - Catapult
   - Scout
   - Settler
   - Warrior
-  baseProduction: {fileID: 11400000, guid: 25233a400f1565d4fae4986e12e6d627, type: 2}
   playerColor: {r: 0, g: 0, b: 0, a: 0}
