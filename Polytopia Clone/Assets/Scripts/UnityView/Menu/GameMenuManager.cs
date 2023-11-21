@@ -2,7 +2,6 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace View
@@ -35,9 +34,12 @@ namespace View
 
         public void OnStartButtonClicked()
         {
-            PlayerTransferer.Instance.PlayerNames = inputFields.Where(i => i.enabled).Select(i => i.text).ToList();
-            PlayerTransferer.Instance.PlayerColors =  inputFields.Where(i => i.enabled).Select(i => i.textComponent.color).ToList();
-            PlayerTransferer.Instance.TransferAndStart();
+            if(activeToggle.GetComponentInChildren<TextMeshProUGUI>().text.Equals(GivenPlayerNamesCount()) && NamesAreUnique())
+            {
+                PlayerTransferer.Instance.PlayerNames = inputFields.Where(i => i.text.Length > 0).Select(i => i.text).ToList();
+                PlayerTransferer.Instance.PlayerColors =  inputFields.Where(i => i.text.Length > 0).Select(i => i.textComponent.color).ToList();
+                PlayerTransferer.Instance.TransferAndStart();
+            }
         }
 
         private void Update()
@@ -46,21 +48,14 @@ namespace View
             if(toggle != activeToggle)
             {
                 activeToggle = toggle;
-                EnablePlayerNameFields(activeToggle.GetComponentInChildren<TextMeshProUGUI>().text);
             }
-        }
-
-        private void EnablePlayerNameFields(string playerCount)
-        {
-            EnableAllInputFields();
-            if (playerCount.Equals("2"))
+            if (activeToggle.GetComponentInChildren<TextMeshProUGUI>().text.Equals(GivenPlayerNamesCount()))
             {
-                inputFields[2].enabled = false;
-                inputFields[3].enabled = false;
+                DisableRemainingInputFields();
             }
-            else if (playerCount.Equals("3"))
+            else
             {
-                inputFields[3].enabled = false;
+                EnableAllInputFields();
             }
         }
 
@@ -70,6 +65,40 @@ namespace View
             {
                 field.enabled = true;
             }
+        }
+
+        private string GivenPlayerNamesCount()
+        {
+            return inputFields.Where(i => i.text.Length > 0).Count().ToString();
+        }
+
+        private void DisableRemainingInputFields()
+        {
+            foreach(var field in inputFields)
+            {
+                if(field.text.Length == 0)
+                {
+                    field.enabled = false;
+                }
+            }
+        }
+
+        private bool NamesAreUnique()
+        {
+            foreach (var field1 in inputFields)
+            {
+                foreach (var field2 in inputFields)
+                {
+                    if(field1 != field2 && field1.text.Length > 0 && field2.text.Length > 0)
+                    {
+                        if (field1.text.ToLower().Equals(field2.text.ToLower()))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
     }
 }

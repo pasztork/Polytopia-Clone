@@ -1583,7 +1583,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player1 name...
+  m_text: Player name...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
   m_sharedMaterial: {fileID: 7072222655331372664, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player3 name...
+  m_text: Player name...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
   m_sharedMaterial: {fileID: 7072222655331372664, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
@@ -1989,7 +1989,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player4 name...
+  m_text: Player name...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
   m_sharedMaterial: {fileID: 7072222655331372664, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
@@ -2271,7 +2271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e5746c87080914aa46e8dd8bfb1c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 4361153787314045572, guid: 9184eb884e747ed4dbffc25f09e39e2a, type: 3}
 --- !u!4 &818362235
 Transform:
   m_ObjectHideFlags: 0
@@ -4358,7 +4357,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player2 name...
+  m_text: Player name...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}
   m_sharedMaterial: {fileID: 7072222655331372664, guid: 65c5be585fd737344b4a3e4363fa0b83, type: 2}

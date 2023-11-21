@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\UnityView\TechTree\TechTreeItem.cs" />
     <Compile Include="Assets\Scripts\UnityView\Building\BuildingDropdownHandler.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\SanitationTechView.cs" />
+    <Compile Include="Assets\Scripts\UnityView\Menu\PlayerTransferer.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\FarmingTechView.cs" />
     <Compile Include="Assets\Scripts\UnityView\Troop\Builder.cs" />
     <Compile Include="Assets\Scripts\UnityView\Player\InfoPanel.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Assets\Scripts\ReplayView\ReplayManager.cs" />
     <Compile Include="Assets\Scripts\UnityView\Troop\TroopManager.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Map\MapManager.cs" />
+    <Compile Include="Assets\Scripts\UnityView\Menu\GameMenuManager.cs" />
     <Compile Include="Assets\Scripts\UnityView\Troop\TroopBase.cs" />
     <Compile Include="Assets\Scripts\UnityView\Troop\Catapult.cs" />
     <Compile Include="Assets\Scripts\UnityView\Map\Plane.cs" />
@@ -153,8 +155,6 @@
     <Compile Include="Assets\Scripts\ReplayView\Troops\Scout.cs" />
     <Compile Include="Assets\Scripts\UnityView\TechTree\Techs\BankingTechView.cs" />
     <Compile Include="Assets\Scripts\ReplayView\Troops\Catapult.cs" />
-    <Compile Include="Assets\Scripts\UnityView\Menu\GameMenuManager.cs" />
-    <Compile Include="Assets\Scripts\UnityView\Menu\PlayerTransferer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DLLs\LogView.dll" />
