@@ -226,7 +226,7 @@ public class TournamentService
             }
 
             var extrDest = Path.Combine(EXTR_FILES_DEST, zipFile.Split('.')[0]);
-            if (Directory.Exists(compDest))
+            if (Directory.Exists(extrDest))
             {
                 Directory.Delete(extrDest, true);
             }
