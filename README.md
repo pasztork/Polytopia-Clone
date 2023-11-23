@@ -166,12 +166,13 @@ Győzelem:
 
 ## Beállítások
 
-- minden beállítható tulajdonság külön &rarr; [`PropertiesSettings.json`](/Polytopia%20Clone/GameSettings/PropertiesSettings.json)
-- a pályageneráláshoz szükséges értékek külön &rarr; [`MapGenerationSettings.json`](/Polytopia%20Clone/GameSettings/MapGenerationSettings.json)
+- minden beállítható tulajdonság külön &rarr; [`PropertiesSettings.json`](/Resources/GameSettings/PropertiesSettings.json)
+- a pályageneráláshoz szükséges értékek külön &rarr; [`MapGenerationSettings.json`](/Resources/GameSettings/MapGenerationSettings.json)
 
 ## Kliens készítése
 
-A kommunikáció websocketen keresztül történik.
+A kommunikáció websocketen keresztül történik, minden, a szerver által küldött üzenet első kulcsa a *Type* mező, amely megadja az üzenet típusát.
+
 Amennyiben a szerver már fut egy előre ismert porton, a kliens csatlakozhat rá.
 
 A legelső üzenetben regisztárlnia kell egy játékost (egy websocketről csak egy játékost fogad).
@@ -184,30 +185,30 @@ Ezt az alábbi formátumú json üzenettel teheti meg.
 
 Regisztráció után a szerver elküldi a pályát, illetve a felhasznált játékbeállításokat.
 Előbbi egy két dimenziós tömbben érkezik, koordinátahelyesen.
-A beállítások értékei pedig [ehhez](/Polytopia%20Clone/GameSettings/PropertiesSettings.json) a fájlhoz teljesen hasonlóan érkeznek.
+A beállítások értékei pedig egy *Setup* típusú üzenetben, [ehhez](/Resources/GameSettings/PropertiesSettings.json) a fájlhoz teljesen hasonlóan érkeznek.
 A megkapott json üzenet formája alább látható.
 ```json
 {
+    "Type": "Setup",
     "Tiles": ...a pálya leírása (array)...,
     "Settings": ...a játék beállításai (object)...
 }
 ```
-A későbbiekben úgy lehet az egyes mezőkre a tömbben megkapott helye alapján tudunk hivatkozni (0 alapú index).
+A későbbiekben az egyes mezőkre a tömbben megkapott helye alapján tudunk hivatkozni (0 alapú index).
 Nem csak a mezőkre, de a rajtuk található épületekre, egységekre is ezekkel a koordinátákkal kell hivatkozni.
 
 A kliensek száma előre ismert.
 Amint regisztrált elég felhasználó, elindul a játék.
 
-A soron következő játékos mindig a következő formájú üzenetet kapja meg.
+A soron következő játékos mindig a következő üzenetet kapja meg.
 ```json
 {
-    "Action": "StartTurn",
+    "Type": "StartTurn",
     "Name": ...ide jön a soron következő kliens neve (string)...
 }
 ```
 
-A kliens az [Elérhető parancsok](#elérhető-parancsok) című fejezetben leírt parancsokkal irányíthatja ekkor a játékot.
-Minden parancs, ami érvényre jutott (hibás parancs esetén értelemszerűen nem változik a játék állapota), elküldésre kerül az összes többi websocketre.
+A kliens az [Elérhető parancsok](#elérhető-parancsok) című fejezetben leírt parancsokkal irányíthatja a játékot.
 
 Amikor a kliens végez a körével a következő üzenetet kell elküldje a szervernek, aminek hatására a vezérlést megkapja a következő kliens.
 ```json
@@ -224,6 +225,7 @@ A kliensek a következő típusú parancsokat adhatják ki (minden mást elutas�
 - `AttackTroop`
 - `Build`
 - `EndTurn`
+- `GetActions`
 - `GetGameState`
 - `Learn`
 - `Move`
@@ -253,7 +255,7 @@ Ezt nem figyeli a szerver, de a naplófájlok olvashatósága végett, kérnénk
 Az `Action` paraméterben a fenti listában szereplő parancsok nevének egyike kell szerepelnie.
 Az egyes parancsok használatáról lejebb olvashatunk.
 
-Az `AttackBuilding` parancs esetén a paraméterekből csak a `Start` és `End` töltendő mindenképpen ki.
+Az `AttackBuilding` parancs esetén a paraméterekből a `Start` és `End` mindenképpen kitöltendő.
 Előbbibe annak az egységnek a koordinátáit kell megadni, amelyikkel támadni szeretnénk.
 Utóbbi annak az épületnek a koordinátáit kell megadni, amelyiket meg szeretnénk támadni.
 Erre lentebb láthatunk egy példát.
@@ -268,7 +270,7 @@ Erre lentebb láthatunk egy példát.
 }
 ```
 
-Az `AttackTroop` parancs esetén a paraméterekből csak a `Start` és `End` töltendő mindenképpen ki.
+Az `AttackTroop` parancs esetén a paraméterekből a `Start` és `End` a mindenképpen kitöltendő mezők.
 Előbbibe annak az egységnek a koordinátáit kell megadni, amelyikkel támadni szeretnénk.
 Utóbbi annak az egységnek a koordinátáit kell megadni, amelyiket meg szeretnénk támadni.
 Erre lentebb láthatunk egy példát.
@@ -283,7 +285,7 @@ Erre lentebb láthatunk egy példát.
 }
 ```
 
-A `Build` parancs esetén a paraméterekből csak a `Start` és `Building` töltendő ki mindenképpen.
+A `Build` parancs esetén a paraméterekből a `Start` és `Building` a mindenképpen kitöltendő mezők.
 Előbbibe kerül annak az egységnek a koordinátái, amellyel az épületet szeretnénk létrehozni, utóbbiba pedig a létrehozandó épület típusa.
 Erre lentebb láthatunk egy példát.
 ```json
@@ -307,6 +309,128 @@ Erre az üzenetre az alábbi formátú üzenetet kell elküldeni.
 }
 ```
 
+A `GetActions` parancsot arra használhatja a kliens, hogy lekérdezze az általa aktuálisan végrehajtható lépéseket. 
+Ez az alábbi üzenettel kérdezhető le.
+```json
+{
+    "Name": ...ide jön a játékos neve (string)...,
+    "Action": "GetActions"
+}
+```
+A szerver a válaszában felsorolja, hogy a kliens milyen egységével hova tud lépni, támadó egység esetén milyen más egységeket tud megtámadni, passzív egységeknél pedig a megépíthető épületeket sorolja fel. Emellett tartalmazza az épületeket, hogy azokkal milyen egységeket tud létrehozni, valamint a megtanulható technológiákat is. Ebben a válaszban NEM minden, a játékoshoz tartozó egység és épület kerül felsorolásra, csak azok, amelyekkel érvényes cselekvést tud végrehajtani, figyelembe véve a játékos fizetőeszközeinek mennyiségét is.
+Egy ilyen válaszra lentebb láthatunk egy példát.
+```json
+{
+    "Type": "ActionState",
+    "Troops": [
+        {
+            "Type": "Warrior",
+            "Health": 10,
+            "Damage": 5,
+            "Position": [0, 0],
+            "TilesToMove": [
+                [0, 1],
+                [1, 0]
+            ],
+            "TroopsToAttack": [
+                {
+                    "Name": "Bob",
+                    "Position": [1, 1],
+                    "Type": "Warrior",
+                    "Health": 5,
+                    "Damage": 10
+                }
+            ],
+            "BuildingsToAttack": [
+                {
+                    "Name": "Bob",
+                    "Position": [1, 1],
+                    "Type": "City",
+                    "Health": 30,
+                    "Damage": 0
+                }
+            ],
+            "BuildingsToBuild": []
+        },
+        {
+            "Type": "Builder",
+            "Health": 5,
+            "Damage": 0,
+            "Position": [5, 5],
+            "TilesToMove": [
+                [4, 5],
+                [5, 4],
+                [5, 6],
+                [6, 5]
+            ],
+            "TroopsToAttack": [],
+            "BuildingsToAttack": [],
+            "BuildingsToBuild": [
+                {
+                    "Type": "Farm",
+                    "Cost": {
+                        "FoodCost": 10,
+                        "MaterialCost": 10,
+                        "MoneyCost": 10                    
+                    }
+                },
+                {
+                    "Type": "Supplier",
+                    "Cost": {
+                        "FoodCost": 20,
+                        "MaterialCost": 20,
+                        "MoneyCost": 20                    
+                    }
+                }
+            ]
+        }
+    ],
+    "Buildings": [
+        {
+            "Type": "City",
+            "Health": 30,
+            "Position": [5, 5],
+            "TroopsToTrain": [
+                {
+                    "Type": "Warrior",
+                    "Cost": {
+                        "FoodCost": 20,
+                        "MaterialCost": 20,
+                        "MoneyCost": 20                    
+                    }
+                },
+                {
+                    "Type": "Archer",
+                    "Cost": {
+                        "FoodCost": 50,
+                        "MaterialCost": 50,
+                        "MoneyCost": 50                    
+                    }
+                }
+            ]
+        }
+    ],
+    "TechsToUnlock": [
+        {
+            "Name": "Forestry",
+            "Cost": {
+                "FoodCost": 10,
+                "MaterialCost": 10,
+                "MoneyCost": 10                    
+            }
+        },
+        {
+            "Name": "Riding",
+            "Cost": {
+                "FoodCost": 50,
+                "MaterialCost": 50,
+                "MoneyCost": 50                    
+            }
+        }
+    ]
+}
+```
+
 A `GetGameState` parancsot arra használhatja a kliens, hogy a játéktér aktuális állapotát kérje le.
 Ezt az alábbi üzenettel kérheti le.
 ```json
@@ -320,6 +444,7 @@ Felsorolja, hogy az egyes játékosoknak hol és milyen egysége, illetve épül
 Egy ilyen válaszra lentebb láthatunk egy példát.
 ```json
 {
+    "Type": "GameState",
     "PlayerState": [
         {
             "Name": "Bob",
@@ -378,7 +503,7 @@ Erre lentebb láthatunk egy példát.
 }
 ```
 
-Az `Move` parancs esetén a paraméterekből csak a `Start` és `End` töltendő mindenképpen ki.
+Az `Move` parancs esetén a paraméterekből a `Start` és `End` a mindenképpen kitöltendő mezők.
 Előbbibe annak az egységnek a koordinátáit kell megadni, amelyikkel lépni szeretnénk.
 Utóbbi annak az üres mezőnek a koordinátái, ahová lépni szeretnénk.
 ```json

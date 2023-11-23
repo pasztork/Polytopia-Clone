@@ -54,6 +54,8 @@ Versenyt indítani a **Tournament** fülön lehet. Itt ki kell választani a ver
 * Leauge mode: minden kiválasztott AI minden másik AI-val a megadott számú mérkőzést játsza.
 * Knockout mode: az AI-ok párokba rendezve játszanak, a nyertes továbbjut a következő körbe.
 
+Ezek mellett még szükséges megadni az egy játékban lejátszott maximális körök számát, hogy limitálni lehessen egy-egy játszma hosszát.
+
 A verseny állását a weboldalon frissülő üzenetek, valamint a ponttáblázat jelzi, a lejátszott versenyek eredményei pedig megtekinthetők a **Results** oldalon.
 
 ## Adminisztrációs menüpont
