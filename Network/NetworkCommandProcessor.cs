@@ -269,7 +269,7 @@ public class NetworkCommandProcessor : JsonCommandProcessorBase
 				availableTechs.Add(new TechState
 				{
 					Name = tech.HashCode,
-					CostState = new CostState
+					Cost = new CostState
 					{
 						FoodCost = tech.TechTreeItemProperty.Cost.FoodCost,
 						MaterialCost = tech.TechTreeItemProperty.Cost.MaterialCost,
