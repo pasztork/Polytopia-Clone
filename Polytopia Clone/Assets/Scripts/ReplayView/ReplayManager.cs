@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.ParticleSystem;
 
 namespace ReplayView
 {
@@ -16,19 +13,20 @@ namespace ReplayView
 		private readonly Dictionary<string, Action> actionFunctions = new();
 		private int cursor = 0;
 		private bool winnerDisplayed = false;
-
-        [Header("Skip")]
-		[SerializeField] private int skipSize = 5;
+		private bool isModeDiscrete = true;
+		private readonly int skipSize = 50;
+		private float skipTime = 1f;
 
 		[Header("UI Elements")]
-		[SerializeField] private Button stepForwardButton;
-		[SerializeField] private Button skipButton;
-		[SerializeField] private Button skipFastButton;
+		[SerializeField] private Button stepForwardOrPauseButton;
+		[SerializeField] private Button skipOrPlayButton;
+		[SerializeField] private Button skipFastOrPlayFastButton;
+		[SerializeField] private Button modeButton;
 		[SerializeField] private GameObject techListPanel;
 		[SerializeField] private TextMeshProUGUI techListText;
 		[SerializeField] private TextMeshProUGUI actionText;
 
-		public void Awake()
+		private void Awake()
 		{
 			Model.GameManager.Get<Model.TurnManagerBase>().OnWinnerDecided += DisplayWinner;
 			actionFunctions.Add("Move", Move);
@@ -40,11 +38,10 @@ namespace ReplayView
 			actionFunctions.Add("MissAttack", MissAttack);
 			actionFunctions.Add("EndTurn", EndTurn);
 			actionFunctions.Add("EndGame", GameEnd);
-			skipButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize} Steps";
-			skipFastButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize * 2} Steps";
-		}
+			SetButtonTextsToDiscrete();
+        }
 
-		public static ReplayManager Instance
+        public static ReplayManager Instance
 		{
 			get
 			{
@@ -61,7 +58,57 @@ namespace ReplayView
 			actionList = jsonActionObjects;
 		}
 
-		public void ReplayOneStepForward()
+		public void OnStepForwardOrPauseButtonClicked()
+		{
+			if(isModeDiscrete)
+			{
+				ReplayOneStepForward();
+			}
+			else
+			{
+				PausePlaying();
+			}
+		}
+
+		public void OnSkipOrPlayButtonClicked()
+		{
+			if (isModeDiscrete)
+			{
+				SkipForward();
+			}
+			else
+			{
+				PlayForward();
+			}
+		}
+
+		public void OnSkipFastOrPlayFastButtonClicked()
+		{
+			if (isModeDiscrete)
+			{
+				SkipFastForward();
+			}
+			else
+			{
+				PlayFastForward();
+			}
+		}
+
+        public void OnModeButtonClicked()
+        {
+			CancelInvoke();
+			isModeDiscrete = !isModeDiscrete;
+			if(isModeDiscrete)
+			{
+				SetButtonTextsToDiscrete();
+			}
+			else
+			{
+				SetButtonsToPaused();
+			}
+        }
+
+        private void ReplayOneStepForward()
 		{
 			if (actionList.Count > cursor)
 			{
@@ -76,28 +123,46 @@ namespace ReplayView
 			{
 				if (!winnerDisplayed)
 				{
-					actionText.text = $"Action({cursor+1}): Log file ended";
-					stepForwardButton.interactable = false;
-					skipButton.interactable = false;
-					skipFastButton.interactable = false;
+                    CancelInvoke();
+                    actionText.text = $"Action({cursor+1}): Log file ended";
+					DisableAllButtons();
 				}
 			}
 		}
 
-		public void SkipForward()
+		private void SkipForward()
 		{
 			for (int i = 0; i < skipSize; i++)
 				ReplayOneStepForward();
 		}
 
-		public void SkipFastForward()
+		private void SkipFastForward()
 		{
 			SkipForward();
 			SkipForward();
 		}
 
+		private void PausePlaying()
+		{
+			CancelInvoke();
+			SetButtonsToPaused();
+		}
 
-		private void PlayAction(JsonLog.JsonActionObject action)
+		private void PlayForward()
+		{
+			CancelInvoke();
+			InvokeRepeating(nameof(ReplayOneStepForward), 0f, skipTime);
+			SetButtonsToPlaying();
+		}
+
+		private void PlayFastForward()
+		{
+            CancelInvoke();
+            InvokeRepeating(nameof(ReplayOneStepForward), 0f, skipTime / 5f);
+			SetButtonsToFastForwarding();
+        }
+
+        private void PlayAction(JsonLog.JsonActionObject action)
 		{
 			HighlightManager.Instance.Clear();
 			actionFunctions[action.Action]();
@@ -339,11 +404,67 @@ namespace ReplayView
 
 		private void DisplayWinner(Model.Player player)
 		{
+			CancelInvoke();
 			winnerDisplayed = true;
 			actionText.text = $"Action({cursor + 1}): {player.Name} won the game";
-			stepForwardButton.interactable = false;
-			skipButton.interactable = false;
-			skipFastButton.interactable = false;
+			DisableAllButtons();
 		}
-	}
+
+        private void EnableAllButtons()
+        {
+            stepForwardOrPauseButton.interactable = true;
+            skipOrPlayButton.interactable = true;
+            skipFastOrPlayFastButton.interactable = true;
+			skipFastOrPlayFastButton.GetComponentInChildren<TextMeshProUGUI>().fontSize = 
+				stepForwardOrPauseButton.GetComponentInChildren<TextMeshProUGUI>().fontSize;
+        }
+
+		private void DisableAllButtons()
+		{
+            stepForwardOrPauseButton.interactable = false;
+            skipOrPlayButton.interactable = false;
+            skipFastOrPlayFastButton.interactable = false;
+            modeButton.interactable = false;
+        }
+
+        private void SetButtonTextsToDiscrete()
+		{
+			EnableAllButtons();
+            stepForwardOrPauseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Next\nStep";
+            skipOrPlayButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize} Steps";
+            skipFastOrPlayFastButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Skip {skipSize * 2} Steps";
+            modeButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Switch to continuous";
+        }
+
+		private void SetButtonTextsToContinuous()
+		{
+			EnableAllButtons();
+            stepForwardOrPauseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Pause";
+            skipOrPlayButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Play";
+            skipFastOrPlayFastButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Fast\nForward";
+            modeButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Switch to discrete";
+        }
+
+		private void SetButtonsToPaused()
+		{
+			SetButtonTextsToContinuous();
+            stepForwardOrPauseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Paused";
+            stepForwardOrPauseButton.interactable = false;
+        }
+
+		private void SetButtonsToPlaying()
+		{
+            SetButtonTextsToContinuous();
+            skipOrPlayButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Playing";
+            skipOrPlayButton.interactable = false;
+        }
+
+		private void SetButtonsToFastForwarding()
+		{
+            SetButtonTextsToContinuous();
+            skipFastOrPlayFastButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Fast\nForwarding";
+			skipFastOrPlayFastButton.GetComponentInChildren<TextMeshProUGUI>().fontSize = 36;
+            skipFastOrPlayFastButton.interactable = false;
+        }
+    }
 }
