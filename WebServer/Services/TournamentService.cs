@@ -48,11 +48,11 @@ public class TournamentService
         }
         else
         {
-            results = await RunKnockoutTournament(map, clientIDs.ToList(), maxTurnsInMatch);
+            results = await RunKnockoutTournament(map, clientIDs, maxTurnsInMatch);
         }
 
         RemoveFilesFromNetwork(zipFileNames);
-        await Network.Client.ClientManager.RemoveImages(clientIDs.ToList());
+        await Network.Client.ClientManager.RemoveImages(clientIDs);
 
         tournamentResult.Finished = true;
         _dataContext.TournamentResults.Update(tournamentResult);
