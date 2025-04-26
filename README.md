@@ -1,6 +1,6 @@
 # Terra Imperium
 
-Ez a projekt "Önálló laboratóriumra" készült. A "The Battle of Polytopia" c. játék egy másolata.
+Ez a projekt **Önálló laboratórium**ra készült. A **Civilization** és a **The Battle of Polytopia** című játékok alapján.
 
 ## Tartalomjegyzék
 
